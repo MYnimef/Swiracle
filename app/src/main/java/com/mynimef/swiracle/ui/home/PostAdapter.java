@@ -32,7 +32,11 @@ public class PostAdapter extends ArrayAdapter<Post> {
 
             }
         });
-        ((ImageView) convertView.findViewById(R.id.imageView)).setImageResource(post.imageResource);
+        ImageView pic = convertView.findViewById(R.id.imageView);
+        pic.setImageResource(post.imageResource);
+
+        Button description = (Button) convertView.findViewById(R.id.description);
+        description.setText(post.description);
 
         return convertView;
     }

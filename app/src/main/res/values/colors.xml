@@ -11,4 +11,5 @@
     <color name="background">#FFE6E6FA</color>
     <color name="navigation">#CDFFECFF</color>
     <color name="lines">#FFB0B0BB</color>
+    <color name="transparent">#00000000</color>
 </resources>

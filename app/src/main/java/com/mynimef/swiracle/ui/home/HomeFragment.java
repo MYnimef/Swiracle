@@ -31,8 +31,8 @@ public class HomeFragment extends Fragment {
         int[] link = {R.drawable.picture1, R.drawable.picture2, R.drawable.picture3, R.drawable.picture4};
         for (int i = 0; i < 4; i++) {
             post[i] = new Post();
-            post[i].title = "Fashion";
-            post[i].description = "";
+            post[i].title = "Meme";
+            post[i].description = "В этом наверное есть какой-то смысол";
             post[i].likes = 0;
             post[i].comments = 0;
             post[i].imageResource = link[i];
