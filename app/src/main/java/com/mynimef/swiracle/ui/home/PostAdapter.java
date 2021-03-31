@@ -29,14 +29,39 @@ public class PostAdapter extends ArrayAdapter<Post> {
         title.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
             }
         });
+
         ImageView pic = convertView.findViewById(R.id.imageView);
         pic.setImageResource(post.imageResource);
 
         Button description = (Button) convertView.findViewById(R.id.description);
         description.setText(post.description);
+        description.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+            }
+        });
+
+        Button likes = (Button) convertView.findViewById(R.id.likes);
+        likes.setText(post.likes + "");
+        likes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                post.likes++;
+                likes.setText(post.likes + "");
+            }
+        });
+
+        Button comments = (Button) convertView.findViewById(R.id.comments);
+        comments.setText(post.comments + "");
+        comments.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                post.comments++;
+                comments.setText(post.comments + "");
+            }
+        });
 
         return convertView;
     }
