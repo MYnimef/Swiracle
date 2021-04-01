@@ -23,11 +23,11 @@
     <ImageButton
         android:id="@+id/messages"
         style="@style/Widget.AppCompat.Button.Borderless.Colored"
+        android:background="@drawable/messages_shape"
         android:layout_width="48dp"
         android:layout_height="48dp"
         android:layout_marginTop="8dp"
-        android:layout_marginEnd="16dp"
-        android:height="0dp"
+        android:layout_marginEnd="24dp"
         android:src="@drawable/ic_like_black_24dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

@@ -9,6 +9,7 @@
     <color name="white">#FFFFFFFF</color>
 
     <color name="background">#FFF1F1FD</color>
+    <color name="gradient">#4DF1F1FD</color>
     <color name="navigation">#CDFFECFF</color>
     <color name="lines">#FFB0B0BB</color>
     <color name="transparent">#00000000</color>
