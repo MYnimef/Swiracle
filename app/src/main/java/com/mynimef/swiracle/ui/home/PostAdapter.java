@@ -8,7 +8,9 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 
+import com.mynimef.swiracle.FragmentConnector;
 import com.mynimef.swiracle.Post;
+import com.mynimef.swiracle.ui.post.PostFragment;
 import com.mynimef.swiracle.PostList;
 import com.mynimef.swiracle.R;
 
@@ -21,6 +23,7 @@ public class PostAdapter extends ArrayAdapter<Post> {
     public View getView(int position, View convertView, ViewGroup parent) {
 
         final Post post = getItem(position);
+        FragmentConnector fc = (FragmentConnector) getContext();
 
         if (convertView == null) {
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.adapter_post, null);
@@ -39,6 +42,7 @@ public class PostAdapter extends ArrayAdapter<Post> {
         pic.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                fc.replaceFragment(new PostFragment());
             }
         });
 

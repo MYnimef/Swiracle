@@ -12,16 +12,19 @@ import com.mynimef.swiracle.ui.search.SearchFragment;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements FragmentConnector {
+    FragmentManager fm;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         BottomNavigationView navView = findViewById(R.id.nav_view);
+        fm = getSupportFragmentManager();
 
         navView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -30,21 +33,25 @@ public class MainActivity extends AppCompatActivity {
                 if (itemId == R.id.navigation_create) {
                     startActivity(new Intent(MainActivity.this, CreateActivity.class));
                 } else {
-                    FragmentManager fm = getSupportFragmentManager();
-                    FragmentTransaction ft = fm.beginTransaction();
                     if (itemId == R.id.navigation_home) {
-                        ft.add(R.id.nav_host_fragment, new HomeFragment());
+                        replaceFragment(new HomeFragment());
                     } else if (itemId == R.id.navigation_search) {
-                        ft.add(R.id.nav_host_fragment, new SearchFragment());
+                        replaceFragment(new SearchFragment());
                     }  else if (itemId == R.id.navigation_notifications) {
-                        ft.add(R.id.nav_host_fragment, new NotificationsFragment());
+                        replaceFragment(new NotificationsFragment());
                     } else if (itemId == R.id.navigation_profile) {
-                        ft.add(R.id.nav_host_fragment, new ProfileFragment());
+                        replaceFragment(new ProfileFragment());
                     }
-                    ft.commit();
                 }
                 return true;
             }
         });
+    }
+
+    public void replaceFragment(Fragment fragment) {
+        FragmentTransaction ft = fm.beginTransaction();
+        ft.replace(R.id.nav_host_fragment, fragment);
+        ft.addToBackStack(null);
+        ft.commit();
     }
 }
