@@ -8,11 +8,13 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 
+import com.mynimef.swiracle.Post;
+import com.mynimef.swiracle.PostList;
 import com.mynimef.swiracle.R;
 
 public class PostAdapter extends ArrayAdapter<Post> {
-    public PostAdapter(Context context, Post[] post) {
-        super(context, R.layout.adapter_post, post);
+    public PostAdapter(Context context, PostList list) {
+        super(context, R.layout.adapter_post, list.getList());
     }
 
     @Override
@@ -25,7 +27,7 @@ public class PostAdapter extends ArrayAdapter<Post> {
         }
 
         Button title = (Button) convertView.findViewById(R.id.button);
-        title.setText(post.title);
+        title.setText(post.getTitle());
         title.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -33,10 +35,15 @@ public class PostAdapter extends ArrayAdapter<Post> {
         });
 
         ImageView pic = convertView.findViewById(R.id.imageView);
-        pic.setImageResource(post.imageResource);
+        pic.setImageResource(post.getImageResource());
+        pic.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+            }
+        });
 
         Button description = (Button) convertView.findViewById(R.id.description);
-        description.setText(post.description);
+        description.setText(post.getDescription());
         description.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -44,22 +51,22 @@ public class PostAdapter extends ArrayAdapter<Post> {
         });
 
         Button likes = (Button) convertView.findViewById(R.id.likes);
-        likes.setText(post.likes + "");
+        likes.setText(post.getLikes() + "");
         likes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                post.likes++;
-                likes.setText(post.likes + "");
+                post.increaseLikes();
+                likes.setText(post.getLikes() + "");
             }
         });
 
         Button comments = (Button) convertView.findViewById(R.id.comments);
-        comments.setText(post.comments + "");
+        comments.setText(post.getComments() + "");
         comments.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                post.comments++;
-                comments.setText(post.comments + "");
+                post.increaseComments();
+                comments.setText(post.getComments() + "");
             }
         });
 

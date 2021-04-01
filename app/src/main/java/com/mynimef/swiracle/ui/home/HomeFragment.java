@@ -9,6 +9,7 @@ import android.widget.ListView;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
+import com.mynimef.swiracle.PostList;
 import com.mynimef.swiracle.R;
 
 public class HomeFragment extends Fragment {
@@ -16,24 +17,12 @@ public class HomeFragment extends Fragment {
                              ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_home, container, false);
 
-        PostAdapter adapter = new PostAdapter(root.getContext(), makePost());
+        PostList list = new PostList();
+        list.setSampleList();
+        PostAdapter adapter = new PostAdapter(root.getContext(), list);
         ListView lv = (ListView) root.findViewById(R.id.list_view);
         lv.setAdapter(adapter);
 
         return root;
-    }
-
-    Post[] makePost() {
-        Post[] post = new Post[4];
-        int[] link = {R.drawable.picture1, R.drawable.picture2, R.drawable.picture3, R.drawable.picture4};
-        for (int i = 0; i < 4; i++) {
-            post[i] = new Post();
-            post[i].title = "Meme";
-            post[i].description = "В этом наверное есть какой-то смысол";
-            post[i].likes = 0;
-            post[i].comments = 0;
-            post[i].imageResource = link[i];
-        }
-        return post;
     }
 }
