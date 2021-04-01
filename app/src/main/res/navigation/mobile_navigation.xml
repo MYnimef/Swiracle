@@ -18,12 +18,6 @@
         tools:layout="@layout/fragment_search" />
 
     <fragment
-        android:id="@+id/navigation_create"
-        android:name="com.mynimef.swiracle.ui.create.CreateFragment"
-        android:label="@string/title_create"
-        tools:layout="@layout/fragment_create" />
-
-    <fragment
         android:id="@+id/navigation_notifications"
         android:name="com.mynimef.swiracle.ui.notifications.NotificationsFragment"
         android:label="@string/title_notifications"
