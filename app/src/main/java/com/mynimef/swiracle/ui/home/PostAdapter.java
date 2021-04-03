@@ -15,6 +15,8 @@ import com.mynimef.swiracle.PostList;
 import com.mynimef.swiracle.R;
 
 public class PostAdapter extends ArrayAdapter<Post> {
+    private int i = 0;
+
     public PostAdapter(Context context, PostList list) {
         super(context, R.layout.adapter_post, list.getList());
     }
@@ -38,7 +40,7 @@ public class PostAdapter extends ArrayAdapter<Post> {
         });
 
         ImageView pic = convertView.findViewById(R.id.imageView);
-        pic.setImageResource(post.getImageResource());
+        pic.setImageResource(post.getImageResource()[i]);
         pic.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

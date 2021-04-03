@@ -2,9 +2,10 @@ package com.mynimef.swiracle;
 
 public class Post {
     private String title, description;
-    private int likes, comments, imageResource;
+    private int likes, comments;
+    private int[] imageResource;
 
-    public Post(String title, String description, int likes, int comments, int imageResource) {
+    public Post(String title, String description, int likes, int comments, int[] imageResource) {
         this.title = title;
         this.description = description;
         this.likes = likes;
@@ -36,7 +37,7 @@ public class Post {
         comments++;
     }
 
-    public int getImageResource() {
+    public int[] getImageResource() {
         return imageResource;
     }
 }

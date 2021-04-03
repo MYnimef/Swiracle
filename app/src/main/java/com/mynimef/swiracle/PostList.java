@@ -10,11 +10,15 @@ public class PostList {
         list = new ArrayList<>();
         for (int i = 0; i < 4; i++) {
             list.add(new Post("Meme", "В этом наверное есть какой-то смысол",
-                    0, 0, link[i]));
+                    0, 0, link));
         }
     }
 
     public ArrayList<Post> getList() {
         return list;
+    }
+
+    public void addPost(Post post) {
+        list.add(post);
     }
 }
