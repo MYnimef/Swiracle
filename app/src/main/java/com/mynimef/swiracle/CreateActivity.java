@@ -14,6 +14,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.mynimef.swiracle.CreateFragments.PickImageFragment;
 import com.mynimef.swiracle.CreateFragments.SetInfoFragment;
 import com.mynimef.swiracle.Interfaces.IFragmentConnector;
 import com.mynimef.swiracle.Interfaces.IPickImage;
@@ -25,7 +26,7 @@ import java.util.ArrayList;
 public class CreateActivity extends AppCompatActivity implements IPickImage, IFragmentConnector {
     FragmentManager fm;
     private ArrayList<Bitmap> images;
-    Button next;
+    Button backToMain, back, next, share;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,11 +35,22 @@ public class CreateActivity extends AppCompatActivity implements IPickImage, IFr
 
         fm = getSupportFragmentManager();
 
-        Button back = findViewById(R.id.backButton);
-        back.setOnClickListener(new View.OnClickListener() {
+        backToMain = findViewById(R.id.backToMainButton);
+        backToMain.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(CreateActivity.this, MainActivity.class));
+            }
+        });
+
+        back = findViewById(R.id.backButton);
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                back.setVisibility(View.GONE);
+                share.setVisibility(View.GONE);
+                backToMain.setVisibility(View.VISIBLE);
+                replaceFragment(new PickImageFragment());
             }
         });
 
@@ -46,8 +58,19 @@ public class CreateActivity extends AppCompatActivity implements IPickImage, IFr
         next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                next.setVisibility(View.INVISIBLE);
+                next.setVisibility(View.GONE);
+                backToMain.setVisibility(View.GONE);
+                back.setVisibility(View.VISIBLE);
+                share.setVisibility(View.VISIBLE);
                 replaceFragment(new SetInfoFragment());
+            }
+        });
+
+        share = findViewById(R.id.shareButton);
+        share.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(CreateActivity.this, MainActivity.class));
             }
         });
 

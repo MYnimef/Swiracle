@@ -20,7 +20,7 @@ public class PostFragment extends Fragment {
 
         IFragmentConnector fc = (IFragmentConnector) getContext();
 
-        Button back = (Button) root.findViewById(R.id.backButton);
+        Button back = (Button) root.findViewById(R.id.backToMainButton);
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
