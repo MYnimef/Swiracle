@@ -40,7 +40,7 @@ public class PostAdapter extends ArrayAdapter<Post> {
         });
 
         ImageView pic = convertView.findViewById(R.id.imageView);
-        pic.setImageResource(post.getImageResource()[i]);
+        pic.setImageBitmap(post.getImages().get(0));
         pic.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

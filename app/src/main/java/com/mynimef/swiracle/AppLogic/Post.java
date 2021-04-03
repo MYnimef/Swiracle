@@ -7,15 +7,14 @@ import java.util.ArrayList;
 public class Post {
     private String title, description;
     private int likes, comments;
-    private int[] imageResource;
     private ArrayList<Bitmap> images;
 
-    public Post(String title, String description, int likes, int comments, int[] imageResource) {
+    public Post(String title, String description, ArrayList<Bitmap> images) {
         this.title = title;
         this.description = description;
-        this.likes = likes;
-        this.comments = comments;
-        this.imageResource = imageResource;
+        this.images = images;
+        this.likes = 0;
+        this.comments = 0;
     }
 
     public String getTitle() {
@@ -42,7 +41,7 @@ public class Post {
         comments++;
     }
 
-    public int[] getImageResource() {
-        return imageResource;
+    public ArrayList<Bitmap> getImages() {
+        return images;
     }
 }

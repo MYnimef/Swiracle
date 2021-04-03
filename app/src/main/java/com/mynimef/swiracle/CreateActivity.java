@@ -14,6 +14,8 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.mynimef.swiracle.AppLogic.Post;
+import com.mynimef.swiracle.AppLogic.Singleton;
 import com.mynimef.swiracle.CreateFragments.PickImageFragment;
 import com.mynimef.swiracle.CreateFragments.SetInfoFragment;
 import com.mynimef.swiracle.Interfaces.IFragmentConnector;
@@ -70,6 +72,9 @@ public class CreateActivity extends AppCompatActivity implements IPickImage, IFr
         share.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                SetInfoFragment fragment = (SetInfoFragment) getSupportFragmentManager().findFragmentById(R.id.create_nav_host_fragment);
+                Singleton list = Singleton.getInstance();
+                list.addToList(new Post(fragment.getTitle(), fragment.getDescription(), images));
                 startActivity(new Intent(CreateActivity.this, MainActivity.class));
             }
         });
@@ -86,8 +91,12 @@ public class CreateActivity extends AppCompatActivity implements IPickImage, IFr
                 final Uri imageUri = data.getData();
                 final InputStream imageStream = getContentResolver().openInputStream(imageUri);
                 final Bitmap selectedImage = BitmapFactory.decodeStream(imageStream);
+
                 images.add(selectedImage);
                 next.setVisibility(View.VISIBLE);
+
+                PickImageFragment fragment = (PickImageFragment) getSupportFragmentManager().findFragmentById(R.id.create_nav_host_fragment);
+                fragment.setImageView(selectedImage);
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
                 Toast.makeText(CreateActivity.this, "Something went wrong", Toast.LENGTH_LONG).show();

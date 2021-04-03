@@ -1,6 +1,7 @@
 package com.mynimef.swiracle.CreateFragments;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -37,5 +38,9 @@ public class PickImageFragment extends Fragment {
 
         imageView = root.findViewById(R.id.imageView);
         return root;
+    }
+
+    public void setImageView(Bitmap image) {
+        imageView.setImageBitmap(image);
     }
 }

@@ -7,7 +7,6 @@ public class Singleton {
 
     private Singleton() {
         recommendationList = new PostList();
-        recommendationList.setSampleList();
     }
 
     public static Singleton getInstance() {
