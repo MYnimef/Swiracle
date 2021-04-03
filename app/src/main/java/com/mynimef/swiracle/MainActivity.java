@@ -5,10 +5,11 @@ import android.os.Bundle;
 import android.view.MenuItem;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.mynimef.swiracle.ui.home.HomeFragment;
-import com.mynimef.swiracle.ui.notifications.NotificationsFragment;
-import com.mynimef.swiracle.ui.profile.ProfileFragment;
-import com.mynimef.swiracle.ui.search.SearchFragment;
+import com.mynimef.swiracle.Interfaces.IFragmentConnector;
+import com.mynimef.swiracle.MainFragments.home.HomeFragment;
+import com.mynimef.swiracle.MainFragments.notifications.NotificationsFragment;
+import com.mynimef.swiracle.MainFragments.profile.ProfileFragment;
+import com.mynimef.swiracle.MainFragments.search.SearchFragment;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -16,7 +17,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
-public class MainActivity extends AppCompatActivity implements FragmentConnector {
+public class MainActivity extends AppCompatActivity implements IFragmentConnector {
     FragmentManager fm;
 
     @Override

@@ -1,4 +1,4 @@
-package com.mynimef.swiracle.ui.post;
+package com.mynimef.swiracle.MainFragments.post;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -9,16 +9,16 @@ import android.widget.Button;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
-import com.mynimef.swiracle.FragmentConnector;
+import com.mynimef.swiracle.Interfaces.IFragmentConnector;
 import com.mynimef.swiracle.R;
-import com.mynimef.swiracle.ui.home.HomeFragment;
+import com.mynimef.swiracle.MainFragments.home.HomeFragment;
 
 public class PostFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_post, container, false);
 
-        FragmentConnector fc = (FragmentConnector) getContext();
+        IFragmentConnector fc = (IFragmentConnector) getContext();
 
         Button back = (Button) root.findViewById(R.id.backButton);
         back.setOnClickListener(new View.OnClickListener() {

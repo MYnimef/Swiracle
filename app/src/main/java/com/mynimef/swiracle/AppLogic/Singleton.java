@@ -1,4 +1,4 @@
-package com.mynimef.swiracle;
+package com.mynimef.swiracle.AppLogic;
 
 public class Singleton {
     private static Singleton instance;

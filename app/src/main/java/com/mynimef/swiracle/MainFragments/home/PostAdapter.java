@@ -1,4 +1,4 @@
-package com.mynimef.swiracle.ui.home;
+package com.mynimef.swiracle.MainFragments.home;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -8,10 +8,10 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 
-import com.mynimef.swiracle.FragmentConnector;
-import com.mynimef.swiracle.Post;
-import com.mynimef.swiracle.ui.post.PostFragment;
-import com.mynimef.swiracle.PostList;
+import com.mynimef.swiracle.Interfaces.IFragmentConnector;
+import com.mynimef.swiracle.AppLogic.Post;
+import com.mynimef.swiracle.MainFragments.post.PostFragment;
+import com.mynimef.swiracle.AppLogic.PostList;
 import com.mynimef.swiracle.R;
 
 public class PostAdapter extends ArrayAdapter<Post> {
@@ -25,7 +25,7 @@ public class PostAdapter extends ArrayAdapter<Post> {
     public View getView(int position, View convertView, ViewGroup parent) {
 
         final Post post = getItem(position);
-        FragmentConnector fc = (FragmentConnector) getContext();
+        IFragmentConnector fc = (IFragmentConnector) getContext();
 
         if (convertView == null) {
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.adapter_post, null);

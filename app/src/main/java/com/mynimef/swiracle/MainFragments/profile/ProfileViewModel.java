@@ -1,4 +1,4 @@
-package com.mynimef.swiracle.ui.profile;
+package com.mynimef.swiracle.MainFragments.profile;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;

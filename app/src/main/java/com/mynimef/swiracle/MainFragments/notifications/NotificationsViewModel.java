@@ -1,4 +1,4 @@
-package com.mynimef.swiracle.ui.notifications;
+package com.mynimef.swiracle.MainFragments.notifications;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;

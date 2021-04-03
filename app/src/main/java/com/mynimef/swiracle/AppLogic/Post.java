@@ -1,9 +1,14 @@
-package com.mynimef.swiracle;
+package com.mynimef.swiracle.AppLogic;
+
+import android.graphics.Bitmap;
+
+import java.util.ArrayList;
 
 public class Post {
     private String title, description;
     private int likes, comments;
     private int[] imageResource;
+    private ArrayList<Bitmap> images;
 
     public Post(String title, String description, int likes, int comments, int[] imageResource) {
         this.title = title;

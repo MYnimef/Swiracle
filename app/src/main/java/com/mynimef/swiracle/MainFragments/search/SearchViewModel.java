@@ -1,4 +1,4 @@
-package com.mynimef.swiracle.ui.search;
+package com.mynimef.swiracle.MainFragments.search;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;

@@ -1,4 +1,4 @@
-package com.mynimef.swiracle.ui.home;
+package com.mynimef.swiracle.MainFragments.home;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -10,7 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import com.mynimef.swiracle.R;
-import com.mynimef.swiracle.Singleton;
+import com.mynimef.swiracle.AppLogic.Singleton;
 
 import org.jetbrains.annotations.NotNull;
 

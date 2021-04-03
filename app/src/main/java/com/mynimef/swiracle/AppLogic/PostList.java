@@ -1,4 +1,7 @@
-package com.mynimef.swiracle;
+package com.mynimef.swiracle.AppLogic;
+
+import com.mynimef.swiracle.AppLogic.Post;
+import com.mynimef.swiracle.R;
 
 import java.util.ArrayList;
 

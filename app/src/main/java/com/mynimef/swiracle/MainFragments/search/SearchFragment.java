@@ -1,4 +1,4 @@
-package com.mynimef.swiracle.ui.search;
+package com.mynimef.swiracle.MainFragments.search;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
