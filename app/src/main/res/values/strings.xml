@@ -5,4 +5,8 @@
     <string name="title_create">Create</string>
     <string name="title_notifications">Notifications</string>
     <string name="title_profile">Profile</string>
+
+    <string name="set_info_title">Name your image…</string>
+    <string name="set_info_description">Write a description…</string>
+    <string name="set_info_add_element">Add element</string>
 </resources>

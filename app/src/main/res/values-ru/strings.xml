@@ -6,4 +6,8 @@
     <string name="title_create">Создать</string>
     <string name="title_notifications">Уведомления</string>
     <string name="title_profile">Профиль</string>
+
+    <string name="set_info_title">Назовите образ…</string>
+    <string name="set_info_description">Добавьте описание…</string>
+    <string name="set_info_add_element">Добавить элемент</string>
 </resources>

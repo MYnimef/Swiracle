@@ -27,12 +27,14 @@ public class MainActivity extends AppCompatActivity implements IFragmentConnecto
         BottomNavigationView navView = findViewById(R.id.nav_view);
         fm = getSupportFragmentManager();
 
-        navView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+        navView.setOnNavigationItemSelectedListener(
+                new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 int itemId = item.getItemId();
                 if (itemId == R.id.navigation_create) {
-                    startActivity(new Intent(MainActivity.this, CreateActivity.class));
+                    startActivity(new Intent(MainActivity.this,
+                            CreateActivity.class));
                 } else {
                     if (itemId == R.id.navigation_home) {
                         replaceFragment(new HomeFragment());
@@ -49,7 +51,7 @@ public class MainActivity extends AppCompatActivity implements IFragmentConnecto
         });
     }
 
-    public void replaceFragment(Fragment fragment) {
+    public void replaceFragment(Fragment fragment) {    //Метод смены Фрагмента
         FragmentTransaction ft = fm.beginTransaction();
         ft.replace(R.id.nav_host_fragment, fragment);
         ft.addToBackStack(null);

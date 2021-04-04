@@ -107,13 +107,8 @@ public class CreateActivity extends AppCompatActivity implements IPickImage, IFr
     }
 
     @Override
-    public Bitmap getImage() {
-        return images.get(0);
-    }
-
-    @Override
-    public void deleteImage() {
-        images.remove(0);
+    public void deleteImage(int index) {
+        images.remove(index);
     }
 
     @Override
