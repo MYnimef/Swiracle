@@ -8,6 +8,8 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 
+import androidx.core.content.ContextCompat;
+
 import com.mynimef.swiracle.R;
 
 public class ImageAdapter extends ArrayAdapter<Bitmap> {
@@ -16,6 +18,7 @@ public class ImageAdapter extends ArrayAdapter<Bitmap> {
     public ImageAdapter(Context context, SerializableGallery image) {
         super(context, R.layout.adapter_post, image.getImagesBitmapList());
         selected = new boolean[image.getImagesBitmapList().size()];
+
     }
 
     @Override
@@ -31,12 +34,14 @@ public class ImageAdapter extends ArrayAdapter<Bitmap> {
         pic.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                selected[position] = !selected[position];
-                for (boolean b : selected) {
-                    if (!b) {
+                if (!selected[position]) {
+                    selected[position] = true;
+                    pic.setForeground(ContextCompat.getDrawable(getContext(),
+                            R.drawable.foreground_image));
+                } else {
 
-                    }
                 }
+
             }
         });
 
