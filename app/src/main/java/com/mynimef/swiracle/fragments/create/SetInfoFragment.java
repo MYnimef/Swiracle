@@ -1,4 +1,4 @@
-package com.mynimef.swiracle.CreateFragments;
+package com.mynimef.swiracle.fragments.create;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -11,7 +11,6 @@ import android.widget.ListView;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
-import com.mynimef.swiracle.MainFragments.home.PostAdapter;
 import com.mynimef.swiracle.R;
 
 public class SetInfoFragment extends Fragment {

@@ -1,4 +1,4 @@
-package com.mynimef.swiracle.MainFragments.home;
+package com.mynimef.swiracle.fragments.home;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -10,7 +10,7 @@ import android.widget.ImageView;
 
 import com.mynimef.swiracle.Interfaces.IFragmentConnector;
 import com.mynimef.swiracle.AppLogic.Post;
-import com.mynimef.swiracle.MainFragments.post.PostFragment;
+import com.mynimef.swiracle.fragments.post.PostFragment;
 import com.mynimef.swiracle.AppLogic.PostList;
 import com.mynimef.swiracle.R;
 

@@ -1,4 +1,4 @@
-package com.mynimef.swiracle.MainFragments.home;
+package com.mynimef.swiracle.fragments.home;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;

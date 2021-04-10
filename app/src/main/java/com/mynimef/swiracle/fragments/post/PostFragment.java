@@ -1,4 +1,4 @@
-package com.mynimef.swiracle.MainFragments.post;
+package com.mynimef.swiracle.fragments.post;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -11,7 +11,7 @@ import androidx.fragment.app.Fragment;
 
 import com.mynimef.swiracle.Interfaces.IFragmentConnector;
 import com.mynimef.swiracle.R;
-import com.mynimef.swiracle.MainFragments.home.HomeFragment;
+import com.mynimef.swiracle.fragments.home.HomeFragment;
 
 public class PostFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater,
