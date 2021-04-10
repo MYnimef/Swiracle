@@ -26,7 +26,7 @@ public class GalleryViewer {
             @Override
             public void handleMessage(Message msg) {
                 super.handleMessage(msg);
-                fragment.setImageView((SerializableImage) msg.getData().getSerializable("images"));
+                fragment.setGalleryView((SerializableGallery) msg.getData().getSerializable("images"));
             }
         };
 
@@ -34,9 +34,9 @@ public class GalleryViewer {
         th.start();
     }
 
-    private void publishProgress(ArrayList<Bitmap> images) {
+    private void publishProgress(SerializableGallery images) {
         Bundle bundle = new Bundle();
-        bundle.putSerializable("images", new SerializableImage(images));
+        bundle.putSerializable("images", images);
         Message message = new Message();
         message.setData(bundle);
         handler.sendMessage(message);
@@ -45,35 +45,36 @@ public class GalleryViewer {
     class GalleryRunnable implements Runnable {
         @Override
         public void run() {
-            ArrayList<Bitmap> imagesBitmapList = getImagesPath();
-            publishProgress(imagesBitmapList);
+            publishProgress(getImagesPath());
         }
     }
 
-    private ArrayList<Bitmap> getImagesPath() {
+    private SerializableGallery getImagesPath() {
         Uri uri = android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI;;
         String[] projection = { MediaStore.Images.Media._ID,
                 MediaStore.Images.Media.BUCKET_DISPLAY_NAME };
         Cursor cursor = activity.getContentResolver().query(uri, projection, null,
                 null, null);
 
-        ArrayList<Bitmap> listOfAllImages = new ArrayList<Bitmap>();
+        ArrayList<Bitmap> imagesList = new ArrayList<Bitmap>();
+        ArrayList<Uri> uriList = new ArrayList<Uri>();
         int idColumn = cursor.getColumnIndexOrThrow(MediaStore.Images.Media._ID);
         while (cursor.moveToNext()) {
             long id = cursor.getLong(idColumn);
             Uri contentUri = ContentUris.withAppendedId(
                     MediaStore.Images.Media.EXTERNAL_CONTENT_URI, id);
+            uriList.add(contentUri);
 
             try {
                 Bitmap thumbnail =
                         activity.getContentResolver().loadThumbnail(
                                 contentUri, new Size(360, 360), null);
-                listOfAllImages.add(thumbnail);
+                imagesList.add(thumbnail);
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
 
-        return listOfAllImages;
+        return new SerializableGallery(imagesList, uriList);
     }
 }

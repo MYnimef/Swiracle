@@ -12,6 +12,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.mynimef.swiracle.Interfaces.IFragmentConnector;
 import com.mynimef.swiracle.R;
 import com.mynimef.swiracle.fragments.create.CreateFragment;
 import com.mynimef.swiracle.fragments.home.HomeFragment;
@@ -20,7 +21,8 @@ import com.mynimef.swiracle.fragments.profile.ProfileFragment;
 import com.mynimef.swiracle.fragments.search.SearchFragment;
 
 public class NavigationFragment extends Fragment {
-    FragmentManager fm;
+    private FragmentManager fm;
+    private IFragmentConnector connector;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -28,6 +30,7 @@ public class NavigationFragment extends Fragment {
 
         BottomNavigationView navView = root.findViewById(R.id.nav_view);
         fm = getChildFragmentManager();
+        connector = (IFragmentConnector) getContext();
 
         navView.setOnNavigationItemSelectedListener(
                 new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -35,7 +38,7 @@ public class NavigationFragment extends Fragment {
                     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                         int itemId = item.getItemId();
                         if (itemId == R.id.navigation_create) {
-                            replaceFragment(new CreateFragment());
+                            connector.replaceFragment(new CreateFragment());
                         } else {
                             if (itemId == R.id.navigation_home) {
                                 replaceFragment(new HomeFragment());

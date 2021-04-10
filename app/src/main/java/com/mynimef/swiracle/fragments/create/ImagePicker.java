@@ -1,73 +1,59 @@
 package com.mynimef.swiracle.fragments.create;
 
 import android.app.Activity;
-import android.content.ContentUris;
-import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.graphics.ImageDecoder;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
-import android.provider.MediaStore;
 
-import java.util.ArrayList;
+import java.io.IOException;
 
 public class ImagePicker {
     private final Activity activity;
     private final Handler handler;
 
-    public ImagePicker(Activity activity, PickImageFragment fragment) {
+    public ImagePicker(Activity activity, PickImageFragment fragment, Uri uri) {
         this.activity = activity;
 
         this.handler = new Handler(Looper.getMainLooper()) {   // создание хэндлера
             @Override
             public void handleMessage(Message msg) {
                 super.handleMessage(msg);
-                fragment.setImageView((SerializableImage) msg.getData().getSerializable("images"));
+                fragment.setImageView((SerializableImages) msg.getData().getSerializable("images"));
             }
         };
-    }
 
-    public void startPicker() {
-        Thread th = new Thread(new PickerRunnable());
+        Thread th = new Thread(new PickerRunnable(uri));
         th.start();
     }
 
-    private void publishProgress(ArrayList<Bitmap> images) {
+    private void publishProgress(Bitmap image) {
         Bundle bundle = new Bundle();
-        bundle.putSerializable("images", new SerializableImage(images));
+        bundle.putSerializable("images", new SerializableImages(image));
         Message message = new Message();
         message.setData(bundle);
         handler.sendMessage(message);
     }
 
     class PickerRunnable implements Runnable {
+        Uri uri;
+
+        public PickerRunnable(Uri uri) {
+            this.uri = uri;
+        }
+
         @Override
         public void run() {
-            ArrayList<Uri> imagesBitmapList = getImagesPath();
-            //ArrayList<Bitmap> imagesBitmapList = getImagesPath();
-            //publishProgress(imagesBitmapList);
+            try {
+                Bitmap bitmap = ImageDecoder.decodeBitmap(ImageDecoder.createSource(
+                        activity.getContentResolver(), uri));
+                publishProgress(bitmap);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
-
-    private ArrayList<Uri> getImagesPath() {
-        Uri uri = android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI;;
-        String[] projection = { MediaStore.Images.Media._ID,
-                MediaStore.Images.Media.BUCKET_DISPLAY_NAME };
-        Cursor cursor = activity.getContentResolver().query(uri, projection, null,
-                null, null);
-
-        ArrayList<Uri> listOfAllImages = new ArrayList<Uri>();
-        int idColumn = cursor.getColumnIndexOrThrow(MediaStore.Images.Media._ID);
-        while (cursor.moveToNext()) {
-            long id = cursor.getLong(idColumn);
-            Uri contentUri = ContentUris.withAppendedId(
-                    MediaStore.Images.Media.EXTERNAL_CONTENT_URI, id);
-            listOfAllImages.add(contentUri);
-        }
-
-        return listOfAllImages;
-    }
-
 }

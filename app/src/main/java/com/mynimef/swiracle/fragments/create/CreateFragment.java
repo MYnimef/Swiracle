@@ -12,7 +12,9 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.mynimef.swiracle.Interfaces.IFragmentConnector;
 import com.mynimef.swiracle.R;
+import com.mynimef.swiracle.fragments.NavigationFragment;
 
 import java.util.ArrayList;
 
@@ -21,13 +23,14 @@ public class CreateFragment extends Fragment {
     private ArrayList<Bitmap> images;
     private boolean pickStage;
     private Button back, next;
+    private IFragmentConnector connector;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_create, container, false);
 
         fm = getChildFragmentManager();
-
+        connector = (IFragmentConnector) getContext();
         pickStage = true;
 
         back = root.findViewById(R.id.backButton);
@@ -35,7 +38,7 @@ public class CreateFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 if (pickStage) {
-
+                    connector.replaceFragment(new NavigationFragment());
                 }
                 else {
                     pickStage = true;

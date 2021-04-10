@@ -16,6 +16,8 @@ public class MainActivity extends AppCompatActivity implements IFragmentConnecto
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        fm = getSupportFragmentManager();
     }
 
     public void replaceFragment(Fragment fragment) {    //Метод смены Фрагмента

@@ -8,19 +8,19 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 
-import com.mynimef.swiracle.Interfaces.IFragmentConnector;
 import com.mynimef.swiracle.R;
 
 public class ImageAdapter extends ArrayAdapter<Bitmap> {
-    public ImageAdapter(Context context, SerializableImage image) {
-        super(context, R.layout.adapter_post, image.getImagesList());
+    private boolean[] selected;
+
+    public ImageAdapter(Context context, SerializableGallery image) {
+        super(context, R.layout.adapter_post, image.getImagesBitmapList());
+        selected = new boolean[image.getImagesBitmapList().size()];
     }
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-
         final Bitmap image = getItem(position);
-        IFragmentConnector fc = (IFragmentConnector) getContext();
 
         if (convertView == null) {
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.adapter_image, null);
@@ -31,7 +31,12 @@ public class ImageAdapter extends ArrayAdapter<Bitmap> {
         pic.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                selected[position] = !selected[position];
+                for (boolean b : selected) {
+                    if (!b) {
 
+                    }
+                }
             }
         });
 
