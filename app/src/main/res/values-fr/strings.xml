@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Swiracle</string>
+    <string name="title_home">Accueil</string>
+    <string name="title_search">Découvrir</string>
+    <string name="title_create">Créer</string>
+    <string name="title_notifications">Notifications</string>
+    <string name="title_profile">Profil</string>
+
+    <string name="new_post_text">Un post nouveau</string>
+    <string name="back">Retour</string>
+    <string name="next">Ensuit</string>
+    <string name="multiple">Plusieurs</string>
+
+    <string name="share">Partager</string>
+    <string name="set_info_title">Nommez votre image…</string>
+    <string name="set_info_description">Faire une description…</string>
+    <string name="set_info_add_element">Ajouter un élément</string>
+</resources>

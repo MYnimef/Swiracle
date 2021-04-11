@@ -7,6 +7,12 @@
     <string name="title_notifications">Уведомления</string>
     <string name="title_profile">Профиль</string>
 
+    <string name="new_post_text">Новая публикация</string>
+    <string name="back">Назад</string>
+    <string name="next">Далее</string>
+    <string name="multiple">Несколько</string>
+
+    <string name="share">Поделиться</string>
     <string name="set_info_title">Назовите образ…</string>
     <string name="set_info_description">Добавьте описание…</string>
     <string name="set_info_add_element">Добавить элемент</string>

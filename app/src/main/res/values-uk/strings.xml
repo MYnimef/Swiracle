@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Swiracle</string>
+    <string name="title_home">Головна</string>
+    <string name="title_search">Пошук</string>
+    <string name="title_create">Створити</string>
+    <string name="title_notifications">Повідомлення</string>
+    <string name="title_profile">Профіль</string>
+
+    <string name="new_post_text">Нова публікація</string>
+    <string name="back">Назад</string>
+    <string name="next">Далі</string>
+    <string name="multiple">Декілька</string>
+
+    <string name="share">Поділитися</string>
+    <string name="set_info_title">Назвіть образ…</string>
+    <string name="set_info_description">Додати опис…</string>
+    <string name="set_info_add_element">Додати елемент</string>
+</resources>

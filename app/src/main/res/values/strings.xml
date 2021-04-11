@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Swiracle</string>
     <string name="title_home">Home</string>
@@ -6,6 +7,12 @@
     <string name="title_notifications">Notifications</string>
     <string name="title_profile">Profile</string>
 
+    <string name="new_post_text">New post</string>
+    <string name="back">Back</string>
+    <string name="next">Next</string>
+    <string name="multiple">Multiple</string>
+
+    <string name="share">Share</string>
     <string name="set_info_title">Name your image…</string>
     <string name="set_info_description">Write a description…</string>
     <string name="set_info_add_element">Add element</string>

@@ -55,7 +55,7 @@ public class CreateFragment extends Fragment {
                 else {
                     replaceFragment(pickImageFragment);
                     pickStage = true;
-                    next.setText("Next");
+                    next.setText(R.string.next);
                 }
             }
         });
@@ -67,7 +67,7 @@ public class CreateFragment extends Fragment {
                 if (pickStage) {
                     replaceFragment(setInfoFragment);
                     pickStage = false;
-                    next.setText("Share");
+                    next.setText(R.string.share);
                 }
                 else {
                     Singleton.getInstance().setPostInfo(setInfo.getTitle(),
