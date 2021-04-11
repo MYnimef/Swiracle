@@ -14,6 +14,7 @@ import android.widget.ImageView;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
+import com.mynimef.swiracle.AppLogic.Singleton;
 import com.mynimef.swiracle.Interfaces.IPickImage;
 import com.mynimef.swiracle.R;
 
@@ -29,10 +30,7 @@ public class PickImageFragment extends Fragment implements IPickImage {
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-
         root = inflater.inflate(R.layout.fragment_pick_image, container, false);
-        GalleryViewer galleryViewer = new GalleryViewer(getActivity(), this);
-
         imageView = root.findViewById(R.id.selectedImage);
         gridView = root.findViewById(R.id.galleryGridView);
         imagesBitmap = new ArrayList<Bitmap>();
@@ -46,6 +44,7 @@ public class PickImageFragment extends Fragment implements IPickImage {
             }
         });
 
+        setGalleryView(Singleton.getInstance().getGallery());
         return root;
     }
 

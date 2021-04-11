@@ -50,7 +50,7 @@ public class CreateFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 if (pickStage) {
-                    connector.replaceFragment(new NavigationFragment());
+                    connector.replaceFragmentBack();
                 }
                 else {
                     replaceFragment(pickImageFragment);
@@ -74,7 +74,7 @@ public class CreateFragment extends Fragment {
                     list.addToList(new Post(setInfo.getTitle(),
                             setInfo.getDescription(),
                             pickImage.getImagesBitmap()));
-                    connector.replaceFragment(new NavigationFragment());
+                    connector.replaceFragmentBack();
                 }
             }
         });

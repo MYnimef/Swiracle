@@ -25,6 +25,7 @@ public class ImagePicker {
                 SerializableImages images =
                         (SerializableImages) msg.getData().getSerializable("images");
                 fragment.addImageBitmap(images.getImageBitmap());
+                removeCallbacksAndMessages(null);
             }
         };
 

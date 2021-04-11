@@ -24,7 +24,7 @@ public class PostFragment extends Fragment {
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                fc.replaceFragment(new HomeFragment());
+                //fc.replaceFragment(new HomeFragment());
             }
         });
 

@@ -12,6 +12,8 @@ import android.os.Message;
 import android.provider.MediaStore;
 import android.util.Size;
 
+import com.mynimef.swiracle.AppLogic.Singleton;
+
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -19,14 +21,15 @@ public class GalleryViewer {
     private final Activity activity;
     private final Handler handler;
 
-    public GalleryViewer(Activity activity, PickImageFragment fragment) {
+    public GalleryViewer(Activity activity) {
         this.activity = activity;
 
-        this.handler = new Handler(Looper.getMainLooper()) {   // создание хэндлера
+        this.handler = new Handler(Looper.getMainLooper()) {   //создание хэндлера
             @Override
             public void handleMessage(Message msg) {
                 super.handleMessage(msg);
-                fragment.setGalleryView((SerializableGallery) msg.getData().getSerializable("images"));
+                Singleton.getInstance().setGallery((SerializableGallery) msg.getData().getSerializable("images"));
+                removeCallbacksAndMessages(null);
             }
         };
 
@@ -68,7 +71,7 @@ public class GalleryViewer {
             try {
                 Bitmap thumbnail =
                         activity.getContentResolver().loadThumbnail(
-                                contentUri, new Size(360, 360), null);
+                                contentUri, new Size(240, 240), null);
                 imagesList.add(thumbnail);
             } catch (IOException e) {
                 e.printStackTrace();

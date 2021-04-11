@@ -23,14 +23,27 @@ import com.mynimef.swiracle.fragments.search.SearchFragment;
 public class NavigationFragment extends Fragment {
     private FragmentManager fm;
     private IFragmentConnector connector;
+    private HomeFragment homeFragment;
+    private SearchFragment searchFragment;
+    private NotificationsFragment notificationsFragment;
+    private ProfileFragment profileFragment;
+    private CreateFragment createFragment;
+    private Fragment fragment;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_navigation, container, false);
+        this.fragment = this;
 
         BottomNavigationView navView = root.findViewById(R.id.nav_view);
         fm = getChildFragmentManager();
         connector = (IFragmentConnector) getContext();
+
+        homeFragment = new HomeFragment();
+        searchFragment = new SearchFragment();
+        notificationsFragment = new NotificationsFragment();
+        profileFragment = new ProfileFragment();
+        createFragment = new CreateFragment();
 
         navView.setOnNavigationItemSelectedListener(
                 new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -38,16 +51,16 @@ public class NavigationFragment extends Fragment {
                     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                         int itemId = item.getItemId();
                         if (itemId == R.id.navigation_create) {
-                            connector.replaceFragment(new CreateFragment());
+                            connector.replaceFragment(fragment, createFragment);
                         } else {
                             if (itemId == R.id.navigation_home) {
-                                replaceFragment(new HomeFragment());
+                                replaceFragment(homeFragment);
                             } else if (itemId == R.id.navigation_search) {
-                                replaceFragment(new SearchFragment());
+                                replaceFragment(searchFragment);
                             }  else if (itemId == R.id.navigation_notifications) {
-                                replaceFragment(new NotificationsFragment());
+                                replaceFragment(notificationsFragment);
                             } else if (itemId == R.id.navigation_profile) {
-                                replaceFragment(new ProfileFragment());
+                                replaceFragment(profileFragment);
                             }
                         }
                         return true;

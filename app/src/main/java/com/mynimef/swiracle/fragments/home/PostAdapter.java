@@ -8,24 +8,26 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 
-import com.mynimef.swiracle.Interfaces.IFragmentConnector;
+import androidx.fragment.app.Fragment;
+
 import com.mynimef.swiracle.AppLogic.Post;
+import com.mynimef.swiracle.fragments.NavigationFragment;
 import com.mynimef.swiracle.fragments.post.PostFragment;
 import com.mynimef.swiracle.AppLogic.PostList;
 import com.mynimef.swiracle.R;
 
 public class PostAdapter extends ArrayAdapter<Post> {
     private int i = 0;
+    private final NavigationFragment fragment;
 
-    public PostAdapter(Context context, PostList list) {
+    public PostAdapter(Context context, PostList list, Fragment fragment) {
         super(context, R.layout.adapter_post, list.getList());
+        this.fragment = (NavigationFragment) fragment;
     }
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-
         final Post post = getItem(position);
-        //IFragmentConnector fc = (IFragmentConnector) getContext();
 
         if (convertView == null) {
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.adapter_post, null);
@@ -45,7 +47,7 @@ public class PostAdapter extends ArrayAdapter<Post> {
         pic.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //fc.replaceFragment(new PostFragment());
+                fragment.replaceFragment(new PostFragment());
             }
         });
 
