@@ -22,7 +22,9 @@ public class ImagePicker {
             @Override
             public void handleMessage(Message msg) {
                 super.handleMessage(msg);
-                fragment.setImageView((SerializableImages) msg.getData().getSerializable("images"));
+                SerializableImages images =
+                        (SerializableImages) msg.getData().getSerializable("images");
+                fragment.addImageBitmap(images.getImageBitmap());
             }
         };
 

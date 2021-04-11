@@ -1,6 +1,7 @@
 package com.mynimef.swiracle.fragments.home;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,7 +26,7 @@ public class PostAdapter extends ArrayAdapter<Post> {
     public View getView(int position, View convertView, ViewGroup parent) {
 
         final Post post = getItem(position);
-        IFragmentConnector fc = (IFragmentConnector) getContext();
+        //IFragmentConnector fc = (IFragmentConnector) getContext();
 
         if (convertView == null) {
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.adapter_post, null);
@@ -44,7 +45,7 @@ public class PostAdapter extends ArrayAdapter<Post> {
         pic.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                fc.replaceFragment(new PostFragment());
+                //fc.replaceFragment(new PostFragment());
             }
         });
 

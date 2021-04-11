@@ -1,7 +1,9 @@
-// Интерфейс, для вызова методов CreateActivity из PickImageFragment
-
 package com.mynimef.swiracle.Interfaces;
 
+import android.graphics.Bitmap;
+
+import java.util.ArrayList;
+
 public interface IPickImage {
-    void deleteImage(int index);
+    ArrayList<Bitmap> getImagesBitmap();
 }

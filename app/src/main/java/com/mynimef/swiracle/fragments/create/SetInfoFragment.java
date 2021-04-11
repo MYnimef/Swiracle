@@ -11,9 +11,10 @@ import android.widget.ListView;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
+import com.mynimef.swiracle.Interfaces.ISetInfo;
 import com.mynimef.swiracle.R;
 
-public class SetInfoFragment extends Fragment {
+public class SetInfoFragment extends Fragment implements ISetInfo {
     EditText title;
     EditText description;
 
@@ -40,10 +41,12 @@ public class SetInfoFragment extends Fragment {
         return root;
     }
 
+    @Override
     public String getTitle() {
         return title.getText().toString();
     }
 
+    @Override
     public String getDescription() {
         return description.getText().toString();
     }

@@ -5,9 +5,10 @@ import android.graphics.Bitmap;
 import java.util.ArrayList;
 
 public class Post {
-    private String title, description;
+    private final String title;
+    private final String description;
     private int likes, comments;
-    private ArrayList<Bitmap> images;
+    private final ArrayList<Bitmap> images;
 
     public Post(String title, String description, ArrayList<Bitmap> images) {
         this.title = title;
