@@ -1,7 +1,6 @@
 package com.mynimef.swiracle.fragments.home;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -42,6 +41,7 @@ public class PostAdapter extends ArrayAdapter<Post> {
 
         ImageView pic = convertView.findViewById(R.id.imageView);
         pic.setImageBitmap(post.getImages().get(0));
+        pic.setClipToOutline(true);
         pic.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

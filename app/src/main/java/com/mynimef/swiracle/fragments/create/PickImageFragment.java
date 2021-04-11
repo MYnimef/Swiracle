@@ -42,7 +42,7 @@ public class PickImageFragment extends Fragment implements IPickImage {
         multipleButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                multiple = !multiple;
+                //multiple = !multiple;
             }
         });
 
