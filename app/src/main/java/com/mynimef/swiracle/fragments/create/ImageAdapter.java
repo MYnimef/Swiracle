@@ -1,7 +1,7 @@
 package com.mynimef.swiracle.fragments.create;
 
 import android.content.Context;
-import android.graphics.Bitmap;
+import android.net.Uri;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,16 +11,17 @@ import android.widget.ImageView;
 
 import androidx.core.content.ContextCompat;
 
+import com.bumptech.glide.Glide;
 import com.mynimef.swiracle.R;
 
 import java.util.ArrayList;
 
-public class ImageAdapter extends ArrayAdapter<Bitmap> {
+public class ImageAdapter extends ArrayAdapter<Uri> {
     private int selectedId;
     private final boolean[] selectedField;
     private final PickImageFragment fragment;
 
-    public ImageAdapter(Context context, ArrayList<Bitmap> images, PickImageFragment fragment) {
+    public ImageAdapter(Context context, ArrayList<Uri> images, PickImageFragment fragment) {
         super(context, R.layout.adapter_post, images);
         selectedField = new boolean[images.size()];
         selectedId = 0;
@@ -30,7 +31,7 @@ public class ImageAdapter extends ArrayAdapter<Bitmap> {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        final Bitmap image = getItem(position);
+        final Uri uri = getItem(position);
 
         if (convertView == null) {
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.adapter_image,
@@ -38,7 +39,7 @@ public class ImageAdapter extends ArrayAdapter<Bitmap> {
         }
 
         ImageView pic = (ImageView) convertView.findViewById(R.id.imageView);
-        pic.setImageBitmap(image);
+        Glide.with(fragment).load(uri).into(pic);
 
         if (selectedField[position]) {
             pic.setForeground(ContextCompat.getDrawable(getContext(),
@@ -54,19 +55,18 @@ public class ImageAdapter extends ArrayAdapter<Bitmap> {
                     selectedField[position] = true;
                     pic.setForeground(ContextCompat.getDrawable(getContext(),
                             R.drawable.foreground_image));
-                    fragment.getImagePosition(position);
-
+                    fragment.setImageView(position);
+                    fragment.addToPicked(position);
                     if (!fragment.getMultiple()) {
                         selectedField[selectedId] = false;
+                        fragment.removeFromPicked(selectedId);
                         selectedId = position;
-                        fragment.deleteImageBitmap(position);
                         notifyDataSetChanged();
                     }
                 } else {
                     selectedField[position] = false;
                     pic.setForeground(null);
                 }
-
             }
         });
 

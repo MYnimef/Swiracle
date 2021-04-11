@@ -70,10 +70,9 @@ public class CreateFragment extends Fragment {
                     next.setText("Share");
                 }
                 else {
-                    Singleton list = Singleton.getInstance();
-                    list.addToList(new Post(setInfo.getTitle(),
+                    Singleton.getInstance().setPostInfo(setInfo.getTitle(),
                             setInfo.getDescription(),
-                            pickImage.getImagesBitmap()));
+                            pickImage.getPickedUri(), getContext());
                     connector.replaceFragmentBack();
                 }
             }

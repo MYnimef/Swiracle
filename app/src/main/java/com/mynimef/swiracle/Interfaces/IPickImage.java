@@ -1,9 +1,9 @@
 package com.mynimef.swiracle.Interfaces;
 
-import android.graphics.Bitmap;
+import android.net.Uri;
 
 import java.util.ArrayList;
 
 public interface IPickImage {
-    ArrayList<Bitmap> getImagesBitmap();
+    ArrayList<Uri> getPickedUri();
 }

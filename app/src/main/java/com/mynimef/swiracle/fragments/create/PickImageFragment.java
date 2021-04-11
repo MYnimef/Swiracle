@@ -1,9 +1,9 @@
 package com.mynimef.swiracle.fragments.create;
 
 import android.graphics.Bitmap;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,28 +12,32 @@ import android.widget.GridView;
 import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.target.CustomTarget;
+import com.bumptech.glide.request.transition.Transition;
 import com.mynimef.swiracle.AppLogic.Singleton;
 import com.mynimef.swiracle.Interfaces.IPickImage;
 import com.mynimef.swiracle.R;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Set;
 
 public class PickImageFragment extends Fragment implements IPickImage {
     private ImageView imageView;
-    private GridView gridView;
-    private View root;
     private ArrayList<Uri> imageUri;
-    private ArrayList<Bitmap> imagesBitmap;
+    private HashMap<Integer, Uri> pickedUri;
     private boolean multiple;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        root = inflater.inflate(R.layout.fragment_pick_image, container, false);
-        imageView = root.findViewById(R.id.selectedImage);
-        gridView = root.findViewById(R.id.galleryGridView);
-        imagesBitmap = new ArrayList<Bitmap>();
+        View root = inflater.inflate(R.layout.fragment_pick_image, container, false);
+        imageUri = Singleton.getInstance().getGallery().getImagesUriList();
+        pickedUri = new HashMap<Integer, Uri>();
+        addToPicked(0);
 
         multiple = false;
         Button multipleButton = (Button) root.findViewById(R.id.multipleButton);
@@ -44,7 +48,14 @@ public class PickImageFragment extends Fragment implements IPickImage {
             }
         });
 
-        setGalleryView(Singleton.getInstance().getGallery());
+        imageView = root.findViewById(R.id.selectedImage);
+        setImageView(0);
+
+        GridView gridView = root.findViewById(R.id.galleryGridView);
+        ImageAdapter adapter = new ImageAdapter(root.getContext(), imageUri,
+                this);
+        gridView.setAdapter(adapter);
+
         return root;
     }
 
@@ -52,35 +63,25 @@ public class PickImageFragment extends Fragment implements IPickImage {
         return multiple;
     }
 
-    public void getImagePosition(int pos) {
-        ImagePicker imagePicker = new ImagePicker(getActivity(), this,
-                imageUri.get(pos));
+    public void setImageView(int pos) {
+        Glide.with(this).load(imageUri.get(pos)).into(imageView);
     }
 
-    public void addImageBitmap(Bitmap image) {
-        imagesBitmap.add(image);
-        setImageView(imagesBitmap.get(imagesBitmap.size() - 1));
+    public void addToPicked(int pos) {
+        pickedUri.put(pos, imageUri.get(pos));
     }
 
-    public void deleteImageBitmap(int position) {
-        imagesBitmap.remove(imagesBitmap.size() - 1);
+    public void removeFromPicked(int pos) {
+        pickedUri.remove(pos);
     }
 
     @Override
-    public ArrayList<Bitmap> getImagesBitmap() {
-        return imagesBitmap;
-    }
-
-    public void setImageView(Bitmap bitmap) {
-        imageView.setImageBitmap(bitmap);
-    }
-
-    public void setGalleryView(SerializableGallery image) {
-        imageUri = image.getImagesUriList();
-        ImagePicker imagePicker = new ImagePicker(getActivity(), this,
-                imageUri.get(0));
-        ImageAdapter adapter = new ImageAdapter(root.getContext(), image.getImagesBitmapList(),
-                this);
-        gridView.setAdapter(adapter);
+    public ArrayList<Uri> getPickedUri() {
+        ArrayList<Uri> result = new ArrayList<Uri>();
+        Set<Integer> key = pickedUri.keySet();
+        for (int i : key) {
+            result.add(pickedUri.get(i));
+        }
+        return result;
     }
 }

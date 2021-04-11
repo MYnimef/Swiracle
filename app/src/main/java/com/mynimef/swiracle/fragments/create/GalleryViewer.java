@@ -59,7 +59,6 @@ public class GalleryViewer {
         Cursor cursor = activity.getContentResolver().query(uri, projection, null,
                 null, null);
 
-        ArrayList<Bitmap> imagesList = new ArrayList<Bitmap>();
         ArrayList<Uri> uriList = new ArrayList<Uri>();
         int idColumn = cursor.getColumnIndexOrThrow(MediaStore.Images.Media._ID);
         while (cursor.moveToNext()) {
@@ -67,17 +66,8 @@ public class GalleryViewer {
             Uri contentUri = ContentUris.withAppendedId(
                     MediaStore.Images.Media.EXTERNAL_CONTENT_URI, id);
             uriList.add(contentUri);
-
-            try {
-                Bitmap thumbnail =
-                        activity.getContentResolver().loadThumbnail(
-                                contentUri, new Size(240, 240), null);
-                imagesList.add(thumbnail);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
         }
 
-        return new SerializableGallery(imagesList, uriList);
+        return new SerializableGallery(uriList);
     }
 }
