@@ -9,20 +9,19 @@ import android.widget.Button;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 
+import com.mynimef.swiracle.AppLogic.FragmentChanger;
 import com.mynimef.swiracle.AppLogic.Singleton;
-import com.mynimef.swiracle.Interfaces.IFragmentConnector;
 import com.mynimef.swiracle.Interfaces.IPickImage;
 import com.mynimef.swiracle.Interfaces.ISetInfo;
 import com.mynimef.swiracle.R;
+import com.mynimef.swiracle.fragments.NavigationFragment;
+
 
 public class CreateFragment extends Fragment {
-    private FragmentManager fm;
     private boolean pickStage;
     private Button back;
     private Button next;
-    private IFragmentConnector connector;
     private IPickImage pickImage;
     private PickImageFragment pickImageFragment;
     private ISetInfo setInfo;
@@ -32,13 +31,12 @@ public class CreateFragment extends Fragment {
                              ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_create, container, false);
 
-        fm = getChildFragmentManager();
-        connector = (IFragmentConnector) getContext();
         pickStage = true;
 
         pickImageFragment = new PickImageFragment();
         pickImage = (IPickImage) pickImageFragment;
-        replaceFragment(pickImageFragment);
+        FragmentChanger.replaceFragment(getChildFragmentManager(),
+                R.id.createFrameView, pickImageFragment);
 
         setInfoFragment = new SetInfoFragment();
         setInfo = (ISetInfo) setInfoFragment;
@@ -48,10 +46,12 @@ public class CreateFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 if (pickStage) {
-                    connector.replaceFragmentBack();
+                    FragmentChanger.replaceFragment(requireActivity().getSupportFragmentManager(),
+                            R.id.mainFragment, new NavigationFragment());
                 }
                 else {
-                    replaceFragment(pickImageFragment);
+                    FragmentChanger.replaceFragment(getChildFragmentManager(),
+                            R.id.createFrameView, pickImageFragment);
                     pickStage = true;
                     next.setText(R.string.next);
                 }
@@ -63,7 +63,9 @@ public class CreateFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 if (pickStage) {
-                    replaceFragment(setInfoFragment);
+                    FragmentChanger.replaceFragment(getChildFragmentManager(),
+                            R.id.createFrameView,
+                            setInfoFragment);
                     pickStage = false;
                     next.setText(R.string.share);
                 }
@@ -71,18 +73,12 @@ public class CreateFragment extends Fragment {
                     Singleton.getInstance().setPostInfo(setInfo.getTitle(),
                             setInfo.getDescription(),
                             pickImage.getPickedUri(), getContext());
-                    connector.replaceFragmentBack();
+                    FragmentChanger.replaceFragment(requireActivity().getSupportFragmentManager(),
+                            R.id.mainFragment, new NavigationFragment());
                 }
             }
         });
 
         return root;
-    }
-
-    public void replaceFragment(Fragment fragment) {
-        FragmentTransaction ft = fm.beginTransaction();
-        ft.replace(R.id.createFrameView, fragment);
-        ft.addToBackStack(null);
-        ft.commit();
     }
 }

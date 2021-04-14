@@ -46,7 +46,7 @@ public class PostAdapter extends ArrayAdapter<Post> {
         pic.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                fragment.replaceFragment(new PostFragment());
+                //fragment.replaceFragment(new PostFragment());
             }
         });
 
