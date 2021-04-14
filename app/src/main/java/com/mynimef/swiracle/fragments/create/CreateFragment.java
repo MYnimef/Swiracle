@@ -11,13 +11,11 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
-import com.mynimef.swiracle.AppLogic.Post;
 import com.mynimef.swiracle.AppLogic.Singleton;
 import com.mynimef.swiracle.Interfaces.IFragmentConnector;
 import com.mynimef.swiracle.Interfaces.IPickImage;
 import com.mynimef.swiracle.Interfaces.ISetInfo;
 import com.mynimef.swiracle.R;
-import com.mynimef.swiracle.fragments.NavigationFragment;
 
 public class CreateFragment extends Fragment {
     private FragmentManager fm;

@@ -13,6 +13,9 @@ import com.mynimef.swiracle.Interfaces.IFragmentConnector;
 import com.mynimef.swiracle.R;
 import com.mynimef.swiracle.fragments.home.HomeFragment;
 
+import dagger.hilt.android.AndroidEntryPoint;
+
+@AndroidEntryPoint
 public class PostFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {

@@ -14,6 +14,9 @@ import androidx.fragment.app.Fragment;
 import com.mynimef.swiracle.Interfaces.ISetInfo;
 import com.mynimef.swiracle.R;
 
+import dagger.hilt.android.AndroidEntryPoint;
+
+@AndroidEntryPoint
 public class SetInfoFragment extends Fragment implements ISetInfo {
     EditText title;
     EditText description;

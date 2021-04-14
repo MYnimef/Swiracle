@@ -1,4 +1,4 @@
-package com.mynimef.swiracle.fragments.create;
+package com.mynimef.swiracle.AppLogic;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -10,8 +10,6 @@ import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
 import android.provider.MediaStore;
-
-import com.mynimef.swiracle.AppLogic.Singleton;
 
 import java.util.ArrayList;
 
@@ -26,7 +24,8 @@ public class GalleryViewer {
             @Override
             public void handleMessage(Message msg) {
                 super.handleMessage(msg);
-                Singleton.getInstance().setGallery((SerializableGallery) msg.getData().getSerializable("images"));
+                Singleton.getInstance().setGallery((SerializableGallery)
+                        msg.getData().getSerializable("images"));
                 removeCallbacksAndMessages(null);
             }
         };
@@ -54,7 +53,8 @@ public class GalleryViewer {
         Uri uri = android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI;
         String[] projection = { MediaStore.Images.Media._ID,
                 MediaStore.Images.Media.BUCKET_DISPLAY_NAME };
-        @SuppressLint("Recycle") Cursor cursor = activity.getContentResolver().query(uri, projection, null,
+        @SuppressLint("Recycle") Cursor cursor = activity.getContentResolver().query(uri,
+                projection, null,
                 null, null);
 
         ArrayList<Uri> uriList = new ArrayList<>();

@@ -12,8 +12,6 @@ import androidx.annotation.Nullable;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.CustomTarget;
 import com.bumptech.glide.request.transition.Transition;
-import com.mynimef.swiracle.fragments.create.GalleryViewer;
-import com.mynimef.swiracle.fragments.create.SerializableGallery;
 
 import java.util.ArrayList;
 

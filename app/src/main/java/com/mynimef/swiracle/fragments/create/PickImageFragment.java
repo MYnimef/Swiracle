@@ -22,6 +22,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Set;
 
+import dagger.hilt.android.AndroidEntryPoint;
+
+@AndroidEntryPoint
 public class PickImageFragment extends Fragment implements IPickImage {
     private ImageView imageView;
     private ArrayList<Uri> imageUri;

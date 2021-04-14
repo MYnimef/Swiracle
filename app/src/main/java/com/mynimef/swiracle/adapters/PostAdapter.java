@@ -17,7 +17,6 @@ import com.mynimef.swiracle.AppLogic.PostList;
 import com.mynimef.swiracle.R;
 
 public class PostAdapter extends ArrayAdapter<Post> {
-    private int i = 0;
     private final NavigationFragment fragment;
 
     public PostAdapter(Context context, PostList list, Fragment fragment) {

@@ -7,12 +7,14 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.mynimef.swiracle.AppLogic.Singleton;
 
+import dagger.hilt.android.AndroidEntryPoint;
+
+@AndroidEntryPoint
 public class SplashActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Singleton.getInstance();
 
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);

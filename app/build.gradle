@@ -2,6 +2,9 @@ plugins {
     id 'com.android.application'
 }
 
+apply plugin: 'com.android.application'
+apply plugin: 'dagger.hilt.android.plugin'
+
 android {
     compileSdkVersion 30
     buildToolsVersion "30.0.2"
@@ -43,4 +46,7 @@ dependencies {
 
     implementation 'com.github.bumptech.glide:glide:4.12.0'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.12.0'
+
+    implementation 'com.google.dagger:hilt-android:2.34.1-beta'
+    annotationProcessor 'com.google.dagger:hilt-compiler:2.34.1-beta'
 }
