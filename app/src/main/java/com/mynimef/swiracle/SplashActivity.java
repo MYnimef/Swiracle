@@ -12,7 +12,7 @@ public class SplashActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Singleton list = Singleton.getInstance();
+        Singleton.getInstance();
 
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);

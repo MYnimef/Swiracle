@@ -1,4 +1,4 @@
-package com.mynimef.swiracle.fragments.create;
+package com.mynimef.swiracle.adapters;
 
 import android.content.Context;
 import android.net.Uri;
@@ -13,6 +13,7 @@ import androidx.core.content.ContextCompat;
 
 import com.bumptech.glide.Glide;
 import com.mynimef.swiracle.R;
+import com.mynimef.swiracle.fragments.create.PickImageFragment;
 
 import java.util.ArrayList;
 

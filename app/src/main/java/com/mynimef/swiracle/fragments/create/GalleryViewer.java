@@ -1,20 +1,18 @@
 package com.mynimef.swiracle.fragments.create;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.ContentUris;
 import android.database.Cursor;
-import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
 import android.provider.MediaStore;
-import android.util.Size;
 
 import com.mynimef.swiracle.AppLogic.Singleton;
 
-import java.io.IOException;
 import java.util.ArrayList;
 
 public class GalleryViewer {
@@ -53,13 +51,13 @@ public class GalleryViewer {
     }
 
     private SerializableGallery getImagesPath() {
-        Uri uri = android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI;;
+        Uri uri = android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI;
         String[] projection = { MediaStore.Images.Media._ID,
                 MediaStore.Images.Media.BUCKET_DISPLAY_NAME };
-        Cursor cursor = activity.getContentResolver().query(uri, projection, null,
+        @SuppressLint("Recycle") Cursor cursor = activity.getContentResolver().query(uri, projection, null,
                 null, null);
 
-        ArrayList<Uri> uriList = new ArrayList<Uri>();
+        ArrayList<Uri> uriList = new ArrayList<>();
         int idColumn = cursor.getColumnIndexOrThrow(MediaStore.Images.Media._ID);
         while (cursor.moveToNext()) {
             long id = cursor.getLong(idColumn);

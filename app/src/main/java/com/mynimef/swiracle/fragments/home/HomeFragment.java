@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment;
 
 import com.mynimef.swiracle.R;
 import com.mynimef.swiracle.AppLogic.Singleton;
+import com.mynimef.swiracle.adapters.PostAdapter;
 
 public class HomeFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater,
