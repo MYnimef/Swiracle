@@ -27,7 +27,7 @@ public class SetInfoFragment extends Fragment implements ISetInfo {
     private EditText description;
     private ArrayList<ClothesElement> clothes;
     private Fragment fragment;
-    ClothesElementAdapter adapter;
+    private ClothesElementAdapter adapter;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -72,5 +72,10 @@ public class SetInfoFragment extends Fragment implements ISetInfo {
     public void addClothes(String name, String description, String price, String url) {
         clothes.add(new ClothesElement(name, description, price, url));
         adapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public ArrayList<ClothesElement> getClothes() {
+        return clothes;
     }
 }

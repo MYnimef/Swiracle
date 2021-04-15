@@ -16,7 +16,7 @@ import org.jsoup.select.Elements;
 import java.io.IOException;
 
 public class ParseClothes {
-    private Handler handler;
+    private final Handler handler;
 
     public ParseClothes(String url, Fragment fragment) {
         this.handler = new Handler(Looper.getMainLooper()) {
@@ -45,7 +45,7 @@ public class ParseClothes {
     }
 
     private class AnotherRunnable implements Runnable {
-        private String url;
+        private final String url;
 
         public AnotherRunnable(String url){
             this.url = url;
@@ -61,13 +61,33 @@ public class ParseClothes {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            Elements els = html.select(".item__specifications h1 a");
-            Elements els1 = html.select(".item__specifications h1 span");
-            Elements els2 = html.select("item-price");
-            String name = els.text();
-            String description = els1.text();
-            String price = els2.text();
-            publishProgress(name, description, price);
+            Elements name = null, description = null, price = null;
+            if (url.contains("tsum.ru")) {
+                name = html.select(".item__specifications h1 a");
+                description = html.select(".item__specifications h1 span");
+                price = html.select("item-price");
+            }
+            else if (url.contains("lamoda.ru")) {
+                name = html.select(".product-title-wrapper h1");
+                description = html.select(".product-title-wrapper h1 span");
+                price = html.select("vue-widget");
+            }
+            else if (url.contains("wildberries.ru")) {
+                name = html.select(".brand-and-name j-product-title span brand");
+                description = html.select(".brand-and-name j-product-title span name");
+                price = html.select("final-price-block span");
+            }
+            else if (url.contains("gloria-jeans.ru")) {
+                name = html.select(".basic-info js-block-for-shield h1");
+                description = html.select(".basic-info js-block-for-shield h1");
+                price = html.select("wrapper-price js-base-price");
+            }
+            else if (url.contains("dsquared2.com")) {
+                name = html.select(".infoCta-wrapper h1");
+                description = html.select(".product-title-wrapper h1 span");
+                price = html.select("itemPrice span");
+            }
+            publishProgress(name.text(), description.text(), price.text());
         }
     }
 }
