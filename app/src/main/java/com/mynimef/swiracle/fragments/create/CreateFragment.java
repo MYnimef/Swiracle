@@ -18,6 +18,7 @@ import com.mynimef.swiracle.Interfaces.IPickImage;
 import com.mynimef.swiracle.Interfaces.ISetInfo;
 import com.mynimef.swiracle.R;
 import com.mynimef.swiracle.fragments.pickImage.PickImageFragment;
+import com.mynimef.swiracle.fragments.setClothesElements.SetClothesElementsFragment;
 import com.mynimef.swiracle.fragments.setInfo.SetInfoFragment;
 
 import dagger.hilt.android.AndroidEntryPoint;
@@ -25,8 +26,10 @@ import dagger.hilt.android.AndroidEntryPoint;
 @AndroidEntryPoint
 public class CreateFragment extends Fragment {
     private boolean pickStage;
+    private boolean setElementsStage;
     private final Fragment parentFragment;
     private PickImageFragment pickImageFragment;
+    private SetClothesElementsFragment setClothesElementsFragment;
     private SetInfoFragment setInfoFragment;
     private CreateViewModel createViewModel;
 
@@ -38,6 +41,7 @@ public class CreateFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         pickImageFragment = new PickImageFragment();
+        setClothesElementsFragment = new SetClothesElementsFragment();
         setInfoFragment = new SetInfoFragment();
     }
 
@@ -46,6 +50,8 @@ public class CreateFragment extends Fragment {
         createViewModel = new ViewModelProvider(this).get(CreateViewModel.class);
         View root = inflater.inflate(R.layout.fragment_create, container, false);
         pickStage = true;
+        setElementsStage = false;
+
         FragmentChanger.replaceFragment(getChildFragmentManager(),
                 R.id.createFrameView, pickImageFragment);
 
@@ -70,10 +76,16 @@ public class CreateFragment extends Fragment {
                     FragmentChanger.replaceFragment(requireActivity().getSupportFragmentManager(),
                             R.id.mainFragment, parentFragment);
                 }
+                else if (setElementsStage) {
+                    FragmentChanger.replaceFragment(getChildFragmentManager(),
+                        R.id.createFrameView, pickImageFragment);
+                    setElementsStage = false;
+                    pickStage = true;
+                }
                 else {
                     FragmentChanger.replaceFragment(getChildFragmentManager(),
-                            R.id.createFrameView, pickImageFragment);
-                    pickStage = true;
+                            R.id.createFrameView, setClothesElementsFragment);
+                    setElementsStage = true;
                     createViewModel.setText(getResources().getString(R.string.next));
                 }
             }
@@ -85,8 +97,16 @@ public class CreateFragment extends Fragment {
                 if (pickStage) {
                     FragmentChanger.replaceFragment(getChildFragmentManager(),
                             R.id.createFrameView,
-                            setInfoFragment);
+                            setClothesElementsFragment);
                     pickStage = false;
+                    setElementsStage = true;
+
+                }
+                else if (setElementsStage) {
+                    FragmentChanger.replaceFragment(getChildFragmentManager(),
+                            R.id.createFrameView,
+                            setInfoFragment);
+                    setElementsStage = false;
                     createViewModel.setText(getResources().getString(R.string.share));
                 }
                 else {

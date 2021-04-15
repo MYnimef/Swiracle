@@ -7,6 +7,7 @@ import android.os.Message;
 
 import androidx.fragment.app.Fragment;
 
+import com.mynimef.swiracle.Interfaces.ISetClothesElements;
 import com.mynimef.swiracle.Interfaces.ISetInfo;
 
 import org.jsoup.Jsoup;
@@ -23,7 +24,7 @@ public class ParseClothes {
             @Override
             public void handleMessage(Message msg) {
                 super.handleMessage(msg);
-                ISetInfo connector = (ISetInfo) fragment;
+                ISetClothesElements connector = (ISetClothesElements) fragment;
                 connector.addClothes(msg.getData().getString("name"),
                         msg.getData().getString("description"),
                         msg.getData().getString("price"), url);
@@ -68,9 +69,9 @@ public class ParseClothes {
                 price = html.select("item-price");
             }
             else if (url.contains("lamoda.ru")) {
-                name = html.select(".product-title-wrapper h1");
-                description = html.select(".product-title-wrapper h1 span");
-                price = html.select("vue-widget");
+                name = html.select(".product-title-wrapper a");
+                description = html.select(".product-title-wrapper span");
+                price = html.select("vue-widget span span");
             }
             else if (url.contains("wildberries.ru")) {
                 name = html.select(".brand-and-name j-product-title span brand");
