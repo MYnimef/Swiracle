@@ -17,12 +17,12 @@ import com.mynimef.swiracle.fragments.create.PickImageFragment;
 
 import java.util.ArrayList;
 
-public class ImageAdapter extends ArrayAdapter<Uri> {
+public class ImageAdapter extends ArrayAdapter<String> {
     private int selectedId;
     private final boolean[] selectedField;
     private final PickImageFragment fragment;
 
-    public ImageAdapter(Context context, ArrayList<Uri> images, PickImageFragment fragment) {
+    public ImageAdapter(Context context, ArrayList<String> images, PickImageFragment fragment) {
         super(context, R.layout.adapter_post, images);
         selectedField = new boolean[images.size()];
         selectedId = 0;
@@ -32,7 +32,7 @@ public class ImageAdapter extends ArrayAdapter<Uri> {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        final Uri uri = getItem(position);
+        final String uri = getItem(position);
 
         if (convertView == null) {
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.adapter_image,

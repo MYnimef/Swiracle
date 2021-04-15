@@ -19,24 +19,21 @@ public class GalleryViewer {
 
     public GalleryViewer(Activity activity) {
         this.activity = activity;
-
         this.handler = new Handler(Looper.getMainLooper()) {   //создание хэндлера
             @Override
             public void handleMessage(Message msg) {
                 super.handleMessage(msg);
-                Singleton.getInstance().setGallery((SerializableGallery)
-                        msg.getData().getSerializable("images"));
+                Singleton.getInstance().setGallery(msg.getData().getStringArrayList("images"));
                 removeCallbacksAndMessages(null);
             }
         };
-
         Thread th = new Thread(new GalleryRunnable());
         th.start();
     }
 
-    private void publishProgress(SerializableGallery images) {
+    private void publishProgress(ArrayList<String> images) {
         Bundle bundle = new Bundle();
-        bundle.putSerializable("images", images);
+        bundle.putStringArrayList("images", images);
         Message message = new Message();
         message.setData(bundle);
         handler.sendMessage(message);
@@ -49,7 +46,7 @@ public class GalleryViewer {
         }
     }
 
-    private SerializableGallery getImagesPath() {
+    private ArrayList<String> getImagesPath() {
         Uri uri = android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI;
         String[] projection = { MediaStore.Images.Media._ID,
                 MediaStore.Images.Media.BUCKET_DISPLAY_NAME };
@@ -57,15 +54,15 @@ public class GalleryViewer {
                 projection, null,
                 null, null);
 
-        ArrayList<Uri> uriList = new ArrayList<>();
+        ArrayList<String> uriList = new ArrayList<>();
         int idColumn = cursor.getColumnIndexOrThrow(MediaStore.Images.Media._ID);
         while (cursor.moveToNext()) {
             long id = cursor.getLong(idColumn);
             Uri contentUri = ContentUris.withAppendedId(
                     MediaStore.Images.Media.EXTERNAL_CONTENT_URI, id);
-            uriList.add(contentUri);
+            uriList.add(String.valueOf(contentUri));
         }
 
-        return new SerializableGallery(uriList);
+        return uriList;
     }
 }

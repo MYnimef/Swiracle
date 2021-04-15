@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
-import android.net.Uri;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -19,29 +18,29 @@ public class Singleton {
     private static Singleton instance;
     private PostList recommendationList;
     private PostList userList;
-    private SerializableGallery gallery;
-
-    private Singleton() {
-        initialiseRecommendationList();
-    }
-
-    public void initialiseGallery(Activity activity) {
-        GalleryViewer galleryViewer = new GalleryViewer(activity);
-    }
-
-    public void setGallery(SerializableGallery gallery) {
-        this.gallery = gallery;
-    }
-
-    public SerializableGallery getGallery() {
-        return gallery;
-    }
+    private ArrayList<String> gallery;
 
     public static Singleton getInstance() {
         if (Singleton.instance == null) {
             Singleton.instance = new Singleton();
         }
         return Singleton.instance;
+    }
+
+    private Singleton() {
+        initialiseRecommendationList();
+    }
+
+    public void initialiseGallery(Activity activity) {
+        new GalleryViewer(activity);
+    }
+
+    public void setGallery(ArrayList<String> gallery) {
+        this.gallery = gallery;
+    }
+
+    public ArrayList<String> getGallery() {
+        return this.gallery;
     }
 
     private void initialiseRecommendationList() {
@@ -53,7 +52,7 @@ public class Singleton {
         return recommendationList;
     }
 
-    public void setPostInfo(String title, String description, ArrayList<Uri> uris, Context context) {
+    public void setPostInfo(String title, String description, ArrayList<String> uris, Context context) {
         Thread thread = new Thread(new LoadBitmapRunnable(title, description, uris, context));
         thread.start();
     }
@@ -72,11 +71,11 @@ public class Singleton {
     class LoadBitmapRunnable implements Runnable {
         private String title;
         private String description;
-        private ArrayList<Uri> uris;
+        private ArrayList<String> uris;
         private Context context;
         private ArrayList<Bitmap> bitmaps;
 
-        public LoadBitmapRunnable(String title, String description, ArrayList<Uri> uris, Context context) {
+        public LoadBitmapRunnable(String title, String description, ArrayList<String> uris, Context context) {
             this.title = title;
             this.description = description;
             this.uris = uris;

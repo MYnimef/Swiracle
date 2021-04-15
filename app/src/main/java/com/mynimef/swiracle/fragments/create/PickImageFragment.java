@@ -1,6 +1,5 @@
 package com.mynimef.swiracle.fragments.create;
 
-import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -27,14 +26,14 @@ import dagger.hilt.android.AndroidEntryPoint;
 @AndroidEntryPoint
 public class PickImageFragment extends Fragment implements IPickImage {
     private ImageView imageView;
-    private ArrayList<Uri> imageUri;
-    private HashMap<Integer, Uri> pickedUri;
+    private ArrayList<String> imageUri;
+    private HashMap<Integer, String> pickedUri;
     private boolean multiple;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_pick_image, container, false);
-        imageUri = Singleton.getInstance().getGallery().getImagesUriList();
+        imageUri = Singleton.getInstance().getGallery();
         pickedUri = new HashMap<>();
 
         multiple = false;
@@ -77,8 +76,8 @@ public class PickImageFragment extends Fragment implements IPickImage {
     }
 
     @Override
-    public ArrayList<Uri> getPickedUri() {
-        ArrayList<Uri> result = new ArrayList<Uri>();
+    public ArrayList<String> getPickedUri() {
+        ArrayList<String> result = new ArrayList<>();
         Set<Integer> key = pickedUri.keySet();
         for (int i : key) {
             result.add(pickedUri.get(i));
