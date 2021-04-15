@@ -1,4 +1,4 @@
-package com.mynimef.swiracle.fragments.create;
+package com.mynimef.swiracle.fragments.pickImage;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;

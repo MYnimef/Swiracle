@@ -1,4 +1,4 @@
-package com.mynimef.swiracle.fragments.create;
+package com.mynimef.swiracle.fragments.setInfo;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -18,8 +18,8 @@ import dagger.hilt.android.AndroidEntryPoint;
 
 @AndroidEntryPoint
 public class SetInfoFragment extends Fragment implements ISetInfo {
-    EditText title;
-    EditText description;
+    private EditText title;
+    private EditText description;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {

@@ -7,8 +7,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.mynimef.swiracle.AppLogic.FragmentChanger;
@@ -26,17 +26,22 @@ public class NavigationFragment extends Fragment {
     private ProfileFragment profileFragment;
     private CreateFragment createFragment;
 
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        homeFragment = new HomeFragment();
+        searchFragment = new SearchFragment();
+        notificationsFragment = new NotificationsFragment();
+        profileFragment = new ProfileFragment();
+        createFragment = new CreateFragment(this);
+    }
+
+    @Override
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_navigation, container, false);
 
         BottomNavigationView navView = root.findViewById(R.id.nav_view);
-
-        homeFragment = new HomeFragment();
-        searchFragment = new SearchFragment();
-        notificationsFragment = new NotificationsFragment();
-        profileFragment = new ProfileFragment();
-        createFragment = new CreateFragment();
 
         navView.setOnNavigationItemSelectedListener(
                 new BottomNavigationView.OnNavigationItemSelectedListener() {
