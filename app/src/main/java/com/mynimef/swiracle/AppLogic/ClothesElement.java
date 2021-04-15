@@ -1,14 +1,12 @@
 package com.mynimef.swiracle.AppLogic;
 
-import java.net.URL;
-
 public class ClothesElement {
     private String title;
     private String brand;
     private String price;
-    private URL url;
+    private String url;
 
-    public ClothesElement(String title, String brand, String price, URL url) {
+    public ClothesElement(String title, String brand, String price, String url) {
         this.title = title;
         this.brand = brand;
         this.price = price;
@@ -27,7 +25,7 @@ public class ClothesElement {
         return price;
     }
 
-    public URL getUrl() {
+    public String getUrl() {
         return url;
     }
 }

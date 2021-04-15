@@ -38,7 +38,10 @@ public class ImageAdapter extends ArrayAdapter<String> {
         }
 
         ImageView pic = (ImageView) convertView.findViewById(R.id.imageView);
-        Glide.with(fragment).load(uri).into(pic);
+        Glide
+                .with(fragment)
+                .load(uri)
+                .into(pic);
 
         if (selectedField[position]) {
             pic.setForeground(ContextCompat.getDrawable(getContext(),
