@@ -8,9 +8,11 @@ public class Post {
     private final String title;
     private final String description;
     private int likes, comments;
-    private final ArrayList<Bitmap> images;
+    //private final ArrayList<Bitmap> images;
+    private final ArrayList<String> images;
 
-    public Post(String title, String description, ArrayList<Bitmap> images) {
+    //public Post(String title, String description, ArrayList<Bitmap> images) {
+    public Post(String title, String description, ArrayList<ClothesElement> clothes, ArrayList<String> images) {
         this.title = title;
         this.description = description;
         this.images = images;
@@ -42,7 +44,13 @@ public class Post {
         comments++;
     }
 
+    /*
     public ArrayList<Bitmap> getImages() {
+        return images;
+    }
+    */
+
+    public ArrayList<String> getImages() {
         return images;
     }
 }

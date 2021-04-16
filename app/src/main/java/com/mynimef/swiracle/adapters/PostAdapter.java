@@ -10,6 +10,7 @@ import android.widget.ImageView;
 
 import androidx.fragment.app.Fragment;
 
+import com.bumptech.glide.Glide;
 import com.mynimef.swiracle.AppLogic.Post;
 import com.mynimef.swiracle.fragments.NavigationFragment;
 import com.mynimef.swiracle.fragments.post.PostFragment;
@@ -41,7 +42,11 @@ public class PostAdapter extends ArrayAdapter<Post> {
         });
 
         ImageView pic = convertView.findViewById(R.id.imageView);
-        pic.setImageBitmap(post.getImages().get(0));
+        //pic.setImageBitmap(post.getImages().get(0));
+        Glide
+                .with(fragment)
+                .load(post.getImages().get(0))
+                .into(pic);
         pic.setClipToOutline(true);
         pic.setOnClickListener(new View.OnClickListener() {
             @Override

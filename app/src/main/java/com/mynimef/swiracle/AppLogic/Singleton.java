@@ -52,9 +52,10 @@ public class Singleton {
         return recommendationList;
     }
 
-    public void setPostInfo(String title, String description, ArrayList<String> uris, Context context) {
-        Thread thread = new Thread(new LoadBitmapRunnable(title, description, uris, context));
-        thread.start();
+    public void setPostInfo(String title, String description, ArrayList<ClothesElement> clothes, ArrayList<String> uris, Context context) {
+        addToList(new Post(title, description, clothes, uris));
+        //Thread thread = new Thread(new LoadBitmapRunnable(title, description, uris, context));
+        //thread.start();
     }
 
     public void addToList(Post post) {
@@ -68,6 +69,7 @@ public class Singleton {
         }
     }
 
+    /*
     class LoadBitmapRunnable implements Runnable {
         private String title;
         private String description;
@@ -112,4 +114,5 @@ public class Singleton {
             addToList(new Post(title, description, bitmaps));
         }
     }
+    */
 }

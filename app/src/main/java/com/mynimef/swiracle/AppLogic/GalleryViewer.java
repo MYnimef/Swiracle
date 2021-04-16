@@ -31,38 +31,38 @@ public class GalleryViewer {
         th.start();
     }
 
-    private void publishProgress(ArrayList<String> images) {
-        Bundle bundle = new Bundle();
-        bundle.putStringArrayList("images", images);
-        Message message = new Message();
-        message.setData(bundle);
-        handler.sendMessage(message);
-    }
-
     class GalleryRunnable implements Runnable {
         @Override
         public void run() {
             publishProgress(getImagesPath());
         }
-    }
 
-    private ArrayList<String> getImagesPath() {
-        Uri uri = android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI;
-        String[] projection = { MediaStore.Images.Media._ID,
-                MediaStore.Images.Media.BUCKET_DISPLAY_NAME };
-        @SuppressLint("Recycle") Cursor cursor = activity.getContentResolver().query(uri,
-                projection, null,
-                null, MediaStore.Images.Media.DATE_TAKEN + " DESC");
-
-        ArrayList<String> uriList = new ArrayList<>();
-        int idColumn = cursor.getColumnIndexOrThrow(MediaStore.Images.Media._ID);
-        while (cursor.moveToNext()) {
-            long id = cursor.getLong(idColumn);
-            Uri contentUri = ContentUris.withAppendedId(
-                    MediaStore.Images.Media.EXTERNAL_CONTENT_URI, id);
-            uriList.add(String.valueOf(contentUri));
+        private void publishProgress(ArrayList<String> images) {
+            Bundle bundle = new Bundle();
+            bundle.putStringArrayList("images", images);
+            Message message = new Message();
+            message.setData(bundle);
+            handler.sendMessage(message);
         }
 
-        return uriList;
+        private ArrayList<String> getImagesPath() {
+            Uri uri = android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI;
+            String[] projection = { MediaStore.Images.Media._ID,
+                    MediaStore.Images.Media.BUCKET_DISPLAY_NAME };
+            @SuppressLint("Recycle") Cursor cursor = activity.getContentResolver().query(uri,
+                    projection, null,
+                    null, MediaStore.Images.Media.DATE_TAKEN + " DESC");
+
+            ArrayList<String> uriList = new ArrayList<>();
+            int idColumn = cursor.getColumnIndexOrThrow(MediaStore.Images.Media._ID);
+            while (cursor.moveToNext()) {
+                long id = cursor.getLong(idColumn);
+                Uri contentUri = ContentUris.withAppendedId(
+                        MediaStore.Images.Media.EXTERNAL_CONTENT_URI, id);
+                uriList.add(String.valueOf(contentUri));
+            }
+
+            return uriList;
+        }
     }
 }
