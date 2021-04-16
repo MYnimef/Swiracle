@@ -19,7 +19,7 @@ public class GalleryViewer {
 
     public GalleryViewer(Activity activity) {
         this.activity = activity;
-        this.handler = new Handler(Looper.getMainLooper()) {   //создание хэндлера
+        this.handler = new Handler(Looper.getMainLooper()) {
             @Override
             public void handleMessage(Message msg) {
                 super.handleMessage(msg);
@@ -31,7 +31,7 @@ public class GalleryViewer {
         th.start();
     }
 
-    class GalleryRunnable implements Runnable {
+    private class GalleryRunnable implements Runnable {
         @Override
         public void run() {
             publishProgress(getImagesPath());
