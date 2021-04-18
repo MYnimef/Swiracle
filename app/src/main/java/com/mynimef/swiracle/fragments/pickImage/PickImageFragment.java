@@ -10,6 +10,9 @@ import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.mynimef.swiracle.AppLogic.Singleton;
@@ -50,10 +53,13 @@ public class PickImageFragment extends Fragment implements IPickImage {
         if (!imageUri.isEmpty()) {
             setImageView(0);
             addToPicked(0);
-            GridView gridView = root.findViewById(R.id.galleryGridView);
-            ImageAdapter adapter = new ImageAdapter(root.getContext(), imageUri,
+            RecyclerView rv = root.findViewById(R.id.galleryRecyclerView);
+            GridLayoutManager mLayoutManager = new GridLayoutManager(getActivity(), 4);
+            rv.setLayoutManager(mLayoutManager);
+
+            ImageAdapter adapter = new ImageAdapter(imageUri,
                     this);
-            gridView.setAdapter(adapter);
+            rv.setAdapter(adapter);
         }
 
         return root;

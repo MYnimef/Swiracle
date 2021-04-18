@@ -24,7 +24,7 @@ public class HomeFragment extends Fragment {
 
         RecyclerView rv = (RecyclerView) root.findViewById(R.id.recycler_view);
 
-        LinearLayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
+        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
         rv.setLayoutManager(mLayoutManager);
 
         PostAdapter adapter = new PostAdapter(Singleton.getInstance()

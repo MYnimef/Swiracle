@@ -1,77 +1,94 @@
 package com.mynimef.swiracle.adapters;
 
-import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 
 import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.mynimef.swiracle.R;
 import com.mynimef.swiracle.fragments.pickImage.PickImageFragment;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.ArrayList;
 
-public class ImageAdapter extends ArrayAdapter<String> {
+public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.GalleryView> {
+    private final ArrayList<String> imagesList;
     private int selectedId;
     private final boolean[] selectedField;
     private final PickImageFragment fragment;
 
-    public ImageAdapter(Context context, ArrayList<String> images, PickImageFragment fragment) {
-        super(context, R.layout.adapter_post, images);
-        selectedField = new boolean[images.size()];
-        selectedId = 0;
-        selectedField[selectedId] = true;
+    public ImageAdapter(ArrayList<String> imagesList, PickImageFragment fragment) {
+        this.imagesList = imagesList;
         this.fragment = fragment;
+        this.selectedField = new boolean[imagesList.size()];
+        this.selectedId = 0;
+        this.selectedField[selectedId] = true;
+    }
+
+    @NotNull
+    @Override
+    public GalleryView onCreateViewHolder(ViewGroup viewGroup, int viewType) {
+        View view = LayoutInflater.from(viewGroup.getContext())
+                .inflate(R.layout.adapter_image, viewGroup, false);
+
+        return new GalleryView(view);
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
-        final String uri = getItem(position);
+    public void onBindViewHolder(GalleryView galleryView, final int position) {
+        String image = imagesList.get(position);
+        ImageView pic = galleryView.getPic();
 
-        if (convertView == null) {
-            convertView = LayoutInflater.from(getContext()).inflate(R.layout.adapter_image,
-                    null);
-        }
-
-        ImageView pic = (ImageView) convertView.findViewById(R.id.imageView);
         Glide
                 .with(fragment)
-                .load(uri)
+                .load(image)
                 .into(pic);
 
+        pic.setOnClickListener(v -> {
+            if (!selectedField[position]) {
+                selectedField[position] = true;
+                fragment.setImageView(position);
+                fragment.addToPicked(position);
+                if (!fragment.getMultiple()) {
+                    selectedField[selectedId] = false;
+                    fragment.removeFromPicked(selectedId);
+                    selectedId = position;
+                    notifyDataSetChanged();
+                }
+            } else {
+                selectedField[position] = false;
+                pic.setForeground(null);
+            }
+        });
+
         if (selectedField[position]) {
-            pic.setForeground(ContextCompat.getDrawable(getContext(),
+            pic.setForeground(ContextCompat.getDrawable(fragment.getContext(),
                     R.drawable.foreground_image));
         } else {
             pic.setForeground(null);
         }
+    }
 
-        pic.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (!selectedField[position]) {
-                    selectedField[position] = true;
-                    pic.setForeground(ContextCompat.getDrawable(getContext(),
-                            R.drawable.foreground_image));
-                    fragment.setImageView(position);
-                    fragment.addToPicked(position);
-                    if (!fragment.getMultiple()) {
-                        selectedField[selectedId] = false;
-                        fragment.removeFromPicked(selectedId);
-                        selectedId = position;
-                        notifyDataSetChanged();
-                    }
-                } else {
-                    selectedField[position] = false;
-                    pic.setForeground(null);
-                }
-            }
-        });
+    @Override
+    public int getItemCount() {
+        return imagesList.size();
+    }
 
-        return convertView;
+    static class GalleryView extends RecyclerView.ViewHolder {
+        private final ImageView pic;
+
+        public GalleryView(View view) {
+            super(view);
+            pic = view.findViewById(R.id.imageView);
+        }
+
+        public ImageView getPic() {
+            return pic;
+        }
     }
 }

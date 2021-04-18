@@ -17,47 +17,77 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 
-public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
-
+public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostView> {
     private final ArrayList<Post> postList;
     private final Fragment fragment;
 
-    public static class ViewHolder extends RecyclerView.ViewHolder {
+    public PostAdapter(ArrayList<Post> list, Fragment fragment) {
+        this.postList = list;
+        this.fragment = fragment;
+    }
+
+    @NotNull
+    @Override
+    public PostView onCreateViewHolder(ViewGroup viewGroup, int viewType) {
+        View view = LayoutInflater.from(viewGroup.getContext())
+                .inflate(R.layout.adapter_post, viewGroup, false);
+
+        return new PostView(view);
+    }
+
+    @Override
+    public void onBindViewHolder(PostView postView, final int position) {
+        Post post = postList.get(position);
+
+        postView.getTitle().setText(post.getTitle());
+        postView.getTitle().setOnClickListener(v -> {
+        });
+
+        Glide
+                .with(fragment)
+                .load(post.getImages().get(0))
+                .into(postView.getPic());
+        postView.getPic().setOnClickListener(v -> {
+            //fragment.replaceFragment(new PostFragment());
+        });
+
+        postView.getDescription().setText(post.getDescription());
+        postView.getDescription().setOnClickListener(v -> {
+        });
+
+        postView.getLikes().setText(String.valueOf(post.getLikes()));
+        postView.getLikes().setOnClickListener(v -> {
+            post.increaseLikes();
+            //likes.setText(postList.getLikes() + "");
+        });
+
+        postView.getComments().setText(String.valueOf(post.getComments()));
+        postView.getComments().setOnClickListener(v -> {
+            post.increaseComments();
+            //comments.setText(postList.getComments() + "");
+        });
+    }
+
+    @Override
+    public int getItemCount() {
+        return postList.size();
+    }
+
+    static class PostView extends RecyclerView.ViewHolder {
         private final Button title;
         private final ImageView pic;
         private final Button description;
         private final Button likes;
         private final Button comments;
 
-        public ViewHolder(View view) {
+        public PostView(View view) {
             super(view);
-            // Define click listener for the ViewHolder's View
             title = (Button) view.findViewById(R.id.button);
-            title.setOnClickListener(v -> {
-            });
-
             pic = view.findViewById(R.id.imageView);
             pic.setClipToOutline(true);
-            //pic.setImageBitmap(post.getImages().get(0));
-            pic.setOnClickListener(v -> {
-                //fragment.replaceFragment(new PostFragment());
-            });
-
             description = (Button) view.findViewById(R.id.description);
-            description.setOnClickListener(v -> {
-            });
-
             likes = (Button) view.findViewById(R.id.likes);
-            likes.setOnClickListener(v -> {
-                //postList.increaseLikes();
-                //likes.setText(postList.getLikes() + "");
-            });
-
             comments = (Button) view.findViewById(R.id.comments);
-            comments.setOnClickListener(v -> {
-                //postList.increaseComments();
-                //comments.setText(postList.getComments() + "");
-            });
         }
 
         public Button getTitle() {
@@ -79,48 +109,5 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
         public Button getComments() {
             return comments;
         }
-    }
-
-    public PostAdapter(ArrayList<Post> list, Fragment fragment) {
-        this.postList = list;
-        this.fragment = fragment;
-    }
-
-    // Create new views (invoked by the layout manager)
-    @NotNull
-    @Override
-    public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
-        // Create a new view, which defines the UI of the list item
-        View view = LayoutInflater.from(viewGroup.getContext())
-                .inflate(R.layout.adapter_post, viewGroup, false);
-
-        return new ViewHolder(view);
-    }
-
-    // Replace the contents of a view (invoked by the layout manager)
-    @Override
-    public void onBindViewHolder(ViewHolder viewHolder, final int position) {
-
-        // Get element from your dataset at this position and replace the
-        // contents of the view with that element
-        //viewHolder.getTextView().setText(localDataSet[position]);
-        viewHolder.getTitle().setText(postList.get(position).getTitle());
-
-        Glide
-                .with(fragment)
-                .load(postList.get(position).getImages().get(0))
-                .into(viewHolder.getPic());
-
-        viewHolder.getDescription().setText(postList.get(position).getDescription());
-
-        viewHolder.getLikes().setText(postList.get(position).getLikes() + "");
-
-        viewHolder.getComments().setText(postList.get(position).getComments() + "");
-
-    }
-
-    @Override
-    public int getItemCount() {
-        return postList.size();
     }
 }
