@@ -63,24 +63,24 @@ public class ParseClothes {
             if (html != null) {
                 if (url.contains("tsum.ru")) {
                     name = html.select(".item__specifications h1 a");
-                    description = html.select(".item__specifications h1 span");
+                    description = html.select(".item__description");
                     price = html.select("item-price");
                 } else if (url.contains("lamoda.ru")) {
-                    name = html.select(".product-title-wrapper a");
-                    description = html.select(".product-title-wrapper span");
-                    price = html.select("vue-widget span span");
+                    name = html.select(".product-title__brand-name");
+                    description = html.select(".product-title__model-name");
+                    price = html.select(".product-prices-root");
                 } else if (url.contains("wildberries.ru")) {
-                    name = html.select(".brand-and-name j-product-title span brand");
-                    description = html.select(".brand-and-name j-product-title span name");
-                    price = html.select("final-price-block span");
+                    name = html.select(".brand");
+                    description = html.select(".name");
+                    price = html.select(".final-cost");
                 } else if (url.contains("gloria-jeans.ru")) {
-                    name = html.select(".basic-info js-block-for-shield h1");
-                    description = html.select(".basic-info js-block-for-shield h1");
-                    price = html.select("wrapper-price js-base-price");
+                    name = html.select(".js-name-product");
+                    description = html.select(".js-name-product");
+                    price = html.select(".js-price-info");
                 } else if (url.contains("dsquared2.com")) {
-                    name = html.select(".infoCta-wrapper h1");
-                    description = html.select(".product-title-wrapper h1 span");
-                    price = html.select("itemPrice span");
+                    name = html.select(".itemAction-title");
+                    description = html.select(".itemAction-title");
+                    price = html.select("priceUpdater");
                 }
             }
             if (name != null && description != null && price != null) {

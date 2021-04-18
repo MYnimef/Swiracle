@@ -47,6 +47,7 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.GalleryView>
         Glide
                 .with(fragment)
                 .load(image)
+                .thumbnail(0.001f)
                 .into(pic);
 
         pic.setOnClickListener(v -> {
@@ -62,12 +63,11 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.GalleryView>
                 }
             } else {
                 selectedField[position] = false;
-                pic.setForeground(null);
             }
         });
 
         if (selectedField[position]) {
-            pic.setForeground(ContextCompat.getDrawable(fragment.getContext(),
+            pic.setForeground(ContextCompat.getDrawable(fragment.requireContext(),
                     R.drawable.foreground_image));
         } else {
             pic.setForeground(null);
