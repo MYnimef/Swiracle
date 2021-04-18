@@ -52,6 +52,9 @@ public class PickImageFragment extends Fragment implements IPickImage {
             setImageView(0);
             addToPicked(0);
             RecyclerView rv = root.findViewById(R.id.galleryRecyclerView);
+            rv.setHasFixedSize(true);
+            rv.setItemViewCacheSize(20);
+
             GridLayoutManager mLayoutManager = new GridLayoutManager(getActivity(), 4);
             rv.setLayoutManager(mLayoutManager);
 

@@ -5,6 +5,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -47,7 +48,7 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.GalleryView>
         Glide
                 .with(fragment)
                 .load(image)
-                .thumbnail(0.001f)
+                .centerInside()
                 .into(pic);
 
         pic.setOnClickListener(v -> {
@@ -72,6 +73,12 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.GalleryView>
         } else {
             pic.setForeground(null);
         }
+    }
+
+    @Override
+    public void onViewRecycled(@NonNull GalleryView holder) {
+        super.onViewRecycled(holder);
+        Glide.with(fragment).clear(holder.getPic());
     }
 
     @Override
