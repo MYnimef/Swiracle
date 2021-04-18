@@ -1,23 +1,54 @@
 package com.mynimef.swiracle.AppLogic;
 
-import android.graphics.Bitmap;
+import androidx.room.Entity;
+import androidx.room.Ignore;
+import androidx.room.PrimaryKey;
+import androidx.room.TypeConverters;
 
 import java.util.ArrayList;
 
+@Entity(tableName = "post_table")
 public class Post {
-    private final String title;
-    private final String description;
-    private int likes, comments;
-    //private final ArrayList<Bitmap> images;
-    private final ArrayList<String> images;
+    @PrimaryKey(autoGenerate = true)
+    private int uid;
 
-    //public Post(String title, String description, ArrayList<Bitmap> images) {
-    public Post(String title, String description, ArrayList<ClothesElement> clothes, ArrayList<String> images) {
+    public int getUid() {
+        return this.uid;
+    }
+
+    public void setUid(int uid) {
+        this.uid = uid;
+    }
+
+    private String title;
+    private String description;
+    private int likes, comments;
+    @TypeConverters(ImagesConverter.class)
+    private Images images;
+
+    public Post(String title, String description, Images images, int likes, int comments) {
+    //public Post(String title, String description, ArrayList<ClothesElement> clothes, ArrayList<String> images) {
         this.title = title;
         this.description = description;
         this.images = images;
         this.likes = 0;
         this.comments = 0;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public void setLikes(int likes) {
+        this.likes = likes;
+    }
+
+    public void setComments(int comments) {
+        this.comments = comments;
     }
 
     public String getTitle() {
@@ -44,13 +75,7 @@ public class Post {
         comments++;
     }
 
-    /*
-    public ArrayList<Bitmap> getImages() {
-        return images;
-    }
-    */
-
-    public ArrayList<String> getImages() {
+    public Images getImages() {
         return images;
     }
 }

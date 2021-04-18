@@ -12,7 +12,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.mynimef.swiracle.AppLogic.FragmentChanger;
-import com.mynimef.swiracle.AppLogic.Singleton;
+import com.mynimef.swiracle.AppLogic.SingletonDatabase;
 import com.mynimef.swiracle.Interfaces.IPickImage;
 import com.mynimef.swiracle.Interfaces.ISetClothesElements;
 import com.mynimef.swiracle.Interfaces.ISetInfo;
@@ -101,7 +101,7 @@ public class CreateFragment extends Fragment {
                 createViewModel.setText(getResources().getString(R.string.share));
             }
             else {
-                Singleton.getInstance().setPostInfo(setInfo.getTitle(),
+                SingletonDatabase.getInstance(getContext()).setPostInfo(setInfo.getTitle(),
                         setInfo.getDescription(),
                         setClothesElements.getClothes(),
                         pickImage.getPickedUri(),

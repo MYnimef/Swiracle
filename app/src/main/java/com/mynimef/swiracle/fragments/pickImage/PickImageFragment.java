@@ -5,17 +5,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.GridView;
 import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.mynimef.swiracle.AppLogic.Singleton;
+import com.mynimef.swiracle.AppLogic.SingletonDatabase;
 import com.mynimef.swiracle.Interfaces.IPickImage;
 import com.mynimef.swiracle.R;
 import com.mynimef.swiracle.adapters.ImageAdapter;
@@ -36,7 +34,7 @@ public class PickImageFragment extends Fragment implements IPickImage {
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_pick_image, container, false);
-        imageUri = Singleton.getInstance().getGallery();
+        imageUri = SingletonDatabase.getInstance(getContext()).getGallery();
         pickedUri = new HashMap<>();
 
         multiple = false;

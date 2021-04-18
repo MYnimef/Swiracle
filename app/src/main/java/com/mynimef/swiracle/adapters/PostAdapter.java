@@ -45,7 +45,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostView> {
 
         Glide
                 .with(fragment)
-                .load(post.getImages().get(0))
+                .load(post.getImages().getImages().get(0))
                 .into(postView.getPic());
         postView.getPic().setOnClickListener(v -> {
             //fragment.replaceFragment(new PostFragment());
