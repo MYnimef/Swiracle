@@ -30,6 +30,7 @@ public class PickImageFragment extends Fragment implements IPickImage {
     private ArrayList<String> imageUri;
     private HashMap<Integer, String> pickedUri;
     private boolean multiple;
+    private ImageAdapter adapter;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -38,12 +39,16 @@ public class PickImageFragment extends Fragment implements IPickImage {
         pickedUri = new HashMap<>();
 
         multiple = false;
-        Button multipleButton = (Button) root.findViewById(R.id.multipleButton);
-        multipleButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //multiple = !multiple;
+        Button multipleButton = root.findViewById(R.id.multipleButton);
+        multipleButton.setOnClickListener(v -> {
+            if (multiple) {
+                int pos = adapter.clearPicked();
+                pickedUri = new HashMap<>();
+                setImageView(pos);
+                addToPicked(pos);
+                adapter.notifyDataSetChanged();
             }
+            multiple = !multiple;
         });
 
         imageView = root.findViewById(R.id.selectedImage);
@@ -54,9 +59,10 @@ public class PickImageFragment extends Fragment implements IPickImage {
         rv.setHasFixedSize(true);
 
         GridLayoutManager mLayoutManager = new GridLayoutManager(getActivity(), 4);
+        mLayoutManager.scrollToPosition(0);
         rv.setLayoutManager(mLayoutManager);
 
-        ImageAdapter adapter = new ImageAdapter(imageUri, this);
+        adapter = new ImageAdapter(imageUri, this);
         rv.setAdapter(adapter);
 
         return root;

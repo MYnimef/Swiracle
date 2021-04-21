@@ -20,7 +20,7 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.GalleryView>
     private final ArrayList<String> imagesList;
     private final PickImageFragment fragment;
     private int selectedId;
-    private final boolean[] selectedField;
+    private boolean[] selectedField;
 
     public ImageAdapter(ArrayList<String> imagesList, PickImageFragment fragment) {
         this.imagesList = imagesList;
@@ -28,6 +28,12 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.GalleryView>
         this.selectedField = new boolean[imagesList.size()];
         this.selectedId = 0;
         this.selectedField[selectedId] = true;
+    }
+
+    public int clearPicked() {
+        selectedField = new boolean[imagesList.size()];
+        this.selectedField[selectedId] = true;
+        return selectedId;
     }
 
     @NotNull
@@ -80,8 +86,8 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.GalleryView>
                         selectedField[selectedId] = false;
                         fragment.removeFromPicked(selectedId);
                         notifyItemChanged(selectedId);
-                        selectedId = position;
                     }
+                    selectedId = position;
                 } else {
                     selectedField[position] = false;
                 }
