@@ -9,7 +9,6 @@
         android:id="@+id/imageView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:background="@drawable/shape_post"
         android:scaleType="centerCrop"
         app:layout_constraintDimensionRatio="4:5"
         app:layout_constraintEnd_toEndOf="parent"

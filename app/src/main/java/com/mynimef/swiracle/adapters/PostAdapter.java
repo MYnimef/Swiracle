@@ -7,11 +7,10 @@ import android.widget.Button;
 
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.PagerSnapHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bumptech.glide.Glide;
 import com.mynimef.swiracle.AppLogic.Post;
-import com.mynimef.swiracle.AppLogic.SingletonDatabase;
 import com.mynimef.swiracle.R;
 
 import org.jetbrains.annotations.NotNull;
@@ -85,10 +84,9 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostView> {
             title = view.findViewById(R.id.button);
 
             recyclerView = view.findViewById(R.id.imageView);
-            recyclerView.setOnClickListener(v -> {
-                //fragment.replaceFragment(new PostFragment());
-            });
             recyclerView.setClipToOutline(true);
+            PagerSnapHelper snapHelper = new PagerSnapHelper();
+            snapHelper.attachToRecyclerView(recyclerView);
 
             description = view.findViewById(R.id.description);
             likes = view.findViewById(R.id.likes);
