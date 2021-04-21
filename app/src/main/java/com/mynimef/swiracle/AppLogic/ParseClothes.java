@@ -80,7 +80,7 @@ public class ParseClothes {
                 } else if (url.contains("dsquared2.com")) {
                     name = html.select(".itemAction-title");
                     description = html.select(".itemAction-title");
-                    price = html.select("priceUpdater");
+                    price = html.select(".priceUpdater");
                 }
             }
             if (name != null && description != null && price != null) {

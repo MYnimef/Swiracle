@@ -48,20 +48,16 @@ public class PickImageFragment extends Fragment implements IPickImage {
 
         imageView = root.findViewById(R.id.selectedImage);
 
-        if (!imageUri.isEmpty()) {
-            setImageView(0);
-            addToPicked(0);
-            RecyclerView rv = root.findViewById(R.id.galleryRecyclerView);
-            rv.setHasFixedSize(true);
-            rv.setItemViewCacheSize(20);
+        setImageView(0);
+        addToPicked(0);
+        RecyclerView rv = root.findViewById(R.id.galleryRecyclerView);
+        rv.setHasFixedSize(true);
 
-            GridLayoutManager mLayoutManager = new GridLayoutManager(getActivity(), 4);
-            rv.setLayoutManager(mLayoutManager);
+        GridLayoutManager mLayoutManager = new GridLayoutManager(getActivity(), 4);
+        rv.setLayoutManager(mLayoutManager);
 
-            ImageAdapter adapter = new ImageAdapter(imageUri,
-                    this);
-            rv.setAdapter(adapter);
-        }
+        ImageAdapter adapter = new ImageAdapter(imageUri, this);
+        rv.setAdapter(adapter);
 
         return root;
     }
@@ -71,7 +67,9 @@ public class PickImageFragment extends Fragment implements IPickImage {
     }
 
     public void setImageView(int pos) {
-        Glide.with(this).load(imageUri.get(pos)).into(imageView);
+        Glide.with(this)
+                .load(imageUri.get(pos))
+                .into(imageView);
     }
 
     public void addToPicked(int pos) {
