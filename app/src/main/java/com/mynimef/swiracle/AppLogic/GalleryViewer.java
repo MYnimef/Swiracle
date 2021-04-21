@@ -51,7 +51,7 @@ public class GalleryViewer {
                     MediaStore.Images.Media.BUCKET_DISPLAY_NAME };
             @SuppressLint("Recycle") Cursor cursor = activity.getContentResolver().query(uri,
                     projection, null,
-                    null, MediaStore.Images.Media.DATE_TAKEN + " DESC");
+                    null, MediaStore.Images.Media.DATE_ADDED + " DESC");
 
             ArrayList<String> uriList = new ArrayList<>();
             int idColumn = cursor.getColumnIndexOrThrow(MediaStore.Images.Media._ID);

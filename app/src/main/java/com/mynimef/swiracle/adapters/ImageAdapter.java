@@ -6,7 +6,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
-import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -50,12 +49,7 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.GalleryView>
                 .centerInside()
                 .into(pic);
 
-        if (selectedField[position]) {
-            pic.setForeground(ContextCompat.getDrawable(fragment.requireContext(),
-                    R.drawable.foreground_image));
-        } else {
-            pic.setForeground(null);
-        }
+        pic.setActivated(selectedField[position]);
     }
 
     @Override
@@ -81,11 +75,12 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.GalleryView>
                     selectedField[position] = true;
                     fragment.setImageView(position);
                     fragment.addToPicked(position);
+                    notifyItemChanged(position);
                     if (!fragment.getMultiple()) {
                         selectedField[selectedId] = false;
                         fragment.removeFromPicked(selectedId);
+                        notifyItemChanged(selectedId);
                         selectedId = position;
-                        notifyDataSetChanged();
                     }
                 } else {
                     selectedField[position] = false;

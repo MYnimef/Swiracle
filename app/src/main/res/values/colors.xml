@@ -13,4 +13,6 @@
     <color name="navigation">#CDFFECFF</color>
     <color name="lines">#FFB0B0BB</color>
     <color name="transparent">#00000000</color>
+
+    <color name="selected">#85FFFFFF</color>
 </resources>

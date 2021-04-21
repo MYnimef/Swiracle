@@ -69,6 +69,9 @@ public class PickImageFragment extends Fragment implements IPickImage {
     public void setImageView(int pos) {
         Glide.with(this)
                 .load(imageUri.get(pos))
+                .thumbnail(0.05f)
+                .centerCrop()
+                .skipMemoryCache(true)
                 .into(imageView);
     }
 
