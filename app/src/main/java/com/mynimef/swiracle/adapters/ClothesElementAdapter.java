@@ -64,9 +64,7 @@ public class ClothesElementAdapter extends RecyclerView.Adapter<ClothesElementAd
             this.description = view.findViewById(R.id.elementDescription);
             this.price = view.findViewById(R.id.elementPrice);
             ImageButton deleteButton = view.findViewById(R.id.deleteButton);
-            deleteButton.setOnClickListener(v -> {
-                fragment.removeClothes(getBindingAdapterPosition());
-            });
+            deleteButton.setOnClickListener(v -> fragment.removeClothes(getBindingAdapterPosition()));
         }
 
         public TextView getBrand() {

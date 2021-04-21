@@ -4,13 +4,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageView;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.mynimef.swiracle.AppLogic.Post;
+import com.mynimef.swiracle.AppLogic.SingletonDatabase;
 import com.mynimef.swiracle.R;
 
 import org.jetbrains.annotations.NotNull;
@@ -43,15 +44,14 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostView> {
         postView.getTitle().setOnClickListener(v -> {
         });
 
-        Glide
-                .with(fragment)
-                .load(post.getImages().getImages().get(0))
-                .into(postView.getPic());
-        postView.getPic().setOnClickListener(v -> {
-            //fragment.replaceFragment(new PostFragment());
-        });
+        LinearLayoutManager mLayoutManager = new LinearLayoutManager(fragment.getActivity(),
+                LinearLayoutManager.HORIZONTAL, false);
+        postView.getRecyclerView().setLayoutManager(mLayoutManager);
+        PostImageAdapter adapter = new PostImageAdapter(post.getImages().getImages(), fragment);
+        postView.getRecyclerView().setAdapter(adapter);
 
-        postView.getDescription().setText(post.getDescription());
+        postView.getDescription().setText(String.format("%s - %s", post.getTitle(),
+                post.getDescription()));
         postView.getDescription().setOnClickListener(v -> {
         });
 
@@ -75,27 +75,32 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostView> {
 
     static class PostView extends RecyclerView.ViewHolder {
         private final Button title;
-        private final ImageView pic;
+        private final RecyclerView recyclerView;
         private final Button description;
         private final Button likes;
         private final Button comments;
 
         public PostView(View view) {
             super(view);
-            title = (Button) view.findViewById(R.id.button);
-            pic = view.findViewById(R.id.imageView);
-            pic.setClipToOutline(true);
-            description = (Button) view.findViewById(R.id.description);
-            likes = (Button) view.findViewById(R.id.likes);
-            comments = (Button) view.findViewById(R.id.comments);
+            title = view.findViewById(R.id.button);
+
+            recyclerView = view.findViewById(R.id.imageView);
+            recyclerView.setOnClickListener(v -> {
+                //fragment.replaceFragment(new PostFragment());
+            });
+            recyclerView.setClipToOutline(true);
+
+            description = view.findViewById(R.id.description);
+            likes = view.findViewById(R.id.likes);
+            comments = view.findViewById(R.id.comments);
         }
 
         public Button getTitle() {
             return title;
         }
 
-        public ImageView getPic() {
-            return pic;
+        public RecyclerView getRecyclerView() {
+            return recyclerView;
         }
 
         public Button getDescription() {

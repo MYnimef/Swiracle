@@ -1,7 +1,6 @@
 package com.mynimef.swiracle.AppLogic;
 
 import androidx.room.Entity;
-import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 import androidx.room.TypeConverters;
 
@@ -19,7 +18,7 @@ public class Post {
     public void setUid(int uid) {
         this.uid = uid;
     }
-
+    
     private String title;
     private String description;
     private int likes, comments;
