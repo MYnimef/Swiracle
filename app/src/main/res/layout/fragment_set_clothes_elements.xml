@@ -28,12 +28,10 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/addLink" />
 
-    <ListView
+    <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/setInfoElementsList"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:divider="@color/transparent"
-        android:dividerHeight="0dp"
+        android:layout_height="0dp"
         app:layout_constrainedHeight="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

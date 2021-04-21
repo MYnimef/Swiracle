@@ -1,49 +1,84 @@
 package com.mynimef.swiracle.adapters;
 
-import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.ImageView;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
-import androidx.annotation.Nullable;
-import androidx.core.content.ContextCompat;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
 
-import com.bumptech.glide.Glide;
 import com.mynimef.swiracle.AppLogic.ClothesElement;
 import com.mynimef.swiracle.R;
-import com.mynimef.swiracle.fragments.create.CreateViewModel;
-import com.mynimef.swiracle.fragments.pickImage.PickImageFragment;
+import com.mynimef.swiracle.fragments.setClothesElements.SetClothesElementsFragment;
+
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 
-public class ClothesElementAdapter extends ArrayAdapter<ClothesElement> {
-    public ClothesElementAdapter(Context context, ArrayList<ClothesElement> clothes) {
-        super(context, R.layout.adapter_clothes_element, clothes);
+public class ClothesElementAdapter extends RecyclerView.Adapter<ClothesElementAdapter.ClothesView> {
+    private final ArrayList<ClothesElement> clothesList;
+    private final SetClothesElementsFragment fragment;
+
+    public ClothesElementAdapter(ArrayList<ClothesElement> clothesList,
+                                 SetClothesElementsFragment fragment) {
+        this.clothesList = clothesList;
+        this.fragment = fragment;
+    }
+
+    @NotNull
+    @Override
+    public ClothesView onCreateViewHolder(ViewGroup viewGroup, int viewType) {
+        View view = LayoutInflater.from(viewGroup.getContext())
+                .inflate(R.layout.adapter_clothes_element, viewGroup, false);
+        return new ClothesView(view);
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
-        final ClothesElement clothes = getItem(position);
+    public void onBindViewHolder(ClothesView clothesView, final int position) {
+        ClothesElement element = clothesList.get(position);
+        clothesView.getBrand().setText(element.getTitle());
+        clothesView.getDescription().setText(element.getBrand());
+        clothesView.getPrice().setText(element.getPrice());
+    }
 
-        if (convertView == null) {
-            convertView = LayoutInflater.from(getContext()).inflate(R.layout.adapter_clothes_element,
-                    null);
+    @Override
+    public void onViewRecycled(@NonNull ClothesView holder) {
+        super.onViewRecycled(holder);
+    }
+
+    @Override
+    public int getItemCount() {
+        return clothesList.size();
+    }
+
+    class ClothesView extends RecyclerView.ViewHolder {
+        private final TextView brand;
+        private final TextView description;
+        private final TextView price;
+
+        public ClothesView(View view) {
+            super(view);
+            this.brand = view.findViewById(R.id.elementBrand);
+            this.description = view.findViewById(R.id.elementDescription);
+            this.price = view.findViewById(R.id.elementPrice);
+            ImageButton deleteButton = view.findViewById(R.id.deleteButton);
+            deleteButton.setOnClickListener(v -> {
+                fragment.removeClothes(getBindingAdapterPosition());
+            });
         }
 
-        TextView title = convertView.findViewById(R.id.elementTitle);
-        title.setText(clothes.getTitle());
+        public TextView getBrand() {
+            return brand;
+        }
 
-        TextView brand = convertView.findViewById(R.id.elementBrand);
-        brand.setText(clothes.getBrand());
+        public TextView getDescription() {
+            return description;
+        }
 
-        TextView price = convertView.findViewById(R.id.elementPrice);
-        price.setText(clothes.getPrice());
-
-        return convertView;
+        public TextView getPrice() {
+            return price;
+        }
     }
 }

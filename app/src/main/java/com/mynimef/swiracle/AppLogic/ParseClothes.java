@@ -59,32 +59,32 @@ public class ParseClothes {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            Elements name = null, description = null, price = null;
+            String brand = "", description = "", price = "";
             if (html != null) {
                 if (url.contains("tsum.ru")) {
-                    name = html.select(".item__specifications h1 a");
-                    description = html.select(".item__description");
-                    price = html.select("item-price");
+                    brand = html.select(".item__specifications h1 a").text();
+                    description = html.select(".item__description").text();
+                    price = html.select("item-price").text();
                 } else if (url.contains("lamoda.ru")) {
-                    name = html.select(".product-title__brand-name");
-                    description = html.select(".product-title__model-name");
-                    price = html.select(".product-prices-root");
+                    brand = html.select(".product-title__brand-name").text();
+                    description = html.select(".product-title__model-name").text();
+                    price = html.select(".product-prices-root").text();
                 } else if (url.contains("wildberries.ru")) {
-                    name = html.select(".brand");
-                    description = html.select(".name");
-                    price = html.select(".final-cost");
+                    brand = html.select(".brand").text();
+                    description = html.select(".name").text();
+                    price = html.select(".final-cost").text();
                 } else if (url.contains("gloria-jeans.ru")) {
-                    name = html.select(".js-name-product");
-                    description = html.select(".js-name-product");
-                    price = html.select(".js-price-info");
+                    brand = "Gloria Jeans";
+                    description = html.select(".js-name-product").text();
+                    price = html.select(".js-price-info").text();
                 } else if (url.contains("dsquared2.com")) {
-                    name = html.select(".itemAction-title");
-                    description = html.select(".itemAction-title");
-                    price = html.select(".priceUpdater");
+                    brand = "Dsquared2";
+                    description = html.select(".itemAction-title").text();
+                    price = html.select(".priceUpdater").text();
                 }
             }
-            if (name != null && description != null && price != null) {
-                publishProgress(name.text(), description.text(), price.text());
+            if (!brand.equals("") && !description.equals("") && !price.equals("")) {
+                publishProgress(brand, description, price);
             }
             else {
                 errorHandler.sendEmptyMessage(1);

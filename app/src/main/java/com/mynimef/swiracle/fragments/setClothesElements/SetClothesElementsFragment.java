@@ -6,11 +6,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ListView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.mynimef.swiracle.AppLogic.ClothesElement;
 import com.mynimef.swiracle.AppLogic.ParseClothes;
@@ -23,6 +25,7 @@ import java.util.ArrayList;
 public class SetClothesElementsFragment extends Fragment implements ISetClothesElements {
     private ArrayList<ClothesElement> clothes;
     private Fragment fragment;
+    private RecyclerView rv;
     private ClothesElementAdapter adapter;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -33,20 +36,24 @@ public class SetClothesElementsFragment extends Fragment implements ISetClothesE
 
         EditText link = root.findViewById(R.id.addLink);
         Button addElement = root.findViewById(R.id.addElement);
-        addElement.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String url = link.getText().toString();
-                if (!url.equals("")) {
-                    new ParseClothes(url, fragment);
-                    link.setText("");
-                }
+        addElement.setOnClickListener(v -> {
+            String url = link.getText().toString();
+            if (!url.equals("")) {
+                new ParseClothes(url, fragment);
+                link.setText("");
             }
         });
 
-        adapter = new ClothesElementAdapter(root.getContext(), clothes);
-        ListView lv = (ListView) root.findViewById(R.id.setInfoElementsList);
-        lv.setAdapter(adapter);
+        rv = root.findViewById(R.id.setInfoElementsList);
+        rv.setHasFixedSize(true);
+        rv.addItemDecoration(new DividerItemDecoration(requireContext(),
+                DividerItemDecoration.VERTICAL));
+
+        LinearLayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
+        rv.setLayoutManager(mLayoutManager);
+
+        adapter = new ClothesElementAdapter(clothes, this);
+        rv.setAdapter(adapter);
 
         return root;
     }
@@ -60,8 +67,14 @@ public class SetClothesElementsFragment extends Fragment implements ISetClothesE
 
     @Override
     public void addClothes(String name, String description, String price, String url) {
-        clothes.add(new ClothesElement(name, description, price, url));
-        adapter.notifyDataSetChanged();
+        clothes.add(0, new ClothesElement(name, description, price, url));
+        adapter.notifyItemInserted(0);
+        rv.smoothScrollToPosition(0);
+    }
+
+    public void removeClothes(int pos) {
+        clothes.remove(pos);
+        adapter.notifyItemRemoved(pos);
     }
 
     @Override
