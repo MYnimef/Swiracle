@@ -4,8 +4,6 @@ import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 import androidx.room.TypeConverters;
 
-import java.util.ArrayList;
-
 @Entity(tableName = "post_table")
 public class Post {
     @PrimaryKey(autoGenerate = true)

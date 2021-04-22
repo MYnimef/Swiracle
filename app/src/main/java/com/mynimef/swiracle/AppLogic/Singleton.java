@@ -3,32 +3,22 @@ package com.mynimef.swiracle.AppLogic;
 import android.app.Activity;
 import android.content.Context;
 
-import androidx.room.Database;
-import androidx.room.Room;
-import androidx.room.RoomDatabase;
-
 import java.util.ArrayList;
 
-@Database(entities = {Post.class}, version = 1)
-public abstract class SingletonDatabase extends RoomDatabase {
-    private static SingletonDatabase instance;
+public class Singleton {
+    private static Singleton instance;
     private PostList recommendationList;
     private PostList userList;
     private ArrayList<String> gallery;
 
-    public abstract PostDao postDao();
-
-    public static synchronized SingletonDatabase getInstance(Context context) {
+    public static synchronized Singleton getInstance() {
         if (instance == null) {
-            instance = Room.databaseBuilder(context.getApplicationContext(),
-                    SingletonDatabase.class, "post_database")
-                    .fallbackToDestructiveMigration()
-                    .build();
+            instance = new Singleton();
         }
         return instance;
     }
 
-    protected SingletonDatabase() {
+    private Singleton() {
         initialiseRecommendationList();
     }
 
@@ -45,7 +35,7 @@ public abstract class SingletonDatabase extends RoomDatabase {
     }
 
     private void initialiseRecommendationList() {
-        Thread thread = new Thread(new AnotherRunnable());
+        Thread thread = new Thread(new Singleton.AnotherRunnable());
         thread.start();
     }
 
