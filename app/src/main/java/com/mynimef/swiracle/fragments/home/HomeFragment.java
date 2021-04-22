@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.mynimef.swiracle.R;
 import com.mynimef.swiracle.AppLogic.SingletonDatabase;
-import com.mynimef.swiracle.adapters.PostAdapter;
+import com.mynimef.swiracle.adapters.HomePostAdapter;
 
 import dagger.hilt.android.AndroidEntryPoint;
 
@@ -28,7 +28,7 @@ public class HomeFragment extends Fragment {
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
         rv.setLayoutManager(mLayoutManager);
 
-        PostAdapter adapter = new PostAdapter(SingletonDatabase.getInstance(getContext())
+        HomePostAdapter adapter = new HomePostAdapter(SingletonDatabase.getInstance(getContext())
                 .getRecommendationList()
                 .getList(),
                 getParentFragment());

@@ -16,7 +16,7 @@ import com.bumptech.glide.Glide;
 import com.mynimef.swiracle.AppLogic.SingletonDatabase;
 import com.mynimef.swiracle.Interfaces.IPickImage;
 import com.mynimef.swiracle.R;
-import com.mynimef.swiracle.adapters.ImageAdapter;
+import com.mynimef.swiracle.adapters.GalleryImageAdapter;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -30,7 +30,7 @@ public class PickImageFragment extends Fragment implements IPickImage {
     private ArrayList<String> imageUri;
     private HashMap<Integer, String> pickedUri;
     private boolean multiple;
-    private ImageAdapter adapter;
+    private GalleryImageAdapter adapter;
     private int lastPicked;
 
     @Override
@@ -39,7 +39,7 @@ public class PickImageFragment extends Fragment implements IPickImage {
         imageUri = SingletonDatabase.getInstance(getContext()).getGallery();
         pickedUri = new HashMap<>();
         multiple = false;
-        adapter = new ImageAdapter(imageUri, this);
+        adapter = new GalleryImageAdapter(imageUri, this);
 
         lastPicked = 0;
         addToPicked(lastPicked);

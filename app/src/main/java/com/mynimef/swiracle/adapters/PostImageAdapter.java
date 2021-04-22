@@ -11,7 +11,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.mynimef.swiracle.AppLogic.FragmentChanger;
-import com.mynimef.swiracle.AppLogic.SingletonDatabase;
 import com.mynimef.swiracle.R;
 import com.mynimef.swiracle.fragments.post.PostFragment;
 import com.mynimef.swiracle.fragments.post.PostMenuFragment;
@@ -20,7 +19,7 @@ import java.util.ArrayList;
 
 public class PostImageAdapter extends RecyclerView.Adapter<PostImageAdapter.PostImageView> {
     private final ArrayList<String> images;
-    private int pos;
+    private final int pos;
     private final Fragment fragment;
 
     public PostImageAdapter(ArrayList<String> images, int pos, Fragment fragment) {
@@ -61,8 +60,9 @@ public class PostImageAdapter extends RecyclerView.Adapter<PostImageAdapter.Post
             pic = view.findViewById(R.id.imageView);
             pic.setOnClickListener(v -> {
                 if (pos >= 0) {
+                    int num = getBindingAdapterPosition();
                     FragmentChanger.replaceFragment(fragment.getChildFragmentManager(),
-                            R.id.nav_host_fragment, new PostFragment(pos));
+                            R.id.nav_host_fragment, new PostFragment(pos, num));
                     FragmentChanger.replaceFragment(fragment.getChildFragmentManager(),
                             R.id.up_menu_fragment, new PostMenuFragment(fragment));
                 }

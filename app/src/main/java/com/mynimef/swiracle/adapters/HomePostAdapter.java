@@ -17,11 +17,11 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 
-public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostView> {
+public class HomePostAdapter extends RecyclerView.Adapter<HomePostAdapter.PostView> {
     private final ArrayList<Post> postList;
     private final Fragment fragment;
 
-    public PostAdapter(ArrayList<Post> list, Fragment fragment) {
+    public HomePostAdapter(ArrayList<Post> list, Fragment fragment) {
         this.postList = list;
         this.fragment = fragment;
     }

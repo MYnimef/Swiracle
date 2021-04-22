@@ -16,13 +16,13 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 
-public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.GalleryView> {
+public class GalleryImageAdapter extends RecyclerView.Adapter<GalleryImageAdapter.GalleryView> {
     private final ArrayList<String> imagesList;
     private final PickImageFragment fragment;
     private int selectedId;
     private boolean[] selectedField;
 
-    public ImageAdapter(ArrayList<String> imagesList, PickImageFragment fragment) {
+    public GalleryImageAdapter(ArrayList<String> imagesList, PickImageFragment fragment) {
         this.imagesList = imagesList;
         this.fragment = fragment;
         this.selectedField = new boolean[imagesList.size()];

@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -23,10 +22,12 @@ import dagger.hilt.android.AndroidEntryPoint;
 @AndroidEntryPoint
 public class PostFragment extends Fragment {
     private final Post post;
+    private final int num;
 
-    public PostFragment(int pos) {
+    public PostFragment(int pos, int num) {
         this.post = SingletonDatabase.getInstance(getContext())
                 .getRecommendationList().getList().get(pos);
+        this.num = num;
     }
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -42,9 +43,10 @@ public class PostFragment extends Fragment {
                 LinearLayoutManager.HORIZONTAL, false);
         recyclerView.setLayoutManager(mLayoutManager);
 
-        PostImageAdapter adapter = new PostImageAdapter(post.getImages().getImages(), -1,
-                this);
+        PostImageAdapter adapter = new PostImageAdapter(post.getImages().getImages(),
+                -1, this);
         recyclerView.setAdapter(adapter);
+        recyclerView.scrollToPosition(num);
 
         TextView title = root.findViewById(R.id.titleView);
         title.setText(post.getTitle());
