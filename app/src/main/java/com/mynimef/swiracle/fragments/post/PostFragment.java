@@ -19,14 +19,6 @@ public class PostFragment extends Fragment {
                              ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_post, container, false);
 
-        Button back = (Button) root.findViewById(R.id.backToMainButton);
-        back.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //fc.replaceFragment(new HomeFragment());
-            }
-        });
-
         return root;
     }
 }

@@ -28,12 +28,9 @@ public class HomeMenuFragment extends Fragment {
                              ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_home_menu, container, false);
         ImageButton messenger = root.findViewById(R.id.messages);
-        messenger.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                FragmentChanger.replaceFragment(requireActivity().getSupportFragmentManager(), R.id.mainFragment, messengerFragment);
-            }
-        });
+        messenger.setOnClickListener(v -> FragmentChanger
+                .replaceFragment(requireActivity().getSupportFragmentManager(),
+                R.id.mainFragment, messengerFragment));
 
         return root;
     }

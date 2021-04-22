@@ -10,7 +10,10 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.mynimef.swiracle.AppLogic.FragmentChanger;
 import com.mynimef.swiracle.R;
+import com.mynimef.swiracle.fragments.post.PostFragment;
+import com.mynimef.swiracle.fragments.post.PostMenuFragment;
 
 import java.util.ArrayList;
 
@@ -47,12 +50,18 @@ public class PostImageAdapter extends RecyclerView.Adapter<PostImageAdapter.Post
         return images.size();
     }
 
-    static class PostImageView extends RecyclerView.ViewHolder {
+    class PostImageView extends RecyclerView.ViewHolder {
         private final ImageView pic;
 
         public PostImageView(@NonNull View view) {
             super(view);
             pic = view.findViewById(R.id.imageView);
+            pic.setOnClickListener(v -> {
+                FragmentChanger.replaceFragment(fragment.getChildFragmentManager(),
+                        R.id.nav_host_fragment, new PostFragment());
+                FragmentChanger.replaceFragment(fragment.getChildFragmentManager(),
+                        R.id.up_menu_fragment, new PostMenuFragment(fragment));
+            });
         }
 
         public ImageView getPic() {
