@@ -23,7 +23,7 @@ public class GalleryViewer {
             @Override
             public void handleMessage(Message msg) {
                 super.handleMessage(msg);
-                SingletonDatabase.getInstance(activity.getApplicationContext()).setGallery(msg.getData().getStringArrayList("images"));
+                Singleton.getInstance().setGallery(msg.getData().getStringArrayList("images"));
                 removeCallbacksAndMessages(null);
             }
         };

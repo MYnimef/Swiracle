@@ -1,19 +1,19 @@
 package com.mynimef.swiracle.AppLogic;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public class Images {
-    private ArrayList<String> images;
+    private List<String> images;
 
-    public Images(ArrayList<String> images) {
+    public Images(List<String> images) {
         this.images = images;
     }
 
-    public void setImages(ArrayList<String> images) {
+    public void setImages(List<String> images) {
         this.images = images;
     }
 
-    public ArrayList<String> getImages() {
+    public List<String> getImages() {
         return images;
     }
 }

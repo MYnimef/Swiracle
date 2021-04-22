@@ -15,14 +15,14 @@ import com.mynimef.swiracle.R;
 import com.mynimef.swiracle.fragments.post.PostFragment;
 import com.mynimef.swiracle.fragments.post.PostMenuFragment;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public class PostImageAdapter extends RecyclerView.Adapter<PostImageAdapter.PostImageView> {
-    private final ArrayList<String> images;
+    private final List<String> images;
     private final int pos;
     private final Fragment fragment;
 
-    public PostImageAdapter(ArrayList<String> images, int pos, Fragment fragment) {
+    public PostImageAdapter(List<String> images, int pos, Fragment fragment) {
         this.images = images;
         this.pos = pos;
         this.fragment = fragment;

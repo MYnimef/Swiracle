@@ -4,11 +4,11 @@ import android.app.Application;
 
 import androidx.lifecycle.LiveData;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public class PostRepository {
-    private PostDao postDao;
-    private LiveData<ArrayList<Post>> recommendationList;
+    private final PostDao postDao;
+    private final LiveData<List<Post>> recommendationList;
 
     public PostRepository(Application application) {
         SingletonDatabase database = SingletonDatabase.getInstance(application);
@@ -32,7 +32,7 @@ public class PostRepository {
         new Thread(new DeleteAllPostsRunnable(postDao)).start();
     }
 
-    public LiveData<ArrayList<Post>> getRecommendationList() {
+    public LiveData<List<Post>> getRecommendationList() {
         return recommendationList;
     }
 

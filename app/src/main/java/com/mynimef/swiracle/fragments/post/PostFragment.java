@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.PagerSnapHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.mynimef.swiracle.AppLogic.Post;
-import com.mynimef.swiracle.AppLogic.SingletonDatabase;
+import com.mynimef.swiracle.AppLogic.Singleton;
 import com.mynimef.swiracle.R;
 import com.mynimef.swiracle.adapters.PostImageAdapter;
 
@@ -25,7 +25,7 @@ public class PostFragment extends Fragment {
     private final int num;
 
     public PostFragment(int pos, int num) {
-        this.post = SingletonDatabase.getInstance(getContext())
+        this.post = Singleton.getInstance()
                 .getRecommendationList().getList().get(pos);
         this.num = num;
     }

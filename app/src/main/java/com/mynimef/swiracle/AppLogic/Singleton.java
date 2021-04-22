@@ -1,6 +1,7 @@
 package com.mynimef.swiracle.AppLogic;
 
 import android.app.Activity;
+import android.app.Application;
 import android.content.Context;
 
 import java.util.ArrayList;
@@ -10,6 +11,7 @@ public class Singleton {
     private PostList recommendationList;
     private PostList userList;
     private ArrayList<String> gallery;
+    private PostRepository repository;
 
     public static synchronized Singleton getInstance() {
         if (instance == null) {
@@ -20,6 +22,14 @@ public class Singleton {
 
     private Singleton() {
         initialiseRecommendationList();
+    }
+
+    public void initRepository(Application application) {
+        this.repository = new PostRepository(application);
+    }
+
+    public PostRepository getRepository() {
+        return repository;
     }
 
     public void initialiseGallery(Activity activity) {

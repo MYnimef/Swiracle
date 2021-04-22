@@ -24,7 +24,6 @@ public class Post {
     private Images images;
 
     public Post(String title, String description, Images images, int likes, int comments) {
-    //public Post(String title, String description, ArrayList<ClothesElement> clothes, ArrayList<String> images) {
         this.title = title;
         this.description = description;
         this.images = images;

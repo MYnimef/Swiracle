@@ -7,7 +7,7 @@ import androidx.room.Insert;
 import androidx.room.Query;
 import androidx.room.Update;
 
-import java.util.ArrayList;
+import java.util.List;
 
 @Dao
 public interface PostDao {
@@ -24,5 +24,5 @@ public interface PostDao {
     void deleteAllPosts();
 
     @Query("SELECT * FROM post_table")
-    LiveData<ArrayList<Post>> getAllPosts();
+    LiveData<List<Post>> getAllPosts();
 }

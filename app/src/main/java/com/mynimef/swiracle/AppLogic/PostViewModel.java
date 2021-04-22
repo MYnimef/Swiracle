@@ -6,15 +6,21 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
-import java.util.ArrayList;
+import java.util.List;
 
+import javax.inject.Inject;
+
+import dagger.hilt.android.lifecycle.HiltViewModel;
+
+@HiltViewModel
 public class PostViewModel extends AndroidViewModel {
-    private PostRepository repository;
-    private LiveData<ArrayList<Post>> recommendationList;
+    private final PostRepository repository;
+    private final LiveData<List<Post>> recommendationList;
 
+    @Inject
     public PostViewModel(@NonNull Application application) {
         super(application);
-        this.repository = new PostRepository(application);
+        this.repository = Singleton.getInstance().getRepository();
         this.recommendationList = repository.getRecommendationList();
     }
 
@@ -34,7 +40,7 @@ public class PostViewModel extends AndroidViewModel {
         repository.deleteAllPosts();
     }
 
-    public LiveData<ArrayList<Post>> getRecommendationList() {
+    public LiveData<List<Post>> getRecommendationList() {
         return recommendationList;
     }
 }

@@ -12,7 +12,10 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.mynimef.swiracle.AppLogic.FragmentChanger;
-import com.mynimef.swiracle.AppLogic.SingletonDatabase;
+import com.mynimef.swiracle.AppLogic.Images;
+import com.mynimef.swiracle.AppLogic.Post;
+import com.mynimef.swiracle.AppLogic.PostViewModel;
+import com.mynimef.swiracle.AppLogic.Singleton;
 import com.mynimef.swiracle.Interfaces.IPickImage;
 import com.mynimef.swiracle.Interfaces.ISetClothesElements;
 import com.mynimef.swiracle.Interfaces.ISetInfo;
@@ -33,6 +36,8 @@ public class CreateFragment extends Fragment {
     private SetInfoFragment setInfoFragment;
     private CreateViewModel createViewModel;
 
+    private PostViewModel postViewModel;
+
     public CreateFragment(Fragment parentFragment) {
         this.parentFragment = parentFragment;
     }
@@ -43,6 +48,8 @@ public class CreateFragment extends Fragment {
         this.pickImageFragment = new PickImageFragment();
         this.setClothesElementsFragment = new SetClothesElementsFragment();
         this.setInfoFragment = new SetInfoFragment();
+
+        this.postViewModel = new ViewModelProvider(this).get(PostViewModel.class);
     }
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -101,11 +108,14 @@ public class CreateFragment extends Fragment {
                 createViewModel.setText(getResources().getString(R.string.share));
             }
             else {
-                SingletonDatabase.getInstance(getContext()).setPostInfo(setInfo.getTitle(),
+                Singleton.getInstance().setPostInfo(setInfo.getTitle(),
                         setInfo.getDescription(),
                         setClothesElements.getClothes(),
                         pickImage.getPickedUri(),
                         getContext());
+                postViewModel.insert(new Post(setInfo.getTitle(),
+                        setInfo.getDescription(),
+                        new Images(pickImage.getPickedUri()), 0, 0));
                 FragmentChanger.replaceFragment(requireActivity().getSupportFragmentManager(),
                         R.id.mainFragment, parentFragment);
             }

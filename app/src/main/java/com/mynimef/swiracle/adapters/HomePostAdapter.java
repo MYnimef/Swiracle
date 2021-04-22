@@ -16,14 +16,20 @@ import com.mynimef.swiracle.R;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class HomePostAdapter extends RecyclerView.Adapter<HomePostAdapter.PostView> {
-    private final ArrayList<Post> postList;
+    private final List<Post> postList;
     private final Fragment fragment;
 
     public HomePostAdapter(ArrayList<Post> list, Fragment fragment) {
         this.postList = list;
         this.fragment = fragment;
+    }
+
+    public void setPosts(List<Post> posts) {
+        //this.postList = posts;
+        notifyDataSetChanged();
     }
 
     @NotNull

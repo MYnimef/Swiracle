@@ -2,7 +2,7 @@ package com.mynimef.swiracle;
 
 import android.os.Bundle;
 
-import com.mynimef.swiracle.AppLogic.SingletonDatabase;
+import com.mynimef.swiracle.AppLogic.Singleton;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -14,6 +14,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        SingletonDatabase.getInstance(getApplicationContext()).initialiseGallery(this);
+        Singleton.getInstance().initialiseGallery(this);
     }
 }

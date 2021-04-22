@@ -2,7 +2,7 @@ package com.mynimef.swiracle;
 
 import android.app.Application;
 
-import com.mynimef.swiracle.AppLogic.SingletonDatabase;
+import com.mynimef.swiracle.AppLogic.Singleton;
 
 import dagger.hilt.android.HiltAndroidApp;
 
@@ -11,6 +11,6 @@ public class SwiracleApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        SingletonDatabase.getInstance(getApplicationContext());
+        Singleton.getInstance().initRepository(this);
     }
 }
