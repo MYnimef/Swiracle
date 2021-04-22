@@ -14,6 +14,9 @@ import com.mynimef.swiracle.Interfaces.IPickNavigation;
 import com.mynimef.swiracle.R;
 import com.mynimef.swiracle.fragments.home.HomeMenuFragment;
 
+import dagger.hilt.android.AndroidEntryPoint;
+
+@AndroidEntryPoint
 public class PostMenuFragment extends Fragment {
     private final Fragment fragment;
     private final IPickNavigation pick;

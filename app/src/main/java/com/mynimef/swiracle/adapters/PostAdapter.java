@@ -46,7 +46,8 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostView> {
         LinearLayoutManager mLayoutManager = new LinearLayoutManager(fragment.getActivity(),
                 LinearLayoutManager.HORIZONTAL, false);
         postView.getRecyclerView().setLayoutManager(mLayoutManager);
-        PostImageAdapter adapter = new PostImageAdapter(post.getImages().getImages(), fragment);
+        PostImageAdapter adapter = new PostImageAdapter(post.getImages().getImages(), position,
+                fragment);
         postView.getRecyclerView().setAdapter(adapter);
 
         postView.getDescription().setText(String.format("%s - %s", post.getTitle(),

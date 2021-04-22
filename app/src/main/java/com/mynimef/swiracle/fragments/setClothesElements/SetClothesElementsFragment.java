@@ -22,17 +22,25 @@ import com.mynimef.swiracle.adapters.ClothesElementAdapter;
 
 import java.util.ArrayList;
 
+import dagger.hilt.android.AndroidEntryPoint;
+
+@AndroidEntryPoint
 public class SetClothesElementsFragment extends Fragment implements ISetClothesElements {
     private ArrayList<ClothesElement> clothes;
     private Fragment fragment;
     private RecyclerView rv;
     private ClothesElementAdapter adapter;
 
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        this.fragment = this;
+        this.clothes = new ArrayList<>();
+    }
+
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_set_clothes_elements, container, false);
-        this.fragment = this;
-        this.clothes = new ArrayList<>();
 
         EditText link = root.findViewById(R.id.addLink);
         Button addElement = root.findViewById(R.id.addElement);

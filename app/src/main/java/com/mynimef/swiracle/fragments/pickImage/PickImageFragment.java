@@ -31,21 +31,31 @@ public class PickImageFragment extends Fragment implements IPickImage {
     private HashMap<Integer, String> pickedUri;
     private boolean multiple;
     private ImageAdapter adapter;
+    private int lastPicked;
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        imageUri = SingletonDatabase.getInstance(getContext()).getGallery();
+        pickedUri = new HashMap<>();
+        multiple = false;
+        adapter = new ImageAdapter(imageUri, this);
+
+        lastPicked = 0;
+        addToPicked(lastPicked);
+    }
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_pick_image, container, false);
-        imageUri = SingletonDatabase.getInstance(getContext()).getGallery();
-        pickedUri = new HashMap<>();
 
-        multiple = false;
         Button multipleButton = root.findViewById(R.id.multipleButton);
         multipleButton.setOnClickListener(v -> {
             if (multiple) {
-                int pos = adapter.clearPicked();
+                lastPicked = adapter.clearPicked();
                 pickedUri = new HashMap<>();
-                setImageView(pos);
-                addToPicked(pos);
+                setImageView(lastPicked);
+                addToPicked(lastPicked);
                 adapter.notifyDataSetChanged();
             }
             multiple = !multiple;
@@ -53,8 +63,7 @@ public class PickImageFragment extends Fragment implements IPickImage {
 
         imageView = root.findViewById(R.id.selectedImage);
 
-        setImageView(0);
-        addToPicked(0);
+        setImageView(lastPicked);
         RecyclerView rv = root.findViewById(R.id.galleryRecyclerView);
         rv.setHasFixedSize(true);
 
@@ -62,7 +71,6 @@ public class PickImageFragment extends Fragment implements IPickImage {
         mLayoutManager.scrollToPosition(0);
         rv.setLayoutManager(mLayoutManager);
 
-        adapter = new ImageAdapter(imageUri, this);
         rv.setAdapter(adapter);
 
         return root;
@@ -73,6 +81,7 @@ public class PickImageFragment extends Fragment implements IPickImage {
     }
 
     public void setImageView(int pos) {
+        lastPicked = pos;
         Glide.with(this)
                 .load(imageUri.get(pos))
                 .thumbnail(0.05f)

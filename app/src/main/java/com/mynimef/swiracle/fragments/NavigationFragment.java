@@ -6,7 +6,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
@@ -27,17 +26,15 @@ public class NavigationFragment extends Fragment implements IPickNavigation {
     private SearchFragment searchFragment;
     private NotificationsFragment notificationsFragment;
     private ProfileFragment profileFragment;
-    private CreateFragment createFragment;
 
     @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         fm = getChildFragmentManager();
         homeFragment = new HomeFragment();
         searchFragment = new SearchFragment();
         notificationsFragment = new NotificationsFragment();
         profileFragment = new ProfileFragment();
-        createFragment = new CreateFragment(this);
     }
 
     @Override
@@ -46,14 +43,13 @@ public class NavigationFragment extends Fragment implements IPickNavigation {
         View root = inflater.inflate(R.layout.fragment_navigation, container, false);
 
         BottomNavigationView navView = root.findViewById(R.id.nav_view);
-
         navView.setOnNavigationItemSelectedListener(
                 item -> {
                     int itemId = item.getItemId();
                     if (itemId == R.id.navigation_create) {
                         FragmentChanger.replaceFragment(requireActivity().
                                 getSupportFragmentManager(),
-                                R.id.mainFragment, createFragment);
+                                R.id.mainFragment, new CreateFragment(this));
                     } else {
                         if (itemId == R.id.navigation_home) {
                             FragmentChanger.replaceFragment(fm,

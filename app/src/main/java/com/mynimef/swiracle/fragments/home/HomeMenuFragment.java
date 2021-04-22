@@ -14,6 +14,9 @@ import com.mynimef.swiracle.AppLogic.FragmentChanger;
 import com.mynimef.swiracle.R;
 import com.mynimef.swiracle.fragments.messenger.MessengerFragment;
 
+import dagger.hilt.android.AndroidEntryPoint;
+
+@AndroidEntryPoint
 public class HomeMenuFragment extends Fragment {
     private MessengerFragment messengerFragment;
 
