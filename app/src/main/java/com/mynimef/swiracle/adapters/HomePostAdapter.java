@@ -19,16 +19,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class HomePostAdapter extends RecyclerView.Adapter<HomePostAdapter.PostView> {
-    private final List<Post> postList;
+    private List<Post> postList;
     private final Fragment fragment;
 
-    public HomePostAdapter(ArrayList<Post> list, Fragment fragment) {
-        this.postList = list;
+    public HomePostAdapter(Fragment fragment) {
         this.fragment = fragment;
+        postList = new ArrayList<Post>();
     }
 
     public void setPosts(List<Post> posts) {
-        //this.postList = posts;
+        this.postList = posts;
         notifyDataSetChanged();
     }
 

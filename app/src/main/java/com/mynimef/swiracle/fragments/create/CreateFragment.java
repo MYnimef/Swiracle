@@ -15,7 +15,6 @@ import com.mynimef.swiracle.AppLogic.FragmentChanger;
 import com.mynimef.swiracle.AppLogic.Images;
 import com.mynimef.swiracle.AppLogic.Post;
 import com.mynimef.swiracle.AppLogic.PostViewModel;
-import com.mynimef.swiracle.AppLogic.Singleton;
 import com.mynimef.swiracle.Interfaces.IPickImage;
 import com.mynimef.swiracle.Interfaces.ISetClothesElements;
 import com.mynimef.swiracle.Interfaces.ISetInfo;
@@ -108,11 +107,6 @@ public class CreateFragment extends Fragment {
                 createViewModel.setText(getResources().getString(R.string.share));
             }
             else {
-                Singleton.getInstance().setPostInfo(setInfo.getTitle(),
-                        setInfo.getDescription(),
-                        setClothesElements.getClothes(),
-                        pickImage.getPickedUri(),
-                        getContext());
                 postViewModel.insert(new Post(setInfo.getTitle(),
                         setInfo.getDescription(),
                         new Images(pickImage.getPickedUri()), 0, 0));

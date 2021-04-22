@@ -13,7 +13,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.mynimef.swiracle.AppLogic.PostViewModel;
-import com.mynimef.swiracle.AppLogic.Singleton;
 import com.mynimef.swiracle.R;
 import com.mynimef.swiracle.adapters.HomePostAdapter;
 
@@ -39,15 +38,11 @@ public class HomeFragment extends Fragment {
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
         rv.setLayoutManager(mLayoutManager);
 
-        HomePostAdapter adapter = new HomePostAdapter(Singleton.getInstance()
-                .getRecommendationList()
-                .getList(),
-                getParentFragment());
+        HomePostAdapter adapter = new HomePostAdapter(getParentFragment());
         rv.setAdapter(adapter);
 
-        this.postViewModel.getRecommendationList().observe(getViewLifecycleOwner(), posts -> {
-            //adapter.setPosts(posts);
-        });
+        this.postViewModel.getRecommendationList().observe(getViewLifecycleOwner(),
+                adapter::setPosts);
 
         return root;
     }

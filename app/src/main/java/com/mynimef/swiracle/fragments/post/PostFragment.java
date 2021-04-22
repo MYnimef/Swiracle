@@ -8,12 +8,13 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.PagerSnapHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.mynimef.swiracle.AppLogic.Post;
-import com.mynimef.swiracle.AppLogic.Singleton;
+import com.mynimef.swiracle.AppLogic.PostViewModel;
 import com.mynimef.swiracle.R;
 import com.mynimef.swiracle.adapters.PostImageAdapter;
 
@@ -21,18 +22,23 @@ import dagger.hilt.android.AndroidEntryPoint;
 
 @AndroidEntryPoint
 public class PostFragment extends Fragment {
-    private final Post post;
+    private Post post;
+    private final int pos;
     private final int num;
 
     public PostFragment(int pos, int num) {
-        this.post = Singleton.getInstance()
-                .getRecommendationList().getList().get(pos);
+        this.pos = pos;
         this.num = num;
     }
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_post, container, false);
+
+        PostViewModel postViewModel = new ViewModelProvider(this).get(PostViewModel.class);
+        post = postViewModel.getRecommendationList().getValue().get(pos);
+        postViewModel.getRecommendationList().observe(getViewLifecycleOwner(),
+                posts -> post = posts.get(pos));
 
         RecyclerView recyclerView = root.findViewById(R.id.PostImageView);
         recyclerView.setClipToOutline(true);
