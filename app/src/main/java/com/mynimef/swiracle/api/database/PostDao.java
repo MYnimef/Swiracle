@@ -1,4 +1,4 @@
-package com.mynimef.swiracle.AppLogic;
+package com.mynimef.swiracle.api.database;
 
 import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
@@ -6,6 +6,8 @@ import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
 import androidx.room.Update;
+
+import com.mynimef.swiracle.api.database.Post;
 
 import java.util.List;
 

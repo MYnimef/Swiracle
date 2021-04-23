@@ -1,8 +1,11 @@
-package com.mynimef.swiracle.AppLogic;
+package com.mynimef.swiracle.api.database;
 
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 import androidx.room.TypeConverters;
+
+import com.mynimef.swiracle.api.Images;
+import com.mynimef.swiracle.api.ImagesConverter;
 
 @Entity(tableName = "post_table")
 public class Post {
