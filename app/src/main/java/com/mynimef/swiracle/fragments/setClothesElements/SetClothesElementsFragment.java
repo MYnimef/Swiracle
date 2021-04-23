@@ -14,8 +14,8 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.mynimef.swiracle.AppLogic.ClothesElement;
-import com.mynimef.swiracle.AppLogic.ParseClothes;
+import com.mynimef.swiracle.api.ClothesElement;
+import com.mynimef.swiracle.api.ParseClothes;
 import com.mynimef.swiracle.Interfaces.ISetClothesElements;
 import com.mynimef.swiracle.R;
 import com.mynimef.swiracle.adapters.ClothesElementAdapter;

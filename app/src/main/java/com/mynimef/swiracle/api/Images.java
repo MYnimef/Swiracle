@@ -1,4 +1,4 @@
-package com.mynimef.swiracle.AppLogic;
+package com.mynimef.swiracle.api;
 
 import java.util.List;
 

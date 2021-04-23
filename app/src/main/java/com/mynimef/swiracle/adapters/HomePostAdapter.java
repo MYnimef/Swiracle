@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.PagerSnapHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.mynimef.swiracle.AppLogic.Post;
+import com.mynimef.swiracle.api.database.Post;
 import com.mynimef.swiracle.R;
 
 import org.jetbrains.annotations.NotNull;

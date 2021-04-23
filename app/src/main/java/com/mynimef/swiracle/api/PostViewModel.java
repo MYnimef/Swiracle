@@ -1,10 +1,13 @@
-package com.mynimef.swiracle.AppLogic;
+package com.mynimef.swiracle.api;
 
 import android.app.Application;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
+
+import com.mynimef.swiracle.api.database.Post;
+import com.mynimef.swiracle.api.singleton.Singleton;
 
 import java.util.List;
 

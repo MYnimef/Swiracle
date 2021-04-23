@@ -10,7 +10,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.mynimef.swiracle.AppLogic.FragmentChanger;
+import com.mynimef.swiracle.api.FragmentChanger;
 import com.mynimef.swiracle.Interfaces.IPickNavigation;
 import com.mynimef.swiracle.R;
 import com.mynimef.swiracle.fragments.create.CreateFragment;

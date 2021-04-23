@@ -11,10 +11,10 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.mynimef.swiracle.AppLogic.FragmentChanger;
-import com.mynimef.swiracle.AppLogic.Images;
-import com.mynimef.swiracle.AppLogic.Post;
-import com.mynimef.swiracle.AppLogic.PostViewModel;
+import com.mynimef.swiracle.api.FragmentChanger;
+import com.mynimef.swiracle.api.Images;
+import com.mynimef.swiracle.api.database.Post;
+import com.mynimef.swiracle.api.PostViewModel;
 import com.mynimef.swiracle.Interfaces.IPickImage;
 import com.mynimef.swiracle.Interfaces.ISetClothesElements;
 import com.mynimef.swiracle.Interfaces.ISetInfo;

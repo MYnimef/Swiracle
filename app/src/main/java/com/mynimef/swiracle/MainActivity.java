@@ -2,7 +2,7 @@ package com.mynimef.swiracle;
 
 import android.os.Bundle;
 
-import com.mynimef.swiracle.AppLogic.Singleton;
+import com.mynimef.swiracle.api.singleton.Singleton;
 
 import androidx.appcompat.app.AppCompatActivity;
 

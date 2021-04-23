@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.mynimef.swiracle.AppLogic.Singleton;
+import com.mynimef.swiracle.api.singleton.Singleton;
 import com.mynimef.swiracle.Interfaces.IPickImage;
 import com.mynimef.swiracle.R;
 import com.mynimef.swiracle.adapters.GalleryImageAdapter;

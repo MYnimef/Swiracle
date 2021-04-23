@@ -9,7 +9,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.mynimef.swiracle.AppLogic.ClothesElement;
+import com.mynimef.swiracle.api.ClothesElement;
 import com.mynimef.swiracle.R;
 import com.mynimef.swiracle.fragments.setClothesElements.SetClothesElementsFragment;
 

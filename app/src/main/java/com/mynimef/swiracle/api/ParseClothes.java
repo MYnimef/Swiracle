@@ -1,4 +1,4 @@
-package com.mynimef.swiracle.AppLogic;
+package com.mynimef.swiracle.api;
 
 import android.os.Bundle;
 import android.os.Handler;
@@ -11,7 +11,6 @@ import com.mynimef.swiracle.Interfaces.ISetClothesElements;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
-import org.jsoup.select.Elements;
 
 import java.io.IOException;
 

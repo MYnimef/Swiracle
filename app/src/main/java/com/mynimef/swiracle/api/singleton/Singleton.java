@@ -1,7 +1,9 @@
-package com.mynimef.swiracle.AppLogic;
+package com.mynimef.swiracle.api.singleton;
 
 import android.app.Activity;
 import android.app.Application;
+
+import com.mynimef.swiracle.api.PostRepository;
 
 import java.util.ArrayList;
 

@@ -1,4 +1,4 @@
-package com.mynimef.swiracle.AppLogic;
+package com.mynimef.swiracle.api;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;

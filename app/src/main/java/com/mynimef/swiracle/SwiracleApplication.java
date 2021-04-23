@@ -2,7 +2,7 @@ package com.mynimef.swiracle;
 
 import android.app.Application;
 
-import com.mynimef.swiracle.AppLogic.Singleton;
+import com.mynimef.swiracle.api.singleton.Singleton;
 
 import dagger.hilt.android.HiltAndroidApp;
 

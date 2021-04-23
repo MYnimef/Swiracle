@@ -1,4 +1,4 @@
-package com.mynimef.swiracle.AppLogic;
+package com.mynimef.swiracle.api.singleton;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;

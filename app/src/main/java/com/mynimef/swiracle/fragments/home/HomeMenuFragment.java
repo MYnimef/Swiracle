@@ -10,7 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import com.mynimef.swiracle.AppLogic.FragmentChanger;
+import com.mynimef.swiracle.api.FragmentChanger;
 import com.mynimef.swiracle.R;
 import com.mynimef.swiracle.fragments.messenger.MessengerFragment;
 

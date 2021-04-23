@@ -1,6 +1,6 @@
 package com.mynimef.swiracle.Interfaces;
 
-import com.mynimef.swiracle.AppLogic.ClothesElement;
+import com.mynimef.swiracle.api.ClothesElement;
 
 import java.util.ArrayList;
 
