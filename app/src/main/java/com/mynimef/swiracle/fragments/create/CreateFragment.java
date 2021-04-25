@@ -14,7 +14,6 @@ import androidx.lifecycle.ViewModelProvider;
 import com.mynimef.swiracle.api.FragmentChanger;
 import com.mynimef.swiracle.api.Images;
 import com.mynimef.swiracle.api.database.Post;
-import com.mynimef.swiracle.api.PostViewModel;
 import com.mynimef.swiracle.Interfaces.IPickImage;
 import com.mynimef.swiracle.Interfaces.ISetClothesElements;
 import com.mynimef.swiracle.Interfaces.ISetInfo;
@@ -35,8 +34,6 @@ public class CreateFragment extends Fragment {
     private SetInfoFragment setInfoFragment;
     private CreateViewModel createViewModel;
 
-    private PostViewModel postViewModel;
-
     public CreateFragment(Fragment parentFragment) {
         this.parentFragment = parentFragment;
     }
@@ -47,8 +44,6 @@ public class CreateFragment extends Fragment {
         this.pickImageFragment = new PickImageFragment();
         this.setClothesElementsFragment = new SetClothesElementsFragment();
         this.setInfoFragment = new SetInfoFragment();
-
-        this.postViewModel = new ViewModelProvider(this).get(PostViewModel.class);
     }
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -107,7 +102,7 @@ public class CreateFragment extends Fragment {
                 createViewModel.setText(getResources().getString(R.string.share));
             }
             else {
-                postViewModel.insert(new Post(setInfo.getTitle(),
+                createViewModel.insert(new Post(setInfo.getTitle(),
                         setInfo.getDescription(),
                         new Images(pickImage.getPickedUri()), 0, 0));
                 FragmentChanger.replaceFragment(requireActivity().getSupportFragmentManager(),

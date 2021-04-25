@@ -1,23 +1,29 @@
 package com.mynimef.swiracle.fragments.create;
 
+import android.app.Application;
+
+import androidx.annotation.NonNull;
+import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.SavedStateHandle;
-import androidx.lifecycle.ViewModel;
+
+import com.mynimef.swiracle.api.Repository;
+import com.mynimef.swiracle.api.database.Post;
 
 import javax.inject.Inject;
 
 import dagger.hilt.android.lifecycle.HiltViewModel;
 
 @HiltViewModel
-public class CreateViewModel extends ViewModel {
-    private final SavedStateHandle savedStateHandle;
+public class CreateViewModel extends AndroidViewModel {
     private final MutableLiveData<String> buttonText;
+    private final Repository repository;
 
     @Inject
-    CreateViewModel(SavedStateHandle savedStateHandle) {
-        this.savedStateHandle = savedStateHandle;
+    CreateViewModel(@NonNull Application application) {
+        super(application);
         this.buttonText = new MutableLiveData<>();
+        this.repository = Repository.getInstance();
     }
 
     public LiveData<String> getText() {
@@ -26,5 +32,9 @@ public class CreateViewModel extends ViewModel {
 
     public void setText(String text) {
         this.buttonText.setValue(text);
+    }
+
+    public void insert(Post post) {
+        repository.insert(post);
     }
 }
