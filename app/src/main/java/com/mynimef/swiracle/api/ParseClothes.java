@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
+import android.util.Log;
 
 import androidx.fragment.app.Fragment;
 
@@ -66,7 +67,7 @@ public class ParseClothes {
             try {
                 html = Jsoup.connect(url).userAgent("Mozilla/5.0 (Windows NT 10.0; Win64; x64)" +
                         " AppleWebKit/537.36 (KHTML, like Gecko)" +
-                        " Chrome/89.0.4389.114 Safari/537.36").get();
+                        " Chrome/90.0.4430.85 Safari/537.36").get();
             } catch (Exception e) {
                 return new String[]{brand, description, price};
             }
