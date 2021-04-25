@@ -12,7 +12,6 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.mynimef.swiracle.api.PostViewModel;
 import com.mynimef.swiracle.R;
 import com.mynimef.swiracle.adapters.HomePostAdapter;
 
@@ -20,12 +19,12 @@ import dagger.hilt.android.AndroidEntryPoint;
 
 @AndroidEntryPoint
 public class HomeFragment extends Fragment {
-    private PostViewModel postViewModel;
+    private HomeViewModel homeViewModel;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        this.postViewModel = new ViewModelProvider(this).get(PostViewModel.class);
+        this.homeViewModel = new ViewModelProvider(this).get(HomeViewModel.class);
     }
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -41,7 +40,7 @@ public class HomeFragment extends Fragment {
         HomePostAdapter adapter = new HomePostAdapter(getParentFragment());
         rv.setAdapter(adapter);
 
-        this.postViewModel.getRecommendationList().observe(getViewLifecycleOwner(),
+        this.homeViewModel.getRecommendationList().observe(getViewLifecycleOwner(),
                 adapter::setPosts);
 
         return root;
