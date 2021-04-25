@@ -89,7 +89,11 @@ public class GalleryImageAdapter extends RecyclerView.Adapter<GalleryImageAdapte
                     }
                     selectedId = position;
                 } else {
-                    selectedField[position] = false;
+                    if (fragment.getMultiple()) {
+                        selectedField[position] = false;
+                        fragment.removeFromPicked(position);
+                        notifyItemChanged(position);
+                    }
                 }
             });
             pic = view.findViewById(R.id.imageView);
