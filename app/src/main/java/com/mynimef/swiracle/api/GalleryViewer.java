@@ -1,4 +1,4 @@
-package com.mynimef.swiracle.api.singleton;
+package com.mynimef.swiracle.api;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -23,7 +23,7 @@ public class GalleryViewer {
             @Override
             public void handleMessage(Message msg) {
                 super.handleMessage(msg);
-                Singleton.getInstance().setGallery(msg.getData().getStringArrayList("images"));
+                Repository.getInstance().setGallery(msg.getData().getStringArrayList("images"));
                 removeCallbacksAndMessages(null);
             }
         };

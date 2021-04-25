@@ -3,7 +3,7 @@ package com.mynimef.swiracle;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 
-import com.mynimef.swiracle.api.singleton.Singleton;
+import com.mynimef.swiracle.api.Repository;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -16,7 +16,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Singleton.getInstance().initGallery(this);
+        Repository.getInstance().initGallery(this);
     }
 
     @Override

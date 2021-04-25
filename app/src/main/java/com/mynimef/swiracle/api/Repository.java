@@ -1,5 +1,6 @@
 package com.mynimef.swiracle.api;
 
+import android.app.Activity;
 import android.app.Application;
 
 import androidx.lifecycle.LiveData;
@@ -8,13 +9,26 @@ import com.mynimef.swiracle.api.database.Post;
 import com.mynimef.swiracle.api.database.PostDao;
 import com.mynimef.swiracle.api.database.SingletonDatabase;
 
+import java.util.ArrayList;
 import java.util.List;
 
-public class PostRepository {
-    private final PostDao postDao;
-    private final LiveData<List<Post>> recommendationList;
+import javax.inject.Singleton;
 
-    public PostRepository(Application application) {
+@Singleton
+public class Repository {
+    private static Repository instance;
+    private PostDao postDao;
+    private LiveData<List<Post>> recommendationList;
+    private ArrayList<String> gallery;
+
+    public static synchronized Repository getInstance() {
+        if (instance == null) {
+            instance = new Repository();
+        }
+        return instance;
+    }
+
+    public void initDatabase(Application application) {
         SingletonDatabase database = SingletonDatabase.getInstance(application);
         postDao = database.postDao();
         recommendationList = postDao.getAllPosts();
@@ -38,6 +52,18 @@ public class PostRepository {
 
     public LiveData<List<Post>> getRecommendationList() {
         return recommendationList;
+    }
+
+    public void initGallery(Activity activity) {
+        new GalleryViewer(activity);
+    }
+
+    public void setGallery(ArrayList<String> gallery) {
+        this.gallery = gallery;
+    }
+
+    public ArrayList<String> getGallery() {
+        return this.gallery;
     }
 
     private static class InsertPostRunnable implements Runnable {

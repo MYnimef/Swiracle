@@ -7,7 +7,6 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
 import com.mynimef.swiracle.api.database.Post;
-import com.mynimef.swiracle.api.singleton.Singleton;
 
 import java.util.List;
 
@@ -17,13 +16,13 @@ import dagger.hilt.android.lifecycle.HiltViewModel;
 
 @HiltViewModel
 public class PostViewModel extends AndroidViewModel {
-    private final PostRepository repository;
+    private final Repository repository;
     private final LiveData<List<Post>> recommendationList;
 
     @Inject
     public PostViewModel(@NonNull Application application) {
         super(application);
-        this.repository = Singleton.getInstance().getRepository();
+        this.repository = Repository.getInstance();
         this.recommendationList = repository.getRecommendationList();
     }
 

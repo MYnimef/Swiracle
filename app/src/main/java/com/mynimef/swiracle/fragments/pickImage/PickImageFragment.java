@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.mynimef.swiracle.api.singleton.Singleton;
+import com.mynimef.swiracle.api.Repository;
 import com.mynimef.swiracle.Interfaces.IPickImage;
 import com.mynimef.swiracle.R;
 import com.mynimef.swiracle.adapters.GalleryImageAdapter;
@@ -36,7 +36,7 @@ public class PickImageFragment extends Fragment implements IPickImage {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        imageUri = Singleton.getInstance().getGallery();
+        imageUri = Repository.getInstance().getGallery();
         pickedUri = new HashMap<>();
         multiple = false;
         adapter = new GalleryImageAdapter(imageUri, this);
