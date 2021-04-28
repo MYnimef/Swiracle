@@ -65,7 +65,7 @@ public class NavigationFragment extends Fragment implements IPickNavigation {
                         FragmentChanger.replaceFragment(fm, R.id.nav_host_fragment, homeFragment);
                         FragmentChanger.replaceFragment(fm,
                                 R.id.up_menu_fragment, new HomeMenuFragment());
-                    } else if (itemId == R.id.navigation_search) {
+                    } else if (itemId == R.id.navigation_popular) {
                         FragmentChanger.replaceFragment(fm, R.id.nav_host_fragment, searchFragment);
                     } else if (itemId == R.id.navigation_notifications) {
                         FragmentChanger.replaceFragment(fm,

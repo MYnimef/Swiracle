@@ -24,7 +24,7 @@ public class HomePostAdapter extends RecyclerView.Adapter<HomePostAdapter.PostVi
 
     public HomePostAdapter(Fragment fragment) {
         this.fragment = fragment;
-        postList = new ArrayList<Post>();
+        postList = new ArrayList<>();
     }
 
     public void setPosts(List<Post> posts) {
@@ -63,8 +63,9 @@ public class HomePostAdapter extends RecyclerView.Adapter<HomePostAdapter.PostVi
 
         postView.getLikes().setText(String.valueOf(post.getLikes()));
         postView.getLikes().setOnClickListener(v -> {
+            postView.getLikes().setSelected(!postView.getLikes().isSelected());
             post.increaseLikes();
-            //likes.setText(postList.getLikes() + "");
+            //comments.setText(postList.getComments() + "");
         });
 
         postView.getComments().setText(String.valueOf(post.getComments()));
@@ -96,6 +97,7 @@ public class HomePostAdapter extends RecyclerView.Adapter<HomePostAdapter.PostVi
             snapHelper.attachToRecyclerView(recyclerView);
 
             description = view.findViewById(R.id.description);
+
             likes = view.findViewById(R.id.likes);
             comments = view.findViewById(R.id.comments);
         }
@@ -112,9 +114,7 @@ public class HomePostAdapter extends RecyclerView.Adapter<HomePostAdapter.PostVi
             return description;
         }
 
-        public Button getLikes() {
-            return likes;
-        }
+        public Button getLikes() { return likes; }
 
         public Button getComments() {
             return comments;

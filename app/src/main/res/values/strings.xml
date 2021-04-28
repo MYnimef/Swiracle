@@ -2,10 +2,14 @@
 <resources>
     <string name="app_name">Swiracle</string>
     <string name="title_home">Home</string>
-    <string name="title_search">Search</string>
+    <string name="title_popular">Popular</string>
     <string name="title_create">Create</string>
     <string name="title_notifications">Notifications</string>
     <string name="title_profile">Profile</string>
+
+    <string name="following">Following</string>
+    <string name="divider_home_menu">|</string>
+    <string name="for_you">For You</string>
 
     <string name="new_post_text">New post</string>
     <string name="back">Back</string>

@@ -2,10 +2,14 @@
 <resources>
     <string name="app_name">Swiracle</string>
     <string name="title_home">Домой</string>
-    <string name="title_search">Поиск</string>
+    <string name="title_popular">Популярно</string>
     <string name="title_create">Создать</string>
     <string name="title_notifications">Уведомления</string>
     <string name="title_profile">Профиль</string>
+
+    <string name="following">Подписки</string>
+    <string name="divider_home_menu">|</string>
+    <string name="for_you">Для Вас</string>
 
     <string name="new_post_text">Новая публикация</string>
     <string name="back">Назад</string>
