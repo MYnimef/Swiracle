@@ -56,6 +56,8 @@ public class NavigationFragment extends Fragment implements IPickNavigation {
                             FragmentChanger.replaceFragment(requireActivity().
                                             getSupportFragmentManager(),
                                     R.id.mainFragment, new CreateFragment(this));
+                            FragmentChanger.replaceFragment(fm,
+                                    R.id.nav_host_fragment, homeFragment);
                         } else {
                             getActivity().requestPermissions(
                                     new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
@@ -80,7 +82,6 @@ public class NavigationFragment extends Fragment implements IPickNavigation {
                     }
                     return true;
                 });
-
         return root;
     }
 
