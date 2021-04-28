@@ -56,29 +56,23 @@ public class NavigationFragment extends Fragment implements IPickNavigation {
                             FragmentChanger.replaceFragment(requireActivity().
                                             getSupportFragmentManager(),
                                     R.id.mainFragment, new CreateFragment(this));
-                            FragmentChanger.replaceFragment(fm,
-                                    R.id.nav_host_fragment, homeFragment);
-                        } else {
-                            getActivity().requestPermissions(
-                                    new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
-                                    1);
+                            return false;
                         }
-                    } else {
-                        if (itemId == R.id.navigation_home) {
-                            FragmentChanger.replaceFragment(fm,
-                                    R.id.nav_host_fragment, homeFragment);
-                            FragmentChanger.replaceFragment(fm,
-                                    R.id.up_menu_fragment, new HomeMenuFragment());
-                        } else if (itemId == R.id.navigation_search) {
-                            FragmentChanger.replaceFragment(fm,
-                                    R.id.nav_host_fragment, searchFragment);
-                        }  else if (itemId == R.id.navigation_notifications) {
-                            FragmentChanger.replaceFragment(fm,
-                                    R.id.nav_host_fragment, notificationsFragment);
-                        } else if (itemId == R.id.navigation_profile) {
-                            FragmentChanger.replaceFragment(fm,
-                                    R.id.nav_host_fragment, profileFragment);
-                        }
+                        getActivity().requestPermissions(
+                                new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
+                                1);
+                    } else if (itemId == R.id.navigation_home) {
+                        FragmentChanger.replaceFragment(fm, R.id.nav_host_fragment, homeFragment);
+                        FragmentChanger.replaceFragment(fm,
+                                R.id.up_menu_fragment, new HomeMenuFragment());
+                    } else if (itemId == R.id.navigation_search) {
+                        FragmentChanger.replaceFragment(fm, R.id.nav_host_fragment, searchFragment);
+                    } else if (itemId == R.id.navigation_notifications) {
+                        FragmentChanger.replaceFragment(fm,
+                                R.id.nav_host_fragment, notificationsFragment);
+                    } else if (itemId == R.id.navigation_profile) {
+                        FragmentChanger.replaceFragment(fm,
+                                R.id.nav_host_fragment, profileFragment);
                     }
                     return true;
                 });
