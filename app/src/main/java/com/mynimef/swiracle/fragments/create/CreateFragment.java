@@ -112,7 +112,6 @@ public class CreateFragment extends Fragment {
                         R.id.mainFragment, parentFragment);
             }
         });
-
         return root;
     }
 }
