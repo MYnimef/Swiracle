@@ -4,7 +4,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
 
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.PagerSnapHelper;
@@ -46,9 +49,10 @@ public class HomePostAdapter extends RecyclerView.Adapter<HomePostAdapter.PostVi
     public void onBindViewHolder(PostView postView, final int position) {
         PostInfo postInfo = postList.get(position).getPostInfo();
 
-        postView.getTitle().setText(postInfo.getTitle());
-        postView.getTitle().setOnClickListener(v -> {
+        postView.getTopLayout().setOnClickListener(v -> {
         });
+        postView.getUserImage();
+        postView.getUserNickname().setText("user12345");
 
         LinearLayoutManager mLayoutManager = new LinearLayoutManager(fragment.getActivity(),
                 LinearLayoutManager.HORIZONTAL, false);
@@ -57,10 +61,10 @@ public class HomePostAdapter extends RecyclerView.Adapter<HomePostAdapter.PostVi
                 fragment);
         postView.getRecyclerView().setAdapter(adapter);
 
-        postView.getDescription().setText(String.format("%s - %s", postInfo.getTitle(),
-                postInfo.getDescription()));
-        postView.getDescription().setOnClickListener(v -> {
+        postView.getBottomLayout().setOnClickListener(v -> {
         });
+        postView.getTitle().setText(postInfo.getTitle());
+        postView.getPrice().setText(postInfo.getPrice().getRub() + " RUB");
 
         postView.getLikes().setText(String.valueOf(postInfo.getLikesAmount()));
         postView.getLikes().setOnClickListener(v -> {
@@ -82,42 +86,46 @@ public class HomePostAdapter extends RecyclerView.Adapter<HomePostAdapter.PostVi
     }
 
     static class PostView extends RecyclerView.ViewHolder {
-        private final Button title;
+        private final ConstraintLayout topLayout;
+        private final ImageView userImage;
+        private final TextView userNickname;
         private final RecyclerView recyclerView;
-        private final Button description;
+        private final ConstraintLayout bottomLayout;
+        private final TextView title;
+        private final TextView price;
         private final Button likes;
         private final Button comments;
 
         public PostView(View view) {
             super(view);
-            title = view.findViewById(R.id.button);
+            topLayout = view.findViewById(R.id.topLayout);
+            userImage = view.findViewById(R.id.userImageView);
+            userNickname = view.findViewById(R.id.userNicknameView);
 
             recyclerView = view.findViewById(R.id.imageView);
             recyclerView.setClipToOutline(true);
             PagerSnapHelper snapHelper = new PagerSnapHelper();
             snapHelper.attachToRecyclerView(recyclerView);
 
-            description = view.findViewById(R.id.description);
-            likes = view.findViewById(R.id.likes);
-            comments = view.findViewById(R.id.comments);
+            bottomLayout = view.findViewById(R.id.bottomLayout);
+            title = view.findViewById(R.id.postTitleView);
+            price = view.findViewById(R.id.postPriceView);
+
+            likes = view.findViewById(R.id.likesButton);
+            comments = view.findViewById(R.id.commentsButton);
         }
 
-        public Button getTitle() {
-            return title;
-        }
+        public ConstraintLayout getTopLayout() { return topLayout; }
+        public ImageView getUserImage() { return userImage; }
+        public TextView getUserNickname() { return userNickname; }
 
-        public RecyclerView getRecyclerView() {
-            return recyclerView;
-        }
+        public RecyclerView getRecyclerView() { return recyclerView; }
 
-        public Button getDescription() {
-            return description;
-        }
+        public ConstraintLayout getBottomLayout() { return bottomLayout; }
+        public TextView getTitle() { return title; }
+        public TextView getPrice() { return price; }
 
         public Button getLikes() { return likes; }
-
-        public Button getComments() {
-            return comments;
-        }
+        public Button getComments() { return comments; }
     }
 }
