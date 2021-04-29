@@ -7,8 +7,8 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
-import com.mynimef.swiracle.api.Repository;
 import com.mynimef.swiracle.api.database.Post;
+import com.mynimef.swiracle.api.Repository;
 
 import javax.inject.Inject;
 

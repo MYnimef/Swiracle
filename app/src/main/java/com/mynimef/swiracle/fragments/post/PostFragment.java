@@ -48,16 +48,16 @@ public class PostFragment extends Fragment {
                 LinearLayoutManager.HORIZONTAL, false);
         recyclerView.setLayoutManager(mLayoutManager);
 
-        PostImageAdapter adapter = new PostImageAdapter(post.getImages().getImages(),
+        PostImageAdapter adapter = new PostImageAdapter(post.getPostInfo().getImages().getImages(),
                 -1, this);
         recyclerView.setAdapter(adapter);
         recyclerView.scrollToPosition(num);
 
         TextView title = root.findViewById(R.id.titleView);
-        title.setText(post.getTitle());
+        title.setText(post.getPostInfo().getTitle());
 
         TextView description = root.findViewById(R.id.descriptionView);
-        description.setText(post.getDescription());
+        description.setText(post.getPostInfo().getDescription());
 
         return root;
     }

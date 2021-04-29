@@ -21,12 +21,12 @@ import com.mynimef.swiracle.fragments.home.HomeFragment;
 import com.mynimef.swiracle.fragments.home.HomeMenuFragment;
 import com.mynimef.swiracle.fragments.notifications.NotificationsFragment;
 import com.mynimef.swiracle.fragments.profile.ProfileFragment;
-import com.mynimef.swiracle.fragments.search.SearchFragment;
+import com.mynimef.swiracle.fragments.search.PopularFragment;
 
 public class NavigationFragment extends Fragment implements IPickNavigation {
     private FragmentManager fm;
     private HomeFragment homeFragment;
-    private SearchFragment searchFragment;
+    private PopularFragment popularFragment;
     private NotificationsFragment notificationsFragment;
     private ProfileFragment profileFragment;
 
@@ -35,7 +35,7 @@ public class NavigationFragment extends Fragment implements IPickNavigation {
         super.onCreate(savedInstanceState);
         fm = getChildFragmentManager();
         homeFragment = new HomeFragment();
-        searchFragment = new SearchFragment();
+        popularFragment = new PopularFragment();
         notificationsFragment = new NotificationsFragment();
         profileFragment = new ProfileFragment();
     }
@@ -56,17 +56,21 @@ public class NavigationFragment extends Fragment implements IPickNavigation {
                             FragmentChanger.replaceFragment(requireActivity().
                                             getSupportFragmentManager(),
                                     R.id.mainFragment, new CreateFragment(this));
-                            return false;
                         }
-                        getActivity().requestPermissions(
-                                new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
-                                1);
-                    } else if (itemId == R.id.navigation_home) {
+                        else {
+                            getActivity().requestPermissions(
+                                    new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
+                                    1);
+                        }
+                        return false;
+                    }
+
+                    if (itemId == R.id.navigation_home) {
                         FragmentChanger.replaceFragment(fm, R.id.nav_host_fragment, homeFragment);
                         FragmentChanger.replaceFragment(fm,
                                 R.id.up_menu_fragment, new HomeMenuFragment());
                     } else if (itemId == R.id.navigation_popular) {
-                        FragmentChanger.replaceFragment(fm, R.id.nav_host_fragment, searchFragment);
+                        FragmentChanger.replaceFragment(fm, R.id.nav_host_fragment, popularFragment);
                     } else if (itemId == R.id.navigation_notifications) {
                         FragmentChanger.replaceFragment(fm,
                                 R.id.nav_host_fragment, notificationsFragment);

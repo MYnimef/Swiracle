@@ -14,19 +14,20 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.mynimef.swiracle.api.ClothesElement;
+import com.mynimef.swiracle.api.database.ClothesElement;
 import com.mynimef.swiracle.api.ParseClothes;
 import com.mynimef.swiracle.Interfaces.ISetClothesElements;
 import com.mynimef.swiracle.R;
 import com.mynimef.swiracle.adapters.ClothesElementAdapter;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import dagger.hilt.android.AndroidEntryPoint;
 
 @AndroidEntryPoint
 public class SetClothesElementsFragment extends Fragment implements ISetClothesElements {
-    private ArrayList<ClothesElement> clothes;
+    private List<ClothesElement> clothes;
     private Fragment fragment;
     private RecyclerView rv;
     private ClothesElementAdapter adapter;
@@ -86,7 +87,7 @@ public class SetClothesElementsFragment extends Fragment implements ISetClothesE
     }
 
     @Override
-    public ArrayList<ClothesElement> getClothes() {
+    public List<ClothesElement> getClothes() {
         return clothes;
     }
 }

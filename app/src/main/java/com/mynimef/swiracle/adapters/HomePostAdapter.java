@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.PagerSnapHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.mynimef.swiracle.api.database.Post;
+import com.mynimef.swiracle.api.database.PostInfo;
 import com.mynimef.swiracle.R;
 
 import org.jetbrains.annotations.NotNull;
@@ -43,34 +44,34 @@ public class HomePostAdapter extends RecyclerView.Adapter<HomePostAdapter.PostVi
 
     @Override
     public void onBindViewHolder(PostView postView, final int position) {
-        Post post = postList.get(position);
+        PostInfo postInfo = postList.get(position).getPostInfo();
 
-        postView.getTitle().setText(post.getTitle());
+        postView.getTitle().setText(postInfo.getTitle());
         postView.getTitle().setOnClickListener(v -> {
         });
 
         LinearLayoutManager mLayoutManager = new LinearLayoutManager(fragment.getActivity(),
                 LinearLayoutManager.HORIZONTAL, false);
         postView.getRecyclerView().setLayoutManager(mLayoutManager);
-        PostImageAdapter adapter = new PostImageAdapter(post.getImages().getImages(), position,
+        PostImageAdapter adapter = new PostImageAdapter(postInfo.getImages().getImages(), position,
                 fragment);
         postView.getRecyclerView().setAdapter(adapter);
 
-        postView.getDescription().setText(String.format("%s - %s", post.getTitle(),
-                post.getDescription()));
+        postView.getDescription().setText(String.format("%s - %s", postInfo.getTitle(),
+                postInfo.getDescription()));
         postView.getDescription().setOnClickListener(v -> {
         });
 
-        postView.getLikes().setText(String.valueOf(post.getLikes()));
+        postView.getLikes().setText(String.valueOf(postInfo.getLikesAmount()));
         postView.getLikes().setOnClickListener(v -> {
             postView.getLikes().setSelected(!postView.getLikes().isSelected());
-            post.increaseLikes();
+            postInfo.increaseLikesAmount();
             //comments.setText(postList.getComments() + "");
         });
 
-        postView.getComments().setText(String.valueOf(post.getComments()));
+        postView.getComments().setText(String.valueOf(postInfo.getCommentsAmount()));
         postView.getComments().setOnClickListener(v -> {
-            post.increaseComments();
+            postInfo.increaseCommentsAmount();
             //comments.setText(postList.getComments() + "");
         });
     }
@@ -97,7 +98,6 @@ public class HomePostAdapter extends RecyclerView.Adapter<HomePostAdapter.PostVi
             snapHelper.attachToRecyclerView(recyclerView);
 
             description = view.findViewById(R.id.description);
-
             likes = view.findViewById(R.id.likes);
             comments = view.findViewById(R.id.comments);
         }

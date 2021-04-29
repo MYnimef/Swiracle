@@ -5,6 +5,7 @@ import android.app.Application;
 
 import androidx.lifecycle.LiveData;
 
+import com.mynimef.swiracle.api.database.ClothesElement;
 import com.mynimef.swiracle.api.database.Post;
 import com.mynimef.swiracle.api.database.PostDao;
 import com.mynimef.swiracle.api.database.SingletonDatabase;
@@ -37,19 +38,15 @@ public class Repository {
     public void insert(Post post) {
         new Thread(new InsertPostRunnable(postDao, post)).start();
     }
-
     public void update(Post post) {
         new Thread(new UpdatePostRunnable(postDao, post)).start();
     }
-
     public void delete(Post post) {
         new Thread(new DeletePostRunnable(postDao, post)).start();
     }
-
     public void deleteAllPosts() {
         new Thread(new DeleteAllPostsRunnable(postDao)).start();
     }
-
     public LiveData<List<Post>> getRecommendationList() {
         return recommendationList;
     }
@@ -57,11 +54,9 @@ public class Repository {
     public void initGallery(Activity activity) {
         new GalleryViewer(activity);
     }
-
     public void setGallery(ArrayList<String> gallery) {
         this.gallery = gallery;
     }
-
     public ArrayList<String> getGallery() {
         return this.gallery;
     }
@@ -77,7 +72,10 @@ public class Repository {
 
         @Override
         public void run() {
-            postDao.insert(post);
+            postDao.insertPost(post.getPostInfo());
+            for (ClothesElement element : post.getClothes()) {
+                postDao.insertClothesElement(element);
+            }
         }
     }
 
@@ -92,7 +90,10 @@ public class Repository {
 
         @Override
         public void run() {
-            postDao.update(post);
+            postDao.updatePost(post.getPostInfo());
+            for (ClothesElement element : post.getClothes()) {
+                postDao.updateClothesElement(element);
+            }
         }
     }
 
@@ -107,20 +108,19 @@ public class Repository {
 
         @Override
         public void run() {
-            postDao.delete(post);
+            postDao.deletePost(post.getPostInfo());
+            for (ClothesElement element : post.getClothes()) {
+                postDao.deleteClothesElement(element);
+            }
         }
     }
 
     private static class DeleteAllPostsRunnable implements Runnable {
         private final PostDao postDao;
 
-        private DeleteAllPostsRunnable(PostDao postDao) {
-            this.postDao = postDao;
-        }
+        private DeleteAllPostsRunnable(PostDao postDao) { this.postDao = postDao; }
 
         @Override
-        public void run() {
-            postDao.deleteAllPosts();
-        }
+        public void run() { postDao.deleteAllPosts(); }
     }
 }

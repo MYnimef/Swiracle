@@ -10,7 +10,7 @@ import androidx.fragment.app.Fragment;
 
 import com.mynimef.swiracle.R;
 
-public class SearchFragment extends Fragment {
+public class PopularFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 

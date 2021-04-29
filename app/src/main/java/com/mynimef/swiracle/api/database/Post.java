@@ -1,80 +1,24 @@
 package com.mynimef.swiracle.api.database;
 
-import androidx.room.Entity;
-import androidx.room.PrimaryKey;
-import androidx.room.TypeConverters;
+import androidx.room.Embedded;
+import androidx.room.Relation;
 
-import com.mynimef.swiracle.api.Images;
-import com.mynimef.swiracle.api.ImagesConverter;
+import java.util.List;
 
-@Entity(tableName = "post_table")
 public class Post {
-    @PrimaryKey(autoGenerate = true)
-    private int uid;
+    @Embedded
+    private final PostInfo postInfo;
+    @Relation(
+            parentColumn = "uid",
+            entityColumn = "postId"
+    )
+    private final List<ClothesElement> clothes;
 
-    public int getUid() {
-        return this.uid;
+    public Post(PostInfo postInfo, List<ClothesElement> clothes) {
+        this.postInfo = postInfo;
+        this.clothes = clothes;
     }
 
-    public void setUid(int uid) {
-        this.uid = uid;
-    }
-    
-    private String title;
-    private String description;
-    private int likes, comments;
-    @TypeConverters(ImagesConverter.class)
-    private Images images;
-
-    public Post(String title, String description, Images images, int likes, int comments) {
-        this.title = title;
-        this.description = description;
-        this.images = images;
-        this.likes = 0;
-        this.comments = 0;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public void setLikes(int likes) {
-        this.likes = likes;
-    }
-
-    public void setComments(int comments) {
-        this.comments = comments;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public int getLikes() {
-        return likes;
-    }
-
-    public void increaseLikes() {
-        likes++;
-    }
-
-    public int getComments() {
-        return comments;
-    }
-
-    public void increaseComments() {
-        comments++;
-    }
-
-    public Images getImages() {
-        return images;
-    }
+    public PostInfo getPostInfo() { return postInfo; }
+    public List<ClothesElement> getClothes() { return clothes; }
 }
