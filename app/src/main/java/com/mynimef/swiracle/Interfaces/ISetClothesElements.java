@@ -9,4 +9,5 @@ public interface ISetClothesElements {
     void showError();
     void addClothes(String name, String description, Price price, String url);
     List<ClothesElement> getClothes();
+    Price getTotalPrice();
 }

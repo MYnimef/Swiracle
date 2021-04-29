@@ -1,11 +1,13 @@
 package com.mynimef.swiracle.api.database;
 
+import androidx.room.Embedded;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 import androidx.room.TypeConverters;
 
 import com.mynimef.swiracle.api.Images;
 import com.mynimef.swiracle.api.ImagesConverter;
+import com.mynimef.swiracle.api.Price;
 
 @Entity(tableName = "post_table")
 public class PostInfo {
@@ -19,13 +21,18 @@ public class PostInfo {
     @TypeConverters(ImagesConverter.class)
     private final Images images;
     private int likesAmount, commentsAmount;
+    @Embedded
+    private Price price;
 
-    public PostInfo(String title, String description, Images images, int likesAmount, int commentsAmount) {
+    public PostInfo(String title, String description, Images images,
+                    int likesAmount, int commentsAmount,
+                    Price price) {
         this.title = title;
         this.description = description;
         this.images = images;
         this.likesAmount = 0;
         this.commentsAmount = 0;
+        this.price = price;
     }
 
     public void setTitle(String title) { this.title = title; }
@@ -39,4 +46,6 @@ public class PostInfo {
     public int getCommentsAmount() { return commentsAmount; }
     public void increaseCommentsAmount() { commentsAmount++; }
     public Images getImages() { return images; }
+    public Price getPrice() { return price; }
+    public void setPrice(Price price) { this.price = price; }
 }

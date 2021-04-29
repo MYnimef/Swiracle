@@ -105,7 +105,8 @@ public class CreateFragment extends Fragment {
             else {
                 createViewModel.insert(new Post(new PostInfo(setInfo.getTitle(),
                         setInfo.getDescription(),
-                        new Images(pickImage.getPickedUri()), 0, 0),
+                        new Images(pickImage.getPickedUri()), 0, 0,
+                        setClothesElements.getTotalPrice()),
                         setClothesElements.getClothes()));
                 FragmentChanger.replaceFragment(requireActivity().getSupportFragmentManager(),
                         R.id.mainFragment, parentFragment);

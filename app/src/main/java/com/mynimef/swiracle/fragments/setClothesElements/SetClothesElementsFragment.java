@@ -88,7 +88,14 @@ public class SetClothesElementsFragment extends Fragment implements ISetClothesE
     }
 
     @Override
-    public List<ClothesElement> getClothes() {
-        return clothes;
+    public List<ClothesElement> getClothes() { return clothes; }
+
+    @Override
+    public Price getTotalPrice() {
+        Price price = new Price();
+        for (ClothesElement element : clothes) {
+            price.sum(element.getPrice());
+        }
+        return price;
     }
 }

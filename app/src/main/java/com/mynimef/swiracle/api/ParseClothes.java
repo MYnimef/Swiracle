@@ -41,14 +41,10 @@ public class ParseClothes {
     private class ParsingRunnable implements Runnable {
         private final String url;
 
-        public ParsingRunnable(String url){
-            this.url = url;
-        }
+        public ParsingRunnable(String url){ this.url = url; }
 
         @Override
-        public void run() {
-            publishProgress(getData());
-        }
+        public void run() { publishProgress(getData()); }
 
         private void publishProgress(Bundle bundle) {
             Message message = new Message();
