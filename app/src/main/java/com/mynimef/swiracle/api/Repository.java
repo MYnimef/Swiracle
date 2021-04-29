@@ -51,15 +51,9 @@ public class Repository {
         return recommendationList;
     }
 
-    public void initGallery(Activity activity) {
-        new GalleryViewer(activity);
-    }
-    public void setGallery(ArrayList<String> gallery) {
-        this.gallery = gallery;
-    }
-    public ArrayList<String> getGallery() {
-        return this.gallery;
-    }
+    public void initGallery(Activity activity) { new GalleryViewer(activity); }
+    public void setGallery(ArrayList<String> gallery) { this.gallery = gallery; }
+    public ArrayList<String> getGallery() { return this.gallery; }
 
     private static class InsertPostRunnable implements Runnable {
         private final PostDao postDao;

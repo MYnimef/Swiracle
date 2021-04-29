@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.mynimef.swiracle.api.Price;
 import com.mynimef.swiracle.api.database.ClothesElement;
 import com.mynimef.swiracle.api.ParseClothes;
 import com.mynimef.swiracle.Interfaces.ISetClothesElements;
@@ -75,7 +76,7 @@ public class SetClothesElementsFragment extends Fragment implements ISetClothesE
     }
 
     @Override
-    public void addClothes(String name, String description, String price, String url) {
+    public void addClothes(String name, String description, Price price, String url) {
         clothes.add(0, new ClothesElement(name, description, price, url));
         adapter.notifyItemInserted(0);
         rv.smoothScrollToPosition(0);

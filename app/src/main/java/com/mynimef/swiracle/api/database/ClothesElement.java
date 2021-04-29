@@ -1,7 +1,10 @@
 package com.mynimef.swiracle.api.database;
 
+import androidx.room.Embedded;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
+
+import com.mynimef.swiracle.api.Price;
 
 @Entity(tableName = "clothes_element_table")
 public class ClothesElement {
@@ -16,10 +19,11 @@ public class ClothesElement {
 
     private final String brand;
     private final String description;
-    private final String price;
+    @Embedded
+    private final Price price;
     private final String url;
 
-    public ClothesElement(String brand, String description, String price, String url) {
+    public ClothesElement(String brand, String description, Price price, String url) {
         this.brand = brand;
         this.description = description;
         this.price = price;
@@ -28,6 +32,6 @@ public class ClothesElement {
 
     public String getBrand() { return brand; }
     public String getDescription() { return description; }
-    public String getPrice() { return price; }
+    public Price getPrice() { return price; }
     public String getUrl() { return url; }
 }

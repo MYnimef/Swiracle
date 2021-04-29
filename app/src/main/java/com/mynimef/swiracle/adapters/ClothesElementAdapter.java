@@ -39,8 +39,8 @@ public class ClothesElementAdapter extends RecyclerView.Adapter<ClothesElementAd
     public void onBindViewHolder(ClothesView clothesView, final int position) {
         ClothesElement element = clothesList.get(position);
         clothesView.getBrand().setText(element.getBrand());
-        clothesView.getDescription().setText(element.getBrand());
-        clothesView.getPrice().setText(element.getPrice());
+        clothesView.getDescription().setText(element.getDescription());
+        clothesView.getPrice().setText(element.getPrice().getRub() + " RUB");
     }
 
     @Override
