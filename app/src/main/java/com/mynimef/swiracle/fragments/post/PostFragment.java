@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.PagerSnapHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.mynimef.swiracle.adapters.PostClothesAdapter;
 import com.mynimef.swiracle.api.database.Post;
 import com.mynimef.swiracle.R;
 import com.mynimef.swiracle.adapters.PostImageAdapter;
@@ -39,25 +40,34 @@ public class PostFragment extends Fragment {
         postViewModel.getRecommendationList().observe(getViewLifecycleOwner(),
                 posts -> post = posts.get(pos));
 
-        RecyclerView recyclerView = root.findViewById(R.id.PostImageView);
-        recyclerView.setClipToOutline(true);
+        RecyclerView imagesRecyclerView = root.findViewById(R.id.PostImageView);
+        imagesRecyclerView.setHasFixedSize(true);
+        imagesRecyclerView.setClipToOutline(true);
         PagerSnapHelper snapHelper = new PagerSnapHelper();
-        snapHelper.attachToRecyclerView(recyclerView);
+        snapHelper.attachToRecyclerView(imagesRecyclerView);
 
-        LinearLayoutManager mLayoutManager = new LinearLayoutManager(getActivity(),
+        LinearLayoutManager imagesLayoutManager = new LinearLayoutManager(getActivity(),
                 LinearLayoutManager.HORIZONTAL, false);
-        recyclerView.setLayoutManager(mLayoutManager);
+        imagesRecyclerView.setLayoutManager(imagesLayoutManager);
 
-        PostImageAdapter adapter = new PostImageAdapter(post.getPostInfo().getImages().getImages(),
+        PostImageAdapter imagesAdapter = new PostImageAdapter(post.postInfo.getImages().getImages(),
                 -1, this);
-        recyclerView.setAdapter(adapter);
-        recyclerView.scrollToPosition(num);
+        imagesRecyclerView.setAdapter(imagesAdapter);
+        imagesRecyclerView.scrollToPosition(num);
 
         TextView title = root.findViewById(R.id.titleView);
-        title.setText(post.getPostInfo().getTitle());
-
+        title.setText(post.postInfo.getTitle());
         TextView description = root.findViewById(R.id.descriptionView);
-        description.setText(post.getPostInfo().getDescription());
+        description.setText(post.postInfo.getDescription());
+
+        RecyclerView clothesRecyclerView = root.findViewById(R.id.elementsView);
+        clothesRecyclerView.setNestedScrollingEnabled(false);
+
+        LinearLayoutManager clothesLayoutManager = new LinearLayoutManager(getActivity());
+        clothesRecyclerView.setLayoutManager(clothesLayoutManager);
+
+        PostClothesAdapter clothesAdapter = new PostClothesAdapter(post.clothes);
+        clothesRecyclerView.setAdapter(clothesAdapter);
 
         return root;
     }

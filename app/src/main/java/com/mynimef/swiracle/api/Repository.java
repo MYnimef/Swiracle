@@ -66,8 +66,8 @@ public class Repository {
 
         @Override
         public void run() {
-            postDao.insertPost(post.getPostInfo());
-            for (ClothesElement element : post.getClothes()) {
+            postDao.insertPost(post.postInfo);
+            for (ClothesElement element : post.clothes) {
                 postDao.insertClothesElement(element);
             }
         }
@@ -84,8 +84,8 @@ public class Repository {
 
         @Override
         public void run() {
-            postDao.updatePost(post.getPostInfo());
-            for (ClothesElement element : post.getClothes()) {
+            postDao.updatePost(post.postInfo);
+            for (ClothesElement element : post.clothes) {
                 postDao.updateClothesElement(element);
             }
         }
@@ -102,8 +102,8 @@ public class Repository {
 
         @Override
         public void run() {
-            postDao.deletePost(post.getPostInfo());
-            for (ClothesElement element : post.getClothes()) {
+            postDao.deletePost(post.postInfo);
+            for (ClothesElement element : post.clothes) {
                 postDao.deleteClothesElement(element);
             }
         }

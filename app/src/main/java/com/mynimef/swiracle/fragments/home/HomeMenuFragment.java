@@ -14,7 +14,7 @@ import androidx.fragment.app.Fragment;
 import com.mynimef.swiracle.api.FragmentChanger;
 import com.mynimef.swiracle.R;
 import com.mynimef.swiracle.fragments.messenger.MessengerFragment;
-import com.mynimef.swiracle.fragments.search.PopularFragment;
+import com.mynimef.swiracle.fragments.search.SearchFragment;
 
 import dagger.hilt.android.AndroidEntryPoint;
 
@@ -36,7 +36,7 @@ public class HomeMenuFragment extends Fragment {
         ImageButton search = root.findViewById(R.id.search);
         search.setOnClickListener(v -> FragmentChanger
                 .replaceFragment(getParentFragmentManager(),
-                        R.id.nav_host_fragment, new PopularFragment()));
+                        R.id.nav_host_fragment, new SearchFragment()));
 
         Button following = root.findViewById(R.id.following);
         Button forYou = root.findViewById(R.id.forYou);

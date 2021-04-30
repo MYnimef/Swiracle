@@ -7,18 +7,15 @@ import java.util.List;
 
 public class Post {
     @Embedded
-    private final PostInfo postInfo;
+    public PostInfo postInfo;
     @Relation(
             parentColumn = "uid",
             entityColumn = "postId"
     )
-    private final List<ClothesElement> clothes;
+    public List<ClothesElement> clothes;
 
     public Post(PostInfo postInfo, List<ClothesElement> clothes) {
         this.postInfo = postInfo;
         this.clothes = clothes;
     }
-
-    public PostInfo getPostInfo() { return postInfo; }
-    public List<ClothesElement> getClothes() { return clothes; }
 }

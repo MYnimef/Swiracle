@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/shape_post"
-    tools:context=".fragments.postInfo.PostFragment" >
+    android:background="@drawable/shape_rounded_white"
+    tools:context=".fragments.post.PostFragment" >
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -15,7 +15,7 @@
             android:id="@+id/PostImageView"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:background="@drawable/shape_post"
+            android:background="@drawable/shape_rounded_white"
             app:layout_constraintDimensionRatio="4:5"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -25,25 +25,29 @@
             android:id="@+id/titleView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
             android:textSize="28sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/PostImageView"/>
+            app:layout_constraintTop_toBottomOf="@+id/PostImageView" />
 
         <TextView
             android:id="@+id/descriptionView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/titleView"/>
+            app:layout_constraintTop_toBottomOf="@+id/titleView" />
 
         <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/elementsView"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/descriptionView" />
-
     </androidx.constraintlayout.widget.ConstraintLayout>
-
 </androidx.core.widget.NestedScrollView>

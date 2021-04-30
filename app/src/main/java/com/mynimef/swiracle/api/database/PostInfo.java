@@ -13,9 +13,9 @@ import com.mynimef.swiracle.api.Price;
 public class PostInfo {
     @PrimaryKey(autoGenerate = true)
     private int uid;
-    public int getUid() { return this.uid; }
+    public int getUid() { return uid; }
     public void setUid(int uid) { this.uid = uid; }
-    
+
     private String title;
     private String description;
     @TypeConverters(ImagesConverter.class)

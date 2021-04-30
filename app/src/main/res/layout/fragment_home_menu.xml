@@ -23,7 +23,8 @@
         android:layout_height="wrap_content"
         android:text="@string/following"
         android:textColor="@color/custom_color"
-        android:textSize="12sp"
+        android:textSize="14sp"
+        android:textAllCaps="false"
         app:layout_constraintEnd_toStartOf="@+id/textView"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -45,7 +46,8 @@
         android:layout_height="wrap_content"
         android:text="@string/for_you"
         android:textColor="@color/custom_color"
-        android:textSize="12sp"
+        android:textSize="14sp"
+        android:textAllCaps="false"
         app:layout_constraintStart_toEndOf="@+id/textView"
         app:layout_constraintTop_toTopOf="parent" />
 

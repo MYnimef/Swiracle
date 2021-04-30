@@ -1,4 +1,4 @@
-package com.mynimef.swiracle.fragments.search;
+package com.mynimef.swiracle.fragments.notifications;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -10,11 +10,14 @@ import androidx.fragment.app.Fragment;
 
 import com.mynimef.swiracle.R;
 
-public class PopularFragment extends Fragment {
+import dagger.hilt.android.AndroidEntryPoint;
+
+@AndroidEntryPoint
+public class NotificationsMenuFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
-        View root = inflater.inflate(R.layout.fragment_search, container, false);
+        View root = inflater.inflate(R.layout.fragment_notifications_menu, container, false);
 
         return root;
     }

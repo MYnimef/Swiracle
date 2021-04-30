@@ -47,7 +47,7 @@ public class HomePostAdapter extends RecyclerView.Adapter<HomePostAdapter.PostVi
 
     @Override
     public void onBindViewHolder(PostView postView, final int position) {
-        PostInfo postInfo = postList.get(position).getPostInfo();
+        PostInfo postInfo = postList.get(position).postInfo;
 
         postView.getTopLayout().setOnClickListener(v -> {
         });

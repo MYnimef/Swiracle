@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".fragments.setInfo.SetInfoFragment"
-    android:background="@drawable/shape_fragment_white" >
+    android:background="@drawable/shape_rounded_white" >
 
     <EditText
         android:id="@+id/addTitle"

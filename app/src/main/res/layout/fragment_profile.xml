@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/shape_fragment"
+    android:background="@drawable/shape_rounded_background"
     tools:context=".fragments.profile.ProfileFragment" >
 
 </androidx.constraintlayout.widget.ConstraintLayout>
