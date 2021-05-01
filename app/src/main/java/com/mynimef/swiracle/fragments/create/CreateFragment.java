@@ -11,8 +11,10 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.mynimef.swiracle.api.ClothesInfo;
 import com.mynimef.swiracle.api.FragmentChanger;
 import com.mynimef.swiracle.api.Images;
+import com.mynimef.swiracle.api.database.ClothesElement;
 import com.mynimef.swiracle.api.database.Post;
 import com.mynimef.swiracle.api.database.PostInfo;
 import com.mynimef.swiracle.Interfaces.IPickImage;
@@ -22,6 +24,9 @@ import com.mynimef.swiracle.R;
 import com.mynimef.swiracle.fragments.pickImage.PickImageFragment;
 import com.mynimef.swiracle.fragments.setClothesElements.SetClothesElementsFragment;
 import com.mynimef.swiracle.fragments.setInfo.SetInfoFragment;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import dagger.hilt.android.AndroidEntryPoint;
 
@@ -103,11 +108,18 @@ public class CreateFragment extends Fragment {
                 createViewModel.setText(getResources().getString(R.string.share));
             }
             else {
-                createViewModel.insert(new Post(new PostInfo(setInfo.getTitle(),
+                PostInfo postInfo = new PostInfo(setInfo.getTitle(),
                         setInfo.getDescription(),
-                        new Images(pickImage.getPickedUri()), 0, 0,
-                        setClothesElements.getTotalPrice()),
-                        setClothesElements.getClothes()));
+                        new Images(pickImage.getPickedUri()),
+                        0, 0,
+                        setClothesElements.getTotalPrice());
+
+                List<ClothesElement> clothes = new ArrayList<>();
+                for (ClothesInfo info: setClothesElements.getClothes()) {
+                    clothes.add(new ClothesElement(postInfo.getId(), info));
+                }
+
+                createViewModel.insert(new Post(postInfo, clothes));
                 FragmentChanger.replaceFragment(requireActivity().getSupportFragmentManager(),
                         R.id.mainFragment, parentFragment);
             }

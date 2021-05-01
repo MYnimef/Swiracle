@@ -1,10 +1,13 @@
 package com.mynimef.swiracle.api.database;
 
+import androidx.annotation.NonNull;
 import androidx.room.Embedded;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
-import com.mynimef.swiracle.api.Price;
+import com.mynimef.swiracle.api.ClothesInfo;
+
+import org.jetbrains.annotations.NotNull;
 
 @Entity(tableName = "clothes_element_table")
 public class ClothesElement {
@@ -13,25 +16,20 @@ public class ClothesElement {
     public int getId() { return id; }
     public void setId(int id) { this.id = id; }
 
-    private int postId;
-    public int getPostId() { return postId; }
-    public void setPostId(int postId) { this.postId = postId; }
+    @NonNull
+    private String postId;
+    @NotNull
+    public String getPostId() { return postId; }
+    public void setPostId(@NotNull String postId) { this.postId = postId; }
 
-    private final String brand;
-    private final String description;
     @Embedded
-    private final Price price;
-    private final String url;
+    private ClothesInfo info;
 
-    public ClothesElement(String brand, String description, Price price, String url) {
-        this.brand = brand;
-        this.description = description;
-        this.price = price;
-        this.url = url;
+    public ClothesElement(@NotNull String postId, ClothesInfo info) {
+        this.postId = postId;
+        this.info = info;
     }
 
-    public String getBrand() { return brand; }
-    public String getDescription() { return description; }
-    public Price getPrice() { return price; }
-    public String getUrl() { return url; }
+    public ClothesInfo getInfo() { return info; }
+    public void setInfo(ClothesInfo info) { this.info = info; }
 }

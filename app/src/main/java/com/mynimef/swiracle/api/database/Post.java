@@ -9,7 +9,7 @@ public class Post {
     @Embedded
     public PostInfo postInfo;
     @Relation(
-            parentColumn = "uid",
+            parentColumn = "id",
             entityColumn = "postId"
     )
     public List<ClothesElement> clothes;

@@ -1,5 +1,6 @@
 package com.mynimef.swiracle.api.database;
 
+import androidx.annotation.NonNull;
 import androidx.room.Embedded;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
@@ -9,12 +10,15 @@ import com.mynimef.swiracle.api.Images;
 import com.mynimef.swiracle.api.ImagesConverter;
 import com.mynimef.swiracle.api.Price;
 
+import org.jetbrains.annotations.NotNull;
+
 @Entity(tableName = "post_table")
 public class PostInfo {
-    @PrimaryKey(autoGenerate = true)
-    private int uid;
-    public int getUid() { return uid; }
-    public void setUid(int uid) { this.uid = uid; }
+    @PrimaryKey @NonNull
+    private String id;
+    @NotNull
+    public String getId() { return id; }
+    public void setId(@NotNull String id) { this.id = id; }
 
     private String title;
     private String description;
@@ -27,6 +31,7 @@ public class PostInfo {
     public PostInfo(String title, String description, Images images,
                     int likesAmount, int commentsAmount,
                     Price price) {
+        this.id = "user12345" + title;
         this.title = title;
         this.description = description;
         this.images = images;

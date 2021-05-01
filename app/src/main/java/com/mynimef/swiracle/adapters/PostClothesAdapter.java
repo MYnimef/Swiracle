@@ -10,6 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.mynimef.swiracle.R;
+import com.mynimef.swiracle.api.ClothesInfo;
 import com.mynimef.swiracle.api.database.ClothesElement;
 
 import org.jetbrains.annotations.NotNull;
@@ -34,7 +35,7 @@ public class PostClothesAdapter extends RecyclerView.Adapter<PostClothesAdapter.
 
     @Override
     public void onBindViewHolder(ClothesView clothesView, final int position) {
-        ClothesElement element = clothesList.get(position);
+        ClothesInfo element = clothesList.get(position).getInfo();
         clothesView.getBrand().setText(element.getBrand());
         clothesView.getDescription().setText(element.getDescription());
         clothesView.getPrice().setText(element.getPrice().getRub() + " RUB");

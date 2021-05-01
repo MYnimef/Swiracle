@@ -14,8 +14,8 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.mynimef.swiracle.api.ClothesInfo;
 import com.mynimef.swiracle.api.Price;
-import com.mynimef.swiracle.api.database.ClothesElement;
 import com.mynimef.swiracle.api.ParseClothes;
 import com.mynimef.swiracle.Interfaces.ISetClothesElements;
 import com.mynimef.swiracle.R;
@@ -28,7 +28,7 @@ import dagger.hilt.android.AndroidEntryPoint;
 
 @AndroidEntryPoint
 public class SetClothesElementsFragment extends Fragment implements ISetClothesElements {
-    private List<ClothesElement> clothes;
+    private List<ClothesInfo> clothes;
     private Fragment fragment;
     private RecyclerView rv;
     private ClothesElementAdapter adapter;
@@ -77,7 +77,7 @@ public class SetClothesElementsFragment extends Fragment implements ISetClothesE
 
     @Override
     public void addClothes(String name, String description, Price price, String url) {
-        clothes.add(0, new ClothesElement(name, description, price, url));
+        clothes.add(0, new ClothesInfo(name, description, price, url));
         adapter.notifyItemInserted(0);
         rv.smoothScrollToPosition(0);
     }
@@ -88,12 +88,12 @@ public class SetClothesElementsFragment extends Fragment implements ISetClothesE
     }
 
     @Override
-    public List<ClothesElement> getClothes() { return clothes; }
+    public List<ClothesInfo> getClothes() { return clothes; }
 
     @Override
     public Price getTotalPrice() {
         Price price = new Price();
-        for (ClothesElement element : clothes) {
+        for (ClothesInfo element : clothes) {
             price.sum(element.getPrice());
         }
         return price;

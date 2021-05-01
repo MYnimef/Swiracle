@@ -9,7 +9,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.mynimef.swiracle.api.database.ClothesElement;
+import com.mynimef.swiracle.api.ClothesInfo;
 import com.mynimef.swiracle.R;
 import com.mynimef.swiracle.fragments.setClothesElements.SetClothesElementsFragment;
 
@@ -18,10 +18,10 @@ import org.jetbrains.annotations.NotNull;
 import java.util.List;
 
 public class ClothesElementAdapter extends RecyclerView.Adapter<ClothesElementAdapter.ClothesView> {
-    private final List<ClothesElement> clothesList;
+    private final List<ClothesInfo> clothesList;
     private final SetClothesElementsFragment fragment;
 
-    public ClothesElementAdapter(List<ClothesElement> clothesList,
+    public ClothesElementAdapter(List<ClothesInfo> clothesList,
                                  SetClothesElementsFragment fragment) {
         this.clothesList = clothesList;
         this.fragment = fragment;
@@ -37,7 +37,7 @@ public class ClothesElementAdapter extends RecyclerView.Adapter<ClothesElementAd
 
     @Override
     public void onBindViewHolder(ClothesView clothesView, final int position) {
-        ClothesElement element = clothesList.get(position);
+        ClothesInfo element = clothesList.get(position);
         clothesView.getBrand().setText(element.getBrand());
         clothesView.getDescription().setText(element.getDescription());
         clothesView.getPrice().setText(element.getPrice().getRub() + " RUB");
