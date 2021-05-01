@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.mynimef.swiracle.R;
 import com.mynimef.swiracle.adapters.HomePostAdapter;
@@ -42,6 +43,12 @@ public class HomeFragment extends Fragment {
 
         this.homeViewModel.getRecommendationList().observe(getViewLifecycleOwner(),
                 adapter::setPosts);
+
+        SwipeRefreshLayout swipeRefresh = root.findViewById(R.id.swipeRefreshHome);
+        swipeRefresh.setOnRefreshListener(() -> {
+            adapter.notifyDataSetChanged();
+            swipeRefresh.setRefreshing(false);
+        });
 
         return root;
     }
