@@ -41,14 +41,14 @@ public class PostClothesAdapter extends RecyclerView.Adapter<PostClothesAdapter.
 
     @Override
     public void onBindViewHolder(ClothesView clothesView, final int position) {
-        ClothesInfo element = clothesList.get(position).getInfo();
+        ClothesElement element = clothesList.get(position);
         clothesView.getLayout().setOnClickListener(v -> {
             Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(element.getUrl()));
             fragment.getContext().startActivity(browserIntent);
         });
-        clothesView.getBrand().setText(element.getBrand());
-        clothesView.getDescription().setText(element.getDescription());
-        clothesView.getPrice().setText(element.getPrice().getRub() + " RUB");
+        clothesView.getBrand().setText(element.getInfo().getBrand());
+        clothesView.getDescription().setText(element.getInfo().getDescription());
+        clothesView.getPrice().setText(element.getInfo().getPrice().getRub() + " RUB");
     }
 
     @Override

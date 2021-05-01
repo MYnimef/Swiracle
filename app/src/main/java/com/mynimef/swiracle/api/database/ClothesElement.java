@@ -25,11 +25,17 @@ public class ClothesElement {
     @Embedded
     private ClothesInfo info;
 
-    public ClothesElement(@NotNull String postId, ClothesInfo info) {
+    private String url;
+
+    public ClothesElement(@NotNull String postId, ClothesInfo info, String url) {
         this.postId = postId;
         this.info = info;
+        this.url = url;
     }
 
     public ClothesInfo getInfo() { return info; }
+    public String getUrl() { return url; }
+
     public void setInfo(ClothesInfo info) { this.info = info; }
+    public void setUrl(String url) { this.url = url; }
 }

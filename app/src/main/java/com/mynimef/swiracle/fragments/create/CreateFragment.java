@@ -121,8 +121,12 @@ public class CreateFragment extends Fragment {
                             setClothesElements.getTotalPrice());
 
                     List<ClothesElement> clothes = new ArrayList<>();
-                    for (ClothesInfo info : setClothesElements.getClothes()) {
-                        clothes.add(new ClothesElement(postInfo.getId(), info));
+                    List<ClothesInfo> clothesInfoList = setClothesElements.getClothes();
+                    List<String> urls = setClothesElements.getUrls();
+                    for (int i = 0; i < clothesInfoList.size(); i++) {
+                        clothes.add(new ClothesElement(postInfo.getId(),
+                                clothesInfoList.get(i),
+                                urls.get(i)));
                     }
 
                     createViewModel.insert(new Post(postInfo, clothes));

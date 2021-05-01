@@ -29,6 +29,7 @@ import dagger.hilt.android.AndroidEntryPoint;
 @AndroidEntryPoint
 public class SetClothesElementsFragment extends Fragment implements ISetClothesElements {
     private List<ClothesInfo> clothes;
+    private List<String> urls;
     private Fragment fragment;
     private RecyclerView rv;
     private ClothesElementAdapter adapter;
@@ -38,6 +39,7 @@ public class SetClothesElementsFragment extends Fragment implements ISetClothesE
         super.onCreate(savedInstanceState);
         this.fragment = this;
         this.clothes = new ArrayList<>();
+        this.urls = new ArrayList<>();
     }
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -76,7 +78,8 @@ public class SetClothesElementsFragment extends Fragment implements ISetClothesE
 
     @Override
     public void addClothes(String name, String description, Price price, String url) {
-        clothes.add(0, new ClothesInfo(name, description, price, url));
+        clothes.add(0, new ClothesInfo(name, description, price));
+        urls.add(0, url);
         adapter.notifyItemInserted(0);
         rv.smoothScrollToPosition(0);
     }
@@ -88,6 +91,9 @@ public class SetClothesElementsFragment extends Fragment implements ISetClothesE
 
     @Override
     public List<ClothesInfo> getClothes() { return clothes; }
+
+    @Override
+    public List<String> getUrls() { return urls; }
 
     @Override
     public Price getTotalPrice() {
