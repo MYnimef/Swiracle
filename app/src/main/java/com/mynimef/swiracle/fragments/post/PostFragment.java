@@ -9,6 +9,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.PagerSnapHelper;
 import androidx.recyclerview.widget.RecyclerView;
@@ -61,12 +62,14 @@ public class PostFragment extends Fragment {
         description.setText(post.postInfo.getDescription());
 
         RecyclerView clothesRecyclerView = root.findViewById(R.id.elementsView);
+        clothesRecyclerView.addItemDecoration(new DividerItemDecoration(requireContext(),
+                DividerItemDecoration.VERTICAL));
         clothesRecyclerView.setNestedScrollingEnabled(false);
 
         LinearLayoutManager clothesLayoutManager = new LinearLayoutManager(getActivity());
         clothesRecyclerView.setLayoutManager(clothesLayoutManager);
 
-        PostClothesAdapter clothesAdapter = new PostClothesAdapter(post.clothes);
+        PostClothesAdapter clothesAdapter = new PostClothesAdapter(post.clothes, this);
         clothesRecyclerView.setAdapter(clothesAdapter);
 
         return root;

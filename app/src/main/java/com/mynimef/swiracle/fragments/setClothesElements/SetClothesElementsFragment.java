@@ -55,7 +55,6 @@ public class SetClothesElementsFragment extends Fragment implements ISetClothesE
         });
 
         rv = root.findViewById(R.id.setInfoElementsList);
-        rv.setHasFixedSize(true);
         rv.addItemDecoration(new DividerItemDecoration(requireContext(),
                 DividerItemDecoration.VERTICAL));
 

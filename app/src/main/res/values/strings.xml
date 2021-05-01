@@ -20,4 +20,6 @@
     <string name="set_info_title">Name your image…</string>
     <string name="set_info_description">Write a description…</string>
     <string name="set_info_add_element">Add element</string>
+
+    <string name="toast_empty_title">Empty title!</string>
 </resources>

@@ -20,4 +20,6 @@
     <string name="set_info_title">Назовите образ…</string>
     <string name="set_info_description">Добавьте описание…</string>
     <string name="set_info_add_element">Добавить элемент</string>
+
+    <string name="toast_empty_title">Пустое название!</string>
 </resources>

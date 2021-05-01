@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -108,20 +109,26 @@ public class CreateFragment extends Fragment {
                 createViewModel.setText(getResources().getString(R.string.share));
             }
             else {
-                PostInfo postInfo = new PostInfo(setInfo.getTitle(),
-                        setInfo.getDescription(),
-                        new Images(pickImage.getPickedUri()),
-                        0, 0,
-                        setClothesElements.getTotalPrice());
-
-                List<ClothesElement> clothes = new ArrayList<>();
-                for (ClothesInfo info: setClothesElements.getClothes()) {
-                    clothes.add(new ClothesElement(postInfo.getId(), info));
+                if (setInfo.getTitle().isEmpty()) {
+                    Toast.makeText(getContext(), R.string.toast_empty_title, Toast.LENGTH_SHORT).show();
                 }
+                else {
+                    PostInfo postInfo = new PostInfo(String.valueOf(System.currentTimeMillis()),
+                            setInfo.getTitle(),
+                            setInfo.getDescription(),
+                            new Images(pickImage.getPickedUri()),
+                            0, 0,
+                            setClothesElements.getTotalPrice());
 
-                createViewModel.insert(new Post(postInfo, clothes));
-                FragmentChanger.replaceFragment(requireActivity().getSupportFragmentManager(),
-                        R.id.mainFragment, parentFragment);
+                    List<ClothesElement> clothes = new ArrayList<>();
+                    for (ClothesInfo info : setClothesElements.getClothes()) {
+                        clothes.add(new ClothesElement(postInfo.getId(), info));
+                    }
+
+                    createViewModel.insert(new Post(postInfo, clothes));
+                    FragmentChanger.replaceFragment(requireActivity().getSupportFragmentManager(),
+                            R.id.mainFragment, parentFragment);
+                }
             }
         });
         return root;
