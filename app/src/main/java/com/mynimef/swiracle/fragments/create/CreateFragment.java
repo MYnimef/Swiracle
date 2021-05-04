@@ -26,11 +26,9 @@ import com.mynimef.swiracle.fragments.pickImage.PickImageFragment;
 import com.mynimef.swiracle.fragments.setClothesElements.SetClothesElementsFragment;
 import com.mynimef.swiracle.fragments.setInfo.SetInfoFragment;
 import com.mynimef.swiracle.network.ClothesElementServer;
-import com.mynimef.swiracle.network.ClothesInfoServer;
 import com.mynimef.swiracle.network.ImagesServer;
 import com.mynimef.swiracle.network.NetworkService;
 import com.mynimef.swiracle.network.PostServer;
-import com.mynimef.swiracle.network.PriceServer;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -140,11 +138,12 @@ public class CreateFragment extends Fragment {
                     List<ClothesElementServer> clothesList = new ArrayList<>();
                     for (int i = 0; i < clothesInfoList.size(); i++) {
                         clothesList.add(new ClothesElementServer(
-                                clothes.get(i).getId(),
+                                clothes.get(i).getUrl(),
                                 clothes.get(i).getPostId(),
-                                new ClothesInfoServer(clothes.get(i).getInfo().getBrand(),
-                                        clothes.get(i).getInfo().getDescription(),
-                                        new PriceServer(clothes.get(i).getInfo().getPrice().getRub(), "RUB"))));
+                                clothes.get(i).getInfo().getBrand(),
+                                clothes.get(i).getInfo().getDescription(),
+                                String.valueOf(clothes.get(i).getInfo().getPrice().getRub()),
+                                "RUB"));
                     }
 
                     NetworkService.getInstance().putPost(new PostServer(postInfo.getId(),
@@ -153,8 +152,7 @@ public class CreateFragment extends Fragment {
                             postInfo.getDescription(),
                             postInfo.getLikesAmount(),
                             postInfo.getCommentsAmount(),
-                            clothesList,
-                            new PriceServer(postInfo.getPrice().getRub(), "RUB")));
+                            clothesList));
 
                     /*
                     for (int i = 0; i < clothesInfoList.size(); i++) {

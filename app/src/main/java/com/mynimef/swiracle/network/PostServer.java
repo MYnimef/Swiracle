@@ -32,17 +32,12 @@ public class PostServer {
     @Expose
     private List<ClothesElementServer> clothes;
 
-    @SerializedName("price")
-    @Expose
-    private PriceServer price;
-
     public PostServer() {}
 
     public PostServer(String id, String timeMillis,
                       String title, String description,
                       int likesAmount, int commentsAmount,
-                      List<ClothesElementServer> clothes,
-                      PriceServer price) {
+                      List<ClothesElementServer> clothes) {
         this.id = id;
         this.timeMillis = timeMillis;
         this.title = title;
@@ -50,7 +45,6 @@ public class PostServer {
         this.likesAmount = likesAmount;
         this.commentsAmount = commentsAmount;
         this.clothes = clothes;
-        this.price = price;
     }
 
     public String getTimeMillis() { return timeMillis; }
@@ -67,7 +61,4 @@ public class PostServer {
 
     public int getCommentsAmount() { return commentsAmount; }
     public void setCommentsAmount(int commentsAmount) { this.commentsAmount = commentsAmount; }
-
-    public PriceServer getPrice() { return price; }
-    public void setPrice(PriceServer price) { this.price = price; }
 }

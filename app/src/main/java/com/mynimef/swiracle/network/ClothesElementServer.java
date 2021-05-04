@@ -4,11 +4,11 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 public class ClothesElementServer {
-    @SerializedName("id")
+    @SerializedName("urlId")
     @Expose
-    private int id;
-    public int getId() { return id; }
-    public void setId(int id) { this.id = id; }
+    private String urlId;
+    public String getUrlId() { return urlId; }
+    public void setUrlId(String urlId) { this.urlId = urlId; }
 
     @SerializedName("postId")
     @Expose
@@ -16,21 +16,38 @@ public class ClothesElementServer {
     public String getPostId() { return postId; }
     public void setPostId(String postId) { this.postId = postId; }
 
-    @SerializedName("info")
+    @SerializedName("brand")
     @Expose
-    private ClothesInfoServer info;
+    private String brand;
+    @SerializedName("description")
+    @Expose
+    private String description;
 
-    public ClothesElementServer(int id, String postId, ClothesInfoServer info) {
-        this.id = id;
+    @SerializedName("priceValue")
+    @Expose
+    private String priceValue;
+    @SerializedName("priceCurrency")
+    @Expose
+    private String priceCurrency;
+
+    public ClothesElementServer(String urlId, String postId,
+                                String brand, String description,
+                                String priceValue, String priceCurrency) {
+        this.urlId = urlId;
         this.postId = postId;
-        this.info = info;
+        this.brand = brand;
+        this.description = description;
+        this.priceValue = priceValue;
+        this.priceCurrency = priceCurrency;
     }
 
-    public ClothesInfoServer getInfo() {
-        return info;
-    }
+    public String getBrand() { return brand; }
+    public String getDescription() { return description; }
+    public String getPriceValue() { return priceValue; }
+    public String getPriceCurrency() { return priceCurrency; }
 
-    public void setInfo(ClothesInfoServer info) {
-        this.info = info;
-    }
+    public void setBrand(String brand) { this.brand = brand; }
+    public void setDescription(String description) { this.description = description; }
+    public void setPriceValue(String priceValue) { this.priceValue = priceValue; }
+    public void setPriceCurrency(String priceCurrency) { this.priceCurrency = priceCurrency; }
 }
