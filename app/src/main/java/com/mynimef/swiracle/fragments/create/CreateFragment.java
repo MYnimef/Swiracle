@@ -25,6 +25,12 @@ import com.mynimef.swiracle.R;
 import com.mynimef.swiracle.fragments.pickImage.PickImageFragment;
 import com.mynimef.swiracle.fragments.setClothesElements.SetClothesElementsFragment;
 import com.mynimef.swiracle.fragments.setInfo.SetInfoFragment;
+import com.mynimef.swiracle.network.ClothesElementServer;
+import com.mynimef.swiracle.network.ClothesInfoServer;
+import com.mynimef.swiracle.network.ImagesServer;
+import com.mynimef.swiracle.network.NetworkService;
+import com.mynimef.swiracle.network.PostServer;
+import com.mynimef.swiracle.network.PriceServer;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -122,12 +128,45 @@ public class CreateFragment extends Fragment {
 
                     List<ClothesElement> clothes = new ArrayList<>();
                     List<ClothesInfo> clothesInfoList = setClothesElements.getClothes();
+                    List<ImagesServer> images = new ArrayList<>();
                     List<String> urls = setClothesElements.getUrls();
                     for (int i = 0; i < clothesInfoList.size(); i++) {
                         clothes.add(new ClothesElement(postInfo.getId(),
                                 clothesInfoList.get(i),
                                 urls.get(i)));
+                        images.add(new ImagesServer(urls.get(i)));
                     }
+
+                    List<ClothesElementServer> clothesList = new ArrayList<>();
+                    for (int i = 0; i < clothesInfoList.size(); i++) {
+                        clothesList.add(new ClothesElementServer(
+                                clothes.get(i).getId(),
+                                clothes.get(i).getPostId(),
+                                new ClothesInfoServer(clothes.get(i).getInfo().getBrand(),
+                                        clothes.get(i).getInfo().getDescription(),
+                                        new PriceServer(clothes.get(i).getInfo().getPrice().getRub(), "RUB"))));
+                    }
+
+                    NetworkService.getInstance().putPost(new PostServer(postInfo.getId(),
+                            postInfo.getTimeMillis(),
+                            postInfo.getTitle(),
+                            postInfo.getDescription(),
+                            postInfo.getLikesAmount(),
+                            postInfo.getCommentsAmount(),
+                            clothesList,
+                            new PriceServer(postInfo.getPrice().getRub(), "RUB")));
+
+                    /*
+                    for (int i = 0; i < clothesInfoList.size(); i++) {
+                        NetworkService.getInstance().putClothesElement(new ClothesElementServer(
+                            clothes.get(i).getId(),
+                                clothes.get(i).getPostId(),
+                                new ClothesInfoServer(clothes.get(i).getInfo().getBrand(),
+                                        clothes.get(i).getInfo().getDescription(),
+                                        new PriceServer(clothes.get(i).getInfo().getPrice().getRub(), "RUB"))));
+                    }
+
+                     */
 
                     createViewModel.insert(new Post(postInfo, clothes));
                     FragmentChanger.replaceFragment(requireActivity().getSupportFragmentManager(),
