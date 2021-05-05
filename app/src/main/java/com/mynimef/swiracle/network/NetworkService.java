@@ -2,6 +2,7 @@ package com.mynimef.swiracle.network;
 
 import android.os.Handler;
 import android.os.Message;
+import android.util.Log;
 
 import java.util.List;
 
@@ -16,6 +17,7 @@ public class NetworkService {
     Retrofit retrofit;
     PostApi postApi;
     ClothesApi clothesApi;
+    ParsingApi parsingApi;
 
     public static NetworkService getInstance() {
         if (instance == null) {
@@ -32,6 +34,7 @@ public class NetworkService {
 
         this.postApi = retrofit.create(PostApi.class);
         this.clothesApi = retrofit.create(ClothesApi.class);
+        this.parsingApi = retrofit.create(ParsingApi.class);
     }
 
     public void getPosts(Handler handler) {
@@ -102,6 +105,23 @@ public class NetworkService {
 
             @Override
             public void onFailure(Call<ClothesElementServer> call, Throwable t) {
+                t.printStackTrace();
+            }
+        });
+    }
+
+    public void getClothesParsing(String url) {
+        Call<ClothesParsingInfo> call = parsingApi.getClothesElementParsing(url.replaceAll("/", "SWIRACLE"));
+        call.enqueue(new Callback<ClothesParsingInfo>() {
+            @Override
+            public void onResponse(Call<ClothesParsingInfo> call, Response<ClothesParsingInfo> response) {
+                Log.d("parsing", response.body().getBrand());
+                Log.d("parsing", response.body().getDescription());
+                Log.d("parsing", response.body().getPrice());
+            }
+
+            @Override
+            public void onFailure(Call<ClothesParsingInfo> call, Throwable t) {
                 t.printStackTrace();
             }
         });

@@ -20,6 +20,7 @@ import com.mynimef.swiracle.api.ParseClothes;
 import com.mynimef.swiracle.Interfaces.ISetClothesElements;
 import com.mynimef.swiracle.R;
 import com.mynimef.swiracle.adapters.ClothesElementAdapter;
+import com.mynimef.swiracle.network.NetworkService;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -53,6 +54,7 @@ public class SetClothesElementsFragment extends Fragment implements ISetClothesE
             if (!url.equals("")) {
                 new ParseClothes(url, fragment);
                 link.setText("");
+                NetworkService.getInstance().getClothesParsing(url);
             }
         });
 
