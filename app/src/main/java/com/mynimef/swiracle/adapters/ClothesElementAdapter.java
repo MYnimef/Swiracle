@@ -9,19 +9,19 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.mynimef.swiracle.api.ClothesInfo;
 import com.mynimef.swiracle.R;
 import com.mynimef.swiracle.fragments.setClothesElements.SetClothesElementsFragment;
+import com.mynimef.swiracle.network.ClothesParsingInfo;
 
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
 public class ClothesElementAdapter extends RecyclerView.Adapter<ClothesElementAdapter.ClothesView> {
-    private final List<ClothesInfo> clothesList;
+    private final List<ClothesParsingInfo> clothesList;
     private final SetClothesElementsFragment fragment;
 
-    public ClothesElementAdapter(List<ClothesInfo> clothesList,
+    public ClothesElementAdapter(List<ClothesParsingInfo> clothesList,
                                  SetClothesElementsFragment fragment) {
         this.clothesList = clothesList;
         this.fragment = fragment;
@@ -37,21 +37,17 @@ public class ClothesElementAdapter extends RecyclerView.Adapter<ClothesElementAd
 
     @Override
     public void onBindViewHolder(ClothesView clothesView, final int position) {
-        ClothesInfo element = clothesList.get(position);
+        ClothesParsingInfo element = clothesList.get(position);
         clothesView.getBrand().setText(element.getBrand());
         clothesView.getDescription().setText(element.getDescription());
-        clothesView.getPrice().setText(element.getPrice().getRub() + " RUB");
+        clothesView.getPrice().setText(element.getPrice());
     }
 
     @Override
-    public void onViewRecycled(@NonNull ClothesView holder) {
-        super.onViewRecycled(holder);
-    }
+    public void onViewRecycled(@NonNull ClothesView holder) { super.onViewRecycled(holder); }
 
     @Override
-    public int getItemCount() {
-        return clothesList.size();
-    }
+    public int getItemCount() { return clothesList.size(); }
 
     class ClothesView extends RecyclerView.ViewHolder {
         private final TextView brand;
@@ -67,16 +63,8 @@ public class ClothesElementAdapter extends RecyclerView.Adapter<ClothesElementAd
             deleteButton.setOnClickListener(v -> fragment.removeClothes(getBindingAdapterPosition()));
         }
 
-        public TextView getBrand() {
-            return brand;
-        }
-
-        public TextView getDescription() {
-            return description;
-        }
-
-        public TextView getPrice() {
-            return price;
-        }
+        public TextView getBrand() { return brand; }
+        public TextView getDescription() { return description; }
+        public TextView getPrice() { return price; }
     }
 }

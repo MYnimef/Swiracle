@@ -1,6 +1,9 @@
 package com.mynimef.swiracle.fragments.setClothesElements;
 
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
+import android.os.Message;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,12 +17,10 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.mynimef.swiracle.api.ClothesInfo;
-import com.mynimef.swiracle.api.Price;
-import com.mynimef.swiracle.api.ParseClothes;
 import com.mynimef.swiracle.Interfaces.ISetClothesElements;
 import com.mynimef.swiracle.R;
 import com.mynimef.swiracle.adapters.ClothesElementAdapter;
+import com.mynimef.swiracle.network.ClothesParsingInfo;
 import com.mynimef.swiracle.network.NetworkService;
 
 import java.util.ArrayList;
@@ -29,32 +30,35 @@ import dagger.hilt.android.AndroidEntryPoint;
 
 @AndroidEntryPoint
 public class SetClothesElementsFragment extends Fragment implements ISetClothesElements {
-    private List<ClothesInfo> clothes;
-    private List<String> urls;
-    private Fragment fragment;
+    private List<ClothesParsingInfo> infoList;
     private RecyclerView rv;
     private ClothesElementAdapter adapter;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        this.fragment = this;
-        this.clothes = new ArrayList<>();
-        this.urls = new ArrayList<>();
+        this.infoList = new ArrayList<>();
     }
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_set_clothes_elements, container, false);
 
+        Handler handler = new Handler(Looper.getMainLooper()) {
+            @Override
+            public void handleMessage(@NonNull Message msg) {
+                super.handleMessage(msg);
+                addClothes((ClothesParsingInfo) msg.obj);
+            }
+        };
+
         EditText link = root.findViewById(R.id.addLink);
         Button addElement = root.findViewById(R.id.addElement);
         addElement.setOnClickListener(v -> {
             String url = link.getText().toString();
             if (!url.equals("")) {
-                new ParseClothes(url, fragment);
+                NetworkService.getInstance().getClothesParsing(url, handler);
                 link.setText("");
-                NetworkService.getInstance().getClothesParsing(url);
             }
         });
 
@@ -65,7 +69,7 @@ public class SetClothesElementsFragment extends Fragment implements ISetClothesE
         LinearLayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
         rv.setLayoutManager(mLayoutManager);
 
-        adapter = new ClothesElementAdapter(clothes, this);
+        adapter = new ClothesElementAdapter(infoList, this);
         rv.setAdapter(adapter);
 
         return root;
@@ -78,31 +82,19 @@ public class SetClothesElementsFragment extends Fragment implements ISetClothesE
                 Toast.LENGTH_SHORT).show();
     }
 
-    @Override
-    public void addClothes(String name, String description, Price price, String url) {
-        clothes.add(0, new ClothesInfo(name, description, price));
-        urls.add(0, url);
+    public void addClothes(ClothesParsingInfo info) {
+        infoList.add(0, info);
         adapter.notifyItemInserted(0);
         rv.smoothScrollToPosition(0);
     }
 
     public void removeClothes(int pos) {
-        clothes.remove(pos);
+        infoList.remove(pos);
         adapter.notifyItemRemoved(pos);
     }
 
     @Override
-    public List<ClothesInfo> getClothes() { return clothes; }
-
-    @Override
-    public List<String> getUrls() { return urls; }
-
-    @Override
-    public Price getTotalPrice() {
-        Price price = new Price();
-        for (ClothesInfo element : clothes) {
-            price.sum(element.getPrice());
-        }
-        return price;
+    public List<ClothesParsingInfo> getInfoList() {
+        return infoList;
     }
 }

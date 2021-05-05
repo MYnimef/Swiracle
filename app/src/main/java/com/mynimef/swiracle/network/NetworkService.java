@@ -4,6 +4,8 @@ import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.List;
 
 import retrofit2.Call;
@@ -68,34 +70,6 @@ public class NetworkService {
         });
     }
 
-    public void deletePost(PostServer employee, Handler handler) {
-        postApi.deletePost(employee.getId()).enqueue(new Callback<PostServer>() {
-            @Override
-            public void onResponse(Call<PostServer> call, Response<PostServer> response) {
-                getPosts(handler);
-            }
-
-            @Override
-            public void onFailure(Call<PostServer> call, Throwable t) {
-                t.printStackTrace();
-            }
-        });
-    }
-
-    public void updatePost(PostServer employee, Handler handler){
-        postApi.updatePost(employee.getId(), employee).enqueue(new Callback<PostServer>() {
-            @Override
-            public void onResponse(Call<PostServer> call, Response<PostServer> response) {
-                getPosts(handler);
-            }
-
-            @Override
-            public void onFailure(Call<PostServer> call, Throwable t) {
-                t.printStackTrace();
-            }
-        });
-    }
-
     public void putClothesElement(ClothesElementServer element) {
         clothesApi.putClothesElement(element).enqueue(new Callback<ClothesElementServer>() {
             @Override
@@ -110,14 +84,16 @@ public class NetworkService {
         });
     }
 
-    public void getClothesParsing(String url) {
-        Call<ClothesParsingInfo> call = parsingApi.getClothesElementParsing(url.replaceAll("/", "SWIRACLE"));
+    public void getClothesParsing(String url, Handler handler) {
+        Call<ClothesParsingInfo> call = parsingApi.
+                getClothesElementParsing(url.replaceAll("/", "SWIRACLE"));
+
         call.enqueue(new Callback<ClothesParsingInfo>() {
             @Override
-            public void onResponse(Call<ClothesParsingInfo> call, Response<ClothesParsingInfo> response) {
-                Log.d("parsing", response.body().getBrand());
-                Log.d("parsing", response.body().getDescription());
-                Log.d("parsing", response.body().getPrice());
+            public void onResponse(@NotNull Call<ClothesParsingInfo> call, @NotNull Response<ClothesParsingInfo> response) {
+                Message msg = new Message();
+                msg.obj = response.body();
+                handler.sendMessage(msg);
             }
 
             @Override

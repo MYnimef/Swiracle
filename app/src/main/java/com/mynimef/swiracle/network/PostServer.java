@@ -6,49 +6,22 @@ import com.google.gson.annotations.SerializedName;
 import java.util.List;
 
 public class PostServer {
-    @SerializedName("id")
-    @Expose
-    private String id;
-    public String getId() { return id; }
-    public void setId(String id) { this.id = id; }
-
-    @SerializedName("timeMillis")
-    @Expose
-    private String timeMillis;
     @SerializedName("title")
     @Expose
     private String title;
     @SerializedName("description")
     @Expose
     private String description;
-    @SerializedName("likesAmount")
+    @SerializedName("clothesInfo")
     @Expose
-    private int likesAmount;
-    @SerializedName("commentsAmount")
-    @Expose
-    private int commentsAmount;
+    private List<ClothesParsingInfo> clothesInfo;
 
-    @SerializedName("clothes")
-    @Expose
-    private List<ClothesElementServer> clothes;
-
-    public PostServer() {}
-
-    public PostServer(String id, String timeMillis,
-                      String title, String description,
-                      int likesAmount, int commentsAmount,
-                      List<ClothesElementServer> clothes) {
-        this.id = id;
-        this.timeMillis = timeMillis;
+    public PostServer(String title, String description,
+                      List<ClothesParsingInfo> clothesInfo) {
         this.title = title;
         this.description = description;
-        this.likesAmount = likesAmount;
-        this.commentsAmount = commentsAmount;
-        this.clothes = clothes;
+        this.clothesInfo = clothesInfo;
     }
-
-    public String getTimeMillis() { return timeMillis; }
-    public void setTimeMillis(String timeMillis) { this.timeMillis = timeMillis; }
 
     public String getTitle() { return title; }
     public void setTitle(String title) { this.title = title; }
@@ -56,9 +29,6 @@ public class PostServer {
     public String getDescription() { return description; }
     public void setDescription(String description) { this.description = description; }
 
-    public int getLikesAmount() { return likesAmount; }
-    public void setLikesAmount(int likesAmount) { this.likesAmount = likesAmount; }
-
-    public int getCommentsAmount() { return commentsAmount; }
-    public void setCommentsAmount(int commentsAmount) { this.commentsAmount = commentsAmount; }
+    public List<ClothesParsingInfo> getClothesInfo() { return clothesInfo; }
+    public void setClothesInfo(List<ClothesParsingInfo> clothesInfo) { this.clothesInfo = clothesInfo; }
 }
