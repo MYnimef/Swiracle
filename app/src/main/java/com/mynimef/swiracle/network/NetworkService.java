@@ -2,12 +2,17 @@ package com.mynimef.swiracle.network;
 
 import android.os.Handler;
 import android.os.Message;
-import android.util.Log;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -17,6 +22,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class NetworkService {
     private static NetworkService instance;
     Retrofit retrofit;
+    ImageApi imageApi;
     PostApi postApi;
     ClothesApi clothesApi;
     ParsingApi parsingApi;
@@ -34,6 +40,7 @@ public class NetworkService {
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
+        this.imageApi = retrofit.create(ImageApi.class);
         this.postApi = retrofit.create(PostApi.class);
         this.clothesApi = retrofit.create(ClothesApi.class);
         this.parsingApi = retrofit.create(ParsingApi.class);
@@ -43,7 +50,8 @@ public class NetworkService {
         Call<List<PostServer>> call = postApi.getAll();
         call.enqueue(new Callback<List<PostServer>>() {
             @Override
-            public void onResponse(Call<List<PostServer>> call, Response<List<PostServer>> response) {
+            public void onResponse(@NotNull Call<List<PostServer>> call,
+                                   @NotNull Response<List<PostServer>> response) {
                 Message msg = new Message();
                 msg.obj = response.body();
                 handler.sendMessage(msg);
@@ -56,29 +64,38 @@ public class NetworkService {
         });
     }
 
-    public void putPost(PostServer post) {
-        postApi.putPost(post).enqueue(new Callback<PostServer>() {
+    public void putImages(List<String> uriList) {
+        List<MultipartBody.Part> partList = new ArrayList<>();
+        for (String uri : uriList) {
+            File file = new File(uri);
+            RequestBody requestFile =
+                    RequestBody.create(MediaType.parse("multipart/form-data"), file);
+            partList.add(MultipartBody.Part.createFormData("image",
+                    file.getName(), requestFile));
+        }
+
+        imageApi.putImage(partList).enqueue(new Callback<ResponseBody>() {
             @Override
-            public void onResponse(Call<PostServer> call, Response<PostServer> response) {
-                //getPosts(handler);
+            public void onResponse(@NotNull Call<ResponseBody> call,
+                                   @NotNull Response<ResponseBody> response) {
             }
 
             @Override
-            public void onFailure(Call<PostServer> call, Throwable t) {
+            public void onFailure(@NotNull Call<ResponseBody> call, @NotNull Throwable t) {
                 t.printStackTrace();
             }
         });
     }
 
-    public void putClothesElement(ClothesElementServer element) {
-        clothesApi.putClothesElement(element).enqueue(new Callback<ClothesElementServer>() {
+    public void putPost(PostServer post) {
+        postApi.putPost(post).enqueue(new Callback<PostServer>() {
             @Override
-            public void onResponse(Call<ClothesElementServer> call, Response<ClothesElementServer> response) {
-                //getPosts(handler);
+            public void onResponse(@NotNull Call<PostServer> call,
+                                   @NotNull Response<PostServer> response) {
             }
 
             @Override
-            public void onFailure(Call<ClothesElementServer> call, Throwable t) {
+            public void onFailure(@NotNull Call<PostServer> call, @NotNull Throwable t) {
                 t.printStackTrace();
             }
         });
@@ -87,17 +104,17 @@ public class NetworkService {
     public void getClothesParsing(String url, Handler handler) {
         Call<ClothesParsingInfo> call = parsingApi.
                 getClothesElementParsing(url.replaceAll("/", "SWIRACLE"));
-
         call.enqueue(new Callback<ClothesParsingInfo>() {
             @Override
-            public void onResponse(@NotNull Call<ClothesParsingInfo> call, @NotNull Response<ClothesParsingInfo> response) {
+            public void onResponse(@NotNull Call<ClothesParsingInfo> call,
+                                   @NotNull Response<ClothesParsingInfo> response) {
                 Message msg = new Message();
                 msg.obj = response.body();
                 handler.sendMessage(msg);
             }
 
             @Override
-            public void onFailure(Call<ClothesParsingInfo> call, Throwable t) {
+            public void onFailure(@NotNull Call<ClothesParsingInfo> call, @NotNull Throwable t) {
                 t.printStackTrace();
             }
         });
