@@ -1,13 +1,27 @@
-package com.mynimef.swiracle.api;
+package com.mynimef.swiracle.api.database;
 
-import java.util.List;
+import androidx.annotation.NonNull;
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
 
-public class Images {
-    private List<String> images;
+import org.jetbrains.annotations.NotNull;
 
-    public Images(List<String> images) { this.images = images; }
+@Entity(tableName = "images_table")
+public class PostImage {
+    @PrimaryKey @NotNull
+    private String url;
+    public void setUrl(@NotNull String url) { this.url = url; }
+    @NotNull
+    public String getUrl() { return url; }
 
-    public void setImages(List<String> images) { this.images = images; }
+    @NonNull
+    private String postId;
+    @NotNull
+    public String getPostId() { return postId; }
+    public void setPostId(@NotNull String postId) { this.postId = postId; }
 
-    public List<String> getImages() { return images; }
+    public PostImage(@NotNull String url, @NotNull String postId) {
+        this.url = url;
+        this.postId = postId;
+    }
 }
