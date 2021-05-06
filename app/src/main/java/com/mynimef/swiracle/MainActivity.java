@@ -3,7 +3,7 @@ package com.mynimef.swiracle;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 
-import com.mynimef.swiracle.api.Repository;
+import com.mynimef.swiracle.logic.Repository;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -24,7 +24,7 @@ public class MainActivity extends AppCompatActivity {
         if (requestCode == 1) {
             if (grantResults.length > 0 &&
                     grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                Repository.getInstance().initGallery(this);
+                Repository.getInstance().initGallery();
             } else {
                 // Explain to the user that the feature is unavailable because
                 // the features requires a permission that the user has denied.

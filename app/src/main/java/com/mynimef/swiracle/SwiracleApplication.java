@@ -2,7 +2,7 @@ package com.mynimef.swiracle;
 
 import android.app.Application;
 
-import com.mynimef.swiracle.api.Repository;
+import com.mynimef.swiracle.logic.Repository;
 
 import dagger.hilt.android.HiltAndroidApp;
 
@@ -11,7 +11,6 @@ public class SwiracleApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        Repository.getInstance().initDatabase(this);
-        Repository.getInstance().initNetwork();
+        Repository.getInstance().init(this);
     }
 }

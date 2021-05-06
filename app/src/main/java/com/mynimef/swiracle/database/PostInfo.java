@@ -1,11 +1,11 @@
-package com.mynimef.swiracle.api.database;
+package com.mynimef.swiracle.database;
 
 import androidx.annotation.NonNull;
 import androidx.room.Embedded;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
-import com.mynimef.swiracle.api.Price;
+import com.mynimef.swiracle.logic.Price;
 
 import org.jetbrains.annotations.NotNull;
 

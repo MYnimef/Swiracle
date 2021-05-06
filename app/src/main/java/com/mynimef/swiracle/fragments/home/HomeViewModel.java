@@ -6,8 +6,8 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
-import com.mynimef.swiracle.api.database.Post;
-import com.mynimef.swiracle.api.Repository;
+import com.mynimef.swiracle.database.Post;
+import com.mynimef.swiracle.logic.Repository;
 
 import java.util.List;
 
@@ -27,23 +27,6 @@ public class HomeViewModel extends AndroidViewModel {
         this.recommendationList = repository.getRecommendationList();
     }
 
-    public void insert(Post post) {
-        repository.insert(post);
-    }
-
-    public void update(Post post) {
-        repository.update(post);
-    }
-
-    public void delete(Post post) {
-        repository.delete(post);
-    }
-
-    public void deleteAllPosts() {
-        repository.deleteAllPosts();
-    }
-
-    public LiveData<List<Post>> getRecommendationList() {
-        return recommendationList;
-    }
+    public void delete(Post post) { repository.delete(post); }
+    public LiveData<List<Post>> getRecommendationList() { return recommendationList; }
 }

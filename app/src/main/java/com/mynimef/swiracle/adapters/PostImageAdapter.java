@@ -10,9 +10,11 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.mynimef.swiracle.api.FragmentChanger;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.request.RequestOptions;
+import com.mynimef.swiracle.logic.FragmentChanger;
 import com.mynimef.swiracle.R;
-import com.mynimef.swiracle.api.database.PostImage;
+import com.mynimef.swiracle.database.PostImage;
 import com.mynimef.swiracle.fragments.post.PostFragment;
 import com.mynimef.swiracle.fragments.post.PostMenuFragment;
 

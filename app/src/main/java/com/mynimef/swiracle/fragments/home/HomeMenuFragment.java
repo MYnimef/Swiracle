@@ -11,7 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import com.mynimef.swiracle.api.FragmentChanger;
+import com.mynimef.swiracle.logic.FragmentChanger;
 import com.mynimef.swiracle.R;
 import com.mynimef.swiracle.fragments.messenger.MessengerFragment;
 import com.mynimef.swiracle.fragments.search.SearchFragment;

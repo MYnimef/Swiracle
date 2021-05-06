@@ -1,4 +1,4 @@
-package com.mynimef.swiracle.network;
+package com.mynimef.swiracle.network.models;
 
 public class PostImageServer {
     private String imageUrl;

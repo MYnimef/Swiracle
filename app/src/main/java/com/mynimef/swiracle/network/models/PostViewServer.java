@@ -1,8 +1,9 @@
-package com.mynimef.swiracle.network;
+package com.mynimef.swiracle.network.models;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
-import com.mynimef.swiracle.api.Price;
+import com.mynimef.swiracle.logic.Price;
+import com.mynimef.swiracle.network.models.PostImageServer;
 
 import java.util.List;
 

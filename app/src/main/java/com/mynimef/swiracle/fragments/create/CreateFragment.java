@@ -13,18 +13,16 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.mynimef.swiracle.api.FragmentChanger;
+import com.mynimef.swiracle.logic.FragmentChanger;
 import com.mynimef.swiracle.Interfaces.IPickImage;
 import com.mynimef.swiracle.Interfaces.ISetClothesElements;
 import com.mynimef.swiracle.Interfaces.ISetInfo;
 import com.mynimef.swiracle.R;
-import com.mynimef.swiracle.api.Repository;
-import com.mynimef.swiracle.api.UriReader;
+import com.mynimef.swiracle.logic.UriReader;
 import com.mynimef.swiracle.fragments.pickImage.PickImageFragment;
 import com.mynimef.swiracle.fragments.setClothesElements.SetClothesElementsFragment;
 import com.mynimef.swiracle.fragments.setInfo.SetInfoFragment;
-import com.mynimef.swiracle.network.NetworkService;
-import com.mynimef.swiracle.network.PostServer;
+import com.mynimef.swiracle.network.models.PostServer;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,9 +39,7 @@ public class CreateFragment extends Fragment {
     private SetInfoFragment setInfoFragment;
     private CreateViewModel createViewModel;
 
-    public CreateFragment(Fragment parentFragment) {
-        this.parentFragment = parentFragment;
-    }
+    public CreateFragment(Fragment parentFragment) { this.parentFragment = parentFragment; }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -118,7 +114,7 @@ public class CreateFragment extends Fragment {
                         absolutePath.add(UriReader.getRealPathFromUri(requireContext(), uri));
                     }
 
-                    Repository.getInstance().uploadPost(new PostServer(setInfo.getTitle(),
+                    createViewModel.uploadPost(new PostServer(setInfo.getTitle(),
                             setInfo.getDescription(),
                             setClothesElements.getInfoList()), absolutePath);
 

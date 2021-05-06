@@ -9,7 +9,7 @@ import android.widget.Button;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
-import com.mynimef.swiracle.api.FragmentChanger;
+import com.mynimef.swiracle.logic.FragmentChanger;
 import com.mynimef.swiracle.Interfaces.IPickNavigation;
 import com.mynimef.swiracle.R;
 import com.mynimef.swiracle.fragments.home.HomeMenuFragment;

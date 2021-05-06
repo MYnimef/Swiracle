@@ -1,6 +1,6 @@
 package com.mynimef.swiracle.Interfaces;
 
-import com.mynimef.swiracle.network.ClothesParsingInfo;
+import com.mynimef.swiracle.network.models.ClothesParsingInfo;
 
 import java.util.List;
 

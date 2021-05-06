@@ -1,4 +1,4 @@
-package com.mynimef.swiracle.api.database;
+package com.mynimef.swiracle.database;
 
 import android.content.Context;
 

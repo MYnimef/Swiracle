@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.mynimef.swiracle.R;
 import com.mynimef.swiracle.fragments.setClothesElements.SetClothesElementsFragment;
-import com.mynimef.swiracle.network.ClothesParsingInfo;
+import com.mynimef.swiracle.network.models.ClothesParsingInfo;
 
 import org.jetbrains.annotations.NotNull;
 

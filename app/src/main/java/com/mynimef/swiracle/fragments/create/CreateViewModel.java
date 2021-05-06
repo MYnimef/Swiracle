@@ -7,8 +7,10 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
-import com.mynimef.swiracle.api.database.Post;
-import com.mynimef.swiracle.api.Repository;
+import com.mynimef.swiracle.logic.Repository;
+import com.mynimef.swiracle.network.models.PostServer;
+
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -26,15 +28,10 @@ public class CreateViewModel extends AndroidViewModel {
         this.repository = Repository.getInstance();
     }
 
-    public LiveData<String> getText() {
-        return this.buttonText;
-    }
+    public LiveData<String> getText() { return this.buttonText; }
+    public void setText(String text) { this.buttonText.setValue(text); }
 
-    public void setText(String text) {
-        this.buttonText.setValue(text);
-    }
-
-    public void insert(Post post) {
-        repository.insert(post);
+    public void uploadPost(PostServer postServer, List<String> pathList) {
+        repository.uploadPost(postServer, pathList);
     }
 }

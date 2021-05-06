@@ -4,6 +4,14 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 
+import com.mynimef.swiracle.logic.Repository;
+import com.mynimef.swiracle.network.api.ClothesApi;
+import com.mynimef.swiracle.network.api.ParsingApi;
+import com.mynimef.swiracle.network.api.PostApi;
+import com.mynimef.swiracle.network.models.ClothesParsingInfo;
+import com.mynimef.swiracle.network.models.PostServer;
+import com.mynimef.swiracle.network.models.PostViewServer;
+
 import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
@@ -21,10 +29,9 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class NetworkService {
     private static NetworkService instance;
-    Retrofit retrofit;
-    PostApi postApi;
-    ClothesApi clothesApi;
-    ParsingApi parsingApi;
+    private final PostApi postApi;
+    private final ClothesApi clothesApi;
+    private final ParsingApi parsingApi;
 
     public static NetworkService getInstance() {
         if (instance == null) {
@@ -34,7 +41,7 @@ public class NetworkService {
     }
 
     private NetworkService() {
-        this.retrofit = new Retrofit.Builder()
+        Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("http://192.168.1.7:8080/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
@@ -44,19 +51,17 @@ public class NetworkService {
         this.parsingApi = retrofit.create(ParsingApi.class);
     }
 
-    public void getPosts(Handler handler) {
-        Call<List<PostViewServer>> call = postApi.getAll();
-        call.enqueue(new Callback<List<PostViewServer>>() {
+    public void getPosts() {
+        postApi.getAll().enqueue(new Callback<List<PostViewServer>>() {
             @Override
             public void onResponse(@NotNull Call<List<PostViewServer>> call,
                                    @NotNull Response<List<PostViewServer>> response) {
-                Message msg = new Message();
-                msg.obj = response.body();
-                handler.sendMessage(msg);
+                Repository.getInstance().insertAll(response.body());
             }
 
             @Override
-            public void onFailure(Call<List<PostViewServer>> call, Throwable t) {
+            public void onFailure(@NotNull Call<List<PostViewServer>> call,
+                                  @NotNull Throwable t) {
                 t.printStackTrace();
             }
         });

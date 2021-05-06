@@ -1,4 +1,4 @@
-package com.mynimef.swiracle.api;
+package com.mynimef.swiracle.logic;
 
 import android.content.Context;
 import android.database.Cursor;

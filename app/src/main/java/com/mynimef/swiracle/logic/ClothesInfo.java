@@ -1,4 +1,4 @@
-package com.mynimef.swiracle.api;
+package com.mynimef.swiracle.logic;
 
 import androidx.room.Embedded;
 
