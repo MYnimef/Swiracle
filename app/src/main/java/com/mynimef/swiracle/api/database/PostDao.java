@@ -13,25 +13,28 @@ import java.util.List;
 @Dao
 public interface PostDao {
     @Insert
-    void insertPost(PostInfo postInfo);
+    void insertPostInfo(PostInfo postInfo);
 
     @Update
-    void updatePost(PostInfo postInfo);
+    void updatePostInfo(PostInfo postInfo);
 
     @Delete
-    void deletePost(PostInfo postInfo);
+    void deletePostInfo(PostInfo postInfo);
 
     @Insert
-    void insertClothesElement(ClothesElement clothesElement);
+    void insertPostImage(PostImage postImage);
 
     @Update
-    void updateClothesElement(ClothesElement clothesElement);
+    void updatePostImage(PostImage postImage);
 
     @Delete
-    void deleteClothesElement(ClothesElement clothesElement);
+    void deletePostImage(PostImage postImage);
 
     @Query("DELETE FROM post_table")
     void deleteAllPosts();
+
+    @Query("DELETE FROM images_table")
+    void deleteAllImages();
 
     @Transaction
     @Query("SELECT * FROM post_table")

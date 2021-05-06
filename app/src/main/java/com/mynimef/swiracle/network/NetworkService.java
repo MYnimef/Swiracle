@@ -1,5 +1,6 @@
 package com.mynimef.swiracle.network;
 
+import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 
@@ -44,24 +45,24 @@ public class NetworkService {
     }
 
     public void getPosts(Handler handler) {
-        Call<List<PostServer>> call = postApi.getAll();
-        call.enqueue(new Callback<List<PostServer>>() {
+        Call<List<PostViewServer>> call = postApi.getAll();
+        call.enqueue(new Callback<List<PostViewServer>>() {
             @Override
-            public void onResponse(@NotNull Call<List<PostServer>> call,
-                                   @NotNull Response<List<PostServer>> response) {
+            public void onResponse(@NotNull Call<List<PostViewServer>> call,
+                                   @NotNull Response<List<PostViewServer>> response) {
                 Message msg = new Message();
                 msg.obj = response.body();
                 handler.sendMessage(msg);
             }
 
             @Override
-            public void onFailure(Call<List<PostServer>> call, Throwable t) {
+            public void onFailure(Call<List<PostViewServer>> call, Throwable t) {
                 t.printStackTrace();
             }
         });
     }
 
-    public void putPost(PostServer post, List<String> uriList) {
+    public void putPost(PostServer post, List<String> uriList, Handler handler) {
         List<MultipartBody.Part> partList = new ArrayList<>();
         for (String uri : uriList) {
             File file = new File(uri);
@@ -75,6 +76,11 @@ public class NetworkService {
             @Override
             public void onResponse(@NotNull Call<PostServer> call,
                                    @NotNull Response<PostServer> response) {
+                Message msg = new Message();
+                Bundle bundle = new Bundle();
+                bundle.putString("result", "positive");
+                msg.setData(bundle);
+                handler.sendMessage(msg);
             }
 
             @Override

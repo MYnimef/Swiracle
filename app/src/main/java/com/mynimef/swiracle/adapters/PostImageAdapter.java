@@ -12,17 +12,18 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.mynimef.swiracle.api.FragmentChanger;
 import com.mynimef.swiracle.R;
+import com.mynimef.swiracle.api.database.PostImage;
 import com.mynimef.swiracle.fragments.post.PostFragment;
 import com.mynimef.swiracle.fragments.post.PostMenuFragment;
 
 import java.util.List;
 
 public class PostImageAdapter extends RecyclerView.Adapter<PostImageAdapter.PostImageView> {
-    private final List<String> images;
+    private final List<PostImage> images;
     private final int pos;
     private final Fragment fragment;
 
-    public PostImageAdapter(List<String> images, int pos, Fragment fragment) {
+    public PostImageAdapter(List<PostImage> images, int pos, Fragment fragment) {
         this.images = images;
         this.pos = pos;
         this.fragment = fragment;
@@ -39,11 +40,10 @@ public class PostImageAdapter extends RecyclerView.Adapter<PostImageAdapter.Post
 
     @Override
     public void onBindViewHolder(@NonNull PostImageView holder, int position) {
-        String image = images.get(position);
-
+        PostImage image = images.get(position);
         Glide
                 .with(fragment)
-                .load(image)
+                .load(image.getUrl())
                 .into(holder.getPic());
     }
 

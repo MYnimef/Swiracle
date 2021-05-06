@@ -18,6 +18,7 @@ import com.mynimef.swiracle.Interfaces.IPickImage;
 import com.mynimef.swiracle.Interfaces.ISetClothesElements;
 import com.mynimef.swiracle.Interfaces.ISetInfo;
 import com.mynimef.swiracle.R;
+import com.mynimef.swiracle.api.Repository;
 import com.mynimef.swiracle.api.UriReader;
 import com.mynimef.swiracle.fragments.pickImage.PickImageFragment;
 import com.mynimef.swiracle.fragments.setClothesElements.SetClothesElementsFragment;
@@ -117,7 +118,7 @@ public class CreateFragment extends Fragment {
                         absolutePath.add(UriReader.getRealPathFromUri(requireContext(), uri));
                     }
 
-                    NetworkService.getInstance().putPost(new PostServer(setInfo.getTitle(),
+                    Repository.getInstance().uploadPost(new PostServer(setInfo.getTitle(),
                             setInfo.getDescription(),
                             setClothesElements.getInfoList()), absolutePath);
 

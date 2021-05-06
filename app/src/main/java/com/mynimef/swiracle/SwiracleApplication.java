@@ -12,5 +12,6 @@ public class SwiracleApplication extends Application {
     public void onCreate() {
         super.onCreate();
         Repository.getInstance().initDatabase(this);
+        Repository.getInstance().initNetwork();
     }
 }

@@ -51,15 +51,15 @@ public class PostFragment extends Fragment {
                 LinearLayoutManager.HORIZONTAL, false);
         imagesRecyclerView.setLayoutManager(imagesLayoutManager);
 
-        PostImageAdapter imagesAdapter = new PostImageAdapter(post.postInfo.getImages().getImages(),
+        PostImageAdapter imagesAdapter = new PostImageAdapter(post.getImages(),
                 -1, this);
         imagesRecyclerView.setAdapter(imagesAdapter);
         imagesRecyclerView.scrollToPosition(num);
 
         TextView title = root.findViewById(R.id.titleView);
-        title.setText(post.postInfo.getTitle());
+        title.setText(post.getPostInfo().getTitle());
         TextView description = root.findViewById(R.id.descriptionView);
-        description.setText(post.postInfo.getDescription());
+        //description.setText(post.getPostInfo().getDescription());
 
         RecyclerView clothesRecyclerView = root.findViewById(R.id.elementsView);
         clothesRecyclerView.addItemDecoration(new DividerItemDecoration(requireContext(),
@@ -69,8 +69,8 @@ public class PostFragment extends Fragment {
         LinearLayoutManager clothesLayoutManager = new LinearLayoutManager(getActivity());
         clothesRecyclerView.setLayoutManager(clothesLayoutManager);
 
-        PostClothesAdapter clothesAdapter = new PostClothesAdapter(post.clothes, this);
-        clothesRecyclerView.setAdapter(clothesAdapter);
+        //PostClothesAdapter clothesAdapter = new PostClothesAdapter(post.clothes, this);
+        //clothesRecyclerView.setAdapter(clothesAdapter);
 
         return root;
     }

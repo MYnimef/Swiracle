@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.PagerSnapHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.mynimef.swiracle.api.database.Post;
+import com.mynimef.swiracle.api.database.PostImage;
 import com.mynimef.swiracle.api.database.PostInfo;
 import com.mynimef.swiracle.R;
 
@@ -47,7 +48,7 @@ public class HomePostAdapter extends RecyclerView.Adapter<HomePostAdapter.PostVi
 
     @Override
     public void onBindViewHolder(PostView postView, final int position) {
-        PostInfo postInfo = postList.get(position).postInfo;
+        PostInfo postInfo = postList.get(position).getPostInfo();
 
         postView.getTopLayout().setOnClickListener(v -> {
         });
@@ -57,7 +58,7 @@ public class HomePostAdapter extends RecyclerView.Adapter<HomePostAdapter.PostVi
         LinearLayoutManager mLayoutManager = new LinearLayoutManager(fragment.getActivity(),
                 LinearLayoutManager.HORIZONTAL, false);
         postView.getRecyclerView().setLayoutManager(mLayoutManager);
-        PostImageAdapter adapter = new PostImageAdapter(postInfo.getImages().getImages(), position,
+        PostImageAdapter adapter = new PostImageAdapter(postList.get(position).getImages(), position,
                 fragment);
         postView.getRecyclerView().setAdapter(adapter);
 
