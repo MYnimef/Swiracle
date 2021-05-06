@@ -2,6 +2,7 @@ package com.mynimef.swiracle.api;
 
 import android.app.Activity;
 import android.app.Application;
+import android.net.Uri;
 
 import androidx.lifecycle.LiveData;
 
@@ -20,7 +21,7 @@ public class Repository {
     private static Repository instance;
     private PostDao postDao;
     private LiveData<List<Post>> recommendationList;
-    private ArrayList<String> gallery;
+    private ArrayList<Uri> gallery;
 
     public static synchronized Repository getInstance() {
         if (instance == null) {
@@ -52,8 +53,8 @@ public class Repository {
     }
 
     public void initGallery(Activity activity) { new GalleryViewer(activity); }
-    public void setGallery(ArrayList<String> gallery) { this.gallery = gallery; }
-    public ArrayList<String> getGallery() { return this.gallery; }
+    public void setGallery(ArrayList<Uri> gallery) { this.gallery = gallery; }
+    public ArrayList<Uri> getGallery() { return this.gallery; }
 
     private static class InsertPostRunnable implements Runnable {
         private final PostDao postDao;

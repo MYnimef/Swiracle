@@ -23,7 +23,7 @@ public class GalleryViewer {
             @Override
             public void handleMessage(Message msg) {
                 super.handleMessage(msg);
-                Repository.getInstance().setGallery(msg.getData().getStringArrayList("images"));
+                Repository.getInstance().setGallery(msg.getData().getParcelableArrayList("images"));
                 removeCallbacksAndMessages(null);
             }
         };
@@ -33,19 +33,17 @@ public class GalleryViewer {
 
     private class GalleryRunnable implements Runnable {
         @Override
-        public void run() {
-            publishProgress(getImagesPath());
-        }
+        public void run() { publishProgress(getImagesPath()); }
 
-        private void publishProgress(ArrayList<String> images) {
+        private void publishProgress(ArrayList<Uri> images) {
             Bundle bundle = new Bundle();
-            bundle.putStringArrayList("images", images);
+            bundle.putParcelableArrayList("images", images);
             Message message = new Message();
             message.setData(bundle);
             handler.sendMessage(message);
         }
 
-        private ArrayList<String> getImagesPath() {
+        private ArrayList<Uri> getImagesPath() {
             Uri uri = android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI;
             String[] projection = { MediaStore.Images.Media._ID,
                     MediaStore.Images.Media.BUCKET_DISPLAY_NAME };
@@ -53,15 +51,14 @@ public class GalleryViewer {
                     projection, null,
                     null, MediaStore.Images.Media.DATE_ADDED + " DESC");
 
-            ArrayList<String> uriList = new ArrayList<>();
+            ArrayList<Uri> uriList = new ArrayList<>();
             int idColumn = cursor.getColumnIndexOrThrow(MediaStore.Images.Media._ID);
             while (cursor.moveToNext()) {
                 long id = cursor.getLong(idColumn);
                 Uri contentUri = ContentUris.withAppendedId(
                         MediaStore.Images.Media.EXTERNAL_CONTENT_URI, id);
-                uriList.add(String.valueOf(contentUri));
+                uriList.add(contentUri);
             }
-
             return uriList;
         }
     }

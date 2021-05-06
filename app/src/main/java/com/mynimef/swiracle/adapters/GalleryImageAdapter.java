@@ -1,5 +1,6 @@
 package com.mynimef.swiracle.adapters;
 
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,14 +16,15 @@ import com.mynimef.swiracle.fragments.pickImage.PickImageFragment;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class GalleryImageAdapter extends RecyclerView.Adapter<GalleryImageAdapter.GalleryView> {
-    private final ArrayList<String> imagesList;
+    private final List<Uri> imagesList;
     private final PickImageFragment fragment;
     private int selectedId;
     private boolean[] selectedField;
 
-    public GalleryImageAdapter(ArrayList<String> imagesList, PickImageFragment fragment) {
+    public GalleryImageAdapter(List<Uri> imagesList, PickImageFragment fragment) {
         this.imagesList = imagesList;
         this.fragment = fragment;
         this.selectedField = new boolean[imagesList.size()];

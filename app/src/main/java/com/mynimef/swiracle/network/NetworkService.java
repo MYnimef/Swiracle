@@ -70,11 +70,11 @@ public class NetworkService {
             File file = new File(uri);
             RequestBody requestFile =
                     RequestBody.create(MediaType.parse("multipart/form-data"), file);
-            partList.add(MultipartBody.Part.createFormData("image",
+            partList.add(MultipartBody.Part.createFormData("images",
                     file.getName(), requestFile));
         }
 
-        imageApi.putImage(partList).enqueue(new Callback<ResponseBody>() {
+        imageApi.putImages(partList).enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(@NotNull Call<ResponseBody> call,
                                    @NotNull Response<ResponseBody> response) {

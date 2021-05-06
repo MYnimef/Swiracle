@@ -1,5 +1,6 @@
 package com.mynimef.swiracle.fragments.pickImage;
 
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,6 +21,7 @@ import com.mynimef.swiracle.adapters.GalleryImageAdapter;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Set;
 
 import dagger.hilt.android.AndroidEntryPoint;
@@ -27,8 +29,8 @@ import dagger.hilt.android.AndroidEntryPoint;
 @AndroidEntryPoint
 public class PickImageFragment extends Fragment implements IPickImage {
     private ImageView imageView;
-    private ArrayList<String> imageUri;
-    private HashMap<Integer, String> pickedUri;
+    private List<Uri> imageUri;
+    private HashMap<Integer, Uri> pickedUri;
     private boolean multiple;
     private GalleryImageAdapter adapter;
     private int lastPicked;
@@ -99,8 +101,8 @@ public class PickImageFragment extends Fragment implements IPickImage {
     }
 
     @Override
-    public ArrayList<String> getPickedUri() {
-        ArrayList<String> result = new ArrayList<>();
+    public List<Uri> getPickedUri() {
+        List<Uri> result = new ArrayList<>();
         Set<Integer> key = pickedUri.keySet();
         for (int i : key) {
             result.add(pickedUri.get(i));

@@ -1,5 +1,6 @@
 package com.mynimef.swiracle.fragments.create;
 
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -112,7 +113,7 @@ public class CreateFragment extends Fragment {
                 }
                 else {
                     List<String> absolutePath = new ArrayList<>();
-                    for (String uri : pickImage.getPickedUri()) {
+                    for (Uri uri : pickImage.getPickedUri()) {
                         absolutePath.add(UriReader.getRealPathFromUri(requireContext(), uri));
                     }
                     NetworkService.getInstance().putImages(absolutePath);
