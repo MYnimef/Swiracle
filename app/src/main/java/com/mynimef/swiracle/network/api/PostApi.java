@@ -1,4 +1,7 @@
-package com.mynimef.swiracle.network;
+package com.mynimef.swiracle.network.api;
+
+import com.mynimef.swiracle.network.models.PostServer;
+import com.mynimef.swiracle.network.models.PostViewServer;
 
 import java.util.List;
 
