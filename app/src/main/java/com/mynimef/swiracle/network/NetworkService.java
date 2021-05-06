@@ -12,7 +12,6 @@ import java.util.List;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
-import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -22,7 +21,6 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class NetworkService {
     private static NetworkService instance;
     Retrofit retrofit;
-    ImageApi imageApi;
     PostApi postApi;
     ClothesApi clothesApi;
     ParsingApi parsingApi;
@@ -40,7 +38,6 @@ public class NetworkService {
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
-        this.imageApi = retrofit.create(ImageApi.class);
         this.postApi = retrofit.create(PostApi.class);
         this.clothesApi = retrofit.create(ClothesApi.class);
         this.parsingApi = retrofit.create(ParsingApi.class);
@@ -64,7 +61,7 @@ public class NetworkService {
         });
     }
 
-    public void putImages(List<String> uriList) {
+    public void putPost(PostServer post, List<String> uriList) {
         List<MultipartBody.Part> partList = new ArrayList<>();
         for (String uri : uriList) {
             File file = new File(uri);
@@ -74,21 +71,7 @@ public class NetworkService {
                     file.getName(), requestFile));
         }
 
-        imageApi.putImages(partList).enqueue(new Callback<ResponseBody>() {
-            @Override
-            public void onResponse(@NotNull Call<ResponseBody> call,
-                                   @NotNull Response<ResponseBody> response) {
-            }
-
-            @Override
-            public void onFailure(@NotNull Call<ResponseBody> call, @NotNull Throwable t) {
-                t.printStackTrace();
-            }
-        });
-    }
-
-    public void putPost(PostServer post) {
-        postApi.putPost(post).enqueue(new Callback<PostServer>() {
+        postApi.putPost(post, partList).enqueue(new Callback<PostServer>() {
             @Override
             public void onResponse(@NotNull Call<PostServer> call,
                                    @NotNull Response<PostServer> response) {

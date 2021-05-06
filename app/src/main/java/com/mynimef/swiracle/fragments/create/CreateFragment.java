@@ -116,10 +116,10 @@ public class CreateFragment extends Fragment {
                     for (Uri uri : pickImage.getPickedUri()) {
                         absolutePath.add(UriReader.getRealPathFromUri(requireContext(), uri));
                     }
-                    NetworkService.getInstance().putImages(absolutePath);
+
                     NetworkService.getInstance().putPost(new PostServer(setInfo.getTitle(),
                             setInfo.getDescription(),
-                            setClothesElements.getInfoList()));
+                            setClothesElements.getInfoList()), absolutePath);
 
                     FragmentChanger.replaceFragment(requireActivity().getSupportFragmentManager(),
                             R.id.mainFragment, parentFragment);
