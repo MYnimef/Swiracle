@@ -14,15 +14,18 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.PagerSnapHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.mynimef.swiracle.adapters.PostClothesAdapter;
 import com.mynimef.swiracle.database.Post;
 import com.mynimef.swiracle.R;
 import com.mynimef.swiracle.adapters.PostImageAdapter;
+import com.mynimef.swiracle.models.PostDetails;
 
 import dagger.hilt.android.AndroidEntryPoint;
 
 @AndroidEntryPoint
 public class PostFragment extends Fragment {
     private Post post;
+    private PostDetails details;
     private final int pos;
     private final int num;
 
@@ -36,9 +39,11 @@ public class PostFragment extends Fragment {
         View root = inflater.inflate(R.layout.fragment_post, container, false);
 
         PostViewModel postViewModel = new ViewModelProvider(this).get(PostViewModel.class);
+
         post = postViewModel.getRecommendationList().getValue().get(pos);
         postViewModel.getRecommendationList().observe(getViewLifecycleOwner(),
                 posts -> post = posts.get(pos));
+        postViewModel.loadDetails(post.getPostInfo().getId());
 
         RecyclerView imagesRecyclerView = root.findViewById(R.id.PostImageView);
         imagesRecyclerView.setHasFixedSize(true);
@@ -58,7 +63,6 @@ public class PostFragment extends Fragment {
         TextView title = root.findViewById(R.id.titleView);
         title.setText(post.getPostInfo().getTitle());
         TextView description = root.findViewById(R.id.descriptionView);
-        //description.setText(post.getPostInfo().getDescription());
 
         RecyclerView clothesRecyclerView = root.findViewById(R.id.elementsView);
         clothesRecyclerView.addItemDecoration(new DividerItemDecoration(requireContext(),
@@ -68,8 +72,13 @@ public class PostFragment extends Fragment {
         LinearLayoutManager clothesLayoutManager = new LinearLayoutManager(getActivity());
         clothesRecyclerView.setLayoutManager(clothesLayoutManager);
 
-        //PostClothesAdapter clothesAdapter = new PostClothesAdapter(post.clothes, this);
-        //clothesRecyclerView.setAdapter(clothesAdapter);
+        details = postViewModel.getDetails().getValue();
+        postViewModel.getDetails().observe(getViewLifecycleOwner(), newDetails -> {
+            details = newDetails;
+            description.setText(details.getDescription());
+            PostClothesAdapter clothesAdapter = new PostClothesAdapter(details.getClothes(), this);
+            clothesRecyclerView.setAdapter(clothesAdapter);
+        });
 
         return root;
     }

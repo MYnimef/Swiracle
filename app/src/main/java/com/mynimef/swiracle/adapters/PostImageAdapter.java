@@ -48,9 +48,7 @@ public class PostImageAdapter extends RecyclerView.Adapter<PostImageAdapter.Post
     }
 
     @Override
-    public int getItemCount() {
-        return images.size();
-    }
+    public int getItemCount() { return images.size(); }
 
     class PostImageView extends RecyclerView.ViewHolder {
         private final ImageView pic;

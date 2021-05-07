@@ -5,8 +5,6 @@ import android.app.Application;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Handler;
-import android.os.Looper;
-import android.os.Message;
 
 import androidx.core.content.ContextCompat;
 import androidx.lifecycle.LiveData;
@@ -40,18 +38,11 @@ public class Repository {
     }
 
     public void uploadPost(PostServer postServer, List<String> pathList) {
-        Handler handler = new Handler(Looper.getMainLooper()) {
-            @Override
-            public void handleMessage(Message msg) {
-                super.handleMessage(msg);
-                String result = msg.getData().getString("result");
-                if (result.equals("positive")){
-                    networkService.getPosts();
-                }
-                removeCallbacksAndMessages(null);
-            }
-        };
-        networkService.putPost(postServer, pathList, handler);
+        networkService.putPost(postServer, pathList);
+    }
+
+    public void getPostDetails(String id, Handler handler) {
+        networkService.getPostDetails(id, handler);
     }
 
     public void init(Application application) {

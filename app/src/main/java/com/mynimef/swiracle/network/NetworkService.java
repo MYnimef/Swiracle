@@ -6,6 +6,7 @@ import android.os.Message;
 
 import com.mynimef.swiracle.database.Post;
 import com.mynimef.swiracle.logic.Repository;
+import com.mynimef.swiracle.models.PostDetails;
 import com.mynimef.swiracle.network.api.ClothesApi;
 import com.mynimef.swiracle.network.api.ParsingApi;
 import com.mynimef.swiracle.network.api.PostApi;
@@ -67,7 +68,26 @@ public class NetworkService {
         });
     }
 
-    public void putPost(PostServer post, List<String> uriList, Handler handler) {
+    public void getPostDetails(String id, Handler handler) {
+        postApi.getPostDetails(id).enqueue(new Callback<PostDetails>() {
+            @Override
+            public void onResponse(@NotNull Call<PostDetails> call,
+                                   @NotNull Response<PostDetails> response) {
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("details", response.body());
+                Message message = new Message();
+                message.setData(bundle);
+                handler.sendMessage(message);
+            }
+
+            @Override
+            public void onFailure(@NotNull Call<PostDetails> call, @NotNull Throwable t) {
+                t.printStackTrace();
+            }
+        });
+    }
+
+    public void putPost(PostServer post, List<String> uriList) {
         List<MultipartBody.Part> partList = new ArrayList<>();
         for (String uri : uriList) {
             File file = new File(uri);
@@ -81,11 +101,7 @@ public class NetworkService {
             @Override
             public void onResponse(@NotNull Call<PostServer> call,
                                    @NotNull Response<PostServer> response) {
-                Message msg = new Message();
-                Bundle bundle = new Bundle();
-                bundle.putString("result", "positive");
-                msg.setData(bundle);
-                handler.sendMessage(msg);
+                getPosts();
             }
 
             @Override

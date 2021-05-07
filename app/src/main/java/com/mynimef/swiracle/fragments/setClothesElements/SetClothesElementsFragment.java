@@ -83,6 +83,14 @@ public class SetClothesElementsFragment extends Fragment implements ISetClothesE
     }
 
     public void addClothes(ClothesParsingInfo info) {
+        for (ClothesParsingInfo added : infoList) {
+            if (added.getUrl().equals(info.getUrl())) {
+                Toast.makeText(getContext(),
+                        "You have already added this item to list!",
+                        Toast.LENGTH_SHORT).show();
+                return;
+            }
+        }
         infoList.add(0, info);
         adapter.notifyItemInserted(0);
         rv.smoothScrollToPosition(0);
@@ -94,7 +102,5 @@ public class SetClothesElementsFragment extends Fragment implements ISetClothesE
     }
 
     @Override
-    public List<ClothesParsingInfo> getInfoList() {
-        return infoList;
-    }
+    public List<ClothesParsingInfo> getInfoList() { return infoList; }
 }
