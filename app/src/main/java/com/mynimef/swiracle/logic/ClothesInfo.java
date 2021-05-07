@@ -2,6 +2,8 @@ package com.mynimef.swiracle.logic;
 
 import androidx.room.Embedded;
 
+import com.mynimef.swiracle.models.Price;
+
 public class ClothesInfo {
     private String brand;
     private String description;

@@ -1,4 +1,4 @@
-package com.mynimef.swiracle.logic;
+package com.mynimef.swiracle.models;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;

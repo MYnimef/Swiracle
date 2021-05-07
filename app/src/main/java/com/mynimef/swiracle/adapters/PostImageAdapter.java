@@ -10,8 +10,6 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.bumptech.glide.request.RequestOptions;
 import com.mynimef.swiracle.logic.FragmentChanger;
 import com.mynimef.swiracle.R;
 import com.mynimef.swiracle.database.PostImage;
@@ -45,7 +43,7 @@ public class PostImageAdapter extends RecyclerView.Adapter<PostImageAdapter.Post
         PostImage image = images.get(position);
         Glide
                 .with(fragment)
-                .load(image.getUrl())
+                .load(image.getImageUrl())
                 .into(holder.getPic());
     }
 

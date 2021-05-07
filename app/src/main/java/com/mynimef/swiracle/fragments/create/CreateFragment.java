@@ -22,7 +22,7 @@ import com.mynimef.swiracle.logic.UriReader;
 import com.mynimef.swiracle.fragments.pickImage.PickImageFragment;
 import com.mynimef.swiracle.fragments.setClothesElements.SetClothesElementsFragment;
 import com.mynimef.swiracle.fragments.setInfo.SetInfoFragment;
-import com.mynimef.swiracle.network.models.PostServer;
+import com.mynimef.swiracle.models.PostServer;
 
 import java.util.ArrayList;
 import java.util.List;

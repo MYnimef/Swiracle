@@ -1,8 +1,7 @@
-package com.mynimef.swiracle.network.models;
+package com.mynimef.swiracle.models;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
-import com.mynimef.swiracle.network.models.ClothesParsingInfo;
 
 import java.util.List;
 

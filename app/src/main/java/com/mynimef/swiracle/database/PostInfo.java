@@ -5,7 +5,7 @@ import androidx.room.Embedded;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
-import com.mynimef.swiracle.logic.Price;
+import com.mynimef.swiracle.models.Price;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -18,7 +18,8 @@ public class PostInfo {
     public void setId(@NotNull String id) { this.id = id; }
 
     private String title;
-    private int likesAmount, commentsAmount;
+    private int likesAmount;
+    private int commentsAmount;
     @Embedded
     private Price price;
 

@@ -8,7 +8,7 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import com.mynimef.swiracle.logic.Repository;
-import com.mynimef.swiracle.network.models.PostServer;
+import com.mynimef.swiracle.models.PostServer;
 
 import java.util.List;
 

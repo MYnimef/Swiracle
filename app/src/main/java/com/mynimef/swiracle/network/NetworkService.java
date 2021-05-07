@@ -4,13 +4,13 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 
+import com.mynimef.swiracle.database.Post;
 import com.mynimef.swiracle.logic.Repository;
 import com.mynimef.swiracle.network.api.ClothesApi;
 import com.mynimef.swiracle.network.api.ParsingApi;
 import com.mynimef.swiracle.network.api.PostApi;
-import com.mynimef.swiracle.network.models.ClothesParsingInfo;
-import com.mynimef.swiracle.network.models.PostServer;
-import com.mynimef.swiracle.network.models.PostViewServer;
+import com.mynimef.swiracle.models.ClothesParsingInfo;
+import com.mynimef.swiracle.models.PostServer;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -52,15 +52,15 @@ public class NetworkService {
     }
 
     public void getPosts() {
-        postApi.getAll().enqueue(new Callback<List<PostViewServer>>() {
+        postApi.getAll().enqueue(new Callback<List<Post>>() {
             @Override
-            public void onResponse(@NotNull Call<List<PostViewServer>> call,
-                                   @NotNull Response<List<PostViewServer>> response) {
+            public void onResponse(@NotNull Call<List<Post>> call,
+                                   @NotNull Response<List<Post>> response) {
                 Repository.getInstance().insertAll(response.body());
             }
 
             @Override
-            public void onFailure(@NotNull Call<List<PostViewServer>> call,
+            public void onFailure(@NotNull Call<List<Post>> call,
                                   @NotNull Throwable t) {
                 t.printStackTrace();
             }

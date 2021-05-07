@@ -1,7 +1,7 @@
 package com.mynimef.swiracle.network.api;
 
-import com.mynimef.swiracle.network.models.PostServer;
-import com.mynimef.swiracle.network.models.PostViewServer;
+import com.mynimef.swiracle.database.Post;
+import com.mynimef.swiracle.models.PostServer;
 
 import java.util.List;
 
@@ -16,7 +16,7 @@ import retrofit2.http.Path;
 
 public interface PostApi {
     @GET("/posts")
-    Call<List<PostViewServer>> getAll();
+    Call<List<Post>> getAll();
 
     @Multipart
     @POST("/posts")

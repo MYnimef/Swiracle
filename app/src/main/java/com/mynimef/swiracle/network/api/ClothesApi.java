@@ -1,6 +1,6 @@
 package com.mynimef.swiracle.network.api;
 
-import com.mynimef.swiracle.network.models.ClothesElementServer;
+import com.mynimef.swiracle.models.ClothesElementServer;
 
 import java.util.List;
 

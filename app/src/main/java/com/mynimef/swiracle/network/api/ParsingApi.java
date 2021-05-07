@@ -1,6 +1,6 @@
 package com.mynimef.swiracle.network.api;
 
-import com.mynimef.swiracle.network.models.ClothesParsingInfo;
+import com.mynimef.swiracle.models.ClothesParsingInfo;
 
 import retrofit2.Call;
 import retrofit2.http.GET;

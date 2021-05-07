@@ -20,7 +20,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.mynimef.swiracle.Interfaces.ISetClothesElements;
 import com.mynimef.swiracle.R;
 import com.mynimef.swiracle.adapters.ClothesElementAdapter;
-import com.mynimef.swiracle.network.models.ClothesParsingInfo;
+import com.mynimef.swiracle.models.ClothesParsingInfo;
 import com.mynimef.swiracle.network.NetworkService;
 
 import java.util.ArrayList;

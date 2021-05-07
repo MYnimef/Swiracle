@@ -1,7 +1,6 @@
 package com.mynimef.swiracle.logic;
 
 import android.Manifest;
-import android.app.Activity;
 import android.app.Application;
 import android.content.pm.PackageManager;
 import android.net.Uri;
@@ -15,12 +14,9 @@ import androidx.lifecycle.LiveData;
 import com.mynimef.swiracle.database.Post;
 import com.mynimef.swiracle.database.PostDao;
 import com.mynimef.swiracle.database.PostImage;
-import com.mynimef.swiracle.database.PostInfo;
 import com.mynimef.swiracle.database.SingletonDatabase;
 import com.mynimef.swiracle.network.NetworkService;
-import com.mynimef.swiracle.network.models.PostImageServer;
-import com.mynimef.swiracle.network.models.PostServer;
-import com.mynimef.swiracle.network.models.PostViewServer;
+import com.mynimef.swiracle.models.PostServer;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -71,7 +67,7 @@ public class Repository {
     }
 
     public void insert(Post post) { new Thread(new InsertPostRunnable(postDao, post)).start(); }
-    public void insertAll(List<PostViewServer> postList) {
+    public void insertAll(List<Post> postList) {
         new Thread(new InsertAllPostsRunnable(postDao, postList)).start();
     }
     public void update(Post post) { new Thread(new UpdatePostRunnable(postDao, post)).start(); }
@@ -109,26 +105,21 @@ public class Repository {
 
     private static class InsertAllPostsRunnable implements Runnable {
         private final PostDao postDao;
-        private final List<PostViewServer> postViewList;
+        private final List<Post> postList;
 
-        private InsertAllPostsRunnable(PostDao postDao, List<PostViewServer> postViewList) {
+        private InsertAllPostsRunnable(PostDao postDao, List<Post> postList) {
             this.postDao = postDao;
-            this.postViewList = postViewList;
+            this.postList = postList;
         }
 
         @Override
         public void run() {
             postDao.deleteAllPosts();
             postDao.deleteAllImages();
-            for (PostViewServer view : postViewList) {
-                PostInfo postInfo = new PostInfo(view.getId(),
-                        view.getTitle(),
-                        view.getLikesAmount(),
-                        view.getCommentsAmount(),
-                        view.getPrice());
-                postDao.insertPostInfo(postInfo);
-                for (PostImageServer image : view.getImages()) {
-                    postDao.insertPostImage(new PostImage(image.getImageUrl(), image.getPostId()));
+            for (Post post : postList) {
+                postDao.insertPostInfo(post.getPostInfo());
+                for (PostImage image : post.getImages()) {
+                    postDao.insertPostImage(image);
                 }
             }
         }
