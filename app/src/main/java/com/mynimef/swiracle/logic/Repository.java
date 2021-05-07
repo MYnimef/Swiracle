@@ -41,6 +41,10 @@ public class Repository {
         networkService.putPost(postServer, pathList);
     }
 
+    public void getPosts() {
+        networkService.getPosts();
+    }
+
     public void getPostDetails(String id, Handler handler) {
         networkService.getPostDetails(id, handler);
     }

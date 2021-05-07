@@ -28,5 +28,6 @@ public class HomeViewModel extends AndroidViewModel {
     }
 
     public void delete(Post post) { repository.delete(post); }
+    public void update() { repository.getPosts(); }
     public LiveData<List<Post>> getRecommendationList() { return recommendationList; }
 }

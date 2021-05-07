@@ -46,7 +46,7 @@ public class HomeFragment extends Fragment {
 
         SwipeRefreshLayout swipeRefresh = root.findViewById(R.id.swipeRefreshHome);
         swipeRefresh.setOnRefreshListener(() -> {
-            adapter.notifyDataSetChanged();
+            homeViewModel.update();
             swipeRefresh.setRefreshing(false);
         });
 
