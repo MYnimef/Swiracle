@@ -7,6 +7,10 @@ import android.os.Message;
 import com.mynimef.swiracle.database.Post;
 import com.mynimef.swiracle.logic.Repository;
 import com.mynimef.swiracle.models.PostDetails;
+import com.mynimef.swiracle.models.Login;
+import com.mynimef.swiracle.models.User;
+import com.mynimef.swiracle.models.UserDetails;
+import com.mynimef.swiracle.network.api.AuthApi;
 import com.mynimef.swiracle.network.api.ClothesApi;
 import com.mynimef.swiracle.network.api.ParsingApi;
 import com.mynimef.swiracle.network.api.PostApi;
@@ -30,9 +34,12 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class NetworkService {
     private static NetworkService instance;
+    private final AuthApi authApi;
     private final PostApi postApi;
     private final ClothesApi clothesApi;
     private final ParsingApi parsingApi;
+
+    private String token = "";
 
     public static NetworkService getInstance() {
         if (instance == null) {
@@ -47,17 +54,57 @@ public class NetworkService {
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
+        this.authApi = retrofit.create(AuthApi.class);
         this.postApi = retrofit.create(PostApi.class);
         this.clothesApi = retrofit.create(ClothesApi.class);
         this.parsingApi = retrofit.create(ParsingApi.class);
     }
 
+    public void signUp() {
+        authApi.signUp(new UserDetails("MYnimef", "Ivan2000",
+                "ivan.markov.2013@gmail.com", "Ivan", "Markov"))
+                .enqueue(new Callback<Response<String>>() {
+                    @Override
+                    public void onResponse(@NotNull Call<Response<String>> call,
+                                           @NotNull Response<Response<String>> response) {
+
+                    }
+
+                    @Override
+                    public void onFailure(@NotNull Call<Response<String>> call,
+                                          @NotNull Throwable t) {
+
+                    }
+                });
+    }
+
+    public void signIn() {
+        authApi.signIn(new Login("MYnimef", "Ivan2000"))
+                .enqueue(new Callback<User>() {
+                    @Override
+                    public void onResponse(@NotNull Call<User> call,
+                                           @NotNull Response<User> response) {
+                        if (response.isSuccessful()) {
+                            token = response.body().getToken();
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(@NotNull Call<User> call,
+                                          @NotNull Throwable t) {
+
+                    }
+                });
+    }
+
     public void getPosts() {
-        postApi.getAll().enqueue(new Callback<List<Post>>() {
+        postApi.getAll(token).enqueue(new Callback<List<Post>>() {
             @Override
             public void onResponse(@NotNull Call<List<Post>> call,
                                    @NotNull Response<List<Post>> response) {
-                Repository.getInstance().insertAll(response.body());
+                if (response.isSuccessful()) {
+                    Repository.getInstance().insertAll(response.body());
+                }
             }
 
             @Override
@@ -69,7 +116,7 @@ public class NetworkService {
     }
 
     public void getPostDetails(String id, Handler handler) {
-        postApi.getPostDetails(id).enqueue(new Callback<PostDetails>() {
+        postApi.getPostDetails(token, id).enqueue(new Callback<PostDetails>() {
             @Override
             public void onResponse(@NotNull Call<PostDetails> call,
                                    @NotNull Response<PostDetails> response) {
@@ -97,11 +144,13 @@ public class NetworkService {
                     file.getName(), requestFile));
         }
 
-        postApi.putPost(post, partList).enqueue(new Callback<PostServer>() {
+        postApi.putPost(token, post, partList).enqueue(new Callback<PostServer>() {
             @Override
             public void onResponse(@NotNull Call<PostServer> call,
                                    @NotNull Response<PostServer> response) {
-                getPosts();
+                if (response.isSuccessful()) {
+                    getPosts();
+                }
             }
 
             @Override
