@@ -25,4 +25,8 @@ public class LoginViewModel extends AndroidViewModel {
     public void loginRequest(String username, String password, Handler handler) {
         repository.login(username, password, handler);
     }
+
+    public void setSignedIn(int signedIn) {
+        repository.setSignedIn(signedIn);
+    }
 }

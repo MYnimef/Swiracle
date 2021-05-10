@@ -50,6 +50,7 @@ public class LoginFragment extends Fragment {
                 String result = msg.getData().getString("result");
                 switch (result) {
                     case "success":
+                        loginViewModel.setSignedIn(1);
                         FragmentChanger.replaceFragment(requireActivity()
                                         .getSupportFragmentManager(),
                                 R.id.mainFragment, new NavigationFragment());

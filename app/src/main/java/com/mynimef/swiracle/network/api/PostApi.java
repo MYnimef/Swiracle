@@ -18,10 +18,10 @@ import retrofit2.http.Path;
 
 public interface PostApi {
     @GET("/posts")
-    Call<List<Post>> getAll(@Header("Authorization") String token);
+    Call<List<Post>> getAll();
 
     @GET("/posts/details/{id}")
-    Call<PostDetails> getPostDetails(@Header("Authorization") String token, @Path("id") String id);
+    Call<PostDetails> getPostDetails(@Path("id") String id);
 
     @Multipart
     @POST("/posts/add")

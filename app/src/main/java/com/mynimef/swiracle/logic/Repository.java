@@ -1,7 +1,10 @@
 package com.mynimef.swiracle.logic;
 
 import android.Manifest;
+import android.app.Activity;
 import android.app.Application;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Handler;
@@ -28,14 +31,17 @@ import javax.inject.Singleton;
 public class Repository {
     private static Repository instance;
     private Application application;
+    private SharedPreferences sharedPref;
 
     private UserDao userDao;
     private PostDao postDao;
     private ImagesDao imagesDao;
 
     private NetworkService networkService;
+    private int signedIn;
+    private String token;
 
-    private LiveData<UserDetails> userDetails;
+    private LiveData<List<UserDetails>> userDetails;
     private LiveData<List<Post>> recommendationList;
     private ArrayList<Uri> gallery;
 
@@ -63,12 +69,37 @@ public class Repository {
         initGallery();
     }
 
-    public boolean isLoggedIn() {
-        return userDetails.getValue() != null;
+    public void setPreferences(Activity activity) {
+        sharedPref = activity.getPreferences(Context.MODE_PRIVATE);
+        signedIn = sharedPref.getInt("SignedIn", 0);
+        //0 - first launch
+        //1 - signed in
+        //-1 - decided not to sign in
+        token = sharedPref.getString("token", "");
+    }
+
+    public int getSignedIn() { return signedIn; }
+    public void setSignedIn(int signedIn) {
+        this.signedIn = signedIn;
+        SharedPreferences.Editor editor = sharedPref.edit();
+        editor.putInt("SignedIn", signedIn);
+        editor.apply();
+    }
+
+    public String getToken() { return token; }
+    public void setToken(String token) {
+        this.token = token;
+        SharedPreferences.Editor editor = sharedPref.edit();
+        editor.putString("token", token);
+        editor.apply();
     }
 
     public void login(String username, String password, Handler handler) {
         networkService.signIn(username, password, handler);
+    }
+
+    public void insertUser(UserDetails userDetails) {
+        new Thread(new InsertUserRunnable(userDao, userDetails)).start();
     }
 
     public void uploadPost(PostServer postServer, List<String> pathList) {
@@ -81,9 +112,11 @@ public class Repository {
         networkService.getPostDetails(id, handler);
     }
 
-    public void insertAll(List<Post> postList) {
+    public void insertAllPosts(List<Post> postList) {
         new Thread(new InsertAllPostsRunnable(postDao, imagesDao, postList)).start();
     }
+
+    public LiveData<List<UserDetails>> getUserList() { return userDetails; }
     public LiveData<List<Post>> getRecommendationList() { return recommendationList; }
 
     public void initGallery() {
@@ -95,6 +128,21 @@ public class Repository {
     }
     public void setGallery(ArrayList<Uri> gallery) { this.gallery = gallery; }
     public ArrayList<Uri> getGallery() { return this.gallery; }
+
+    private static class InsertUserRunnable implements Runnable {
+        private final UserDao userDao;
+        private final UserDetails userDetails;
+
+        private InsertUserRunnable(UserDao userDao, UserDetails userDetails) {
+            this.userDao = userDao;
+            this.userDetails = userDetails;
+        }
+
+        @Override
+        public void run() {
+            userDao.insertUser(userDetails);
+        }
+    }
 
     private static class InsertAllPostsRunnable implements Runnable {
         private final PostDao postDao;

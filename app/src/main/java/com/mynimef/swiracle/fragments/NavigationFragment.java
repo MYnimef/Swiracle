@@ -26,6 +26,9 @@ import com.mynimef.swiracle.fragments.popular.PopularMenuFragment;
 import com.mynimef.swiracle.fragments.profile.ProfileFragment;
 import com.mynimef.swiracle.fragments.profile.ProfileMenuFragment;
 
+import dagger.hilt.android.AndroidEntryPoint;
+
+@AndroidEntryPoint
 public class NavigationFragment extends Fragment implements IPickNavigation {
     private FragmentManager fm;
     private HomeFragment homeFragment;
@@ -53,7 +56,7 @@ public class NavigationFragment extends Fragment implements IPickNavigation {
                 item -> {
                     int itemId = item.getItemId();
                     if (itemId == R.id.navigation_create) {
-                        if (ContextCompat.checkSelfPermission(getContext(),
+                        if (ContextCompat.checkSelfPermission(requireContext(),
                                 Manifest.permission.READ_EXTERNAL_STORAGE) ==
                                 PackageManager.PERMISSION_GRANTED) {
                             FragmentChanger.replaceFragment(requireActivity().
@@ -61,7 +64,7 @@ public class NavigationFragment extends Fragment implements IPickNavigation {
                                     R.id.mainFragment, new CreateFragment(this));
                         }
                         else {
-                            getActivity().requestPermissions(
+                            requireActivity().requestPermissions(
                                     new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
                                     1);
                         }

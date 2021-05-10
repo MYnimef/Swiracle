@@ -20,9 +20,10 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        Repository.getInstance().setPreferences(this);
 
         FragmentManager fm = getSupportFragmentManager();
-        if (Repository.getInstance().isLoggedIn()) {
+        if (Repository.getInstance().getSignedIn() != 0) {
             FragmentChanger.replaceFragment(fm, R.id.mainFragment, new NavigationFragment());
         } else {
             FragmentChanger.replaceFragment(fm, R.id.mainFragment, new LoginFragment());

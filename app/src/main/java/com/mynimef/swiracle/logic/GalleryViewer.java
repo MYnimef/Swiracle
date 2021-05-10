@@ -27,8 +27,7 @@ public class GalleryViewer {
                 removeCallbacksAndMessages(null);
             }
         };
-        Thread th = new Thread(new GalleryRunnable());
-        th.start();
+        new Thread(new GalleryRunnable()).start();
     }
 
     private class GalleryRunnable implements Runnable {

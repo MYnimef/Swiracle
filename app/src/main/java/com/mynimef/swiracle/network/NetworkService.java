@@ -38,7 +38,7 @@ public class NetworkService {
     private final PostApi postApi;
     private final ClothesApi clothesApi;
     private final ParsingApi parsingApi;
-    private String token;
+
 
     public static NetworkService getInstance() {
         if (instance == null) {
@@ -57,8 +57,6 @@ public class NetworkService {
         this.postApi = retrofit.create(PostApi.class);
         this.clothesApi = retrofit.create(ClothesApi.class);
         this.parsingApi = retrofit.create(ParsingApi.class);
-
-        this.token = "";
     }
 
     public void signUp() {
@@ -90,7 +88,10 @@ public class NetworkService {
 
                         if (response.isSuccessful()) {
                             if (response.body() != null) {
-                                token = response.body().getToken();
+                                Repository.getInstance().setToken(response.body().getToken());
+                                Repository.getInstance().insertUser(response.
+                                        body().getUserDetails());
+
                                 bundle.putString("result", "success");
                                 msg.setData(bundle);
                                 handler.sendMessage(msg);
@@ -116,12 +117,12 @@ public class NetworkService {
     }
 
     public void getPosts() {
-        postApi.getAll(token).enqueue(new Callback<List<Post>>() {
+        postApi.getAll().enqueue(new Callback<List<Post>>() {
             @Override
             public void onResponse(@NotNull Call<List<Post>> call,
                                    @NotNull Response<List<Post>> response) {
                 if (response.isSuccessful()) {
-                    Repository.getInstance().insertAll(response.body());
+                    Repository.getInstance().insertAllPosts(response.body());
                 }
             }
 
@@ -134,7 +135,7 @@ public class NetworkService {
     }
 
     public void getPostDetails(String id, Handler handler) {
-        postApi.getPostDetails(token, id).enqueue(new Callback<PostDetails>() {
+        postApi.getPostDetails(id).enqueue(new Callback<PostDetails>() {
             @Override
             public void onResponse(@NotNull Call<PostDetails> call,
                                    @NotNull Response<PostDetails> response) {
@@ -162,7 +163,8 @@ public class NetworkService {
                     file.getName(), requestFile));
         }
 
-        postApi.putPost(token, post, partList).enqueue(new Callback<PostServer>() {
+        postApi.putPost(Repository.getInstance().getToken(),
+                post, partList).enqueue(new Callback<PostServer>() {
             @Override
             public void onResponse(@NotNull Call<PostServer> call,
                                    @NotNull Response<PostServer> response) {

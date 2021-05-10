@@ -10,6 +10,8 @@ import androidx.room.Update;
 
 import com.mynimef.swiracle.models.UserDetails;
 
+import java.util.List;
+
 @Dao
 public interface UserDao {
     @Insert
@@ -26,5 +28,5 @@ public interface UserDao {
 
     @Transaction
     @Query("SELECT * FROM user_table")
-    LiveData<UserDetails> getAllUsers();
+    LiveData<List<UserDetails>> getAllUsers();
 }

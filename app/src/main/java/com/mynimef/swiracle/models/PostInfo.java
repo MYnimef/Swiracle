@@ -5,8 +5,6 @@ import androidx.room.Embedded;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
-import com.mynimef.swiracle.models.Price;
-
 import org.jetbrains.annotations.NotNull;
 
 @Entity(tableName = "post_table")
