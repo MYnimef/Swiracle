@@ -30,5 +30,5 @@ public interface PostApi {
                              @Part List<MultipartBody.Part> images);
 
     @DELETE("/posts/{id}")
-    Call<PostServer> deletePost(@Path("id") String id);
+    Call<PostServer> deletePost(@Header("Authorization") String token, @Path("id") String id);
 }

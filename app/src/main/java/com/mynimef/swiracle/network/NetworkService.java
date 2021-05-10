@@ -3,6 +3,7 @@ package com.mynimef.swiracle.network;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.util.Log;
 
 import com.mynimef.swiracle.database.Post;
 import com.mynimef.swiracle.logic.Repository;
@@ -85,7 +86,7 @@ public class NetworkService {
                     public void onResponse(@NotNull Call<User> call,
                                            @NotNull Response<User> response) {
                         if (response.isSuccessful()) {
-                            token = response.body().getToken();
+                            token = "Bearer " + response.body().getToken();
                         }
                     }
 
