@@ -57,7 +57,7 @@ public class CreateFragment extends Fragment {
         this.setElementsStage = false;
 
         FragmentChanger.replaceFragment(getChildFragmentManager(),
-                R.id.createFrameView, this.pickImageFragment);
+                R.id.createFragment, this.pickImageFragment);
 
         IPickImage pickImage = this.pickImageFragment;
         ISetClothesElements setClothesElements = this.setClothesElementsFragment;
@@ -76,13 +76,13 @@ public class CreateFragment extends Fragment {
             }
             else if (setElementsStage) {
                 FragmentChanger.replaceFragment(getChildFragmentManager(),
-                    R.id.createFrameView, pickImageFragment);
+                    R.id.createFragment, pickImageFragment);
                 setElementsStage = false;
                 pickStage = true;
             }
             else {
                 FragmentChanger.replaceFragment(getChildFragmentManager(),
-                        R.id.createFrameView, setClothesElementsFragment);
+                        R.id.createFragment, setClothesElementsFragment);
                 setElementsStage = true;
                 createViewModel.setText(getResources().getString(R.string.next));
             }
@@ -91,7 +91,7 @@ public class CreateFragment extends Fragment {
         next.setOnClickListener(v -> {
             if (pickStage) {
                 FragmentChanger.replaceFragment(getChildFragmentManager(),
-                        R.id.createFrameView,
+                        R.id.createFragment,
                         setClothesElementsFragment);
                 pickStage = false;
                 setElementsStage = true;
@@ -99,7 +99,7 @@ public class CreateFragment extends Fragment {
             }
             else if (setElementsStage) {
                 FragmentChanger.replaceFragment(getChildFragmentManager(),
-                        R.id.createFrameView,
+                        R.id.createFragment,
                         setInfoFragment);
                 setElementsStage = false;
                 createViewModel.setText(getResources().getString(R.string.share));

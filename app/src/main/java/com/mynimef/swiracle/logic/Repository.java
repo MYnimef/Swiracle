@@ -15,6 +15,7 @@ import com.mynimef.swiracle.database.PostDao;
 import com.mynimef.swiracle.database.UserDao;
 import com.mynimef.swiracle.models.PostImage;
 import com.mynimef.swiracle.database.SingletonDatabase;
+import com.mynimef.swiracle.models.UserDetails;
 import com.mynimef.swiracle.network.NetworkService;
 import com.mynimef.swiracle.models.PostServer;
 
@@ -33,6 +34,8 @@ public class Repository {
     private ImagesDao imagesDao;
 
     private NetworkService networkService;
+
+    private LiveData<UserDetails> userDetails;
     private LiveData<List<Post>> recommendationList;
     private ArrayList<Uri> gallery;
 
@@ -43,18 +46,6 @@ public class Repository {
         return instance;
     }
 
-    public void uploadPost(PostServer postServer, List<String> pathList) {
-        networkService.putPost(postServer, pathList);
-    }
-
-    public void getPosts() {
-        networkService.getPosts();
-    }
-
-    public void getPostDetails(String id, Handler handler) {
-        networkService.getPostDetails(id, handler);
-    }
-
     public void init(Application application) {
         this.application = application;
 
@@ -63,6 +54,7 @@ public class Repository {
         postDao = database.postDao();
         imagesDao = database.imagesDao();
 
+        userDetails = userDao.getAllUsers();
         recommendationList = postDao.getAllPosts();
 
         networkService = NetworkService.getInstance();
@@ -71,13 +63,27 @@ public class Repository {
         initGallery();
     }
 
-    public void insert(Post post) { new Thread(new InsertPostRunnable(postDao, imagesDao, post)).start(); }
+    public boolean isLoggedIn() {
+        return userDetails.getValue() != null;
+    }
+
+    public void login(String username, String password, Handler handler) {
+        networkService.signIn(username, password, handler);
+    }
+
+    public void uploadPost(PostServer postServer, List<String> pathList) {
+        networkService.putPost(postServer, pathList);
+    }
+
+    public void getPosts() { networkService.getPosts(); }
+
+    public void getPostDetails(String id, Handler handler) {
+        networkService.getPostDetails(id, handler);
+    }
+
     public void insertAll(List<Post> postList) {
         new Thread(new InsertAllPostsRunnable(postDao, imagesDao, postList)).start();
     }
-    public void update(Post post) { new Thread(new UpdatePostRunnable(postDao, imagesDao, post)).start(); }
-    public void delete(Post post) { new Thread(new DeletePostRunnable(postDao, imagesDao, post)).start(); }
-    public void deleteAllPosts() { new Thread(new DeleteAllPostsRunnable(postDao, imagesDao)).start(); }
     public LiveData<List<Post>> getRecommendationList() { return recommendationList; }
 
     public void initGallery() {
@@ -89,26 +95,6 @@ public class Repository {
     }
     public void setGallery(ArrayList<Uri> gallery) { this.gallery = gallery; }
     public ArrayList<Uri> getGallery() { return this.gallery; }
-
-    private static class InsertPostRunnable implements Runnable {
-        private final PostDao postDao;
-        private final ImagesDao imagesDao;
-        private final Post post;
-
-        private InsertPostRunnable(PostDao postDao, ImagesDao imagesDao, Post post) {
-            this.postDao = postDao;
-            this.imagesDao = imagesDao;
-            this.post = post;
-        }
-
-        @Override
-        public void run() {
-            postDao.insertPostInfo(post.getPostInfo());
-            for (PostImage postImage : post.getImages()) {
-                imagesDao.insertPostImage(postImage);
-            }
-        }
-    }
 
     private static class InsertAllPostsRunnable implements Runnable {
         private final PostDao postDao;
@@ -131,62 +117,6 @@ public class Repository {
                     imagesDao.insertPostImage(image);
                 }
             }
-        }
-    }
-
-    private static class UpdatePostRunnable implements Runnable {
-        private final PostDao postDao;
-        private final ImagesDao imagesDao;
-        private final Post post;
-
-        private UpdatePostRunnable(PostDao postDao, ImagesDao imagesDao, Post post) {
-            this.postDao = postDao;
-            this.imagesDao = imagesDao;
-            this.post = post;
-        }
-
-        @Override
-        public void run() {
-            postDao.updatePostInfo(post.getPostInfo());
-            for (PostImage postImage : post.getImages()) {
-                imagesDao.updatePostImage(postImage);
-            }
-        }
-    }
-
-    private static class DeletePostRunnable implements Runnable {
-        private final PostDao postDao;
-        private final ImagesDao imagesDao;
-        private final Post post;
-
-        private DeletePostRunnable(PostDao postDao, ImagesDao imagesDao, Post post) {
-            this.postDao = postDao;
-            this.imagesDao = imagesDao;
-            this.post = post;
-        }
-
-        @Override
-        public void run() {
-            postDao.deletePostInfo(post.getPostInfo());
-            for (PostImage postImage : post.getImages()) {
-                imagesDao.deletePostImage(postImage);
-            }
-        }
-    }
-
-    private static class DeleteAllPostsRunnable implements Runnable {
-        private final PostDao postDao;
-        private final ImagesDao imagesDao;
-
-        private DeleteAllPostsRunnable(PostDao postDao, ImagesDao imagesDao) {
-            this.postDao = postDao;
-            this.imagesDao = imagesDao;
-        }
-
-        @Override
-        public void run() {
-            postDao.deleteAllPosts();
-            imagesDao.deleteAllImages();
         }
     }
 }

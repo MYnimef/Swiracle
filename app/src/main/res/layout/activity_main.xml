@@ -9,14 +9,12 @@
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/mainFragment"
-        android:name="com.mynimef.swiracle.fragments.NavigationFragment"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:defaultNavHost="true"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        tools:layout="@layout/fragment_navigation" />
+        app:layout_constraintRight_toRightOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

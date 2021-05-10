@@ -3,10 +3,14 @@ package com.mynimef.swiracle;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 
+import com.mynimef.swiracle.fragments.NavigationFragment;
+import com.mynimef.swiracle.fragments.login.LoginFragment;
+import com.mynimef.swiracle.logic.FragmentChanger;
 import com.mynimef.swiracle.logic.Repository;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
 
 import dagger.hilt.android.AndroidEntryPoint;
 
@@ -16,6 +20,13 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        FragmentManager fm = getSupportFragmentManager();
+        if (Repository.getInstance().isLoggedIn()) {
+            FragmentChanger.replaceFragment(fm, R.id.mainFragment, new NavigationFragment());
+        } else {
+            FragmentChanger.replaceFragment(fm, R.id.mainFragment, new LoginFragment());
+        }
     }
 
     @Override

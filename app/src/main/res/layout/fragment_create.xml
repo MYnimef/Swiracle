@@ -22,7 +22,7 @@
         android:layout_height="wrap_content"
         android:textColor="@color/white"
         android:text="@string/new_post_text"
-        app:layout_constraintBottom_toTopOf="@+id/createFrameView"
+        app:layout_constraintBottom_toTopOf="@+id/createFragment"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -37,8 +37,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <FrameLayout
-        android:id="@+id/createFrameView"
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/createFragment"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"

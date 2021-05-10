@@ -2,11 +2,9 @@ package com.mynimef.swiracle.database;
 
 import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
-import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
 import androidx.room.Transaction;
-import androidx.room.Update;
 
 import com.mynimef.swiracle.models.PostInfo;
 
@@ -16,12 +14,6 @@ import java.util.List;
 public interface PostDao {
     @Insert
     void insertPostInfo(PostInfo postInfo);
-
-    @Update
-    void updatePostInfo(PostInfo postInfo);
-
-    @Delete
-    void deletePostInfo(PostInfo postInfo);
 
     @Query("DELETE FROM post_table")
     void deleteAllPosts();

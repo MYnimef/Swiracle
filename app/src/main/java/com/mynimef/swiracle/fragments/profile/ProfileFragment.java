@@ -28,7 +28,6 @@ public class ProfileFragment extends Fragment {
 
         Button buttonLogin = root.findViewById(R.id.login);
         buttonLogin.setOnClickListener(v -> {
-            NetworkService.getInstance().signIn();
         });
 
         return root;

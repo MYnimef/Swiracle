@@ -3,7 +3,6 @@ package com.mynimef.swiracle.network;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.util.Log;
 
 import com.mynimef.swiracle.database.Post;
 import com.mynimef.swiracle.logic.Repository;
@@ -39,8 +38,7 @@ public class NetworkService {
     private final PostApi postApi;
     private final ClothesApi clothesApi;
     private final ParsingApi parsingApi;
-
-    private String token = "";
+    private String token;
 
     public static NetworkService getInstance() {
         if (instance == null) {
@@ -59,6 +57,8 @@ public class NetworkService {
         this.postApi = retrofit.create(PostApi.class);
         this.clothesApi = retrofit.create(ClothesApi.class);
         this.parsingApi = retrofit.create(ParsingApi.class);
+
+        this.token = "";
     }
 
     public void signUp() {
@@ -79,21 +79,38 @@ public class NetworkService {
                 });
     }
 
-    public void signIn() {
-        authApi.signIn(new Login("MYnimef", "Ivan2000"))
+    public void signIn(String username, String password, Handler handler) {
+        authApi.signIn(new Login(username, password))
                 .enqueue(new Callback<User>() {
                     @Override
                     public void onResponse(@NotNull Call<User> call,
                                            @NotNull Response<User> response) {
+                        Message msg = new Message();
+                        Bundle bundle = new Bundle();
+
                         if (response.isSuccessful()) {
-                            token = response.body().getToken();
+                            if (response.body() != null) {
+                                token = response.body().getToken();
+                                bundle.putString("result", "success");
+                                msg.setData(bundle);
+                                handler.sendMessage(msg);
+                                return;
+                            }
                         }
+
+                        bundle.putString("result", "failure");
+                        msg.setData(bundle);
+                        handler.sendMessage(msg);
                     }
 
                     @Override
                     public void onFailure(@NotNull Call<User> call,
                                           @NotNull Throwable t) {
-
+                        Message msg = new Message();
+                        Bundle bundle = new Bundle();
+                        bundle.putString("result", "no connection");
+                        msg.setData(bundle);
+                        handler.sendMessage(msg);
                     }
                 });
     }
