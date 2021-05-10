@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.mynimef.swiracle.logic.FragmentChanger;
 import com.mynimef.swiracle.R;
-import com.mynimef.swiracle.database.PostImage;
+import com.mynimef.swiracle.models.PostImage;
 import com.mynimef.swiracle.fragments.post.PostFragment;
 import com.mynimef.swiracle.fragments.post.PostMenuFragment;
 

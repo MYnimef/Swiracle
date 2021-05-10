@@ -14,7 +14,7 @@ import androidx.recyclerview.widget.PagerSnapHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.mynimef.swiracle.database.Post;
-import com.mynimef.swiracle.database.PostInfo;
+import com.mynimef.swiracle.models.PostInfo;
 import com.mynimef.swiracle.R;
 
 import org.jetbrains.annotations.NotNull;
@@ -52,7 +52,7 @@ public class HomePostAdapter extends RecyclerView.Adapter<HomePostAdapter.PostVi
         postView.getTopLayout().setOnClickListener(v -> {
         });
         postView.getUserImage();
-        postView.getUserNickname().setText("user12345");
+        postView.getUsername().setText("@" + postInfo.getUsername());
 
         LinearLayoutManager mLayoutManager = new LinearLayoutManager(fragment.getActivity(),
                 LinearLayoutManager.HORIZONTAL, false);
@@ -69,21 +69,17 @@ public class HomePostAdapter extends RecyclerView.Adapter<HomePostAdapter.PostVi
         postView.getLikes().setText(String.valueOf(postInfo.getLikesAmount()));
         postView.getLikes().setOnClickListener(v -> {
             postView.getLikes().setSelected(!postView.getLikes().isSelected());
-            postInfo.increaseLikesAmount();
             //comments.setText(postList.getComments() + "");
         });
 
         postView.getComments().setText(String.valueOf(postInfo.getCommentsAmount()));
         postView.getComments().setOnClickListener(v -> {
-            postInfo.increaseCommentsAmount();
             //comments.setText(postList.getComments() + "");
         });
     }
 
     @Override
-    public int getItemCount() {
-        return postList.size();
-    }
+    public int getItemCount() { return postList.size(); }
 
     static class PostView extends RecyclerView.ViewHolder {
         private final ConstraintLayout topLayout;
@@ -117,7 +113,7 @@ public class HomePostAdapter extends RecyclerView.Adapter<HomePostAdapter.PostVi
 
         public ConstraintLayout getTopLayout() { return topLayout; }
         public ImageView getUserImage() { return userImage; }
-        public TextView getUserNickname() { return userNickname; }
+        public TextView getUsername() { return userNickname; }
 
         public RecyclerView getRecyclerView() { return recyclerView; }
 

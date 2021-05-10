@@ -1,14 +1,23 @@
 package com.mynimef.swiracle.models;
 
+import androidx.annotation.NonNull;
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+
+import org.jetbrains.annotations.NotNull;
+
+@Entity(tableName = "user_table")
 public class UserDetails {
+    @PrimaryKey @NonNull
     private String username;
     private String password;
-
     private String email;
+
     private String firstName;
     private String secondName;
 
-    public UserDetails(String username, String password, String email, String firstName, String secondName) {
+    public UserDetails(@NotNull String username, String password, String email,
+                       String firstName, String secondName) {
         this.username = username;
         this.password = password;
         this.email = email;

@@ -8,25 +8,25 @@ import androidx.room.Query;
 import androidx.room.Transaction;
 import androidx.room.Update;
 
-import com.mynimef.swiracle.models.PostInfo;
+import com.mynimef.swiracle.models.UserDetails;
 
 import java.util.List;
 
 @Dao
-public interface PostDao {
+public interface UserDao {
     @Insert
-    void insertPostInfo(PostInfo postInfo);
+    void insertPostInfo(UserDetails userDetails);
 
     @Update
-    void updatePostInfo(PostInfo postInfo);
+    void updatePostInfo(UserDetails userDetails);
 
     @Delete
-    void deletePostInfo(PostInfo postInfo);
+    void deletePostInfo(UserDetails userDetails);
 
-    @Query("DELETE FROM post_table")
+    @Query("DELETE FROM user_table")
     void deleteAllPosts();
 
     @Transaction
-    @Query("SELECT * FROM post_table")
-    LiveData<List<Post>> getAllPosts();
+    @Query("SELECT * FROM user_table")
+    LiveData<List<UserDetails>> getAllUsers();
 }

@@ -1,23 +1,10 @@
 package com.mynimef.swiracle.models;
 
-import com.google.gson.annotations.Expose;
-import com.google.gson.annotations.SerializedName;
-
 public class ClothesParsingInfo {
-    @SerializedName("brand")
-    @Expose
     private String brand;
-    @SerializedName("description")
-    @Expose
     private String description;
-    @SerializedName("price")
-    @Expose
     private String price;
-    @SerializedName("currency")
-    @Expose
     private String currency;
-    @SerializedName("url")
-    @Expose
     private String url;
 
     public ClothesParsingInfo(String brand, String description, String price, String currency,

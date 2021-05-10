@@ -86,7 +86,7 @@ public class NetworkService {
                     public void onResponse(@NotNull Call<User> call,
                                            @NotNull Response<User> response) {
                         if (response.isSuccessful()) {
-                            token = "Bearer " + response.body().getToken();
+                            token = response.body().getToken();
                         }
                     }
 

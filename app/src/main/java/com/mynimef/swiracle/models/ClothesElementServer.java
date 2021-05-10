@@ -1,33 +1,17 @@
 package com.mynimef.swiracle.models;
 
-import com.google.gson.annotations.Expose;
-import com.google.gson.annotations.SerializedName;
-
 public class ClothesElementServer {
-    @SerializedName("urlId")
-    @Expose
     private String urlId;
     public String getUrlId() { return urlId; }
     public void setUrlId(String urlId) { this.urlId = urlId; }
 
-    @SerializedName("postId")
-    @Expose
     private String postId;
     public String getPostId() { return postId; }
     public void setPostId(String postId) { this.postId = postId; }
 
-    @SerializedName("brand")
-    @Expose
     private String brand;
-    @SerializedName("description")
-    @Expose
     private String description;
-
-    @SerializedName("priceValue")
-    @Expose
     private String priceValue;
-    @SerializedName("priceCurrency")
-    @Expose
     private String priceCurrency;
 
     public ClothesElementServer(String urlId, String postId,

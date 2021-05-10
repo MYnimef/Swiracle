@@ -1,4 +1,4 @@
-package com.mynimef.swiracle.database;
+package com.mynimef.swiracle.models;
 
 import androidx.annotation.NonNull;
 import androidx.room.Entity;

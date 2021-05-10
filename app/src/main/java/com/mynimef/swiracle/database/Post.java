@@ -3,6 +3,9 @@ package com.mynimef.swiracle.database;
 import androidx.room.Embedded;
 import androidx.room.Relation;
 
+import com.mynimef.swiracle.models.PostImage;
+import com.mynimef.swiracle.models.PostInfo;
+
 import java.util.List;
 
 public class Post {
