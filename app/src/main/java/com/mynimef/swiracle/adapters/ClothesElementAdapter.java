@@ -10,7 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.mynimef.swiracle.R;
-import com.mynimef.swiracle.fragments.setClothesElements.SetClothesElementsFragment;
+import com.mynimef.swiracle.fragments.create.setClothesElements.SetClothesElementsFragment;
 import com.mynimef.swiracle.models.ClothesParsingInfo;
 
 import org.jetbrains.annotations.NotNull;

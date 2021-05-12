@@ -1,4 +1,4 @@
-package com.mynimef.swiracle.fragments.setInfo;
+package com.mynimef.swiracle.fragments.create.setInfo;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;

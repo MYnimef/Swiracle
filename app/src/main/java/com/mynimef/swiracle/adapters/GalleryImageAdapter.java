@@ -11,11 +11,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.mynimef.swiracle.R;
-import com.mynimef.swiracle.fragments.pickImage.PickImageFragment;
+import com.mynimef.swiracle.fragments.create.pickImage.PickImageFragment;
 
 import org.jetbrains.annotations.NotNull;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class GalleryImageAdapter extends RecyclerView.Adapter<GalleryImageAdapter.GalleryView> {

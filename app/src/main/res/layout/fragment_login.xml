@@ -4,15 +4,26 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/shape_rounded_white"
+    android:background="@drawable/shape_rounded_background"
     tools:context=".fragments.login.LoginFragment">
+
+    <ProgressBar
+        android:id="@+id/loading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="56dp"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/welcomeText"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
-        android:layout_marginTop="56dp"
+        android:layout_marginTop="24dp"
         android:layout_marginEnd="24dp"
         android:gravity="center"
         android:text="@string/app_name"
@@ -21,38 +32,32 @@
         android:textStyle="italic"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <ProgressBar
-        android:id="@+id/loading"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="24dp"
-        android:visibility="invisible"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/welcomeText" />
+        app:layout_constraintTop_toBottomOf="@+id/loading" />
 
     <EditText
         android:id="@+id/usernameEditText"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:background="@drawable/shape_rounded_white"
         android:layout_marginStart="24dp"
         android:layout_marginTop="24dp"
         android:layout_marginEnd="24dp"
         android:autofillHints="Username"
         android:hint="Username"
-        android:text=""
+        android:inputType="textPersonName"
         android:selectAllOnFocus="true"
+        android:text=""
+        android:paddingStart="12dp"
+        android:paddingEnd="12dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/loading" />
+        app:layout_constraintTop_toBottomOf="@+id/welcomeText" />
 
     <EditText
         android:id="@+id/passwordEditText"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="48dp"
+        android:background="@drawable/shape_rounded_white"
         android:layout_marginStart="24dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="24dp"
@@ -63,11 +68,24 @@
         android:imeOptions="actionDone"
         android:inputType="textPassword"
         android:selectAllOnFocus="true"
+        android:paddingStart="12dp"
+        android:paddingEnd="12dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/usernameEditText" />
 
-    <com.google.android.material.button.MaterialButton
+    <ImageButton
+        android:id="@+id/visiblePassword"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:src="@drawable/ic_clear"
+        android:background="@color/white"
+        app:layout_constraintBottom_toBottomOf="@+id/passwordEditText"
+        app:layout_constraintEnd_toEndOf="@+id/passwordEditText"
+        app:layout_constraintTop_toTopOf="@+id/passwordEditText" />
+
+    <Button
         android:id="@+id/loginButton"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -76,7 +94,7 @@
         android:layout_marginEnd="32dp"
         android:text="Log in"
         android:textColor="@color/white"
-        app:backgroundTint="@color/blue"
+        app:backgroundTint="@color/purple"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/passwordEditText" />
@@ -95,17 +113,29 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/loginButton" />
 
-    <com.google.android.material.button.MaterialButton
+    <Button
         android:id="@+id/registrationButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
         android:layout_marginEnd="32dp"
         android:text="Sign up"
-        android:textColor="@color/blue"
+        android:textColor="@color/purple"
+        android:background="@color/transparent"
         style="@style/Widget.AppCompat.Button.Borderless.Colored"
-        app:background="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/orDivider" />
+
+    <Button
+        android:id="@+id/continueButton"
+        style="@style/Widget.AppCompat.Button.Borderless.Colored"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/transparent"
+        android:text="Continue without authorization"
+        android:textColor="@color/purple"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

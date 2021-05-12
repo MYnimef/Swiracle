@@ -92,6 +92,14 @@ public class LoginFragment extends Fragment {
 
         loading = root.findViewById(R.id.loading);
 
+        Button withoutAuthButton = root.findViewById(R.id.continueButton);
+        withoutAuthButton.setOnClickListener(v -> {
+            loginViewModel.setSignedIn(-1);
+            FragmentChanger.replaceFragment(requireActivity()
+                            .getSupportFragmentManager(),
+                    R.id.mainFragment, new NavigationFragment());
+        });
+
         return root;
     }
 }

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragments.pickImage.PickImageFragment">
+    tools:context=".fragments.create.pickImage.PickImageFragment">
 
     <ImageView
         android:id="@+id/selectedImage"

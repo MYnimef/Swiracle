@@ -1,4 +1,4 @@
-package com.mynimef.swiracle.fragments.setClothesElements;
+package com.mynimef.swiracle.fragments.create.setClothesElements;
 
 import android.os.Bundle;
 import android.os.Handler;

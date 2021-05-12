@@ -1,4 +1,4 @@
-package com.mynimef.swiracle.fragments.pickImage;
+package com.mynimef.swiracle.fragments.create.pickImage;
 
 import android.net.Uri;
 import android.os.Bundle;
