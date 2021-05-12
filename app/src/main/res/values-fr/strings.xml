@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Swiracle</string>
+
+    <string name="username">Username</string>
+    <string name="password">Password</string>
+    <string name="log_in">Log in</string>
+    <string name="or">or</string>
+    <string name="sign_up">Sign up</string>
+    <string name="without_auth">Continue without authorization</string>
+
     <string name="title_home">Accueil</string>
     <string name="title_popular">Découvrir</string>
     <string name="title_create">Créer</string>

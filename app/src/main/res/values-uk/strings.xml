@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Swiracle</string>
+
+    <string name="username">Имя пользователя</string>
+    <string name="password">Пароль</string>
+    <string name="log_in">Войти</string>
+    <string name="or">или</string>
+    <string name="sign_up">Зарегистрироваться</string>
+    <string name="without_auth">Продолжить без авторизации</string>
+
     <string name="title_home">Головна</string>
     <string name="title_popular">Пошук</string>
     <string name="title_create">Створити</string>
