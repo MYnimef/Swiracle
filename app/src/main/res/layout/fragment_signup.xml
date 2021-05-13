@@ -36,5 +36,5 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/backButton"
-        tools:layout="@layout/fragment_set_birthday" />
+        tools:layout="@layout/fragment_signup_set_birthday" />
 </androidx.constraintlayout.widget.ConstraintLayout>

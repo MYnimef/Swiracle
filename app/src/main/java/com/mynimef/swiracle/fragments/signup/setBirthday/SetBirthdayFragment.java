@@ -13,6 +13,8 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import com.mynimef.swiracle.R;
+import com.mynimef.swiracle.fragments.signup.setEmail.SetEmailFragment;
+import com.mynimef.swiracle.logic.FragmentChanger;
 
 import java.util.GregorianCalendar;
 
@@ -22,7 +24,7 @@ public class SetBirthdayFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View root = inflater.inflate(R.layout.fragment_set_birthday, container, false);
+        View root = inflater.inflate(R.layout.fragment_signup_set_birthday, container, false);
 
         EditText birthdayText = root.findViewById(R.id.editBirthdayDate);
         DatePicker birthdayPicker = root.findViewById(R.id.birthdayPicker);
@@ -39,7 +41,8 @@ public class SetBirthdayFragment extends Fragment {
 
         nextButton = root.findViewById(R.id.nextButton);
         nextButton.setOnClickListener(v -> {
-
+            FragmentChanger.replaceFragment(getParentFragmentManager(),
+                    R.id.signupFragment, new SetEmailFragment());
         });
 
         return root;

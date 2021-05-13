@@ -21,7 +21,7 @@ public class SetInfoFragment extends Fragment implements ISetInfo {
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        View root = inflater.inflate(R.layout.fragment_set_info, container, false);
+        View root = inflater.inflate(R.layout.fragment_create_set_info, container, false);
 
         title = root.findViewById(R.id.addTitle);
         description = root.findViewById(R.id.addDescription);

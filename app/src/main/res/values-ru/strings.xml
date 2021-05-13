@@ -9,6 +9,18 @@
     <string name="sign_up">Зарегистрироваться</string>
     <string name="without_auth">Продолжить без авторизации</string>
 
+    <string name="birthday_question">Когда ваш день рождения?</string>
+    <string name="birthday_description">Дата вашего рождения не будет отображаться другим пользователям.</string>
+    <string name="birthday">День рождения</string>
+
+    <string name="enter_email">Введите ваш адрес электронной почты.</string>
+    <string name="email">Адресс электронной почты</string>
+    <string name="terms">Нажимая кнопку продолжить,
+        вы соглашаетесь с тем фактом,
+        что приложение все еще находится в разработке, так что,
+        если ваши данные будут потеряны или что-то другое произойдет
+        - регистрация здесь была вашим решением.</string>
+
     <string name="title_home">Домой</string>
     <string name="title_popular">Популярно</string>
     <string name="title_create">Создать</string>

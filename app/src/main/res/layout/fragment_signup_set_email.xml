@@ -7,70 +7,58 @@
     android:background="@drawable/shape_rounded_background" >
 
     <TextView
-        android:id="@+id/birthdayQuestion"
-        android:layout_width="wrap_content"
+        android:id="@+id/textEnterEmail"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
         android:layout_marginTop="24dp"
-        android:text="When's your birthday?"
+        android:text="@string/enter_email"
         android:textColor="@color/black"
         android:textSize="24sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/birthdayDescription"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="8dp"
-        android:text="Your birthday won't be shown publicly."
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/birthdayQuestion" />
-
     <EditText
-        android:id="@+id/editBirthdayDate"
-        android:layout_width="match_parent"
+        android:id="@+id/editEmail"
+        android:layout_width="0dp"
         android:layout_height="48dp"
         android:layout_marginStart="24dp"
         android:layout_marginTop="24dp"
         android:layout_marginEnd="24dp"
         android:background="@drawable/shape_rounded_white"
-        android:hint="Birthday"
+        android:hint="@string/email"
         android:textColor="@color/black"
-        android:enabled="false"
-        android:inputType="date"
+        android:inputType="textEmailAddress"
         android:paddingStart="12dp"
         android:paddingEnd="12dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/birthdayDescription" />
+        app:layout_constraintTop_toBottomOf="@id/textEnterEmail" />
+
+    <TextView
+        android:id="@+id/textTermsOfPolicy"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="24dp"
+        android:text="@string/terms"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/editEmail" />
 
     <Button
         android:id="@+id/nextButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="16dp"
         android:layout_marginEnd="32dp"
-        android:text="Next"
+        android:text="@string/next"
         android:textColor="@color/white"
         android:enabled="false"
         app:backgroundTint="@color/lavender_button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editBirthdayDate" />
-
-    <DatePicker
-        android:id="@+id/birthdayPicker"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@drawable/shape_rounded_white"
-        android:calendarViewShown="false"
-        android:datePickerMode="spinner"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/nextButton" />
-
+        app:layout_constraintTop_toBottomOf="@id/textTermsOfPolicy" />
 </androidx.constraintlayout.widget.ConstraintLayout>

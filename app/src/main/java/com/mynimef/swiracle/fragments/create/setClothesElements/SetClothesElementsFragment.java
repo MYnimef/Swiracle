@@ -42,7 +42,7 @@ public class SetClothesElementsFragment extends Fragment implements ISetClothesE
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        View root = inflater.inflate(R.layout.fragment_set_clothes_elements, container, false);
+        View root = inflater.inflate(R.layout.fragment_create_set_clothes_elements, container, false);
 
         Handler handler = new Handler(Looper.getMainLooper()) {
             @Override

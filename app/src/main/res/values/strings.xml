@@ -9,6 +9,17 @@
     <string name="sign_up">Sign up</string>
     <string name="without_auth">Continue without authorization</string>
 
+    <string name="birthday_question">When\'s your birthday?</string>
+    <string name="birthday_description">Your birthday won\'t be shown publicly.</string>
+    <string name="birthday">Birthday</string>
+
+    <string name="enter_email">Enter your email address.</string>
+    <string name="email">Email address</string>
+    <string name="terms">By continuing, you agree to the fact,
+        that this app is still in development,
+        so if you lose your data or something else happens
+        - it was your choice to be there.</string>
+
     <string name="title_home">Home</string>
     <string name="title_popular">Popular</string>
     <string name="title_create">Create</string>
