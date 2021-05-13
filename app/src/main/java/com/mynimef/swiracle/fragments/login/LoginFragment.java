@@ -18,6 +18,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.mynimef.swiracle.R;
 import com.mynimef.swiracle.fragments.NavigationFragment;
+import com.mynimef.swiracle.fragments.signup.SignUpFragment;
 import com.mynimef.swiracle.logic.FragmentChanger;
 
 import org.jetbrains.annotations.NotNull;
@@ -87,7 +88,9 @@ public class LoginFragment extends Fragment {
 
         Button registration = root.findViewById(R.id.registrationButton);
         registration.setOnClickListener(v -> {
-
+            FragmentChanger.replaceFragment(requireActivity()
+                            .getSupportFragmentManager(),
+                    R.id.mainFragment, new SignUpFragment());
         });
 
         loading = root.findViewById(R.id.loading);

@@ -11,7 +11,9 @@
 
     <color name="red">#FF0000</color>
 
-    <color name="background">#FFF1F1FD</color>
+    <color name="lavender_background">#FFF1F1FD</color>
+    <color name="lavender_gray">#FFB7B7BE</color>
+    
     <color name="gray">#ff888888</color>
     <color name="navigation">#CDFFECFF</color>
     <color name="lines">#FFB0B0BB</color>
