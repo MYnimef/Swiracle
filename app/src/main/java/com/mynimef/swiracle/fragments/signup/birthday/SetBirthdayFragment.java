@@ -1,4 +1,4 @@
-package com.mynimef.swiracle.fragments.signup.set;
+package com.mynimef.swiracle.fragments.signup.birthday;
 
 import android.os.Bundle;
 import android.text.format.DateFormat;
@@ -15,10 +15,14 @@ import androidx.fragment.app.Fragment;
 import com.mynimef.swiracle.Interfaces.ISignUp;
 import com.mynimef.swiracle.R;
 import com.mynimef.swiracle.fragments.signup.SignUpFragment;
+import com.mynimef.swiracle.fragments.signup.email.SetEmailFragment;
 import com.mynimef.swiracle.logic.FragmentChanger;
 
 import java.util.GregorianCalendar;
 
+import dagger.hilt.android.AndroidEntryPoint;
+
+@AndroidEntryPoint
 public class SetBirthdayFragment extends Fragment {
     private ISignUp signUp;
 
@@ -34,7 +38,7 @@ public class SetBirthdayFragment extends Fragment {
         View root = inflater.inflate(R.layout.fragment_signup_set_birthday, container, false);
         EditText birthdayText = root.findViewById(R.id.editBirthdayDate);
         DatePicker birthdayPicker = root.findViewById(R.id.birthdayPicker);
-        Button nextButton = root.findViewById(R.id.registerButton);
+        Button nextButton = root.findViewById(R.id.nextButton);
 
         birthdayPicker.setMaxDate(System.currentTimeMillis());
         birthdayPicker.updateDate(birthdayPicker.getYear() - 1,

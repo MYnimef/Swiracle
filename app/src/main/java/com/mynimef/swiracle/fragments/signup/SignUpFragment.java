@@ -12,20 +12,25 @@ import androidx.fragment.app.Fragment;
 import com.mynimef.swiracle.Interfaces.ISignUp;
 import com.mynimef.swiracle.R;
 import com.mynimef.swiracle.fragments.login.LoginFragment;
-import com.mynimef.swiracle.fragments.signup.set.SetBirthdayFragment;
-import com.mynimef.swiracle.fragments.signup.set.SetEmailFragment;
-import com.mynimef.swiracle.fragments.signup.set.SetGenderFragment;
-import com.mynimef.swiracle.fragments.signup.set.SetNameFragment;
+import com.mynimef.swiracle.fragments.signup.birthday.SetBirthdayFragment;
+import com.mynimef.swiracle.fragments.signup.email.SetEmailFragment;
+import com.mynimef.swiracle.fragments.signup.gender.SetGenderFragment;
+import com.mynimef.swiracle.fragments.signup.name.SetNameFragment;
+import com.mynimef.swiracle.fragments.signup.username.SetUsernameFragment;
 import com.mynimef.swiracle.logic.FragmentChanger;
 import com.mynimef.swiracle.models.DateModel;
 
+import dagger.hilt.android.AndroidEntryPoint;
+
+@AndroidEntryPoint
 public class SignUpFragment extends Fragment implements ISignUp {
     public enum EStage {
         BIRTHDAY,
         EMAIL,
         NAME,
         GENDER,
-        USERNAME
+        USERNAME,
+        PASSWORD
     }
     private EStage stage;
 
@@ -35,6 +40,7 @@ public class SignUpFragment extends Fragment implements ISignUp {
     private String lastName;
     private int gender;
     private String username;
+    private String password;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -78,6 +84,11 @@ public class SignUpFragment extends Fragment implements ISignUp {
                             R.id.signupFragment, new SetGenderFragment());
                     stage = EStage.GENDER;
                     break;
+                case PASSWORD:
+                    FragmentChanger.replaceFragment(getChildFragmentManager(),
+                            R.id.signupFragment, new SetUsernameFragment());
+                    stage = EStage.USERNAME;
+                    break;
             }
         });
 
@@ -111,6 +122,11 @@ public class SignUpFragment extends Fragment implements ISignUp {
     @Override
     public void setUsername(String username) {
         this.username = username;
+    }
+
+    @Override
+    public void setPassword(String password) {
+
     }
 
     @Override

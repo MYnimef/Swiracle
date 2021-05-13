@@ -1,4 +1,4 @@
-package com.mynimef.swiracle.fragments.signup.set;
+package com.mynimef.swiracle.fragments.signup.name;
 
 import android.os.Bundle;
 import android.text.Editable;
@@ -16,9 +16,12 @@ import androidx.fragment.app.Fragment;
 import com.mynimef.swiracle.Interfaces.ISignUp;
 import com.mynimef.swiracle.R;
 import com.mynimef.swiracle.fragments.signup.SignUpFragment;
-import com.mynimef.swiracle.fragments.signup.set.SetGenderFragment;
+import com.mynimef.swiracle.fragments.signup.gender.SetGenderFragment;
 import com.mynimef.swiracle.logic.FragmentChanger;
 
+import dagger.hilt.android.AndroidEntryPoint;
+
+@AndroidEntryPoint
 public class SetNameFragment extends Fragment {
     private ISignUp signUp;
 
@@ -34,7 +37,7 @@ public class SetNameFragment extends Fragment {
         View root = inflater.inflate(R.layout.fragment_signup_set_name, container, false);
         EditText editFirstName = root.findViewById(R.id.editFirstName);
         EditText editLastName = root.findViewById(R.id.editLastName);
-        Button nextButton = root.findViewById(R.id.registerButton);
+        Button nextButton = root.findViewById(R.id.nextButton);
 
         editFirstName.addTextChangedListener(new TextWatcher() {
             @Override

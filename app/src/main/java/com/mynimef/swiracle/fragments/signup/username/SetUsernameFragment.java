@@ -1,4 +1,4 @@
-package com.mynimef.swiracle.fragments.signup.set;
+package com.mynimef.swiracle.fragments.signup.username;
 
 import android.os.Bundle;
 import android.text.Editable;
@@ -14,7 +14,13 @@ import androidx.fragment.app.Fragment;
 
 import com.mynimef.swiracle.Interfaces.ISignUp;
 import com.mynimef.swiracle.R;
+import com.mynimef.swiracle.fragments.signup.SignUpFragment;
+import com.mynimef.swiracle.fragments.signup.password.SetPasswordFragment;
+import com.mynimef.swiracle.logic.FragmentChanger;
 
+import dagger.hilt.android.AndroidEntryPoint;
+
+@AndroidEntryPoint
 public class SetUsernameFragment extends Fragment {
     private ISignUp signUp;
 
@@ -29,7 +35,7 @@ public class SetUsernameFragment extends Fragment {
                              Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_signup_set_username, container, false);
         EditText editUsername = root.findViewById(R.id.editUsername);
-        Button registerButton = root.findViewById(R.id.registerButton);
+        Button nextButton = root.findViewById(R.id.nextButton);
 
         editUsername.addTextChangedListener(new TextWatcher() {
             @Override
@@ -39,15 +45,17 @@ public class SetUsernameFragment extends Fragment {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                registerButton.setEnabled(s.length() >= 3);
+                nextButton.setEnabled(s.length() >= 3);
             }
         });
 
-        registerButton.setOnClickListener(v -> {
+        nextButton.setOnClickListener(v -> {
             String username = String.valueOf(editUsername.getText());
             if (checkUsername(username)) {
                 signUp.setUsername(username);
-                signUp.completeRegistration();
+                signUp.setStage(SignUpFragment.EStage.PASSWORD);
+                FragmentChanger.replaceFragment(getParentFragmentManager(),
+                        R.id.signupFragment, new SetPasswordFragment());
             } else {
                 Toast.makeText(getContext(), "Wrong username input!", Toast.LENGTH_SHORT).show();
             }

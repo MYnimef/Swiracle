@@ -36,6 +36,12 @@
         цифр, а также символов _ и - (вначале обязательно должна быть буква).
         Минимальный размер - 3 символа, маскимальный - 16.</string>
 
+    <string name="password_set">Придумайте пароль.</string>
+    <string name="password_description">Ваш пароль должен быть надежным,
+        минимальная длина - 8 символов, максимальная - 20.
+        Постарайтесь не использовать простые комбинации типа \'qwerty\'.</string>
+    <string name="password_again">Пожалуйста, введите пароль снова.</string>
+
     <string name="title_home">Домой</string>
     <string name="title_popular">Популярно</string>
     <string name="title_create">Создать</string>

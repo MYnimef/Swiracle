@@ -52,7 +52,7 @@ public class NavigationFragment extends Fragment implements IPickNavigation {
         View root = inflater.inflate(R.layout.fragment_navigation, container, false);
 
         BottomNavigationView navView = root.findViewById(R.id.nav_view);
-        navView.setOnNavigationItemSelectedListener(
+        navView.setOnItemSelectedListener(
                 item -> {
                     int itemId = item.getItemId();
                     if (itemId == R.id.navigation_create) {

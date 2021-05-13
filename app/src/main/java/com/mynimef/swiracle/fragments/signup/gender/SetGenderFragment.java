@@ -1,4 +1,4 @@
-package com.mynimef.swiracle.fragments.signup.set;
+package com.mynimef.swiracle.fragments.signup.gender;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -7,19 +7,22 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
 
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.mynimef.swiracle.Interfaces.ISignUp;
 import com.mynimef.swiracle.R;
 import com.mynimef.swiracle.fragments.signup.SignUpFragment;
+import com.mynimef.swiracle.fragments.signup.username.SetUsernameFragment;
 import com.mynimef.swiracle.logic.FragmentChanger;
 
+import dagger.hilt.android.AndroidEntryPoint;
+
+@AndroidEntryPoint
 public class SetGenderFragment extends Fragment {
     private ISignUp signUp;
 
     @Override
-    public void onCreate(@Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         signUp = (ISignUp) getParentFragment();
     }
@@ -31,7 +34,7 @@ public class SetGenderFragment extends Fragment {
         CheckBox checkMale = root.findViewById(R.id.checkMale);
         CheckBox checkFemale = root.findViewById(R.id.checkFemale);
         CheckBox checkOther = root.findViewById(R.id.checkOther);
-        Button nextButton = root.findViewById(R.id.registerButton);
+        Button nextButton = root.findViewById(R.id.nextButton);
 
         checkMale.setOnCheckedChangeListener((buttonView, isChecked) -> {
             if (isChecked) {

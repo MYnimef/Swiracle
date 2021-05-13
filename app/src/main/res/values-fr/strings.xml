@@ -34,6 +34,12 @@
     <string name="username_description">Username should be unique combination of letters,
         it\'s size shouldn\'t be more than 16 symbols.</string>
 
+    <string name="password_set">Set password.</string>
+    <string name="password_description">Your password should be strong enough,
+        min length is 8 symbols - max is 20.
+        Try not to use simple ones like \'qwerty\'.</string>
+    <string name="password_again">Please, enter your password again.</string>
+
     <string name="title_home">Accueil</string>
     <string name="title_popular">Découvrir</string>
     <string name="title_create">Créer</string>

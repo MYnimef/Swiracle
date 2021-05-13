@@ -1,4 +1,4 @@
-package com.mynimef.swiracle.fragments.signup.set;
+package com.mynimef.swiracle.fragments.signup.email;
 
 import android.os.Bundle;
 import android.text.Editable;
@@ -15,8 +15,12 @@ import androidx.fragment.app.Fragment;
 import com.mynimef.swiracle.Interfaces.ISignUp;
 import com.mynimef.swiracle.R;
 import com.mynimef.swiracle.fragments.signup.SignUpFragment;
+import com.mynimef.swiracle.fragments.signup.name.SetNameFragment;
 import com.mynimef.swiracle.logic.FragmentChanger;
 
+import dagger.hilt.android.AndroidEntryPoint;
+
+@AndroidEntryPoint
 public class SetEmailFragment extends Fragment {
     private ISignUp signUp;
 
@@ -31,7 +35,7 @@ public class SetEmailFragment extends Fragment {
                              Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_signup_set_email, container, false);
         EditText emailEdit = root.findViewById(R.id.editEmail);
-        Button nextButton = root.findViewById(R.id.registerButton);
+        Button nextButton = root.findViewById(R.id.nextButton);
 
         emailEdit.addTextChangedListener(new TextWatcher() {
             @Override

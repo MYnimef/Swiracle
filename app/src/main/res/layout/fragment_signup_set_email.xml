@@ -50,7 +50,7 @@
         app:layout_constraintTop_toBottomOf="@id/editEmail" />
 
     <Button
-        android:id="@+id/registerButton"
+        android:id="@+id/nextButton"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
