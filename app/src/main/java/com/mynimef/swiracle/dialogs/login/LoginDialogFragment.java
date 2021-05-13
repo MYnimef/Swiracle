@@ -1,27 +1,34 @@
 package com.mynimef.swiracle.dialogs.login;
 
-import android.app.Dialog;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
-import androidx.annotation.NonNull;
 import androidx.fragment.app.DialogFragment;
 
 import com.mynimef.swiracle.R;
+import com.mynimef.swiracle.fragments.login.LoginFragment;
+import com.mynimef.swiracle.logic.FragmentChanger;
 
 import org.jetbrains.annotations.NotNull;
 
 public class LoginDialogFragment extends DialogFragment {
     @Override
     public View onCreateView(@NotNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.dialog_login, container, false);
-    }
+        View root = inflater.inflate(R.layout.dialog_login, container, false);
 
-    @NonNull
-    @Override
-    public Dialog onCreateDialog(Bundle savedInstanceState) {
-        return super.onCreateDialog(savedInstanceState);
+        Button okButton = root.findViewById(R.id.okButton);
+        okButton.setOnClickListener(v -> {
+            FragmentChanger.replaceFragment(requireActivity().getSupportFragmentManager(),
+                    R.id.mainFragment, new LoginFragment());
+            dismiss();
+        });
+
+        Button cancelButton = root.findViewById(R.id.cancelButton);
+        cancelButton.setOnClickListener(v -> dismiss());
+
+        return root;
     }
 }
