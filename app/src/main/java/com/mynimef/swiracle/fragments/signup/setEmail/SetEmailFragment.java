@@ -12,10 +12,18 @@ import android.widget.EditText;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
+import com.mynimef.swiracle.Interfaces.ISignUp;
 import com.mynimef.swiracle.R;
 
 public class SetEmailFragment extends Fragment {
+    private ISignUp signUp;
     private Button nextButton;
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        signUp = (ISignUp) getParentFragment();
+    }
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
@@ -37,7 +45,7 @@ public class SetEmailFragment extends Fragment {
 
         nextButton = root.findViewById(R.id.nextButton);
         nextButton.setOnClickListener(v -> {
-            
+
         });
 
         return root;

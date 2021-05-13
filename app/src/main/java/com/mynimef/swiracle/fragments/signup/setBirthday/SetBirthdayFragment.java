@@ -12,14 +12,23 @@ import android.widget.EditText;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
+import com.mynimef.swiracle.Interfaces.ISignUp;
 import com.mynimef.swiracle.R;
+import com.mynimef.swiracle.fragments.signup.SignUpFragment;
 import com.mynimef.swiracle.fragments.signup.setEmail.SetEmailFragment;
 import com.mynimef.swiracle.logic.FragmentChanger;
 
 import java.util.GregorianCalendar;
 
 public class SetBirthdayFragment extends Fragment {
+    private ISignUp signUp;
     private Button nextButton;
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        signUp = (ISignUp) getParentFragment();
+    }
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
@@ -41,6 +50,7 @@ public class SetBirthdayFragment extends Fragment {
 
         nextButton = root.findViewById(R.id.nextButton);
         nextButton.setOnClickListener(v -> {
+            signUp.setStage(SignUpFragment.EStage.EMAIL);
             FragmentChanger.replaceFragment(getParentFragmentManager(),
                     R.id.signupFragment, new SetEmailFragment());
         });
