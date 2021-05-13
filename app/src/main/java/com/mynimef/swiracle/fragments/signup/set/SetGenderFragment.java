@@ -1,4 +1,4 @@
-package com.mynimef.swiracle.fragments.signup;
+package com.mynimef.swiracle.fragments.signup.set;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -12,6 +12,7 @@ import androidx.fragment.app.Fragment;
 
 import com.mynimef.swiracle.Interfaces.ISignUp;
 import com.mynimef.swiracle.R;
+import com.mynimef.swiracle.fragments.signup.SignUpFragment;
 import com.mynimef.swiracle.logic.FragmentChanger;
 
 public class SetGenderFragment extends Fragment {

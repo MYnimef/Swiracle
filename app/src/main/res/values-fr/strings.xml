@@ -25,6 +25,15 @@
     <string name="first_name">First name</string>
     <string name="last_name">Last name</string>
 
+    <string name="select_gender">Select your gender.</string>
+    <string name="male">Male</string>
+    <string name="female">Female</string>
+    <string name="other">Other</string>
+
+    <string name="username_enter">Enter your username.</string>
+    <string name="username_description">Username should be unique combination of letters,
+        it\'s size shouldn\'t be more than 16 symbols.</string>
+
     <string name="title_home">Accueil</string>
     <string name="title_popular">Découvrir</string>
     <string name="title_create">Créer</string>

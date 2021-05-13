@@ -26,6 +26,16 @@
     <string name="first_name">Имя</string>
     <string name="last_name">Фамилия</string>
 
+    <string name="select_gender">Выберите свой пол.</string>
+    <string name="male">Мужчина</string>
+    <string name="female">Женщина</string>
+    <string name="other">Другое</string>
+
+    <string name="username_enter">Введите свое имя пользователя.</string>
+    <string name="username_description">Имя пользователя должно быть уникальной комбинацией букв,
+        цифр, а также символов _ и - (вначале обязательно должна быть буква).
+        Минимальный размер - 3 символа, маскимальный - 16.</string>
+
     <string name="title_home">Головна</string>
     <string name="title_popular">Пошук</string>
     <string name="title_create">Створити</string>

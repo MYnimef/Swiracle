@@ -8,5 +8,7 @@ public interface ISignUp {
     void setName(String firstName, String lastName);
     void setGender(int gender);
     void setUsername(String username);
+
     void setStage(SignUpFragment.EStage stage);
+    void completeRegistration();
 }
