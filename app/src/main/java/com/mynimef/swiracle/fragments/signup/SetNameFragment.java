@@ -1,4 +1,4 @@
-package com.mynimef.swiracle.fragments.signup.setName;
+package com.mynimef.swiracle.fragments.signup;
 
 import android.os.Bundle;
 import android.text.Editable;
@@ -15,15 +15,10 @@ import androidx.fragment.app.Fragment;
 
 import com.mynimef.swiracle.Interfaces.ISignUp;
 import com.mynimef.swiracle.R;
-import com.mynimef.swiracle.fragments.signup.SignUpFragment;
-import com.mynimef.swiracle.fragments.signup.setGender.SetGenderFragment;
 import com.mynimef.swiracle.logic.FragmentChanger;
 
 public class SetNameFragment extends Fragment {
     private ISignUp signUp;
-    private EditText editFirstName;
-    private EditText editLastName;
-    private Button nextButton;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -35,8 +30,10 @@ public class SetNameFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_signup_set_name, container, false);
+        EditText editFirstName = root.findViewById(R.id.editFirstName);
+        EditText editLastName = root.findViewById(R.id.editLastName);
+        Button nextButton = root.findViewById(R.id.nextButton);
 
-        editFirstName = root.findViewById(R.id.editFirstName);
         editFirstName.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
@@ -49,8 +46,6 @@ public class SetNameFragment extends Fragment {
                         !String.valueOf(editLastName.getText()).equals(""));
             }
         });
-
-        editLastName = root.findViewById(R.id.editLastName);
         editLastName.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
@@ -64,7 +59,6 @@ public class SetNameFragment extends Fragment {
             }
         });
 
-        nextButton = root.findViewById(R.id.nextButton);
         nextButton.setOnClickListener(v -> {
             String firstName = String.valueOf(editFirstName.getText());
             String lastName = String.valueOf(editLastName.getText());

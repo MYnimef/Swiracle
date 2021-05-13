@@ -1,4 +1,4 @@
-package com.mynimef.swiracle.fragments.signup.setEmail;
+package com.mynimef.swiracle.fragments.signup;
 
 import android.os.Bundle;
 import android.text.Editable;
@@ -14,13 +14,10 @@ import androidx.fragment.app.Fragment;
 
 import com.mynimef.swiracle.Interfaces.ISignUp;
 import com.mynimef.swiracle.R;
-import com.mynimef.swiracle.fragments.signup.SignUpFragment;
-import com.mynimef.swiracle.fragments.signup.setName.SetNameFragment;
 import com.mynimef.swiracle.logic.FragmentChanger;
 
 public class SetEmailFragment extends Fragment {
     private ISignUp signUp;
-    private Button nextButton;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -32,8 +29,9 @@ public class SetEmailFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_signup_set_email, container, false);
-
         EditText emailEdit = root.findViewById(R.id.editEmail);
+        Button nextButton = root.findViewById(R.id.nextButton);
+
         emailEdit.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
@@ -46,7 +44,6 @@ public class SetEmailFragment extends Fragment {
             }
         });
 
-        nextButton = root.findViewById(R.id.nextButton);
         nextButton.setOnClickListener(v -> {
             signUp.setEmail(String.valueOf(emailEdit.getText()));
             signUp.setStage(SignUpFragment.EStage.NAME);

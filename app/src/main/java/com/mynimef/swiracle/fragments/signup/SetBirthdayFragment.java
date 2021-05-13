@@ -1,4 +1,4 @@
-package com.mynimef.swiracle.fragments.signup.setBirthday;
+package com.mynimef.swiracle.fragments.signup;
 
 import android.os.Bundle;
 import android.text.format.DateFormat;
@@ -14,15 +14,12 @@ import androidx.fragment.app.Fragment;
 
 import com.mynimef.swiracle.Interfaces.ISignUp;
 import com.mynimef.swiracle.R;
-import com.mynimef.swiracle.fragments.signup.SignUpFragment;
-import com.mynimef.swiracle.fragments.signup.setEmail.SetEmailFragment;
 import com.mynimef.swiracle.logic.FragmentChanger;
 
 import java.util.GregorianCalendar;
 
 public class SetBirthdayFragment extends Fragment {
     private ISignUp signUp;
-    private Button nextButton;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -34,9 +31,10 @@ public class SetBirthdayFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_signup_set_birthday, container, false);
-
         EditText birthdayText = root.findViewById(R.id.editBirthdayDate);
         DatePicker birthdayPicker = root.findViewById(R.id.birthdayPicker);
+        Button nextButton = root.findViewById(R.id.nextButton);
+
         birthdayPicker.setMaxDate(System.currentTimeMillis());
         birthdayPicker.updateDate(birthdayPicker.getYear() - 1,
                 birthdayPicker.getMonth(),
@@ -48,7 +46,6 @@ public class SetBirthdayFragment extends Fragment {
             nextButton.setEnabled(true);
         });
 
-        nextButton = root.findViewById(R.id.nextButton);
         nextButton.setOnClickListener(v -> {
             signUp.setBirthday(birthdayPicker.getYear(),
                     birthdayPicker.getMonth(),

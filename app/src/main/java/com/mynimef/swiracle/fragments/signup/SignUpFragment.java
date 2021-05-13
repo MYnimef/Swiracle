@@ -12,9 +12,6 @@ import androidx.fragment.app.Fragment;
 import com.mynimef.swiracle.Interfaces.ISignUp;
 import com.mynimef.swiracle.R;
 import com.mynimef.swiracle.fragments.login.LoginFragment;
-import com.mynimef.swiracle.fragments.signup.setBirthday.SetBirthdayFragment;
-import com.mynimef.swiracle.fragments.signup.setEmail.SetEmailFragment;
-import com.mynimef.swiracle.fragments.signup.setName.SetNameFragment;
 import com.mynimef.swiracle.logic.FragmentChanger;
 import com.mynimef.swiracle.models.DateModel;
 
@@ -32,6 +29,7 @@ public class SignUpFragment extends Fragment implements ISignUp {
     private String email;
     private String firstName;
     private String lastName;
+    private int gender;
     private String username;
 
     @Override
@@ -93,6 +91,14 @@ public class SignUpFragment extends Fragment implements ISignUp {
     public void setName(String firstName, String lastName) {
         this.firstName = firstName;
         this.lastName = lastName;
+    }
+
+    @Override
+    public void setGender(int gender) {
+        this.gender = gender;
+        //0 - male
+        //1 - female
+        //2 - other
     }
 
     @Override
