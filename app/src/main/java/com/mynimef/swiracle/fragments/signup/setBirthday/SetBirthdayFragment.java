@@ -50,6 +50,9 @@ public class SetBirthdayFragment extends Fragment {
 
         nextButton = root.findViewById(R.id.nextButton);
         nextButton.setOnClickListener(v -> {
+            signUp.setBirthday(birthdayPicker.getYear(),
+                    birthdayPicker.getMonth(),
+                    birthdayPicker.getDayOfMonth());
             signUp.setStage(SignUpFragment.EStage.EMAIL);
             FragmentChanger.replaceFragment(getParentFragmentManager(),
                     R.id.signupFragment, new SetEmailFragment());

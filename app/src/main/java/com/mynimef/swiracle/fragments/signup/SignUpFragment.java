@@ -14,16 +14,23 @@ import com.mynimef.swiracle.R;
 import com.mynimef.swiracle.fragments.login.LoginFragment;
 import com.mynimef.swiracle.fragments.signup.setBirthday.SetBirthdayFragment;
 import com.mynimef.swiracle.logic.FragmentChanger;
-
+import com.mynimef.swiracle.models.DateModel;
 
 public class SignUpFragment extends Fragment implements ISignUp {
     public enum EStage {
         BIRTHDAY,
         EMAIL,
         NAME,
+        GENDER,
         USERNAME
     }
     private EStage stage;
+
+    private DateModel birthday;
+    private String email;
+    private String firstName;
+    private String lastName;
+    private String username;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -54,12 +61,35 @@ public class SignUpFragment extends Fragment implements ISignUp {
                     break;
                 case NAME:
                     break;
+                case GENDER:
+                    break;
                 case USERNAME:
                     break;
             }
         });
 
         return root;
+    }
+
+    @Override
+    public void setBirthday(int year, int month, int day) {
+        this.birthday = new DateModel(year, month, day);
+    }
+
+    @Override
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    @Override
+    public void setName(String firstName, String lastName) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+    }
+
+    @Override
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     @Override

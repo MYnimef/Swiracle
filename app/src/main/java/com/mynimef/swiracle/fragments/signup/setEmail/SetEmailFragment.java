@@ -14,6 +14,9 @@ import androidx.fragment.app.Fragment;
 
 import com.mynimef.swiracle.Interfaces.ISignUp;
 import com.mynimef.swiracle.R;
+import com.mynimef.swiracle.fragments.signup.SignUpFragment;
+import com.mynimef.swiracle.fragments.signup.setName.SetNameFragment;
+import com.mynimef.swiracle.logic.FragmentChanger;
 
 public class SetEmailFragment extends Fragment {
     private ISignUp signUp;
@@ -45,7 +48,10 @@ public class SetEmailFragment extends Fragment {
 
         nextButton = root.findViewById(R.id.nextButton);
         nextButton.setOnClickListener(v -> {
-
+            signUp.setEmail(String.valueOf(emailEdit.getText()));
+            signUp.setStage(SignUpFragment.EStage.NAME);
+            FragmentChanger.replaceFragment(getParentFragmentManager(),
+                    R.id.signupFragment, new SetNameFragment());
         });
 
         return root;

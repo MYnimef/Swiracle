@@ -21,6 +21,11 @@
         если ваши данные будут потеряны или что-то другое произойдет
         - регистрация здесь была вашим решением.</string>
 
+    <string name="enter_name">Как вас зовут?</string>
+    <string name="real_name">Пожалуйста, используйте свое настоящее имя.</string>
+    <string name="first_name">Имя</string>
+    <string name="last_name">Фамилия</string>
+
     <string name="title_home">Домой</string>
     <string name="title_popular">Популярно</string>
     <string name="title_create">Создать</string>

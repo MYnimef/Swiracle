@@ -20,6 +20,11 @@
         so if you lose your data or something else happens
         - it was your choice to be there.</string>
 
+    <string name="enter_name">Enter your name.</string>
+    <string name="real_name">Please use your real name.</string>
+    <string name="first_name">First name</string>
+    <string name="last_name">Last name</string>
+
     <string name="title_home">Home</string>
     <string name="title_popular">Popular</string>
     <string name="title_create">Create</string>
