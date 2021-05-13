@@ -13,6 +13,8 @@ import com.mynimef.swiracle.Interfaces.ISignUp;
 import com.mynimef.swiracle.R;
 import com.mynimef.swiracle.fragments.login.LoginFragment;
 import com.mynimef.swiracle.fragments.signup.setBirthday.SetBirthdayFragment;
+import com.mynimef.swiracle.fragments.signup.setEmail.SetEmailFragment;
+import com.mynimef.swiracle.fragments.signup.setName.SetNameFragment;
 import com.mynimef.swiracle.logic.FragmentChanger;
 import com.mynimef.swiracle.models.DateModel;
 
@@ -60,8 +62,14 @@ public class SignUpFragment extends Fragment implements ISignUp {
                     stage = EStage.BIRTHDAY;
                     break;
                 case NAME:
+                    FragmentChanger.replaceFragment(getChildFragmentManager(),
+                            R.id.signupFragment, new SetEmailFragment());
+                    stage = EStage.EMAIL;
                     break;
                 case GENDER:
+                    FragmentChanger.replaceFragment(getChildFragmentManager(),
+                            R.id.signupFragment, new SetNameFragment());
+                    stage = EStage.NAME;
                     break;
                 case USERNAME:
                     break;
