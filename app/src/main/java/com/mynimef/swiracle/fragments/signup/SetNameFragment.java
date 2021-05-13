@@ -32,7 +32,7 @@ public class SetNameFragment extends Fragment {
         View root = inflater.inflate(R.layout.fragment_signup_set_name, container, false);
         EditText editFirstName = root.findViewById(R.id.editFirstName);
         EditText editLastName = root.findViewById(R.id.editLastName);
-        Button nextButton = root.findViewById(R.id.nextButton);
+        Button nextButton = root.findViewById(R.id.registerButton);
 
         editFirstName.addTextChangedListener(new TextWatcher() {
             @Override

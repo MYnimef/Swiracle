@@ -33,7 +33,7 @@ public class SetBirthdayFragment extends Fragment {
         View root = inflater.inflate(R.layout.fragment_signup_set_birthday, container, false);
         EditText birthdayText = root.findViewById(R.id.editBirthdayDate);
         DatePicker birthdayPicker = root.findViewById(R.id.birthdayPicker);
-        Button nextButton = root.findViewById(R.id.nextButton);
+        Button nextButton = root.findViewById(R.id.registerButton);
 
         birthdayPicker.setMaxDate(System.currentTimeMillis());
         birthdayPicker.updateDate(birthdayPicker.getYear() - 1,

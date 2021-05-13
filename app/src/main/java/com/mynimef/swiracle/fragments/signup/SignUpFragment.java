@@ -70,6 +70,9 @@ public class SignUpFragment extends Fragment implements ISignUp {
                     stage = EStage.NAME;
                     break;
                 case USERNAME:
+                    FragmentChanger.replaceFragment(getChildFragmentManager(),
+                            R.id.signupFragment, new SetGenderFragment());
+                    stage = EStage.GENDER;
                     break;
             }
         });

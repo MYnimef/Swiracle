@@ -30,7 +30,7 @@ public class SetGenderFragment extends Fragment {
         CheckBox checkMale = root.findViewById(R.id.checkMale);
         CheckBox checkFemale = root.findViewById(R.id.checkFemale);
         CheckBox checkOther = root.findViewById(R.id.checkOther);
-        Button nextButton = root.findViewById(R.id.nextButton);
+        Button nextButton = root.findViewById(R.id.registerButton);
 
         checkMale.setOnCheckedChangeListener((buttonView, isChecked) -> {
             if (isChecked) {
@@ -68,8 +68,9 @@ public class SetGenderFragment extends Fragment {
             } else {
                 signUp.setGender(2);
             }
+            signUp.setStage(SignUpFragment.EStage.USERNAME);
             FragmentChanger.replaceFragment(getParentFragmentManager(),
-                    R.id.signupFragment, new SetGenderFragment());
+                    R.id.signupFragment, new SetUsernameFragment());
         });
 
         return root;

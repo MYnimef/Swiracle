@@ -64,7 +64,7 @@ public class CreateFragment extends Fragment {
         ISetInfo setInfo = this.setInfoFragment;
 
         Button back = root.findViewById(R.id.backButton);
-        Button next = root.findViewById(R.id.nextButton);
+        Button next = root.findViewById(R.id.registerButton);
         this.createViewModel.setText(getResources().getString(R.string.next));
 
         this.createViewModel.getText().observe(getViewLifecycleOwner(), next::setText);

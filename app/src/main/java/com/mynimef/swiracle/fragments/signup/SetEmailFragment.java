@@ -30,7 +30,7 @@ public class SetEmailFragment extends Fragment {
                              Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_signup_set_email, container, false);
         EditText emailEdit = root.findViewById(R.id.editEmail);
-        Button nextButton = root.findViewById(R.id.nextButton);
+        Button nextButton = root.findViewById(R.id.registerButton);
 
         emailEdit.addTextChangedListener(new TextWatcher() {
             @Override
