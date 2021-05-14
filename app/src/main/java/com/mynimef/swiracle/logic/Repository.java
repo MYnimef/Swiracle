@@ -16,6 +16,7 @@ import com.mynimef.swiracle.database.ImagesDao;
 import com.mynimef.swiracle.database.Post;
 import com.mynimef.swiracle.database.PostDao;
 import com.mynimef.swiracle.database.UserDao;
+import com.mynimef.swiracle.models.DateModel;
 import com.mynimef.swiracle.models.PostImage;
 import com.mynimef.swiracle.database.SingletonDatabase;
 import com.mynimef.swiracle.models.UserDetails;
@@ -89,6 +90,15 @@ public class Repository {
         SharedPreferences.Editor editor = sharedPref.edit();
         editor.putString("token", token);
         editor.apply();
+    }
+
+    public void signUp(String username, String password, String email,
+                       String firstName, String lastName,
+                       int gender, DateModel birthday,
+                       Handler signUpHandler, Handler loginHandler) {
+        networkService.signUp(username, password, email,
+                firstName, lastName, gender, birthday,
+                signUpHandler, loginHandler);
     }
 
     public void login(String username, String password, Handler handler) {

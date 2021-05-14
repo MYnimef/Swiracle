@@ -1,5 +1,7 @@
 package com.mynimef.swiracle.Interfaces;
 
+import android.os.Handler;
+
 import com.mynimef.swiracle.fragments.signup.SignUpFragment;
 
 public interface ISignUp {
@@ -11,5 +13,5 @@ public interface ISignUp {
     void setPassword(String password);
 
     void setStage(SignUpFragment.EStage stage);
-    void completeRegistration();
+    void completeRegistration(Handler handler);
 }

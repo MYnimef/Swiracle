@@ -1,17 +1,23 @@
 package com.mynimef.swiracle.fragments.signup;
 
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
+import android.os.Message;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.mynimef.swiracle.Interfaces.ISignUp;
 import com.mynimef.swiracle.R;
 import com.mynimef.swiracle.fragments.login.LoginFragment;
+import com.mynimef.swiracle.fragments.navigation.NavigationFragment;
 import com.mynimef.swiracle.fragments.signup.birthday.SetBirthdayFragment;
 import com.mynimef.swiracle.fragments.signup.email.SetEmailFragment;
 import com.mynimef.swiracle.fragments.signup.gender.SetGenderFragment;
@@ -24,6 +30,8 @@ import dagger.hilt.android.AndroidEntryPoint;
 
 @AndroidEntryPoint
 public class SignUpFragment extends Fragment implements ISignUp {
+    private SignUpViewModel signUpViewModel;
+
     public enum EStage {
         BIRTHDAY,
         EMAIL,
@@ -45,6 +53,7 @@ public class SignUpFragment extends Fragment implements ISignUp {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        signUpViewModel = new ViewModelProvider(this).get(SignUpViewModel.class);
         stage = EStage.BIRTHDAY;
     }
 
@@ -126,7 +135,7 @@ public class SignUpFragment extends Fragment implements ISignUp {
 
     @Override
     public void setPassword(String password) {
-
+        this.password = password;
     }
 
     @Override
@@ -135,7 +144,26 @@ public class SignUpFragment extends Fragment implements ISignUp {
     }
 
     @Override
-    public void completeRegistration() {
+    public void completeRegistration(Handler signUpHandler) {
+        Handler loginHandler = new Handler(Looper.getMainLooper()) {
+            @Override
+            public void handleMessage(Message msg) {
+                super.handleMessage(msg);
+                byte result = msg.getData().getByte("login");
+                if (result == 0) {
+                    FragmentChanger.replaceFragment(requireActivity()
+                                    .getSupportFragmentManager(),
+                            R.id.mainFragment, new NavigationFragment());
+                } else if (result == 1) {
+                    Toast.makeText(getContext(), "Failed to login", Toast.LENGTH_SHORT).show();
+                } else if (result == -1) {
+                    Toast.makeText(getContext(), "No connection", Toast.LENGTH_SHORT).show();
+                }
+                removeCallbacksAndMessages(null);
+            }
+        };
 
+        signUpViewModel.signUp(username, password, email,
+                firstName, lastName, gender, birthday, signUpHandler, loginHandler);
     }
 }

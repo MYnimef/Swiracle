@@ -61,21 +61,38 @@ public class NetworkService {
     }
 
     public void signUp(String username, String password, String email,
-                       String firstName, String secondName,
-                       int gender, DateModel birthday) {
+                       String firstName, String lastName,
+                       int gender, DateModel birthday,
+                       Handler signUpHandler, Handler loginHandler) {
         authApi.signUp(new SignUpServer(username, password, email,
-                firstName, secondName, gender, birthday))
+                firstName, lastName, gender, birthday))
                 .enqueue(new Callback<Response<String>>() {
                     @Override
                     public void onResponse(@NotNull Call<Response<String>> call,
                                            @NotNull Response<Response<String>> response) {
+                        Message msg = new Message();
+                        Bundle bundle = new Bundle();
 
+                        if (response.isSuccessful()) {
+                            signIn(username, password, loginHandler);
+
+                            bundle.putByte("signup", (byte) 0);
+                        } else {
+                            bundle.putByte("signup", (byte) 1);
+                        }
+                        msg.setData(bundle);
+                        signUpHandler.sendMessage(msg);
                     }
 
                     @Override
                     public void onFailure(@NotNull Call<Response<String>> call,
                                           @NotNull Throwable t) {
+                        Message msg = new Message();
+                        Bundle bundle = new Bundle();
 
+                        bundle.putByte("signup", (byte) -1);
+                        msg.setData(bundle);
+                        signUpHandler.sendMessage(msg);
                     }
                 });
     }
@@ -94,15 +111,11 @@ public class NetworkService {
                                 Repository.getInstance().setToken(response.body().getToken());
                                 Repository.getInstance().insertUser(response.
                                         body().getUserDetails());
-
-                                bundle.putString("result", "success");
-                                msg.setData(bundle);
-                                handler.sendMessage(msg);
-                                return;
+                                bundle.putByte("login", (byte) 0);
                             }
+                        } else {
+                            bundle.putByte("login", (byte) 1);
                         }
-
-                        bundle.putString("result", "failure");
                         msg.setData(bundle);
                         handler.sendMessage(msg);
                     }
@@ -112,7 +125,7 @@ public class NetworkService {
                                           @NotNull Throwable t) {
                         Message msg = new Message();
                         Bundle bundle = new Bundle();
-                        bundle.putString("result", "no connection");
+                        bundle.putByte("login", (byte) -1);
                         msg.setData(bundle);
                         handler.sendMessage(msg);
                     }

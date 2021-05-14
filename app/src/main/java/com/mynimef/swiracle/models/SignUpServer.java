@@ -6,19 +6,19 @@ public class SignUpServer {
     private String email;
 
     private String firstName;
-    private String secondName;
+    private String lastName;
 
     private int gender;
     private DateModel birthday;
 
     public SignUpServer(String username, String password, String email,
-                        String firstName, String secondName,
+                        String firstName, String lastName,
                         int gender, DateModel birthday) {
         this.username = username;
         this.password = password;
         this.email = email;
         this.firstName = firstName;
-        this.secondName = secondName;
+        this.lastName = lastName;
         this.gender = gender;
         this.birthday = birthday;
     }
@@ -35,8 +35,8 @@ public class SignUpServer {
     public String getFirstName() { return firstName; }
     public void setFirstName(String firstName) { this.firstName = firstName; }
 
-    public String getSecondName() { return secondName; }
-    public void setSecondName(String secondName) { this.secondName = secondName; }
+    public String getLastName() { return lastName; }
+    public void setLastName(String lastName) { this.lastName = lastName; }
 
     public int getGender() { return gender; }
     public void setGender(int gender) { this.gender = gender; }

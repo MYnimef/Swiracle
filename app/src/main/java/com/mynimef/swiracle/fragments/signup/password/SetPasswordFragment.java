@@ -1,6 +1,9 @@
 package com.mynimef.swiracle.fragments.signup.password;
 
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
+import android.os.Message;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
@@ -15,6 +18,9 @@ import androidx.fragment.app.Fragment;
 
 import com.mynimef.swiracle.Interfaces.ISignUp;
 import com.mynimef.swiracle.R;
+import com.mynimef.swiracle.fragments.login.LoginFragment;
+import com.mynimef.swiracle.fragments.navigation.NavigationFragment;
+import com.mynimef.swiracle.logic.FragmentChanger;
 
 import dagger.hilt.android.AndroidEntryPoint;
 
@@ -61,13 +67,29 @@ public class SetPasswordFragment extends Fragment {
             }
         });
 
+        Handler signUpHandler = new Handler(Looper.getMainLooper()) {
+            @Override
+            public void handleMessage(Message msg) {
+                super.handleMessage(msg);
+                byte result = msg.getData().getByte("signup");
+                if (result == 0) {
+                    Toast.makeText(getContext(), "Success", Toast.LENGTH_SHORT).show();
+                } else if (result == 1) {
+                    Toast.makeText(getContext(), "Error creating account", Toast.LENGTH_SHORT).show();
+                } else if (result == -1) {
+                    Toast.makeText(getContext(), "No connection", Toast.LENGTH_SHORT).show();
+                }
+                removeCallbacksAndMessages(null);
+            }
+        };
+
         finishButton.setOnClickListener(v -> {
             String password = String.valueOf(editPassword.getText());
             String passwordAgain = String.valueOf(editPasswordAgain.getText());
             if (password.equals(passwordAgain)) {
                 if (checkPassword(password)) {
                     signUp.setPassword(password);
-                    signUp.completeRegistration();
+                    signUp.completeRegistration(signUpHandler);
                 } else {
                     Toast.makeText(getContext(), "Wrong input type!", Toast.LENGTH_SHORT).show();
                 }

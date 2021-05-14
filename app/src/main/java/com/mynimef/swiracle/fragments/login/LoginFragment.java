@@ -28,9 +28,6 @@ import dagger.hilt.android.AndroidEntryPoint;
 @AndroidEntryPoint
 public class LoginFragment extends Fragment {
     private LoginViewModel loginViewModel;
-    private EditText usernameView;
-    private EditText passwordView;
-    private ProgressBar loading;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -42,25 +39,37 @@ public class LoginFragment extends Fragment {
     public View onCreateView(@NotNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_login, container, false);
+        EditText usernameView = root.findViewById(R.id.usernameEditText);
+        EditText passwordView = root.findViewById(R.id.passwordEditText);
+        Button login = root.findViewById(R.id.loginButton);
+        Button registration = root.findViewById(R.id.registrationButton);
+        Button withoutAuthButton = root.findViewById(R.id.continueButton);
+        ProgressBar loading = root.findViewById(R.id.loading);
 
         Handler handler  = new Handler(Looper.getMainLooper()) {
             @Override
             public void handleMessage(Message msg) {
                 super.handleMessage(msg);
                 loading.setVisibility(View.INVISIBLE);
-                String result = msg.getData().getString("result");
+                usernameView.setEnabled(true);
+                passwordView.setEnabled(true);
+                login.setEnabled(true);
+                registration.setEnabled(true);
+                withoutAuthButton.setEnabled(true);
+
+                byte result = msg.getData().getByte("login");
                 switch (result) {
-                    case "success":
+                    case 0:
                         loginViewModel.setSignedIn(1);
                         FragmentChanger.replaceFragment(requireActivity()
                                         .getSupportFragmentManager(),
                                 R.id.mainFragment, new NavigationFragment());
                         break;
-                    case "failure":
+                    case 1:
                         Toast.makeText(getContext(), "Wrong username or password!",
                                 Toast.LENGTH_LONG).show();
                         break;
-                    case "no connection":
+                    case -1:
                         Toast.makeText(getContext(), "No connection",
                                 Toast.LENGTH_LONG).show();
                         break;
@@ -69,10 +78,6 @@ public class LoginFragment extends Fragment {
             }
         };
 
-        usernameView = root.findViewById(R.id.usernameEditText);
-        passwordView = root.findViewById(R.id.passwordEditText);
-
-        Button login = root.findViewById(R.id.loginButton);
         login.setOnClickListener(v -> {
             String username = String.valueOf(usernameView.getText());
             String password = String.valueOf(passwordView.getText());
@@ -82,20 +87,21 @@ public class LoginFragment extends Fragment {
                 Toast.makeText(getContext(), "Empty password!", Toast.LENGTH_LONG).show();
             } else {
                 loading.setVisibility(View.VISIBLE);
+                usernameView.setEnabled(false);
+                passwordView.setEnabled(false);
+                login.setEnabled(false);
+                registration.setEnabled(false);
+                withoutAuthButton.setEnabled(false);
                 loginViewModel.loginRequest(username, password, handler);
             }
         });
 
-        Button registration = root.findViewById(R.id.registrationButton);
         registration.setOnClickListener(v -> {
             FragmentChanger.replaceFragment(requireActivity()
                             .getSupportFragmentManager(),
                     R.id.mainFragment, new SignUpFragment());
         });
 
-        loading = root.findViewById(R.id.loading);
-
-        Button withoutAuthButton = root.findViewById(R.id.continueButton);
         withoutAuthButton.setOnClickListener(v -> {
             loginViewModel.setSignedIn(-1);
             FragmentChanger.replaceFragment(requireActivity()

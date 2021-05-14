@@ -16,6 +16,8 @@
         <item name="windowNoTitle">true</item>
         <item name="android:navigationBarColor">?attr/colorOnPrimary</item>
         <item name="bottomNavigationStyle">@style/BottomNavigationViewStyle</item>
+
+        <item name="android:autofilledHighlight">@android:color/transparent</item>
     </style>
 
     <style name="BottomNavigationViewStyle" parent="Widget.MaterialComponents.BottomNavigationView.Colored">
