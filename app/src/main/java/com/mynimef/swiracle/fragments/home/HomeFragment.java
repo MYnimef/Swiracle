@@ -25,7 +25,8 @@ public class HomeFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        this.homeViewModel = new ViewModelProvider(this).get(HomeViewModel.class);
+        homeViewModel = new ViewModelProvider(this).get(HomeViewModel.class);
+        homeViewModel.update();
     }
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -38,7 +39,7 @@ public class HomeFragment extends Fragment {
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
         rv.setLayoutManager(mLayoutManager);
 
-        HomePostAdapter adapter = new HomePostAdapter(getParentFragment());
+        HomePostAdapter adapter = new HomePostAdapter(homeViewModel, getParentFragment());
         rv.setAdapter(adapter);
 
         this.homeViewModel.getRecommendationList().observe(getViewLifecycleOwner(),

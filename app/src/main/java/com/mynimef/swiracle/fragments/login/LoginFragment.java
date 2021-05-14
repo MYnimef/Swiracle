@@ -17,7 +17,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.mynimef.swiracle.R;
-import com.mynimef.swiracle.fragments.NavigationFragment;
+import com.mynimef.swiracle.fragments.navigation.NavigationFragment;
 import com.mynimef.swiracle.fragments.signup.SignUpFragment;
 import com.mynimef.swiracle.logic.FragmentChanger;
 

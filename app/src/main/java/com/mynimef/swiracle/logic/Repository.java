@@ -59,13 +59,10 @@ public class Repository {
         userDao = database.userDao();
         postDao = database.postDao();
         imagesDao = database.imagesDao();
-
         userDetails = userDao.getAllUsers();
         recommendationList = postDao.getAllPosts();
 
         networkService = NetworkService.getInstance();
-        networkService.getPosts();
-
         initGallery();
     }
 

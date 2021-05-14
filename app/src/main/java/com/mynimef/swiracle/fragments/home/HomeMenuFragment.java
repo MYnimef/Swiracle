@@ -10,7 +10,9 @@ import android.widget.ImageButton;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 
+import com.mynimef.swiracle.dialogs.login.LoginDialogFragment;
 import com.mynimef.swiracle.logic.FragmentChanger;
 import com.mynimef.swiracle.R;
 import com.mynimef.swiracle.fragments.messenger.MessengerFragment;
@@ -20,11 +22,13 @@ import dagger.hilt.android.AndroidEntryPoint;
 
 @AndroidEntryPoint
 public class HomeMenuFragment extends Fragment {
+    private HomeViewModel homeViewModel;
     private MessengerFragment messengerFragment;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        homeViewModel = new ViewModelProvider(this).get(HomeViewModel.class);
         messengerFragment = new MessengerFragment(this);
     }
 
@@ -43,8 +47,12 @@ public class HomeMenuFragment extends Fragment {
 
         forYou.setSelected(true);
         following.setOnClickListener(v -> {
-            forYou.setSelected(false);
-            following.setSelected(true);
+            if (homeViewModel.getSignedIn() != 1) {
+                new LoginDialogFragment().show(getChildFragmentManager(), "ASK");
+            } else {
+                forYou.setSelected(false);
+                following.setSelected(true);
+            }
         });
         forYou.setOnClickListener(v -> {
             following.setSelected(false);
@@ -52,9 +60,14 @@ public class HomeMenuFragment extends Fragment {
         });
 
         ImageButton messenger = root.findViewById(R.id.messages);
-        messenger.setOnClickListener(v -> FragmentChanger
-                .replaceFragment(requireActivity().getSupportFragmentManager(),
-                R.id.mainFragment, messengerFragment));
+        messenger.setOnClickListener(v -> {
+            if (homeViewModel.getSignedIn() != 1) {
+                new LoginDialogFragment().show(getChildFragmentManager(), "ASK");
+            } else {
+                FragmentChanger.replaceFragment(requireActivity().getSupportFragmentManager(),
+                        R.id.mainFragment, messengerFragment);
+            }
+        });
 
         return root;
     }

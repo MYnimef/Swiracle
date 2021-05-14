@@ -3,7 +3,7 @@ package com.mynimef.swiracle;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 
-import com.mynimef.swiracle.fragments.NavigationFragment;
+import com.mynimef.swiracle.fragments.navigation.NavigationFragment;
 import com.mynimef.swiracle.fragments.login.LoginFragment;
 import com.mynimef.swiracle.logic.FragmentChanger;
 import com.mynimef.swiracle.logic.Repository;

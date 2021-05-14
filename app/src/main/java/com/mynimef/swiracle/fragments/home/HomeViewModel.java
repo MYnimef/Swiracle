@@ -29,4 +29,5 @@ public class HomeViewModel extends AndroidViewModel {
 
     public void update() { repository.getPosts(); }
     public LiveData<List<Post>> getRecommendationList() { return recommendationList; }
+    public int getSignedIn() { return repository.getSignedIn(); }
 }

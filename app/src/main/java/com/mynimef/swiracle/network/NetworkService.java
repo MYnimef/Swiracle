@@ -6,10 +6,11 @@ import android.os.Message;
 
 import com.mynimef.swiracle.database.Post;
 import com.mynimef.swiracle.logic.Repository;
+import com.mynimef.swiracle.models.DateModel;
 import com.mynimef.swiracle.models.PostDetails;
 import com.mynimef.swiracle.models.Login;
+import com.mynimef.swiracle.models.SignUpServer;
 import com.mynimef.swiracle.models.User;
-import com.mynimef.swiracle.models.UserDetails;
 import com.mynimef.swiracle.network.api.AuthApi;
 import com.mynimef.swiracle.network.api.ClothesApi;
 import com.mynimef.swiracle.network.api.ParsingApi;
@@ -59,9 +60,11 @@ public class NetworkService {
         this.parsingApi = retrofit.create(ParsingApi.class);
     }
 
-    public void signUp() {
-        authApi.signUp(new UserDetails("MYnimef", "Ivan2000",
-                "ivan.markov.2013@gmail.com", "Ivan", "Markov"))
+    public void signUp(String username, String password, String email,
+                       String firstName, String secondName,
+                       int gender, DateModel birthday) {
+        authApi.signUp(new SignUpServer(username, password, email,
+                firstName, secondName, gender, birthday))
                 .enqueue(new Callback<Response<String>>() {
                     @Override
                     public void onResponse(@NotNull Call<Response<String>> call,

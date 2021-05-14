@@ -14,6 +14,8 @@ import androidx.recyclerview.widget.PagerSnapHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.mynimef.swiracle.database.Post;
+import com.mynimef.swiracle.dialogs.login.LoginDialogFragment;
+import com.mynimef.swiracle.fragments.home.HomeViewModel;
 import com.mynimef.swiracle.models.PostInfo;
 import com.mynimef.swiracle.R;
 
@@ -23,12 +25,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class HomePostAdapter extends RecyclerView.Adapter<HomePostAdapter.PostView> {
-    private List<Post> postList;
+    private final HomeViewModel homeViewModel;
     private final Fragment fragment;
+    private List<Post> postList;
 
-    public HomePostAdapter(Fragment fragment) {
+    public HomePostAdapter(HomeViewModel homeViewModel, Fragment fragment) {
+        this.homeViewModel = homeViewModel;
         this.fragment = fragment;
-        postList = new ArrayList<>();
+        this.postList = new ArrayList<>();
     }
 
     public void setPosts(List<Post> posts) {
@@ -68,8 +72,12 @@ public class HomePostAdapter extends RecyclerView.Adapter<HomePostAdapter.PostVi
 
         postView.getLikes().setText(String.valueOf(postInfo.getLikesAmount()));
         postView.getLikes().setOnClickListener(v -> {
-            postView.getLikes().setSelected(!postView.getLikes().isSelected());
-            //comments.setText(postList.getComments() + "");
+            if (homeViewModel.getSignedIn() != 1) {
+                new LoginDialogFragment().show(fragment.getChildFragmentManager(), "ASK");
+            } else {
+                postView.getLikes().setSelected(!postView.getLikes().isSelected());
+                //comments.setText(postList.getComments() + "");
+            }
         });
 
         postView.getComments().setText(String.valueOf(postInfo.getCommentsAmount()));
