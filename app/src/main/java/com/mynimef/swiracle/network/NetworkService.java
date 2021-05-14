@@ -63,20 +63,22 @@ public class NetworkService {
     public void signUp(String username, String password, String email,
                        String firstName, String lastName,
                        int gender, DateModel birthday,
-                       Handler signUpHandler, Handler loginHandler) {
+                       Handler signUpHandler) {
         authApi.signUp(new SignUpServer(username, password, email,
                 firstName, lastName, gender, birthday))
-                .enqueue(new Callback<Response<String>>() {
+                .enqueue(new Callback<String>() {
                     @Override
-                    public void onResponse(@NotNull Call<Response<String>> call,
-                                           @NotNull Response<Response<String>> response) {
+                    public void onResponse(@NotNull Call<String> call,
+                                           @NotNull Response<String> response) {
                         Message msg = new Message();
                         Bundle bundle = new Bundle();
 
                         if (response.isSuccessful()) {
-                            signIn(username, password, loginHandler);
-
-                            bundle.putByte("signup", (byte) 0);
+                            if (response.body() != null && response.body().equals("User registered successfully!")) {
+                                bundle.putByte("signup", (byte) 0);
+                            } else {
+                                bundle.putByte("signup", (byte) 1);
+                            }
                         } else {
                             bundle.putByte("signup", (byte) 1);
                         }
@@ -85,11 +87,10 @@ public class NetworkService {
                     }
 
                     @Override
-                    public void onFailure(@NotNull Call<Response<String>> call,
+                    public void onFailure(@NotNull Call<String> call,
                                           @NotNull Throwable t) {
                         Message msg = new Message();
                         Bundle bundle = new Bundle();
-
                         bundle.putByte("signup", (byte) -1);
                         msg.setData(bundle);
                         signUpHandler.sendMessage(msg);
@@ -109,9 +110,12 @@ public class NetworkService {
                         if (response.isSuccessful()) {
                             if (response.body() != null) {
                                 Repository.getInstance().setToken(response.body().getToken());
+                                Repository.getInstance().setSignedIn(1);
                                 Repository.getInstance().insertUser(response.
                                         body().getUserDetails());
                                 bundle.putByte("login", (byte) 0);
+                            } else {
+                                bundle.putByte("login", (byte) 1);
                             }
                         } else {
                             bundle.putByte("login", (byte) 1);

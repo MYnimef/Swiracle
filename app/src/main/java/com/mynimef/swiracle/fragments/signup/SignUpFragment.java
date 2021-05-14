@@ -145,25 +145,7 @@ public class SignUpFragment extends Fragment implements ISignUp {
 
     @Override
     public void completeRegistration(Handler signUpHandler) {
-        Handler loginHandler = new Handler(Looper.getMainLooper()) {
-            @Override
-            public void handleMessage(Message msg) {
-                super.handleMessage(msg);
-                byte result = msg.getData().getByte("login");
-                if (result == 0) {
-                    FragmentChanger.replaceFragment(requireActivity()
-                                    .getSupportFragmentManager(),
-                            R.id.mainFragment, new NavigationFragment());
-                } else if (result == 1) {
-                    Toast.makeText(getContext(), "Failed to login", Toast.LENGTH_SHORT).show();
-                } else if (result == -1) {
-                    Toast.makeText(getContext(), "No connection", Toast.LENGTH_SHORT).show();
-                }
-                removeCallbacksAndMessages(null);
-            }
-        };
-
         signUpViewModel.signUp(username, password, email,
-                firstName, lastName, gender, birthday, signUpHandler, loginHandler);
+                firstName, lastName, gender, birthday, signUpHandler);
     }
 }
