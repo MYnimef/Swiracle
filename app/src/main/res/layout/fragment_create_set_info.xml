@@ -5,16 +5,21 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".fragments.create.setInfo.SetInfoFragment"
-    android:background="@drawable/shape_rounded_white" >
+    android:background="@drawable/shape_rounded_background" >
 
     <EditText
         android:id="@+id/addTitle"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="48dp"
+        android:background="@drawable/shape_rounded_white"
+        android:maxLength="32"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
         android:hint="@string/set_info_title"
+        android:inputType="textNoSuggestions"
+        android:paddingStart="12dp"
+        android:paddingEnd="12dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -23,10 +28,18 @@
         android:id="@+id/addDescription"
         android:layout_width="match_parent"
         android:layout_height="160dp"
+        android:background="@drawable/shape_rounded_white"
+        android:maxLength="255"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
         android:hint="@string/set_info_description"
+        android:inputType="textMultiLine"
+        android:gravity="top"
+        android:paddingTop="12dp"
+        android:paddingBottom="12dp"
+        android:paddingStart="12dp"
+        android:paddingEnd="12dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/addTitle" />
