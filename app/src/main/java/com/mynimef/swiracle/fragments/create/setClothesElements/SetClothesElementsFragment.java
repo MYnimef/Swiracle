@@ -48,7 +48,15 @@ public class SetClothesElementsFragment extends Fragment implements ISetClothesE
             @Override
             public void handleMessage(@NonNull Message msg) {
                 super.handleMessage(msg);
-                addClothes((ClothesParsingInfo) msg.obj);
+                if (msg.arg1 == 0) {
+                    addClothes((ClothesParsingInfo) msg.obj);
+                } else if (msg.arg1 == 1) {
+                    Toast.makeText(getContext(), "Wrong input url!",
+                            Toast.LENGTH_SHORT).show();
+                } else if (msg.arg1 == -1) {
+                    Toast.makeText(getContext(), "No connection",
+                            Toast.LENGTH_SHORT).show();
+                }
             }
         };
 

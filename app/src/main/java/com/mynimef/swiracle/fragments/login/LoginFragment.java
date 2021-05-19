@@ -28,6 +28,12 @@ import dagger.hilt.android.AndroidEntryPoint;
 @AndroidEntryPoint
 public class LoginFragment extends Fragment {
     private LoginViewModel loginViewModel;
+    private EditText usernameView;
+    private EditText passwordView;
+    private Button login;
+    private Button registration;
+    private Button withoutAuthButton;
+    private ProgressBar loading;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -39,26 +45,19 @@ public class LoginFragment extends Fragment {
     public View onCreateView(@NotNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_login, container, false);
-        EditText usernameView = root.findViewById(R.id.usernameEditText);
-        EditText passwordView = root.findViewById(R.id.passwordEditText);
-        Button login = root.findViewById(R.id.loginButton);
-        Button registration = root.findViewById(R.id.registrationButton);
-        Button withoutAuthButton = root.findViewById(R.id.continueButton);
-        ProgressBar loading = root.findViewById(R.id.loading);
+        usernameView = root.findViewById(R.id.usernameEditText);
+        passwordView = root.findViewById(R.id.passwordEditText);
+        login = root.findViewById(R.id.loginButton);
+        registration = root.findViewById(R.id.registrationButton);
+        withoutAuthButton = root.findViewById(R.id.continueButton);
+        loading = root.findViewById(R.id.loading);
 
         Handler handler  = new Handler(Looper.getMainLooper()) {
             @Override
             public void handleMessage(Message msg) {
                 super.handleMessage(msg);
-                loading.setVisibility(View.INVISIBLE);
-                usernameView.setEnabled(true);
-                passwordView.setEnabled(true);
-                login.setEnabled(true);
-                registration.setEnabled(true);
-                withoutAuthButton.setEnabled(true);
-
-                byte result = msg.getData().getByte("login");
-                switch (result) {
+                changeElementsAccess(true);
+                switch (msg.arg1) {
                     case 0:
                         loginViewModel.setSignedIn(1);
                         FragmentChanger.replaceFragment(requireActivity()
@@ -86,21 +85,14 @@ public class LoginFragment extends Fragment {
             } else if (password.equals("")) {
                 Toast.makeText(getContext(), "Empty password!", Toast.LENGTH_LONG).show();
             } else {
-                loading.setVisibility(View.VISIBLE);
-                usernameView.setEnabled(false);
-                passwordView.setEnabled(false);
-                login.setEnabled(false);
-                registration.setEnabled(false);
-                withoutAuthButton.setEnabled(false);
+                changeElementsAccess(false);
                 loginViewModel.loginRequest(username, password, handler);
             }
         });
 
-        registration.setOnClickListener(v -> {
-            FragmentChanger.replaceFragment(requireActivity()
-                            .getSupportFragmentManager(),
-                    R.id.mainFragment, new SignUpFragment());
-        });
+        registration.setOnClickListener(v -> FragmentChanger.replaceFragment(requireActivity()
+                        .getSupportFragmentManager(),
+                R.id.mainFragment, new SignUpFragment()));
 
         withoutAuthButton.setOnClickListener(v -> {
             loginViewModel.setSignedIn(-1);
@@ -110,5 +102,18 @@ public class LoginFragment extends Fragment {
         });
 
         return root;
+    }
+
+    public void changeElementsAccess(boolean access) {
+        if (access) {
+            loading.setVisibility(View.INVISIBLE);
+        } else {
+            loading.setVisibility(View.VISIBLE);
+        }
+        usernameView.setEnabled(access);
+        passwordView.setEnabled(access);
+        login.setEnabled(access);
+        registration.setEnabled(access);
+        withoutAuthButton.setEnabled(access);
     }
 }

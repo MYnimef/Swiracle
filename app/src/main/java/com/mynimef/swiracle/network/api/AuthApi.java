@@ -10,7 +10,7 @@ import retrofit2.http.POST;
 
 public interface AuthApi {
     @POST("/auth/signup")
-    Call<String> signUp(@Body SignUpServer signUpServer);
+    Call<Boolean> signUp(@Body SignUpServer signUpServer);
 
     @POST("/auth/signin")
     Call<User> signIn(@Body Login login);

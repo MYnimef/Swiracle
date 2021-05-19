@@ -1,19 +1,10 @@
 package com.mynimef.swiracle.models;
 
-import com.google.gson.annotations.Expose;
-import com.google.gson.annotations.SerializedName;
-
 import java.util.List;
 
 public class PostServer {
-    @SerializedName("title")
-    @Expose
     private String title;
-    @SerializedName("description")
-    @Expose
     private String description;
-    @SerializedName("clothesInfo")
-    @Expose
     private List<ClothesParsingInfo> clothesInfo;
 
     public PostServer(String title, String description,

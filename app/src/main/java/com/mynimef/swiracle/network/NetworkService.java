@@ -1,6 +1,5 @@
 package com.mynimef.swiracle.network;
 
-import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 
@@ -39,7 +38,7 @@ public class NetworkService {
     private final PostApi postApi;
     private final ClothesApi clothesApi;
     private final ParsingApi parsingApi;
-
+    private final Repository repository;
 
     public static NetworkService getInstance() {
         if (instance == null) {
@@ -58,82 +57,60 @@ public class NetworkService {
         this.postApi = retrofit.create(PostApi.class);
         this.clothesApi = retrofit.create(ClothesApi.class);
         this.parsingApi = retrofit.create(ParsingApi.class);
+        this.repository = Repository.getInstance();
     }
 
     public void signUp(String username, String password, String email,
                        String firstName, String lastName,
                        int gender, DateModel birthday,
                        Handler signUpHandler) {
-        authApi.signUp(new SignUpServer(username, password, email,
-                firstName, lastName, gender, birthday))
-                .enqueue(new Callback<String>() {
-                    @Override
-                    public void onResponse(@NotNull Call<String> call,
-                                           @NotNull Response<String> response) {
-                        Message msg = new Message();
-                        Bundle bundle = new Bundle();
 
-                        if (response.isSuccessful()) {
-                            if (response.body() != null && response.body().equals("User registered successfully!")) {
-                                bundle.putByte("signup", (byte) 0);
-                            } else {
-                                bundle.putByte("signup", (byte) 1);
-                            }
-                        } else {
-                            bundle.putByte("signup", (byte) 1);
-                        }
-                        msg.setData(bundle);
-                        signUpHandler.sendMessage(msg);
-                    }
+        SignUpServer signUpServer = new SignUpServer(username, password, email,
+                firstName, lastName, gender, birthday);
 
-                    @Override
-                    public void onFailure(@NotNull Call<String> call,
-                                          @NotNull Throwable t) {
-                        Message msg = new Message();
-                        Bundle bundle = new Bundle();
-                        bundle.putByte("signup", (byte) -1);
-                        msg.setData(bundle);
-                        signUpHandler.sendMessage(msg);
-                    }
-                });
+        Message msg = new Message();
+        authApi.signUp(signUpServer).enqueue(new Callback<Boolean>() {
+            @Override
+            public void onResponse(@NotNull Call<Boolean> call,
+                                   @NotNull Response<Boolean> response) {
+                if (response.body() != null && response.body()) {
+                    msg.arg1 = 0; // success
+                } else {
+                    msg.arg1 = 1; // failure
+                }
+                signUpHandler.sendMessage(msg);
+            }
+
+            @Override
+            public void onFailure(@NotNull Call<Boolean> call, @NotNull Throwable t) {
+                msg.arg1 = -1; // no connection
+                signUpHandler.sendMessage(msg);
+            }
+        });
     }
 
     public void signIn(String username, String password, Handler handler) {
-        authApi.signIn(new Login(username, password))
-                .enqueue(new Callback<User>() {
-                    @Override
-                    public void onResponse(@NotNull Call<User> call,
-                                           @NotNull Response<User> response) {
-                        Message msg = new Message();
-                        Bundle bundle = new Bundle();
+        Message msg = new Message();
+        authApi.signIn(new Login(username, password)).enqueue(new Callback<User>() {
+            @Override
+            public void onResponse(@NotNull Call<User> call, @NotNull Response<User> response) {
+                if (response.body() != null) {
+                    repository.setToken(response.body().getToken());
+                    repository.setSignedIn(1);
+                    repository.insertUser(response.body().getUserDetails());
+                    msg.arg1 = 0;
+                } else {
+                    msg.arg1 = 1;
+                }
+                handler.sendMessage(msg);
+            }
 
-                        if (response.isSuccessful()) {
-                            if (response.body() != null) {
-                                Repository.getInstance().setToken(response.body().getToken());
-                                Repository.getInstance().setSignedIn(1);
-                                Repository.getInstance().insertUser(response.
-                                        body().getUserDetails());
-                                bundle.putByte("login", (byte) 0);
-                            } else {
-                                bundle.putByte("login", (byte) 1);
-                            }
-                        } else {
-                            bundle.putByte("login", (byte) 1);
-                        }
-                        msg.setData(bundle);
-                        handler.sendMessage(msg);
-                    }
-
-                    @Override
-                    public void onFailure(@NotNull Call<User> call,
-                                          @NotNull Throwable t) {
-                        Message msg = new Message();
-                        Bundle bundle = new Bundle();
-                        bundle.putByte("login", (byte) -1);
-                        msg.setData(bundle);
-                        handler.sendMessage(msg);
-                    }
-                });
+            @Override
+            public void onFailure(@NotNull Call<User> call, @NotNull Throwable t) {
+                msg.arg1 = -1;
+                handler.sendMessage(msg);
+            }
+        });
     }
 
     public void getPosts() {
@@ -142,7 +119,7 @@ public class NetworkService {
             public void onResponse(@NotNull Call<List<Post>> call,
                                    @NotNull Response<List<Post>> response) {
                 if (response.isSuccessful()) {
-                    Repository.getInstance().insertAllPosts(response.body());
+                    repository.insertAllPosts(response.body());
                 }
             }
 
@@ -155,20 +132,24 @@ public class NetworkService {
     }
 
     public void getPostDetails(String id, Handler handler) {
+        Message message = new Message();
         postApi.getPostDetails(id).enqueue(new Callback<PostDetails>() {
             @Override
             public void onResponse(@NotNull Call<PostDetails> call,
                                    @NotNull Response<PostDetails> response) {
-                Bundle bundle = new Bundle();
-                bundle.putSerializable("details", response.body());
-                Message message = new Message();
-                message.setData(bundle);
+                if (response.body() != null) {
+                    message.arg1 = 0; // success;
+                    message.obj = response.body();
+                } else {
+                    message.arg1 = 1; // failure
+                }
                 handler.sendMessage(message);
             }
 
             @Override
             public void onFailure(@NotNull Call<PostDetails> call, @NotNull Throwable t) {
-                t.printStackTrace();
+                message.arg1 = -1;
+                handler.sendMessage(message); // no connection
             }
         });
     }
@@ -183,7 +164,7 @@ public class NetworkService {
                     file.getName(), requestFile));
         }
 
-        postApi.putPost(Repository.getInstance().getToken(),
+        postApi.putPost(repository.getToken(),
                 post, partList).enqueue(new Callback<PostServer>() {
             @Override
             public void onResponse(@NotNull Call<PostServer> call,
@@ -202,19 +183,27 @@ public class NetworkService {
 
     public void getClothesParsing(String url, Handler handler) {
         Call<ClothesParsingInfo> call = parsingApi.
-                getClothesElementParsing(url.replaceAll("/", "SWIRACLE"));
+                getClothesElementParsing(Repository.getInstance().getToken(),
+                        url.replaceAll("/", "SWIRACLE"));
         call.enqueue(new Callback<ClothesParsingInfo>() {
             @Override
             public void onResponse(@NotNull Call<ClothesParsingInfo> call,
                                    @NotNull Response<ClothesParsingInfo> response) {
                 Message msg = new Message();
-                msg.obj = response.body();
+                if (response.body() != null) {
+                    msg.arg1 = 0; // success
+                    msg.obj = response.body();
+                } else {
+                    msg.arg1 = 1; // failure
+                }
                 handler.sendMessage(msg);
             }
 
             @Override
             public void onFailure(@NotNull Call<ClothesParsingInfo> call, @NotNull Throwable t) {
-                t.printStackTrace();
+                Message msg = new Message();
+                msg.arg1 = -1; // no connection
+                handler.sendMessage(msg);
             }
         });
     }

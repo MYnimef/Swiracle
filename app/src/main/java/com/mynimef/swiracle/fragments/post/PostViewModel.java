@@ -4,6 +4,7 @@ import android.app.Application;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
@@ -35,15 +36,22 @@ public class PostViewModel extends AndroidViewModel {
     }
 
     public LiveData<List<Post>> getRecommendationList() { return recommendationList; }
-    public MutableLiveData<PostDetails> getDetails() {
-        return postDetails;
-    }
+    public MutableLiveData<PostDetails> getDetails() { return postDetails; }
+
     public void loadDetails(String id) {
         Handler handler = new Handler(Looper.getMainLooper()) {
             @Override
             public void handleMessage(Message msg) {
                 super.handleMessage(msg);
-                postDetails.postValue((PostDetails) msg.getData().getSerializable("details"));
+                if (msg.arg1 == 0) {
+                    postDetails.postValue((PostDetails) msg.obj);
+                } else if (msg.arg1 == 1) {
+                    Toast.makeText(getApplication(), "Error getting details",
+                            Toast.LENGTH_SHORT).show();
+                } else if (msg.arg1 == -1) {
+                    Toast.makeText(getApplication(), "No connection",
+                            Toast.LENGTH_SHORT).show();
+                }
                 removeCallbacksAndMessages(null);
             }
         };

@@ -71,7 +71,7 @@ public class SetPasswordFragment extends Fragment {
             @Override
             public void handleMessage(Message msg) {
                 super.handleMessage(msg);
-                byte result = msg.getData().getByte("signup");
+                int result = msg.arg1;
                 if (result == 0) {
                     FragmentChanger.replaceFragment(requireActivity().getSupportFragmentManager(),
                             R.id.mainFragment, new NavigationFragment());

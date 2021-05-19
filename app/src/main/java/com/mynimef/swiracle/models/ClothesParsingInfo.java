@@ -12,6 +12,7 @@ public class ClothesParsingInfo {
         this.brand = brand;
         this.description = description;
         this.price = price;
+        this.currency = currency;
         this.url = url;
     }
 

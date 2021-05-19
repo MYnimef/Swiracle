@@ -1,9 +1,8 @@
 package com.mynimef.swiracle.models;
 
-import java.io.Serializable;
 import java.util.List;
 
-public class PostDetails implements Serializable {
+public class PostDetails {
     private String description;
     private List<ClothesElement> clothes;
 
