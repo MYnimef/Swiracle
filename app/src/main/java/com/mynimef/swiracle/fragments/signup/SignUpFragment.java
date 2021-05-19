@@ -129,19 +129,13 @@ public class SignUpFragment extends Fragment implements ISignUp {
     }
 
     @Override
-    public void setUsername(String username) {
-        this.username = username;
-    }
+    public void setUsername(String username) { this.username = username; }
 
     @Override
-    public void setPassword(String password) {
-        this.password = password;
-    }
+    public void setPassword(String password) { this.password = password; }
 
     @Override
-    public void setStage(EStage stage) {
-        this.stage = stage;
-    }
+    public void setStage(EStage stage) { this.stage = stage; }
 
     @Override
     public void completeRegistration(Handler signUpHandler) {

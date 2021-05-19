@@ -10,7 +10,6 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import com.mynimef.swiracle.R;
-import com.mynimef.swiracle.network.NetworkService;
 
 import dagger.hilt.android.AndroidEntryPoint;
 
@@ -20,15 +19,6 @@ public class ProfileFragment extends Fragment {
                              ViewGroup container, Bundle savedInstanceState) {
 
         View root = inflater.inflate(R.layout.fragment_profile, container, false);
-
-        Button button = root.findViewById(R.id.button);
-        button.setOnClickListener(v -> {
-
-        });
-
-        Button buttonLogin = root.findViewById(R.id.login);
-        buttonLogin.setOnClickListener(v -> {
-        });
 
         return root;
     }

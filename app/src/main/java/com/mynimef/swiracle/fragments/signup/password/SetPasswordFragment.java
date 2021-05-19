@@ -74,7 +74,7 @@ public class SetPasswordFragment extends Fragment {
                 int result = msg.arg1;
                 if (result == 0) {
                     FragmentChanger.replaceFragment(requireActivity().getSupportFragmentManager(),
-                            R.id.mainFragment, new NavigationFragment());
+                            R.id.mainFragment, new LoginFragment());
                 } else if (result == 1) {
                     Toast.makeText(getContext(), "Error creating account", Toast.LENGTH_SHORT).show();
                 } else if (result == -1) {
