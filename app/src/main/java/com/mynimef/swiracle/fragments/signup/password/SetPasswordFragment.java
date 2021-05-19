@@ -19,7 +19,6 @@ import androidx.fragment.app.Fragment;
 import com.mynimef.swiracle.Interfaces.ISignUp;
 import com.mynimef.swiracle.R;
 import com.mynimef.swiracle.fragments.login.LoginFragment;
-import com.mynimef.swiracle.fragments.navigation.NavigationFragment;
 import com.mynimef.swiracle.logic.FragmentChanger;
 
 import dagger.hilt.android.AndroidEntryPoint;
@@ -27,6 +26,9 @@ import dagger.hilt.android.AndroidEntryPoint;
 @AndroidEntryPoint
 public class SetPasswordFragment extends Fragment {
     private ISignUp signUp;
+    EditText editPassword;
+    EditText editPasswordAgain;
+    Button finishButton;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -38,9 +40,9 @@ public class SetPasswordFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_signup_set_password, container, false);
-        EditText editPassword = root.findViewById(R.id.editPassword);
-        EditText editPasswordAgain = root.findViewById(R.id.editPasswordAgain);
-        Button finishButton = root.findViewById(R.id.finishButton);
+        editPassword = root.findViewById(R.id.editPassword);
+        editPasswordAgain = root.findViewById(R.id.editPasswordAgain);
+        finishButton = root.findViewById(R.id.finishButton);
 
         editPassword.addTextChangedListener(new TextWatcher() {
             @Override
@@ -76,10 +78,12 @@ public class SetPasswordFragment extends Fragment {
                     FragmentChanger.replaceFragment(requireActivity().getSupportFragmentManager(),
                             R.id.mainFragment, new LoginFragment());
                 } else if (result == 1) {
-                    Toast.makeText(getContext(), "Error creating account", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), "Error creating account",
+                            Toast.LENGTH_SHORT).show();
                 } else if (result == -1) {
                     Toast.makeText(getContext(), "No connection", Toast.LENGTH_SHORT).show();
                 }
+                changeElementsAccess(true);
                 removeCallbacksAndMessages(null);
             }
         };
@@ -89,6 +93,7 @@ public class SetPasswordFragment extends Fragment {
             String passwordAgain = String.valueOf(editPasswordAgain.getText());
             if (password.equals(passwordAgain)) {
                 if (checkPassword(password)) {
+                    changeElementsAccess(false);
                     signUp.setPassword(password);
                     signUp.completeRegistration(signUpHandler);
                 } else {
@@ -100,6 +105,12 @@ public class SetPasswordFragment extends Fragment {
         });
 
         return root;
+    }
+
+    private void changeElementsAccess(boolean access) {
+        editPassword.setEnabled(access);
+        editPasswordAgain.setEnabled(access);
+        finishButton.setEnabled(access);
     }
 
     boolean checkPassword(String password) {
