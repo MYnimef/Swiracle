@@ -44,10 +44,15 @@ public class NavigationFragment extends Fragment implements IPickNavigation {
         super.onCreate(savedInstanceState);
         navigationViewModel = new ViewModelProvider(this).get(NavigationViewModel.class);
         fm = getChildFragmentManager();
+
         homeFragment = new HomeFragment();
         popularFragment = new PopularFragment();
         notificationsFragment = new NotificationsFragment();
         profileFragment = new ProfileFragment();
+
+        FragmentChanger.replaceFragment(fm, R.id.nav_host_fragment, homeFragment);
+        FragmentChanger.replaceFragment(fm,
+                R.id.up_menu_fragment, new HomeMenuFragment());
     }
 
     @Override

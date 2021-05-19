@@ -19,7 +19,7 @@ import com.mynimef.swiracle.database.UserDao;
 import com.mynimef.swiracle.models.DateModel;
 import com.mynimef.swiracle.models.PostImage;
 import com.mynimef.swiracle.database.SingletonDatabase;
-import com.mynimef.swiracle.models.UserDetails;
+import com.mynimef.swiracle.models.User;
 import com.mynimef.swiracle.network.NetworkService;
 import com.mynimef.swiracle.models.PostServer;
 
@@ -40,9 +40,10 @@ public class Repository {
 
     private NetworkService networkService;
     private int signedIn;
+    private String actualUsername;
     private String token;
 
-    private LiveData<List<UserDetails>> userDetails;
+    private LiveData<User> actualUserDetails;
     private LiveData<List<Post>> recommendationList;
     private ArrayList<Uri> gallery;
 
@@ -60,7 +61,7 @@ public class Repository {
         userDao = database.userDao();
         postDao = database.postDao();
         imagesDao = database.imagesDao();
-        userDetails = userDao.getAllUsers();
+
         recommendationList = postDao.getAllPosts();
 
         networkService = NetworkService.getInstance();
@@ -73,7 +74,24 @@ public class Repository {
         //0 - first launch
         //1 - signed in
         //-1 - decided not to sign in
-        token = sharedPref.getString("token", "");
+
+        actualUsername = sharedPref.getString("username", "");
+        if (!actualUsername.equals("")) {
+            setUser();
+        }
+    }
+
+    public void changeUser(String username) {
+        actualUsername = username;
+        SharedPreferences.Editor editor = sharedPref.edit();
+        editor.putString("username", username);
+        editor.apply();
+        setUser();
+    }
+
+    private void setUser() {
+        actualUserDetails = userDao.getUser(actualUsername);
+        new Thread(new GetTokenRunnable()).start();
     }
 
     public int getSignedIn() { return signedIn; }
@@ -85,12 +103,7 @@ public class Repository {
     }
 
     public String getToken() { return token; }
-    public void setToken(String token) {
-        this.token = token;
-        SharedPreferences.Editor editor = sharedPref.edit();
-        editor.putString("token", token);
-        editor.apply();
-    }
+    public void setToken(String token) { this.token = token; }
 
     public void signUp(String username, String password, String email,
                        String firstName, String lastName,
@@ -105,8 +118,8 @@ public class Repository {
         networkService.signIn(username, password, handler);
     }
 
-    public void insertUser(UserDetails userDetails) {
-        new Thread(new InsertUserRunnable(userDao, userDetails)).start();
+    public void insertUser(User user) {
+        new Thread(new InsertUserRunnable(user)).start();
     }
 
     public void uploadPost(PostServer postServer, List<String> pathList) {
@@ -120,10 +133,10 @@ public class Repository {
     }
 
     public void insertAllPosts(List<Post> postList) {
-        new Thread(new InsertAllPostsRunnable(postDao, imagesDao, postList)).start();
+        new Thread(new InsertAllPostsRunnable(postList)).start();
     }
 
-    public LiveData<List<UserDetails>> getUserList() { return userDetails; }
+    public LiveData<User> getUserList() { return actualUserDetails; }
     public LiveData<List<Post>> getRecommendationList() { return recommendationList; }
 
     public void initGallery() {
@@ -136,29 +149,44 @@ public class Repository {
     public void setGallery(ArrayList<Uri> gallery) { this.gallery = gallery; }
     public ArrayList<Uri> getGallery() { return this.gallery; }
 
-    private static class InsertUserRunnable implements Runnable {
-        private final UserDao userDao;
-        private final UserDetails userDetails;
+    private class GetTokenRunnable implements Runnable {
+        @Override
+        public void run() {
+            setToken(userDao.getToken(actualUsername));
+        }
+    }
 
-        private InsertUserRunnable(UserDao userDao, UserDetails userDetails) {
-            this.userDao = userDao;
-            this.userDetails = userDetails;
+    private class InsertUserRunnable implements Runnable {
+        private final User user;
+
+        private InsertUserRunnable(User user) {
+            this.user = user;
         }
 
         @Override
         public void run() {
-            userDao.insertUser(userDetails);
+            userDao.insertUser(user);
+            changeUser(user.getUsername());
         }
     }
 
-    private static class InsertAllPostsRunnable implements Runnable {
-        private final PostDao postDao;
-        private final ImagesDao imagesDao;
+    private class DeleteUserRunnable implements Runnable {
+        private final User user;
+
+        private DeleteUserRunnable(UserDao userDao, User user) {
+            this.user = user;
+        }
+
+        @Override
+        public void run() {
+            userDao.deleteUser(user);
+        }
+    }
+
+    private class InsertAllPostsRunnable implements Runnable {
         private final List<Post> postList;
 
-        private InsertAllPostsRunnable(PostDao postDao, ImagesDao imagesDao, List<Post> postList) {
-            this.postDao = postDao;
-            this.imagesDao = imagesDao;
+        private InsertAllPostsRunnable(List<Post> postList) {
             this.postList = postList;
         }
 

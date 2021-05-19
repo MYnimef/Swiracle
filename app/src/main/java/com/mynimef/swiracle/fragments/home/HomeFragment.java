@@ -42,7 +42,7 @@ public class HomeFragment extends Fragment {
         HomePostAdapter adapter = new HomePostAdapter(homeViewModel, getParentFragment());
         rv.setAdapter(adapter);
 
-        this.homeViewModel.getRecommendationList().observe(getViewLifecycleOwner(),
+        homeViewModel.getRecommendationList().observe(getViewLifecycleOwner(),
                 adapter::setPosts);
 
         SwipeRefreshLayout swipeRefresh = root.findViewById(R.id.swipeRefreshHome);

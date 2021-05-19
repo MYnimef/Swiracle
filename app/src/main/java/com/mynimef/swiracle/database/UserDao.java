@@ -5,28 +5,27 @@ import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
-import androidx.room.Transaction;
 import androidx.room.Update;
 
-import com.mynimef.swiracle.models.UserDetails;
-
-import java.util.List;
+import com.mynimef.swiracle.models.User;
 
 @Dao
 public interface UserDao {
     @Insert
-    void insertUser(UserDetails userDetails);
+    void insertUser(User user);
 
     @Update
-    void updateUser(UserDetails userDetails);
+    void updateUser(User user);
 
     @Delete
-    void deleteUser(UserDetails userDetails);
+    void deleteUser(User user);
 
     @Query("DELETE FROM user_table")
     void deleteAllUsers();
 
-    @Transaction
-    @Query("SELECT * FROM user_table")
-    LiveData<List<UserDetails>> getAllUsers();
+    @Query("SELECT token FROM user_table WHERE username = :username")
+    String getToken(String username);
+
+    @Query("SELECT * FROM user_table WHERE username = :username")
+    LiveData<User> getUser(String username);
 }

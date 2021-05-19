@@ -95,9 +95,8 @@ public class NetworkService {
             @Override
             public void onResponse(@NotNull Call<User> call, @NotNull Response<User> response) {
                 if (response.body() != null) {
-                    repository.setToken(response.body().getToken());
                     repository.setSignedIn(1);
-                    repository.insertUser(response.body().getUserDetails());
+                    repository.insertUser(response.body());
                     msg.arg1 = 0;
                 } else {
                     msg.arg1 = 1;

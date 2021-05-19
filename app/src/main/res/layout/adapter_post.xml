@@ -121,6 +121,7 @@
         android:text=""
         android:textColor="@color/black"
         android:drawableTint="@color/black"
+        android:background="@color/transparent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@id/likesButton"
         app:layout_constraintTop_toBottomOf="@+id/bottomLayout" />
