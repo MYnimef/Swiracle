@@ -75,8 +75,12 @@ public class HomePostAdapter extends RecyclerView.Adapter<HomePostAdapter.PostVi
             if (homeViewModel.getSignedIn() != 1) {
                 new LoginDialogFragment().show(fragment.getChildFragmentManager(), "ASK");
             } else {
-                postView.getLikes().setSelected(!postView.getLikes().isSelected());
-                //comments.setText(postList.getComments() + "");
+                if (v.isSelected()) {
+                    ((Button) v).setText(String.valueOf(postInfo.getLikesAmount()));
+                } else {
+                    ((Button) v).setText(String.valueOf(postInfo.getLikesAmount() + 1));
+                }
+                v.setSelected(!postView.getLikes().isSelected());
             }
         });
 

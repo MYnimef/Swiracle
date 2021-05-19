@@ -43,7 +43,7 @@ public class Repository {
     private String actualUsername;
     private String token;
 
-    private LiveData<User> actualUserDetails;
+    private LiveData<User> actualUser;
     private LiveData<List<Post>> recommendationList;
     private ArrayList<Uri> gallery;
 
@@ -90,9 +90,10 @@ public class Repository {
     }
 
     private void setUser() {
-        actualUserDetails = userDao.getUser(actualUsername);
+        actualUser = userDao.getUser(actualUsername);
         new Thread(new GetTokenRunnable()).start();
     }
+    public LiveData<User> getActualUser() { return actualUser; }
 
     public int getSignedIn() { return signedIn; }
     public void setSignedIn(int signedIn) {
@@ -136,7 +137,7 @@ public class Repository {
         new Thread(new InsertAllPostsRunnable(postList)).start();
     }
 
-    public LiveData<User> getUserList() { return actualUserDetails; }
+    public LiveData<User> getUserList() { return actualUser; }
     public LiveData<List<Post>> getRecommendationList() { return recommendationList; }
 
     public void initGallery() {

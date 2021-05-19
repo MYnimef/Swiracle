@@ -4,8 +4,10 @@ import android.app.Application;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
+import androidx.lifecycle.LiveData;
 
 import com.mynimef.swiracle.logic.Repository;
+import com.mynimef.swiracle.models.User;
 
 import javax.inject.Inject;
 
@@ -21,4 +23,7 @@ public class ProfileViewModel extends AndroidViewModel {
         this.repository = Repository.getInstance();
     }
 
+    public LiveData<User> getUser() {
+        return repository.getActualUser();
+    }
 }
