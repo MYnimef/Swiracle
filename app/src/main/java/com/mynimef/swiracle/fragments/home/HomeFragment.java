@@ -13,13 +13,15 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import com.mynimef.swiracle.Interfaces.IHome;
 import com.mynimef.swiracle.R;
 import com.mynimef.swiracle.adapters.HomePostAdapter;
+import com.mynimef.swiracle.models.PostInfo;
 
 import dagger.hilt.android.AndroidEntryPoint;
 
 @AndroidEntryPoint
-public class HomeFragment extends Fragment {
+public class HomeFragment extends Fragment implements IHome {
     private HomeViewModel homeViewModel;
 
     @Override
@@ -39,7 +41,7 @@ public class HomeFragment extends Fragment {
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
         rv.setLayoutManager(mLayoutManager);
 
-        HomePostAdapter adapter = new HomePostAdapter(homeViewModel, getParentFragment());
+        HomePostAdapter adapter = new HomePostAdapter(this, getParentFragment());
         rv.setAdapter(adapter);
 
         homeViewModel.getRecommendationList().observe(getViewLifecycleOwner(),
@@ -53,4 +55,11 @@ public class HomeFragment extends Fragment {
 
         return root;
     }
+
+    @Override
+    public int getSignedIn() { return homeViewModel.getSignedIn(); }
+    @Override
+    public void likePost(String id) { homeViewModel.likePost(id); }
+    @Override
+    public void updatePostInfo(PostInfo postInfo) { homeViewModel.updatePostInfo(postInfo); }
 }

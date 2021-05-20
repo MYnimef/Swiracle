@@ -19,6 +19,7 @@ import com.mynimef.swiracle.database.UserDao;
 import com.mynimef.swiracle.models.DateModel;
 import com.mynimef.swiracle.models.PostImage;
 import com.mynimef.swiracle.database.SingletonDatabase;
+import com.mynimef.swiracle.models.PostInfo;
 import com.mynimef.swiracle.models.User;
 import com.mynimef.swiracle.network.NetworkService;
 import com.mynimef.swiracle.models.PostServer;
@@ -135,7 +136,7 @@ public class Repository {
     }
 
     public void getPosts() {
-        if (signedIn == 0) {
+        if (signedIn == 1) {
             networkService.getPostsAuth(token);
         } else {
             networkService.getPosts();
@@ -144,6 +145,10 @@ public class Repository {
 
     public void getPostDetails(String id, Handler handler) {
         networkService.getPostDetails(id, handler);
+    }
+
+    public void updatePostInfo(PostInfo postInfo) {
+        new Thread(new UpdatePostInfoRunnable(postInfo)).start();
     }
 
     public void insertAllPosts(List<Post> postList) {
@@ -195,6 +200,17 @@ public class Repository {
         public void run() {
             userDao.deleteUser(user);
         }
+    }
+
+    private class UpdatePostInfoRunnable implements Runnable {
+        private final PostInfo postInfo;
+
+        private UpdatePostInfoRunnable(PostInfo postInfo) {
+            this.postInfo = postInfo;
+        }
+
+        @Override
+        public void run() { postDao.updatePostInfo(postInfo); }
     }
 
     private class InsertAllPostsRunnable implements Runnable {

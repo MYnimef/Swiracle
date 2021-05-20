@@ -19,8 +19,10 @@ public class PostInfo {
     private String title;
     private int likesAmount;
     private int commentsAmount;
+
     @Embedded
     private Price price;
+
     private boolean isLiked;
 
     public PostInfo(@NotNull String id, String username, String title,
@@ -40,12 +42,12 @@ public class PostInfo {
     public void setLikesAmount(int likesAmount) { this.likesAmount = likesAmount; }
     public void setCommentsAmount(int commentsAmount) { this.commentsAmount = commentsAmount; }
     public void setPrice(Price price) { this.price = price; }
-    public void setLiked(boolean liked) { isLiked = liked; }
+    public void setIsLiked(boolean liked) { isLiked = liked; }
 
     public String getTitle() { return title; }
     public String getUsername() { return username; }
     public int getLikesAmount() { return likesAmount; }
     public int getCommentsAmount() { return commentsAmount; }
     public Price getPrice() { return price; }
-    public boolean isLiked() { return isLiked; }
+    public boolean getIsLiked() { return isLiked; }
 }

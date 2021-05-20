@@ -13,9 +13,9 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.PagerSnapHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.mynimef.swiracle.Interfaces.IHome;
 import com.mynimef.swiracle.database.Post;
 import com.mynimef.swiracle.dialogs.login.LoginDialogFragment;
-import com.mynimef.swiracle.fragments.home.HomeViewModel;
 import com.mynimef.swiracle.models.PostInfo;
 import com.mynimef.swiracle.R;
 
@@ -25,12 +25,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class HomePostAdapter extends RecyclerView.Adapter<HomePostAdapter.PostView> {
-    private final HomeViewModel homeViewModel;
+    private final IHome home;
     private final Fragment fragment;
     private List<Post> postList;
 
-    public HomePostAdapter(HomeViewModel homeViewModel, Fragment fragment) {
-        this.homeViewModel = homeViewModel;
+    public HomePostAdapter(Fragment homeFragment, Fragment fragment) {
+        this.home = (IHome) homeFragment;
         this.fragment = fragment;
         this.postList = new ArrayList<>();
     }
@@ -71,15 +71,20 @@ public class HomePostAdapter extends RecyclerView.Adapter<HomePostAdapter.PostVi
         postView.getPrice().setText(postInfo.getPrice().getRub() + " RUB");
 
         postView.getLikes().setText(String.valueOf(postInfo.getLikesAmount()));
+        postView.getLikes().setSelected(postInfo.getIsLiked());
         postView.getLikes().setOnClickListener(v -> {
-            if (homeViewModel.getSignedIn() != 1) {
+            if (home.getSignedIn() != 1) {
                 new LoginDialogFragment().show(fragment.getChildFragmentManager(), "ASK");
             } else {
+                home.likePost(postInfo.getId());
                 if (v.isSelected()) {
-                    ((Button) v).setText(String.valueOf(postInfo.getLikesAmount()));
+                    postInfo.setLikesAmount(postInfo.getLikesAmount() - 1);
+                    postInfo.setIsLiked(false);
                 } else {
-                    ((Button) v).setText(String.valueOf(postInfo.getLikesAmount() + 1));
+                    postInfo.setLikesAmount(postInfo.getLikesAmount() + 1);
+                    postInfo.setIsLiked(true);
                 }
+                home.updatePostInfo(postInfo);
                 v.setSelected(!postView.getLikes().isSelected());
             }
         });

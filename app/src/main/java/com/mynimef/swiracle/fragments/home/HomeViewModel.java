@@ -8,6 +8,7 @@ import androidx.lifecycle.LiveData;
 
 import com.mynimef.swiracle.database.Post;
 import com.mynimef.swiracle.logic.Repository;
+import com.mynimef.swiracle.models.PostInfo;
 
 import java.util.List;
 
@@ -29,5 +30,11 @@ public class HomeViewModel extends AndroidViewModel {
 
     public void update() { repository.getPosts(); }
     public LiveData<List<Post>> getRecommendationList() { return recommendationList; }
+
     public int getSignedIn() { return repository.getSignedIn(); }
+    public void likePost(String id) { repository.likePost(id); }
+
+    public void updatePostInfo(PostInfo postInfo) {
+        repository.updatePostInfo(postInfo);
+    }
 }
