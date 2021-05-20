@@ -14,7 +14,6 @@ import com.mynimef.swiracle.logic.FragmentChanger;
 import com.mynimef.swiracle.R;
 import com.mynimef.swiracle.models.PostImage;
 import com.mynimef.swiracle.fragments.post.PostFragment;
-import com.mynimef.swiracle.fragments.post.PostMenuFragment;
 
 import java.util.List;
 
@@ -60,9 +59,7 @@ public class PostImageAdapter extends RecyclerView.Adapter<PostImageAdapter.Post
                 if (pos >= 0) {
                     int num = getBindingAdapterPosition();
                     FragmentChanger.replaceFragment(fragment.getChildFragmentManager(),
-                            R.id.nav_host_fragment, new PostFragment(pos, num));
-                    FragmentChanger.replaceFragment(fragment.getChildFragmentManager(),
-                            R.id.up_menu_fragment, new PostMenuFragment(fragment));
+                            R.id.nav_host_fragment, new PostFragment(pos, num, fragment));
                 }
             });
         }

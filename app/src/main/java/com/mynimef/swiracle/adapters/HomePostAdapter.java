@@ -58,11 +58,11 @@ public class HomePostAdapter extends RecyclerView.Adapter<HomePostAdapter.PostVi
         postView.getUserImage();
         postView.getUsername().setText("@" + postInfo.getUsername());
 
-        LinearLayoutManager mLayoutManager = new LinearLayoutManager(fragment.getActivity(),
+        LinearLayoutManager mLayoutManager = new LinearLayoutManager(fragment.requireActivity(),
                 LinearLayoutManager.HORIZONTAL, false);
         postView.getRecyclerView().setLayoutManager(mLayoutManager);
-        PostImageAdapter adapter = new PostImageAdapter(postList.get(position).getImages(), position,
-                fragment);
+        PostImageAdapter adapter = new PostImageAdapter(postList.get(position).getImages(),
+                position, fragment);
         postView.getRecyclerView().setAdapter(adapter);
 
         postView.getBottomLayout().setOnClickListener(v -> {

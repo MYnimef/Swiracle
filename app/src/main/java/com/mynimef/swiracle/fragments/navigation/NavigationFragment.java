@@ -20,13 +20,9 @@ import com.mynimef.swiracle.Interfaces.IPickNavigation;
 import com.mynimef.swiracle.R;
 import com.mynimef.swiracle.fragments.create.CreateFragment;
 import com.mynimef.swiracle.fragments.home.HomeFragment;
-import com.mynimef.swiracle.fragments.home.HomeMenuFragment;
 import com.mynimef.swiracle.fragments.notifications.NotificationsFragment;
-import com.mynimef.swiracle.fragments.notifications.NotificationsMenuFragment;
 import com.mynimef.swiracle.fragments.popular.PopularFragment;
-import com.mynimef.swiracle.fragments.popular.PopularMenuFragment;
 import com.mynimef.swiracle.fragments.profile.ProfileFragment;
-import com.mynimef.swiracle.fragments.profile.ProfileMenuFragment;
 
 import dagger.hilt.android.AndroidEntryPoint;
 
@@ -51,8 +47,6 @@ public class NavigationFragment extends Fragment implements IPickNavigation {
         profileFragment = new ProfileFragment();
 
         FragmentChanger.replaceFragment(fm, R.id.nav_host_fragment, homeFragment);
-        FragmentChanger.replaceFragment(fm,
-                R.id.up_menu_fragment, new HomeMenuFragment());
     }
 
     @Override
@@ -83,17 +77,11 @@ public class NavigationFragment extends Fragment implements IPickNavigation {
 
                     if (itemId == R.id.navigation_home) {
                         FragmentChanger.replaceFragment(fm, R.id.nav_host_fragment, homeFragment);
-                        FragmentChanger.replaceFragment(fm,
-                                R.id.up_menu_fragment, new HomeMenuFragment());
                     } else if (itemId == R.id.navigation_popular) {
                         FragmentChanger.replaceFragment(fm, R.id.nav_host_fragment, popularFragment);
-                        FragmentChanger.replaceFragment(fm,
-                                R.id.up_menu_fragment, new PopularMenuFragment());
                     } else if (itemId == R.id.navigation_notifications) {
                         FragmentChanger.replaceFragment(fm,
                                 R.id.nav_host_fragment, notificationsFragment);
-                        FragmentChanger.replaceFragment(fm,
-                                R.id.up_menu_fragment, new NotificationsMenuFragment());
                     } else if (itemId == R.id.navigation_profile) {
                         if (navigationViewModel.getSignedIn() != 1) {
                             new LoginDialogFragment().show(getChildFragmentManager(), "ASK");
@@ -101,8 +89,6 @@ public class NavigationFragment extends Fragment implements IPickNavigation {
                         }
                         FragmentChanger.replaceFragment(fm,
                                 R.id.nav_host_fragment, profileFragment);
-                        FragmentChanger.replaceFragment(fm,
-                                R.id.up_menu_fragment, new ProfileMenuFragment());
                     }
                     return true;
                 });
