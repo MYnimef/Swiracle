@@ -130,6 +130,39 @@ public class NetworkService {
         });
     }
 
+    public void getPostsAuth(String token) {
+        postApi.getAllAuth(token).enqueue(new Callback<List<Post>>() {
+            @Override
+            public void onResponse(@NotNull Call<List<Post>> call,
+                                   @NotNull Response<List<Post>> response) {
+                if (response.isSuccessful()) {
+                    repository.insertAllPosts(response.body());
+                }
+            }
+
+            @Override
+            public void onFailure(@NotNull Call<List<Post>> call,
+                                  @NotNull Throwable t) {
+                t.printStackTrace();
+            }
+        });
+    }
+
+    public void likePost(String id, String token) {
+        postApi.likePost(token, id).enqueue(new Callback<Boolean>() {
+            @Override
+            public void onResponse(@NotNull Call<Boolean> call,
+                                   @NotNull Response<Boolean> response) {
+
+            }
+
+            @Override
+            public void onFailure(@NotNull Call<Boolean> call, @NotNull Throwable t) {
+                t.printStackTrace();
+            }
+        });
+    }
+
     public void getPostDetails(String id, Handler handler) {
         Message message = new Message();
         postApi.getPostDetails(id).enqueue(new Callback<PostDetails>() {
@@ -153,7 +186,7 @@ public class NetworkService {
         });
     }
 
-    public void putPost(PostServer post, List<String> uriList) {
+    public void putPost(PostServer post, List<String> uriList, String token) {
         List<MultipartBody.Part> partList = new ArrayList<>();
         for (String uri : uriList) {
             File file = new File(uri);
@@ -163,7 +196,7 @@ public class NetworkService {
                     file.getName(), requestFile));
         }
 
-        postApi.putPost(repository.getToken(),
+        postApi.putPost(token,
                 post, partList).enqueue(new Callback<PostServer>() {
             @Override
             public void onResponse(@NotNull Call<PostServer> call,
@@ -180,9 +213,9 @@ public class NetworkService {
         });
     }
 
-    public void getClothesParsing(String url, Handler handler) {
+    public void getClothesParsing(String url, Handler handler, String token) {
         Call<ClothesParsingInfo> call = parsingApi.
-                getClothesElementParsing(Repository.getInstance().getToken(),
+                getClothesElementParsing(token,
                         url.replaceAll("/", "SWIRACLE"));
         call.enqueue(new Callback<ClothesParsingInfo>() {
             @Override

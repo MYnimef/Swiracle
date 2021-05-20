@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -21,7 +22,6 @@ import com.mynimef.swiracle.Interfaces.ISetClothesElements;
 import com.mynimef.swiracle.R;
 import com.mynimef.swiracle.adapters.ClothesElementAdapter;
 import com.mynimef.swiracle.models.ClothesParsingInfo;
-import com.mynimef.swiracle.network.NetworkService;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,6 +30,7 @@ import dagger.hilt.android.AndroidEntryPoint;
 
 @AndroidEntryPoint
 public class SetClothesElementsFragment extends Fragment implements ISetClothesElements {
+    private SetClothesElementsViewModel viewModel;
     private List<ClothesParsingInfo> infoList;
     private RecyclerView rv;
     private ClothesElementAdapter adapter;
@@ -37,6 +38,7 @@ public class SetClothesElementsFragment extends Fragment implements ISetClothesE
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        this.viewModel = new ViewModelProvider(this).get(SetClothesElementsViewModel.class);
         this.infoList = new ArrayList<>();
     }
 
@@ -65,7 +67,7 @@ public class SetClothesElementsFragment extends Fragment implements ISetClothesE
         addElement.setOnClickListener(v -> {
             String url = link.getText().toString();
             if (!url.equals("")) {
-                NetworkService.getInstance().getClothesParsing(url, handler);
+                viewModel.getClothes(url, handler);
                 link.setText("");
             }
         });

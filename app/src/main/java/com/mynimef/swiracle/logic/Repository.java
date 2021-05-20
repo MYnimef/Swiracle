@@ -103,7 +103,6 @@ public class Repository {
         editor.apply();
     }
 
-    public String getToken() { return token; }
     public void setToken(String token) { this.token = token; }
 
     public void signUp(String username, String password, String email,
@@ -123,11 +122,25 @@ public class Repository {
         new Thread(new InsertUserRunnable(user)).start();
     }
 
-    public void uploadPost(PostServer postServer, List<String> pathList) {
-        networkService.putPost(postServer, pathList);
+    public void getClothesParsing(String url, Handler handler) {
+        networkService.getClothesParsing(url, handler, token);
     }
 
-    public void getPosts() { networkService.getPosts(); }
+    public void uploadPost(PostServer postServer, List<String> pathList) {
+        networkService.putPost(postServer, pathList, token);
+    }
+
+    public void likePost(String id) {
+        networkService.likePost(id, token);
+    }
+
+    public void getPosts() {
+        if (signedIn == 0) {
+            networkService.getPostsAuth(token);
+        } else {
+            networkService.getPosts();
+        }
+    }
 
     public void getPostDetails(String id, Handler handler) {
         networkService.getPostDetails(id, handler);
