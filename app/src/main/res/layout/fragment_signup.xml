@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:background="@color/black"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent" >
 
     <Button
         android:id="@+id/backButton"
@@ -37,4 +37,5 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/backButton"
         tools:layout="@layout/fragment_signup_set_birthday" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

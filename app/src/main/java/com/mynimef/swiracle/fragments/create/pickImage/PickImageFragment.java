@@ -49,7 +49,7 @@ public class PickImageFragment extends Fragment implements IPickImage {
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        View root = inflater.inflate(R.layout.fragment_pick_image, container, false);
+        View root = inflater.inflate(R.layout.fragment_create_pick_image, container, false);
 
         Button multipleButton = root.findViewById(R.id.multipleButton);
         multipleButton.setOnClickListener(v -> {
