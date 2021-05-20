@@ -32,47 +32,40 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textAskAuth" />
 
-    <Button
-        android:id="@+id/okButton"
+    <LinearLayout
         android:layout_width="0dp"
-        android:layout_height="48dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="4dp"
-        android:layout_marginBottom="24dp"
-        android:text="Authorise"
-        android:textAllCaps="false"
-        app:backgroundTint="@color/purple"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/divider"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textAskDescription" />
-
-    <Button
-        android:id="@+id/cancelButton"
-        android:layout_width="0dp"
-        android:layout_height="48dp"
-        android:layout_marginStart="4dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="24dp"
-        android:text="Cancel"
-        android:textAllCaps="false"
-        app:backgroundTint="@color/lavender_gray"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/divider"
-        app:layout_constraintTop_toBottomOf="@+id/textAskDescription" />
-
-    <View
-        android:id="@+id/divider"
-        android:layout_width="2dp"
-        android:layout_height="0dp"
-        android:background="?android:attr/listDivider"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:weightSum="2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textAskDescription" />
+        app:layout_constraintTop_toBottomOf="@+id/textAskDescription">
+
+        <Button
+            android:id="@+id/okButton"
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            android:layout_weight="1"
+            style="@style/Widget.AppCompat.Button.Borderless.Colored"
+            android:text="Authorise"
+            android:textAllCaps="false"
+            android:textSize="16sp"
+            android:textColor="@color/lavender_button"
+            app:layout_constraintTop_toBottomOf="@+id/textAskDescription" />
+
+        <Button
+            android:id="@+id/cancelButton"
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            android:layout_weight="1"
+            style="@style/Widget.AppCompat.Button.Borderless.Colored"
+            android:text="Cancel"
+            android:textAllCaps="false"
+            android:textSize="16sp"
+            android:textColor="@color/gray"
+            app:layout_constraintTop_toBottomOf="@+id/textAskDescription" />
+
+    </LinearLayout>
 
     <View
         android:layout_width="wrap_content"
@@ -81,4 +74,5 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
