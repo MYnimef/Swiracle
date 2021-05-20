@@ -38,39 +38,36 @@ public class PostFragment extends Fragment {
                              ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_post, container, false);
 
-        PostViewModel postViewModel = new ViewModelProvider(this).get(PostViewModel.class);
-
-        post = postViewModel.getRecommendationList().getValue().get(pos);
-        postViewModel.getRecommendationList().observe(getViewLifecycleOwner(),
-                posts -> post = posts.get(pos));
-        postViewModel.loadDetails(post.getPostInfo().getId());
-
         RecyclerView imagesRecyclerView = root.findViewById(R.id.PostImageView);
         imagesRecyclerView.setHasFixedSize(true);
         imagesRecyclerView.setClipToOutline(true);
         PagerSnapHelper snapHelper = new PagerSnapHelper();
         snapHelper.attachToRecyclerView(imagesRecyclerView);
-
         LinearLayoutManager imagesLayoutManager = new LinearLayoutManager(getActivity(),
                 LinearLayoutManager.HORIZONTAL, false);
         imagesRecyclerView.setLayoutManager(imagesLayoutManager);
 
-        PostImageAdapter imagesAdapter = new PostImageAdapter(post.getImages(),
-                -1, this);
-        imagesRecyclerView.setAdapter(imagesAdapter);
-        imagesRecyclerView.scrollToPosition(num);
-
         TextView title = root.findViewById(R.id.titleView);
-        title.setText(post.getPostInfo().getTitle());
         TextView description = root.findViewById(R.id.descriptionView);
 
         RecyclerView clothesRecyclerView = root.findViewById(R.id.elementsView);
         clothesRecyclerView.addItemDecoration(new DividerItemDecoration(requireContext(),
                 DividerItemDecoration.VERTICAL));
         clothesRecyclerView.setNestedScrollingEnabled(false);
-
         LinearLayoutManager clothesLayoutManager = new LinearLayoutManager(getActivity());
         clothesRecyclerView.setLayoutManager(clothesLayoutManager);
+
+        PostViewModel postViewModel = new ViewModelProvider(this).get(PostViewModel.class);
+        postViewModel.getRecommendationList().observe(getViewLifecycleOwner(),
+                posts -> {
+            post = posts.get(pos);
+            PostImageAdapter imagesAdapter = new PostImageAdapter(post.getImages(),
+                            -1, this);
+            imagesRecyclerView.setAdapter(imagesAdapter);
+            imagesRecyclerView.scrollToPosition(num);
+            title.setText(post.getPostInfo().getTitle());
+            postViewModel.loadDetails(post.getPostInfo().getId());
+        });
 
         details = postViewModel.getDetails().getValue();
         postViewModel.getDetails().observe(getViewLifecycleOwner(), newDetails -> {
