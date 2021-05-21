@@ -197,17 +197,17 @@ public class NetworkService {
         }
 
         postApi.putPost(token,
-                post, partList).enqueue(new Callback<PostServer>() {
+                post, partList).enqueue(new Callback<Boolean>() {
             @Override
-            public void onResponse(@NotNull Call<PostServer> call,
-                                   @NotNull Response<PostServer> response) {
+            public void onResponse(@NotNull Call<Boolean> call,
+                                   @NotNull Response<Boolean> response) {
                 if (response.isSuccessful()) {
                     getPosts();
                 }
             }
 
             @Override
-            public void onFailure(@NotNull Call<PostServer> call, @NotNull Throwable t) {
+            public void onFailure(@NotNull Call<Boolean> call, @NotNull Throwable t) {
                 t.printStackTrace();
             }
         });

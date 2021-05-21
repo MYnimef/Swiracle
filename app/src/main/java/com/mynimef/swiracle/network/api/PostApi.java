@@ -28,7 +28,7 @@ public interface PostApi {
 
     @Multipart
     @POST("/posts/add")
-    Call<PostServer> putPost(@Header("Authorization") String token,
+    Call<Boolean> putPost(@Header("Authorization") String token,
                              @Part("info") PostServer postInfo,
                              @Part List<MultipartBody.Part> images);
 
