@@ -50,4 +50,8 @@ public class RandomProfileViewModel extends AndroidViewModel {
         };
         repository.getProfileView(username, handler);
     }
+
+    public void subscribe(String username) {
+        repository.subscribe(username);
+    }
 }

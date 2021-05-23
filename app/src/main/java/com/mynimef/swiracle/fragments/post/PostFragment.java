@@ -70,6 +70,7 @@ public class PostFragment extends Fragment {
 
         PostViewModel postViewModel = new ViewModelProvider(this).get(PostViewModel.class);
         postViewModel.getPost(id).observe(getViewLifecycleOwner(), post -> {
+            profileButton.setText(post.getPostInfo().getUsername());
             profileButton.setOnClickListener(v -> {
                 FragmentChanger.replaceFragment(fragment.getChildFragmentManager(),
                         R.id.nav_host_fragment,

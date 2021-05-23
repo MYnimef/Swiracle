@@ -155,6 +155,10 @@ public class Repository {
         networkService.getProfileView(id, handler);
     }
 
+    public void subscribe(String id) {
+        networkService.followUser(token, id);
+    }
+
     public void updatePostInfo(PostInfo postInfo) {
         new Thread(new UpdatePostInfoRunnable(postInfo)).start();
     }

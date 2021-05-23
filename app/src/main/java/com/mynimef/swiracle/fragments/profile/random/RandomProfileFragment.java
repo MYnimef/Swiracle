@@ -30,12 +30,12 @@ public class RandomProfileFragment extends Fragment {
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-
         View root = inflater.inflate(R.layout.fragment_profile_random, container, false);
         TextView profileName = root.findViewById(R.id.profileName);
         Button usernameButton = root.findViewById(R.id.usernameButton);
         TextView followingAmount = root.findViewById(R.id.followingAmountText);
         TextView followersAmount = root.findViewById(R.id.followersAmountText);
+        Button subscribe = root.findViewById(R.id.subscribeButton);
 
         RandomProfileViewModel viewModel =
                 new ViewModelProvider(this).get(RandomProfileViewModel.class);
@@ -43,8 +43,12 @@ public class RandomProfileFragment extends Fragment {
         viewModel.getProfile().observe(getViewLifecycleOwner(), profileView -> {
             profileName.setText(profileView.getFirstName() + " " + profileView.getLastName());
             usernameButton.setText(profileView.getUsername());
-            followingAmount.setText(profileView.getFollowingAmount());
-            followersAmount.setText(profileView.getFollowersAmount());
+            followingAmount.setText(String.valueOf(profileView.getFollowingAmount()));
+            followersAmount.setText(String.valueOf(profileView.getFollowersAmount()));
+
+            subscribe.setOnClickListener(v -> {
+                viewModel.subscribe(profileView.getUsername());
+            });
         });
 
         return root;
