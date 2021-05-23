@@ -147,6 +147,14 @@ public class Repository {
         networkService.getPostDetails(id, handler);
     }
 
+    public LiveData<Post> getPost(String username) {
+        return postDao.getPost(username);
+    }
+
+    public void getProfileView(String id, Handler handler) {
+        networkService.getProfileView(id, handler);
+    }
+
     public void updatePostInfo(PostInfo postInfo) {
         new Thread(new UpdatePostInfoRunnable(postInfo)).start();
     }

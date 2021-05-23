@@ -1,4 +1,4 @@
-package com.mynimef.swiracle.fragments.profile;
+package com.mynimef.swiracle.fragments.profile.my;
 
 import android.app.Application;
 
@@ -14,11 +14,11 @@ import javax.inject.Inject;
 import dagger.hilt.android.lifecycle.HiltViewModel;
 
 @HiltViewModel
-public class ProfileViewModel extends AndroidViewModel {
+public class MyProfileViewModel extends AndroidViewModel {
     private final Repository repository;
 
     @Inject
-    public ProfileViewModel(@NonNull Application application) {
+    public MyProfileViewModel(@NonNull Application application) {
         super(application);
         this.repository = Repository.getInstance();
     }

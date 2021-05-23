@@ -23,6 +23,10 @@ public interface PostDao {
     void deleteAllPosts();
 
     @Transaction
+    @Query("SELECT * FROM post_table WHERE id=:id ")
+    LiveData<Post> getPost(String id);
+
+    @Transaction
     @Query("SELECT * FROM post_table")
     LiveData<List<Post>> getAllPosts();
 }

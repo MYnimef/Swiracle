@@ -19,12 +19,12 @@ import java.util.List;
 
 public class PostImageAdapter extends RecyclerView.Adapter<PostImageAdapter.PostImageView> {
     private final List<PostImage> images;
-    private final int pos;
+    private final String id;
     private final Fragment fragment;
 
-    public PostImageAdapter(List<PostImage> images, int pos, Fragment fragment) {
+    public PostImageAdapter(List<PostImage> images, String id, Fragment fragment) {
         this.images = images;
-        this.pos = pos;
+        this.id = id;
         this.fragment = fragment;
     }
 
@@ -56,10 +56,10 @@ public class PostImageAdapter extends RecyclerView.Adapter<PostImageAdapter.Post
             super(view);
             pic = view.findViewById(R.id.imageView);
             pic.setOnClickListener(v -> {
-                if (pos >= 0) {
+                if (!id.equals("")) {
                     int num = getBindingAdapterPosition();
                     FragmentChanger.replaceFragment(fragment.getChildFragmentManager(),
-                            R.id.nav_host_fragment, new PostFragment(pos, num, fragment));
+                            R.id.nav_host_fragment, new PostFragment(id, num, fragment));
                 }
             });
         }

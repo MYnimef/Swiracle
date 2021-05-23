@@ -17,25 +17,22 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.mynimef.swiracle.Interfaces.IPickNavigation;
 import com.mynimef.swiracle.adapters.PostClothesAdapter;
-import com.mynimef.swiracle.database.Post;
 import com.mynimef.swiracle.R;
 import com.mynimef.swiracle.adapters.PostImageAdapter;
+import com.mynimef.swiracle.fragments.profile.random.RandomProfileFragment;
 import com.mynimef.swiracle.logic.FragmentChanger;
-import com.mynimef.swiracle.models.PostDetails;
 
 import dagger.hilt.android.AndroidEntryPoint;
 
 @AndroidEntryPoint
 public class PostFragment extends Fragment {
-    private Post post;
-    private PostDetails details;
-    private final int pos;
+    private final String id;
     private final int num;
     private final Fragment fragment;
     private final IPickNavigation pick;
 
-    public PostFragment(int pos, int num, Fragment fragment) {
-        this.pos = pos;
+    public PostFragment(String id, int num, Fragment fragment) {
+        this.id = id;
         this.num = num;
         this.fragment = fragment;
         this.pick = (IPickNavigation) fragment;
@@ -50,6 +47,7 @@ public class PostFragment extends Fragment {
             FragmentChanger.replaceFragment(fragment.getChildFragmentManager(),
                     R.id.nav_host_fragment, pick.getHomeFragment());
         });
+        Button profileButton = root.findViewById(R.id.viewProfileButton);
 
         RecyclerView imagesRecyclerView = root.findViewById(R.id.PostImageView);
         imagesRecyclerView.setHasFixedSize(true);
@@ -71,22 +69,25 @@ public class PostFragment extends Fragment {
         clothesRecyclerView.setLayoutManager(clothesLayoutManager);
 
         PostViewModel postViewModel = new ViewModelProvider(this).get(PostViewModel.class);
-        postViewModel.getRecommendationList().observe(getViewLifecycleOwner(),
-                posts -> {
-            post = posts.get(pos);
+        postViewModel.getPost(id).observe(getViewLifecycleOwner(), post -> {
+            profileButton.setOnClickListener(v -> {
+                FragmentChanger.replaceFragment(fragment.getChildFragmentManager(),
+                        R.id.nav_host_fragment,
+                        new RandomProfileFragment(post.getPostInfo().getUsername()));
+            });
+
             PostImageAdapter imagesAdapter = new PostImageAdapter(post.getImages(),
-                            -1, this);
+                            "", this);
             imagesRecyclerView.setAdapter(imagesAdapter);
             imagesRecyclerView.scrollToPosition(num);
             title.setText(post.getPostInfo().getTitle());
             postViewModel.loadDetails(post.getPostInfo().getId());
         });
 
-        details = postViewModel.getDetails().getValue();
         postViewModel.getDetails().observe(getViewLifecycleOwner(), newDetails -> {
-            details = newDetails;
-            description.setText(details.getDescription());
-            PostClothesAdapter clothesAdapter = new PostClothesAdapter(details.getClothes(), this);
+            description.setText(newDetails.getDescription());
+            PostClothesAdapter clothesAdapter =
+                    new PostClothesAdapter(newDetails.getClothes(), this);
             clothesRecyclerView.setAdapter(clothesAdapter);
         });
 

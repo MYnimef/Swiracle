@@ -8,14 +8,15 @@ import com.mynimef.swiracle.logic.Repository;
 import com.mynimef.swiracle.models.DateModel;
 import com.mynimef.swiracle.models.PostDetails;
 import com.mynimef.swiracle.models.Login;
+import com.mynimef.swiracle.models.ProfileView;
 import com.mynimef.swiracle.models.SignUpServer;
 import com.mynimef.swiracle.models.User;
 import com.mynimef.swiracle.network.api.AuthApi;
-import com.mynimef.swiracle.network.api.ClothesApi;
 import com.mynimef.swiracle.network.api.ParsingApi;
 import com.mynimef.swiracle.network.api.PostApi;
 import com.mynimef.swiracle.models.ClothesParsingInfo;
 import com.mynimef.swiracle.models.PostServer;
+import com.mynimef.swiracle.network.api.UserApi;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -36,8 +37,8 @@ public class NetworkService {
     private static NetworkService instance;
     private final AuthApi authApi;
     private final PostApi postApi;
-    private final ClothesApi clothesApi;
     private final ParsingApi parsingApi;
+    private final UserApi userApi;
     private final Repository repository;
 
     public static NetworkService getInstance() {
@@ -55,8 +56,8 @@ public class NetworkService {
 
         this.authApi = retrofit.create(AuthApi.class);
         this.postApi = retrofit.create(PostApi.class);
-        this.clothesApi = retrofit.create(ClothesApi.class);
         this.parsingApi = retrofit.create(ParsingApi.class);
+        this.userApi = retrofit.create(UserApi.class);
         this.repository = Repository.getInstance();
     }
 
@@ -214,10 +215,8 @@ public class NetworkService {
     }
 
     public void getClothesParsing(String url, Handler handler, String token) {
-        Call<ClothesParsingInfo> call = parsingApi.
-                getClothesElementParsing(token,
-                        url.replaceAll("/", "SWIRACLE"));
-        call.enqueue(new Callback<ClothesParsingInfo>() {
+        parsingApi.getClothesElementParsing(token, url.replaceAll("/", "SWIRACLE"))
+                .enqueue(new Callback<ClothesParsingInfo>() {
             @Override
             public void onResponse(@NotNull Call<ClothesParsingInfo> call,
                                    @NotNull Response<ClothesParsingInfo> response) {
@@ -236,6 +235,44 @@ public class NetworkService {
                 Message msg = new Message();
                 msg.arg1 = -1; // no connection
                 handler.sendMessage(msg);
+            }
+        });
+    }
+
+    public void followUser(String token, String id) {
+        userApi.followUser(token, id).enqueue(new Callback<Boolean>() {
+            @Override
+            public void onResponse(@NotNull Call<Boolean> call,
+                                   @NotNull Response<Boolean> response) {
+
+            }
+
+            @Override
+            public void onFailure(@NotNull Call<Boolean> call, @NotNull Throwable t) {
+
+            }
+        });
+    }
+
+    public void getProfileView(String id, Handler handler) {
+        Message message = new Message();
+        userApi.getProfileView(id).enqueue(new Callback<ProfileView>() {
+            @Override
+            public void onResponse(@NotNull Call<ProfileView> call,
+                                   @NotNull Response<ProfileView> response) {
+                if (response.body() != null) {
+                    message.arg1 = 0; // success;
+                    message.obj = response.body();
+                } else {
+                    message.arg1 = 1; // failure
+                }
+                handler.sendMessage(message);
+            }
+
+            @Override
+            public void onFailure(@NotNull Call<ProfileView> call, @NotNull Throwable t) {
+                message.arg1 = -1;
+                handler.sendMessage(message); // no connection
             }
         });
     }

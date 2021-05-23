@@ -62,7 +62,7 @@ public class HomePostAdapter extends RecyclerView.Adapter<HomePostAdapter.PostVi
                 LinearLayoutManager.HORIZONTAL, false);
         postView.getRecyclerView().setLayoutManager(mLayoutManager);
         PostImageAdapter adapter = new PostImageAdapter(postList.get(position).getImages(),
-                position, fragment);
+                postInfo.getId(), fragment);
         postView.getRecyclerView().setAdapter(adapter);
 
         postView.getBottomLayout().setOnClickListener(v -> {

@@ -15,6 +15,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.mynimef.swiracle.dialogs.login.LoginDialogFragment;
+import com.mynimef.swiracle.fragments.profile.my.MyProfileFragment;
 import com.mynimef.swiracle.logic.FragmentChanger;
 import com.mynimef.swiracle.Interfaces.IPickNavigation;
 import com.mynimef.swiracle.R;
@@ -22,7 +23,6 @@ import com.mynimef.swiracle.fragments.create.CreateFragment;
 import com.mynimef.swiracle.fragments.home.HomeFragment;
 import com.mynimef.swiracle.fragments.notifications.NotificationsFragment;
 import com.mynimef.swiracle.fragments.popular.PopularFragment;
-import com.mynimef.swiracle.fragments.profile.ProfileFragment;
 
 import dagger.hilt.android.AndroidEntryPoint;
 
@@ -33,7 +33,7 @@ public class NavigationFragment extends Fragment implements IPickNavigation {
     private HomeFragment homeFragment;
     private PopularFragment popularFragment;
     private NotificationsFragment notificationsFragment;
-    private ProfileFragment profileFragment;
+    private MyProfileFragment myProfileFragment;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -44,7 +44,7 @@ public class NavigationFragment extends Fragment implements IPickNavigation {
         homeFragment = new HomeFragment();
         popularFragment = new PopularFragment();
         notificationsFragment = new NotificationsFragment();
-        profileFragment = new ProfileFragment();
+        myProfileFragment = new MyProfileFragment();
 
         FragmentChanger.replaceFragment(fm, R.id.nav_host_fragment, homeFragment);
     }
@@ -88,7 +88,7 @@ public class NavigationFragment extends Fragment implements IPickNavigation {
                             return false;
                         }
                         FragmentChanger.replaceFragment(fm,
-                                R.id.nav_host_fragment, profileFragment);
+                                R.id.nav_host_fragment, myProfileFragment);
                     }
                     return true;
                 });

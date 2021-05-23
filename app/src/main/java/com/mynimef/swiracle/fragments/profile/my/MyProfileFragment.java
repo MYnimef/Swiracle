@@ -1,4 +1,4 @@
-package com.mynimef.swiracle.fragments.profile;
+package com.mynimef.swiracle.fragments.profile.my;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -15,22 +15,22 @@ import com.mynimef.swiracle.R;
 import dagger.hilt.android.AndroidEntryPoint;
 
 @AndroidEntryPoint
-public class ProfileFragment extends Fragment {
-    private ProfileViewModel profileViewModel;
+public class MyProfileFragment extends Fragment {
+    private MyProfileViewModel myProfileViewModel;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        profileViewModel = new ViewModelProvider(this).get(ProfileViewModel.class);
+        myProfileViewModel = new ViewModelProvider(this).get(MyProfileViewModel.class);
     }
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
-        View root = inflater.inflate(R.layout.fragment_profile, container, false);
+        View root = inflater.inflate(R.layout.fragment_profile_my, container, false);
 
         Button usernameButton = root.findViewById(R.id.usernameButton);
-        profileViewModel.getUser().observe(getViewLifecycleOwner(), user -> {
+        myProfileViewModel.getUser().observe(getViewLifecycleOwner(), user -> {
             usernameButton.setText("@" + user.getUsername());
         });
 

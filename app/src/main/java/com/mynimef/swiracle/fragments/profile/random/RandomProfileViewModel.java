@@ -1,4 +1,4 @@
-package com.mynimef.swiracle.fragments.post;
+package com.mynimef.swiracle.fragments.profile.random;
 
 import android.app.Application;
 import android.os.Handler;
@@ -8,41 +8,36 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
-import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
-import com.mynimef.swiracle.database.Post;
 import com.mynimef.swiracle.logic.Repository;
-import com.mynimef.swiracle.models.PostDetails;
-
-import java.util.List;
+import com.mynimef.swiracle.models.ProfileView;
 
 import javax.inject.Inject;
 
 import dagger.hilt.android.lifecycle.HiltViewModel;
 
 @HiltViewModel
-public class PostViewModel extends AndroidViewModel {
+public class RandomProfileViewModel extends AndroidViewModel {
     private final Repository repository;
-    private final MutableLiveData<PostDetails> postDetails;
+    private final MutableLiveData<ProfileView> profile;
 
     @Inject
-    public PostViewModel(@NonNull Application application) {
+    public RandomProfileViewModel(@NonNull Application application) {
         super(application);
         this.repository = Repository.getInstance();
-        this.postDetails = new MutableLiveData<>();
+        this.profile = new MutableLiveData<>();
     }
 
-    public LiveData<Post> getPost(String username) { return repository.getPost(username); }
-    public MutableLiveData<PostDetails> getDetails() { return postDetails; }
+    public MutableLiveData<ProfileView> getProfile() { return profile; }
 
-    public void loadDetails(String id) {
+    public void loadProfile(String username) {
         Handler handler = new Handler(Looper.getMainLooper()) {
             @Override
             public void handleMessage(Message msg) {
                 super.handleMessage(msg);
                 if (msg.arg1 == 0) {
-                    postDetails.postValue((PostDetails) msg.obj);
+                    profile.postValue((ProfileView) msg.obj);
                 } else if (msg.arg1 == 1) {
                     Toast.makeText(getApplication(), "Error getting details",
                             Toast.LENGTH_SHORT).show();
@@ -53,6 +48,6 @@ public class PostViewModel extends AndroidViewModel {
                 removeCallbacksAndMessages(null);
             }
         };
-        repository.getPostDetails(id, handler);
+        repository.getProfileView(username, handler);
     }
 }
