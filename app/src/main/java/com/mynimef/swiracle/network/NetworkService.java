@@ -126,7 +126,7 @@ public class NetworkService {
             @Override
             public void onFailure(@NotNull Call<List<Post>> call,
                                   @NotNull Throwable t) {
-                t.printStackTrace();
+
             }
         });
     }
@@ -144,7 +144,7 @@ public class NetworkService {
             @Override
             public void onFailure(@NotNull Call<List<Post>> call,
                                   @NotNull Throwable t) {
-                t.printStackTrace();
+
             }
         });
     }
@@ -159,7 +159,7 @@ public class NetworkService {
 
             @Override
             public void onFailure(@NotNull Call<Boolean> call, @NotNull Throwable t) {
-                t.printStackTrace();
+
             }
         });
     }
@@ -257,6 +257,29 @@ public class NetworkService {
     public void getProfileView(String id, Handler handler) {
         Message message = new Message();
         userApi.getProfileView(id).enqueue(new Callback<ProfileView>() {
+            @Override
+            public void onResponse(@NotNull Call<ProfileView> call,
+                                   @NotNull Response<ProfileView> response) {
+                if (response.body() != null) {
+                    message.arg1 = 0; // success;
+                    message.obj = response.body();
+                } else {
+                    message.arg1 = 1; // failure
+                }
+                handler.sendMessage(message);
+            }
+
+            @Override
+            public void onFailure(@NotNull Call<ProfileView> call, @NotNull Throwable t) {
+                message.arg1 = -1;
+                handler.sendMessage(message); // no connection
+            }
+        });
+    }
+
+    public void getProfileViewAuth(String id, Handler handler, String token) {
+        Message message = new Message();
+        userApi.getProfileViewAuth(token, id).enqueue(new Callback<ProfileView>() {
             @Override
             public void onResponse(@NotNull Call<ProfileView> call,
                                    @NotNull Response<ProfileView> response) {

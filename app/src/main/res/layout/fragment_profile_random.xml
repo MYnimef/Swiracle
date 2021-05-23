@@ -97,6 +97,31 @@
                     app:layout_constraintTop_toBottomOf="@+id/usernameButton">
 
                     <LinearLayout
+                        android:id="@+id/postsLayout"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/postsAmountText"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:textColor="@color/black"
+                            android:textSize="16sp" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:text="Posts"
+                            android:textAllCaps="false"
+                            android:textSize="12sp" />
+                    </LinearLayout>
+
+                    <LinearLayout
                         android:id="@+id/followingLayout"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
@@ -145,31 +170,6 @@
                             android:textAllCaps="false"
                             android:textSize="12sp" />
                     </LinearLayout>
-
-                    <LinearLayout
-                        android:id="@+id/likesLayout"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:id="@+id/likesAmountText"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:gravity="center"
-                            android:textColor="@color/black"
-                            android:textSize="16sp" />
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:gravity="center"
-                            android:text="Likes"
-                            android:textAllCaps="false"
-                            android:textSize="12sp" />
-                    </LinearLayout>
                 </LinearLayout>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -177,7 +177,7 @@
             <LinearLayout
                 android:id="@+id/interactLayout"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="48dp"
                 android:layout_marginStart="48dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="48dp"
@@ -190,7 +190,7 @@
                 <Button
                     android:id="@+id/subscribeButton"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_weight="4"
                     android:text="Subscribe"
                     android:textAllCaps="false"
@@ -200,8 +200,9 @@
                 <Button
                     android:id="@+id/messageButton"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_weight="3"
+                    android:layout_marginEnd="2dp"
                     android:text="Message"
                     android:textAllCaps="false"
                     android:textColor="@color/white"
@@ -211,7 +212,7 @@
                 <Button
                     android:id="@+id/unsubscribeButton"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:text="Unsubscribe"
                     android:textAllCaps="false"

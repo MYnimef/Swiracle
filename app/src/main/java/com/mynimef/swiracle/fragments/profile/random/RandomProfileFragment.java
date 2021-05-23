@@ -37,9 +37,13 @@ public class RandomProfileFragment extends Fragment {
         View root = inflater.inflate(R.layout.fragment_profile_random, container, false);
         TextView profileName = root.findViewById(R.id.profileName);
         Button usernameButton = root.findViewById(R.id.usernameButton);
+        TextView postsAmount = root.findViewById(R.id.postsAmountText);
         TextView followingAmount = root.findViewById(R.id.followingAmountText);
         TextView followersAmount = root.findViewById(R.id.followersAmountText);
+
         Button subscribe = root.findViewById(R.id.subscribeButton);
+        Button message = root.findViewById(R.id.messageButton);
+        Button unsubscribe = root.findViewById(R.id.unsubscribeButton);
 
         RandomProfileViewModel viewModel =
                 new ViewModelProvider(this).get(RandomProfileViewModel.class);
@@ -47,20 +51,37 @@ public class RandomProfileFragment extends Fragment {
         viewModel.getProfile().observe(getViewLifecycleOwner(), profileView -> {
             profileName.setText(profileView.getFirstName() + " " + profileView.getLastName());
             usernameButton.setText(profileView.getUsername());
+            postsAmount.setText(String.valueOf(profileView.getPostsAmount()));
             followingAmount.setText(String.valueOf(profileView.getFollowingAmount()));
             followersAmount.setText(String.valueOf(profileView.getFollowersAmount()));
 
+            if (profileView.getIsSubscribed()) {
+                subscribe.setVisibility(View.GONE);
+                message.setVisibility(View.VISIBLE);
+                unsubscribe.setVisibility(View.VISIBLE);
+            }
+
             subscribe.setOnClickListener(v -> {
                 viewModel.subscribe(profileView.getUsername());
-                viewModel.loadProfile(username);
+                followersAmount.setText(String.valueOf(profileView.getFollowersAmount() + 1));
+                subscribe.setVisibility(View.GONE);
+                message.setVisibility(View.VISIBLE);
+                unsubscribe.setVisibility(View.VISIBLE);
+            });
+
+            unsubscribe.setOnClickListener(v -> {
+                viewModel.subscribe(profileView.getUsername());
+                followersAmount.setText(String.valueOf(profileView.getFollowersAmount()));
+                unsubscribe.setVisibility(View.GONE);
+                message.setVisibility(View.GONE);
+                subscribe.setVisibility(View.VISIBLE);
             });
         });
 
         ImageButton backButton = root.findViewById(R.id.backButton);
-        backButton.setOnClickListener(v -> {
-            FragmentChanger.replaceFragment(getParentFragmentManager(),
-                    R.id.nav_host_fragment, previousFragment);
-        });
+        backButton.setOnClickListener(v ->
+                FragmentChanger.replaceFragment(getParentFragmentManager(),
+                R.id.nav_host_fragment, previousFragment));
 
         return root;
     }

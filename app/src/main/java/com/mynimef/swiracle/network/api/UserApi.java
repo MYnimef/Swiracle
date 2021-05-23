@@ -13,5 +13,9 @@ public interface UserApi {
                              @Path("id") String id);
 
     @GET("/user/info/{id}")
+    Call<ProfileView> getProfileViewAuth(@Header("Authorization") String token,
+                                         @Path("id") String id);
+
+    @GET("/user/info/unauth/{id}")
     Call<ProfileView> getProfileView(@Path("id") String id);
 }

@@ -152,7 +152,11 @@ public class Repository {
     }
 
     public void getProfileView(String id, Handler handler) {
-        networkService.getProfileView(id, handler);
+        if (signedIn == 1) {
+            networkService.getProfileViewAuth(id, handler, token);
+        } else {
+            networkService.getProfileView(id, handler);
+        }
     }
 
     public void subscribe(String id) {
