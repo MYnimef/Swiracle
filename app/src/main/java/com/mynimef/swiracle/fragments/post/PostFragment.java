@@ -15,7 +15,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.PagerSnapHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.mynimef.swiracle.Interfaces.IPickNavigation;
 import com.mynimef.swiracle.adapters.PostClothesAdapter;
 import com.mynimef.swiracle.R;
 import com.mynimef.swiracle.adapters.PostImageAdapter;
@@ -28,14 +27,12 @@ import dagger.hilt.android.AndroidEntryPoint;
 public class PostFragment extends Fragment {
     private final String id;
     private final int num;
-    private final Fragment fragment;
-    private final IPickNavigation pick;
+    private final Fragment previousFragment;
 
-    public PostFragment(String id, int num, Fragment fragment) {
+    public PostFragment(String id, int num, Fragment previousFragment) {
         this.id = id;
         this.num = num;
-        this.fragment = fragment;
-        this.pick = (IPickNavigation) fragment;
+        this.previousFragment = previousFragment;
     }
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -44,8 +41,8 @@ public class PostFragment extends Fragment {
 
         Button backButton = root.findViewById(R.id.backToHomeButton);
         backButton.setOnClickListener(v -> {
-            FragmentChanger.replaceFragment(fragment.getChildFragmentManager(),
-                    R.id.nav_host_fragment, pick.getHomeFragment());
+            FragmentChanger.replaceFragment(getParentFragmentManager(),
+                    R.id.nav_host_fragment, previousFragment);
         });
         Button profileButton = root.findViewById(R.id.viewProfileButton);
 
@@ -72,9 +69,9 @@ public class PostFragment extends Fragment {
         postViewModel.getPost(id).observe(getViewLifecycleOwner(), post -> {
             profileButton.setText(post.getPostInfo().getUsername());
             profileButton.setOnClickListener(v -> {
-                FragmentChanger.replaceFragment(fragment.getChildFragmentManager(),
+                FragmentChanger.replaceFragment(getParentFragmentManager(),
                         R.id.nav_host_fragment,
-                        new RandomProfileFragment(post.getPostInfo().getUsername()));
+                        new RandomProfileFragment(post.getPostInfo().getUsername(), this));
             });
 
             PostImageAdapter imagesAdapter = new PostImageAdapter(post.getImages(),

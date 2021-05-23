@@ -79,7 +79,7 @@ public class HomeFragment extends Fragment implements IHome {
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
         rv.setLayoutManager(mLayoutManager);
 
-        HomePostAdapter adapter = new HomePostAdapter(this, getParentFragment());
+        HomePostAdapter adapter = new HomePostAdapter(this);
         rv.setAdapter(adapter);
 
         homeViewModel.getRecommendationList().observe(getViewLifecycleOwner(),

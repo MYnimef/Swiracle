@@ -26,12 +26,12 @@ import java.util.List;
 
 public class HomePostAdapter extends RecyclerView.Adapter<HomePostAdapter.PostView> {
     private final IHome home;
-    private final Fragment fragment;
+    private final Fragment homeFragment;
     private List<Post> postList;
 
-    public HomePostAdapter(Fragment homeFragment, Fragment fragment) {
+    public HomePostAdapter(Fragment homeFragment) {
         this.home = (IHome) homeFragment;
-        this.fragment = fragment;
+        this.homeFragment = homeFragment;
         this.postList = new ArrayList<>();
     }
 
@@ -58,11 +58,11 @@ public class HomePostAdapter extends RecyclerView.Adapter<HomePostAdapter.PostVi
         postView.getUserImage();
         postView.getUsername().setText("@" + postInfo.getUsername());
 
-        LinearLayoutManager mLayoutManager = new LinearLayoutManager(fragment.requireActivity(),
+        LinearLayoutManager mLayoutManager = new LinearLayoutManager(homeFragment.requireActivity(),
                 LinearLayoutManager.HORIZONTAL, false);
         postView.getRecyclerView().setLayoutManager(mLayoutManager);
         PostImageAdapter adapter = new PostImageAdapter(postList.get(position).getImages(),
-                postInfo.getId(), fragment);
+                postInfo.getId(), homeFragment);
         postView.getRecyclerView().setAdapter(adapter);
 
         postView.getBottomLayout().setOnClickListener(v -> {
@@ -74,7 +74,7 @@ public class HomePostAdapter extends RecyclerView.Adapter<HomePostAdapter.PostVi
         postView.getLikes().setSelected(postInfo.getIsLiked());
         postView.getLikes().setOnClickListener(v -> {
             if (home.getSignedIn() != 1) {
-                new LoginDialogFragment().show(fragment.getChildFragmentManager(), "ASK");
+                new LoginDialogFragment().show(homeFragment.getChildFragmentManager(), "ASK");
             } else {
                 home.likePost(postInfo.getId());
                 if (v.isSelected()) {

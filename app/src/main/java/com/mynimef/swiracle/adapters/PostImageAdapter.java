@@ -20,12 +20,12 @@ import java.util.List;
 public class PostImageAdapter extends RecyclerView.Adapter<PostImageAdapter.PostImageView> {
     private final List<PostImage> images;
     private final String id;
-    private final Fragment fragment;
+    private final Fragment homeFragment;
 
-    public PostImageAdapter(List<PostImage> images, String id, Fragment fragment) {
+    public PostImageAdapter(List<PostImage> images, String id, Fragment homeFragment) {
         this.images = images;
         this.id = id;
-        this.fragment = fragment;
+        this.homeFragment = homeFragment;
     }
 
     @NonNull
@@ -41,7 +41,7 @@ public class PostImageAdapter extends RecyclerView.Adapter<PostImageAdapter.Post
     public void onBindViewHolder(@NonNull PostImageView holder, int position) {
         PostImage image = images.get(position);
         Glide
-                .with(fragment)
+                .with(homeFragment)
                 .load(image.getImageUrl())
                 .into(holder.getPic());
     }
@@ -58,8 +58,8 @@ public class PostImageAdapter extends RecyclerView.Adapter<PostImageAdapter.Post
             pic.setOnClickListener(v -> {
                 if (!id.equals("")) {
                     int num = getBindingAdapterPosition();
-                    FragmentChanger.replaceFragment(fragment.getChildFragmentManager(),
-                            R.id.nav_host_fragment, new PostFragment(id, num, fragment));
+                    FragmentChanger.replaceFragment(homeFragment.getParentFragmentManager(),
+                            R.id.nav_host_fragment, new PostFragment(id, num, homeFragment));
                 }
             });
         }

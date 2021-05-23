@@ -17,7 +17,6 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.mynimef.swiracle.dialogs.login.LoginDialogFragment;
 import com.mynimef.swiracle.fragments.profile.my.MyProfileFragment;
 import com.mynimef.swiracle.logic.FragmentChanger;
-import com.mynimef.swiracle.Interfaces.IPickNavigation;
 import com.mynimef.swiracle.R;
 import com.mynimef.swiracle.fragments.create.CreateFragment;
 import com.mynimef.swiracle.fragments.home.HomeFragment;
@@ -27,7 +26,7 @@ import com.mynimef.swiracle.fragments.popular.PopularFragment;
 import dagger.hilt.android.AndroidEntryPoint;
 
 @AndroidEntryPoint
-public class NavigationFragment extends Fragment implements IPickNavigation {
+public class NavigationFragment extends Fragment {
     private NavigationViewModel navigationViewModel;
     private FragmentManager fm;
     private HomeFragment homeFragment;
@@ -93,10 +92,5 @@ public class NavigationFragment extends Fragment implements IPickNavigation {
                     return true;
                 });
         return root;
-    }
-
-    @Override
-    public Fragment getHomeFragment() {
-        return homeFragment;
     }
 }
