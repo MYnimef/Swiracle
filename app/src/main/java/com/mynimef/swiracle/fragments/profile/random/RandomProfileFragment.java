@@ -11,6 +11,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.mynimef.swiracle.R;
 import com.mynimef.swiracle.logic.FragmentChanger;
@@ -43,14 +44,14 @@ public class RandomProfileFragment extends Fragment {
 
         Button subscribe = root.findViewById(R.id.subscribeButton);
         Button message = root.findViewById(R.id.messageButton);
-        Button unsubscribe = root.findViewById(R.id.unsubscribeButton);
+        ImageButton unsubscribe = root.findViewById(R.id.unsubscribeButton);
 
         RandomProfileViewModel viewModel =
                 new ViewModelProvider(this).get(RandomProfileViewModel.class);
         viewModel.loadProfile(username);
         viewModel.getProfile().observe(getViewLifecycleOwner(), profileView -> {
             profileName.setText(profileView.getFirstName() + " " + profileView.getLastName());
-            usernameButton.setText(profileView.getUsername());
+            usernameButton.setText("@" + profileView.getUsername());
             postsAmount.setText(String.valueOf(profileView.getPostsAmount()));
             followingAmount.setText(String.valueOf(profileView.getFollowingAmount()));
             followersAmount.setText(String.valueOf(profileView.getFollowersAmount()));
@@ -63,7 +64,11 @@ public class RandomProfileFragment extends Fragment {
 
             subscribe.setOnClickListener(v -> {
                 viewModel.subscribe(profileView.getUsername());
-                followersAmount.setText(String.valueOf(profileView.getFollowersAmount() + 1));
+                if (profileView.getIsSubscribed()) {
+                    followersAmount.setText(String.valueOf(profileView.getFollowersAmount()));
+                } else {
+                    followersAmount.setText(String.valueOf(profileView.getFollowersAmount() + 1));
+                }
                 subscribe.setVisibility(View.GONE);
                 message.setVisibility(View.VISIBLE);
                 unsubscribe.setVisibility(View.VISIBLE);
@@ -71,7 +76,11 @@ public class RandomProfileFragment extends Fragment {
 
             unsubscribe.setOnClickListener(v -> {
                 viewModel.subscribe(profileView.getUsername());
-                followersAmount.setText(String.valueOf(profileView.getFollowersAmount()));
+                if (profileView.getIsSubscribed()) {
+                    followersAmount.setText(String.valueOf(profileView.getFollowersAmount() - 1));
+                } else {
+                    followersAmount.setText(String.valueOf(profileView.getFollowersAmount()));
+                }
                 unsubscribe.setVisibility(View.GONE);
                 message.setVisibility(View.GONE);
                 subscribe.setVisibility(View.VISIBLE);
@@ -82,6 +91,12 @@ public class RandomProfileFragment extends Fragment {
         backButton.setOnClickListener(v ->
                 FragmentChanger.replaceFragment(getParentFragmentManager(),
                 R.id.nav_host_fragment, previousFragment));
+
+        SwipeRefreshLayout swipeRefresh = root.findViewById(R.id.swipeRefreshProfile);
+        swipeRefresh.setOnRefreshListener(() -> {
+            viewModel.loadProfile(username);
+            swipeRefresh.setRefreshing(false);
+        });
 
         return root;
     }

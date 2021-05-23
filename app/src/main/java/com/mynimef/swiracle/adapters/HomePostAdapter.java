@@ -16,6 +16,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.mynimef.swiracle.Interfaces.IHome;
 import com.mynimef.swiracle.database.Post;
 import com.mynimef.swiracle.dialogs.login.LoginDialogFragment;
+import com.mynimef.swiracle.fragments.post.PostFragment;
+import com.mynimef.swiracle.fragments.profile.random.RandomProfileFragment;
+import com.mynimef.swiracle.logic.FragmentChanger;
 import com.mynimef.swiracle.models.PostInfo;
 import com.mynimef.swiracle.R;
 
@@ -53,8 +56,10 @@ public class HomePostAdapter extends RecyclerView.Adapter<HomePostAdapter.PostVi
     public void onBindViewHolder(PostView postView, final int position) {
         PostInfo postInfo = postList.get(position).getPostInfo();
 
-        postView.getTopLayout().setOnClickListener(v -> {
-        });
+        postView.getTopLayout().setOnClickListener(v ->
+                FragmentChanger.replaceFragment(homeFragment.getParentFragmentManager(),
+                        R.id.nav_host_fragment,
+                        new RandomProfileFragment(postInfo.getUsername(), homeFragment)));
         postView.getUserImage();
         postView.getUsername().setText("@" + postInfo.getUsername());
 
@@ -66,6 +71,9 @@ public class HomePostAdapter extends RecyclerView.Adapter<HomePostAdapter.PostVi
         postView.getRecyclerView().setAdapter(adapter);
 
         postView.getBottomLayout().setOnClickListener(v -> {
+            FragmentChanger.replaceFragment(homeFragment.getParentFragmentManager(),
+                    R.id.nav_host_fragment, new PostFragment(postInfo.getId(),
+                            0, homeFragment));
         });
         postView.getTitle().setText(postInfo.getTitle());
         postView.getPrice().setText(postInfo.getPrice().getRub() + " RUB");
