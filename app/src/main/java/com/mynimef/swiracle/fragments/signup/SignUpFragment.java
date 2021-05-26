@@ -69,9 +69,7 @@ public class SignUpFragment extends Fragment implements ISignUp {
         backButton.setOnClickListener(v -> {
             switch (stage) {
                 case BIRTHDAY:
-                    FragmentChanger.replaceFragment(requireActivity()
-                                    .getSupportFragmentManager(),
-                            R.id.mainFragment, new LoginFragment());
+                    requireActivity().getSupportFragmentManager().popBackStackImmediate();;
                     break;
                 case EMAIL:
                     FragmentChanger.replaceFragment(getChildFragmentManager(),

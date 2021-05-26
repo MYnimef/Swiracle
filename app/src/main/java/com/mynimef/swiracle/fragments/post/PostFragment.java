@@ -71,7 +71,7 @@ public class PostFragment extends Fragment {
             profileButton.setOnClickListener(v -> {
                 FragmentChanger.replaceFragment(getParentFragmentManager(),
                         R.id.nav_host_fragment,
-                        new RandomProfileFragment(post.getPostInfo().getUsername(), this));
+                        new RandomProfileFragment(post.getPostInfo().getUsername()));
             });
 
             PostImageAdapter imagesAdapter = new PostImageAdapter(post.getImages(),

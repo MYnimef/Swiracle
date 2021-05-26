@@ -65,7 +65,7 @@ public class NavigationFragment extends Fragment {
                                 PackageManager.PERMISSION_GRANTED) {
                             FragmentChanger.replaceFragment(requireActivity().
                                             getSupportFragmentManager(),
-                                    R.id.mainFragment, new CreateFragment(this));
+                                    R.id.mainFragment, new CreateFragment());
                         } else {
                             requireActivity().requestPermissions(
                                     new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},

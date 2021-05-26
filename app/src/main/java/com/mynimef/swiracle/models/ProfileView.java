@@ -10,11 +10,11 @@ public class ProfileView {
     private int followingAmount;
     private int followersAmount;
 
-    private boolean isSubscribed;
+    private ESubscription subscription;
 
     public ProfileView(String username, String firstName, String lastName, String bio,
-                       int postsAmount, int followingAmount, int followersAmount,
-                       boolean isSubscribed) {
+                    int postsAmount, int followingAmount, int followersAmount,
+                    ESubscription subscription) {
         this.username = username;
 
         this.firstName = firstName;
@@ -25,7 +25,7 @@ public class ProfileView {
         this.followingAmount = followingAmount;
         this.followersAmount = followersAmount;
 
-        this.isSubscribed = isSubscribed;
+        this.subscription = subscription;
     }
 
     public String getUsername() { return username; }
@@ -49,6 +49,6 @@ public class ProfileView {
     public int getFollowersAmount() { return followersAmount; }
     public void setFollowersAmount(int followersAmount) { this.followersAmount = followersAmount; }
 
-    public boolean getIsSubscribed() { return isSubscribed; }
-    public void setIsSubscribed(boolean isSubscribed) { this.isSubscribed = isSubscribed; }
+    public ESubscription getSubscription() { return subscription; }
+    public void setSubscription(ESubscription subscription) { this.subscription = subscription; }
 }

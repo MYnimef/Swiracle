@@ -33,13 +33,10 @@ import dagger.hilt.android.AndroidEntryPoint;
 public class CreateFragment extends Fragment {
     private boolean pickStage;
     private boolean setElementsStage;
-    private final Fragment parentFragment;
     private PickImageFragment pickImageFragment;
     private SetClothesElementsFragment setClothesElementsFragment;
     private SetInfoFragment setInfoFragment;
     private CreateViewModel createViewModel;
-
-    public CreateFragment(Fragment parentFragment) { this.parentFragment = parentFragment; }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -71,8 +68,7 @@ public class CreateFragment extends Fragment {
 
         back.setOnClickListener(v -> {
             if (pickStage) {
-                FragmentChanger.replaceFragment(requireActivity().getSupportFragmentManager(),
-                        R.id.mainFragment, parentFragment);
+                requireActivity().getSupportFragmentManager().popBackStackImmediate();
             }
             else if (setElementsStage) {
                 FragmentChanger.replaceFragment(getChildFragmentManager(),
@@ -118,8 +114,7 @@ public class CreateFragment extends Fragment {
                             setInfo.getDescription(),
                             setClothesElements.getInfoList()), absolutePath);
 
-                    FragmentChanger.replaceFragment(requireActivity().getSupportFragmentManager(),
-                            R.id.mainFragment, parentFragment);
+                    requireActivity().getSupportFragmentManager().popBackStackImmediate();
                 }
             }
         });

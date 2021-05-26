@@ -33,8 +33,5 @@ public class HomeViewModel extends AndroidViewModel {
 
     public int getSignedIn() { return repository.getSignedIn(); }
     public void likePost(String id) { repository.likePost(id); }
-
-    public void updatePostInfo(PostInfo postInfo) {
-        repository.updatePostInfo(postInfo);
-    }
+    public void updatePostInfo(PostInfo postInfo) { repository.updatePostInfo(postInfo); }
 }

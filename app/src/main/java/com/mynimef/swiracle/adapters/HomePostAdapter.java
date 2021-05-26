@@ -56,10 +56,11 @@ public class HomePostAdapter extends RecyclerView.Adapter<HomePostAdapter.PostVi
     public void onBindViewHolder(PostView postView, final int position) {
         PostInfo postInfo = postList.get(position).getPostInfo();
 
-        postView.getTopLayout().setOnClickListener(v ->
-                FragmentChanger.replaceFragment(homeFragment.getParentFragmentManager(),
-                        R.id.nav_host_fragment,
-                        new RandomProfileFragment(postInfo.getUsername(), homeFragment)));
+        postView.getTopLayout().setOnClickListener(v -> {
+            FragmentChanger.replaceFragmentAnimForward(homeFragment.getParentFragmentManager(),
+                    R.id.nav_host_fragment,
+                    new RandomProfileFragment(postInfo.getUsername()));
+        });
         postView.getUserImage();
         postView.getUsername().setText("@" + postInfo.getUsername());
 
@@ -71,7 +72,7 @@ public class HomePostAdapter extends RecyclerView.Adapter<HomePostAdapter.PostVi
         postView.getRecyclerView().setAdapter(adapter);
 
         postView.getBottomLayout().setOnClickListener(v -> {
-            FragmentChanger.replaceFragment(homeFragment.getParentFragmentManager(),
+            FragmentChanger.replaceFragmentAnimForward(homeFragment.getParentFragmentManager(),
                     R.id.nav_host_fragment, new PostFragment(postInfo.getId(),
                             0, homeFragment));
         });
