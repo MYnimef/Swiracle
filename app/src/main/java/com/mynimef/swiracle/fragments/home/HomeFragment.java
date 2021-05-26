@@ -4,6 +4,8 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AnimationUtils;
+import android.view.animation.LayoutAnimationController;
 import android.widget.Button;
 import android.widget.ImageButton;
 
@@ -29,12 +31,14 @@ import dagger.hilt.android.AndroidEntryPoint;
 @AndroidEntryPoint
 public class HomeFragment extends Fragment implements IHome {
     private HomeViewModel homeViewModel;
+    private boolean animationAllowed;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         homeViewModel = new ViewModelProvider(this).get(HomeViewModel.class);
         homeViewModel.update();
+        animationAllowed = true;
     }
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -76,17 +80,28 @@ public class HomeFragment extends Fragment implements IHome {
         RecyclerView rv = root.findViewById(R.id.recycler_view);
         rv.setHasFixedSize(true);
 
+        LayoutAnimationController anim = AnimationUtils.loadLayoutAnimation(getContext(),
+                R.anim.layout_animation);
+
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
         rv.setLayoutManager(mLayoutManager);
 
         HomePostAdapter adapter = new HomePostAdapter(this);
         rv.setAdapter(adapter);
 
-        homeViewModel.getRecommendationList().observe(getViewLifecycleOwner(),
-                adapter::setPosts);
+        homeViewModel.getRecommendationList().observe(getViewLifecycleOwner(), posts -> {
+            if (animationAllowed) {
+                rv.setLayoutAnimation(anim);
+                animationAllowed = false;
+            }
+            adapter.setPosts(posts);
+            adapter.notifyDataSetChanged();
+            rv.scheduleLayoutAnimation();
+        });
 
         SwipeRefreshLayout swipeRefresh = root.findViewById(R.id.swipeRefreshHome);
         swipeRefresh.setOnRefreshListener(() -> {
+            animationAllowed = true;
             homeViewModel.update();
             swipeRefresh.setRefreshing(false);
         });

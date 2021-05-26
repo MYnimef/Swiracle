@@ -40,7 +40,6 @@ public class HomePostAdapter extends RecyclerView.Adapter<HomePostAdapter.PostVi
 
     public void setPosts(List<Post> posts) {
         this.postList = posts;
-        notifyDataSetChanged();
     }
 
     @NotNull
@@ -57,7 +56,7 @@ public class HomePostAdapter extends RecyclerView.Adapter<HomePostAdapter.PostVi
         PostInfo postInfo = postList.get(position).getPostInfo();
 
         postView.getTopLayout().setOnClickListener(v -> {
-            FragmentChanger.replaceFragmentAnimForward(homeFragment.getParentFragmentManager(),
+            FragmentChanger.replaceFragmentAnim(homeFragment.getParentFragmentManager(),
                     R.id.nav_host_fragment,
                     new RandomProfileFragment(postInfo.getUsername()));
         });
@@ -72,9 +71,9 @@ public class HomePostAdapter extends RecyclerView.Adapter<HomePostAdapter.PostVi
         postView.getRecyclerView().setAdapter(adapter);
 
         postView.getBottomLayout().setOnClickListener(v -> {
-            FragmentChanger.replaceFragmentAnimForward(homeFragment.getParentFragmentManager(),
+            FragmentChanger.replaceFragmentAnim(homeFragment.getParentFragmentManager(),
                     R.id.nav_host_fragment, new PostFragment(postInfo.getId(),
-                            0, homeFragment));
+                            0));
         });
         postView.getTitle().setText(postInfo.getTitle());
         postView.getPrice().setText(postInfo.getPrice().getRub() + " RUB");

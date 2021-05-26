@@ -27,12 +27,10 @@ import dagger.hilt.android.AndroidEntryPoint;
 public class PostFragment extends Fragment {
     private final String id;
     private final int num;
-    private final Fragment previousFragment;
 
-    public PostFragment(String id, int num, Fragment previousFragment) {
+    public PostFragment(String id, int num) {
         this.id = id;
         this.num = num;
-        this.previousFragment = previousFragment;
     }
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -40,10 +38,7 @@ public class PostFragment extends Fragment {
         View root = inflater.inflate(R.layout.fragment_post, container, false);
 
         Button backButton = root.findViewById(R.id.backToHomeButton);
-        backButton.setOnClickListener(v -> {
-            FragmentChanger.replaceFragment(getParentFragmentManager(),
-                    R.id.nav_host_fragment, previousFragment);
-        });
+        backButton.setOnClickListener(v -> getParentFragmentManager().popBackStackImmediate());
         Button profileButton = root.findViewById(R.id.viewProfileButton);
 
         RecyclerView imagesRecyclerView = root.findViewById(R.id.PostImageView);
@@ -68,11 +63,10 @@ public class PostFragment extends Fragment {
         PostViewModel postViewModel = new ViewModelProvider(this).get(PostViewModel.class);
         postViewModel.getPost(id).observe(getViewLifecycleOwner(), post -> {
             profileButton.setText(post.getPostInfo().getUsername());
-            profileButton.setOnClickListener(v -> {
-                FragmentChanger.replaceFragment(getParentFragmentManager(),
-                        R.id.nav_host_fragment,
-                        new RandomProfileFragment(post.getPostInfo().getUsername()));
-            });
+            profileButton.setOnClickListener(v ->
+                    FragmentChanger.replaceFragmentAnim(getParentFragmentManager(),
+                    R.id.nav_host_fragment,
+                    new RandomProfileFragment(post.getPostInfo().getUsername())));
 
             PostImageAdapter imagesAdapter = new PostImageAdapter(post.getImages(),
                             "", this);

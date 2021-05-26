@@ -58,8 +58,8 @@ public class PostImageAdapter extends RecyclerView.Adapter<PostImageAdapter.Post
             pic.setOnClickListener(v -> {
                 if (!id.equals("")) {
                     int num = getBindingAdapterPosition();
-                    FragmentChanger.replaceFragment(homeFragment.getParentFragmentManager(),
-                            R.id.nav_host_fragment, new PostFragment(id, num, homeFragment));
+                    FragmentChanger.replaceFragmentAnim(homeFragment.getParentFragmentManager(),
+                            R.id.nav_host_fragment, new PostFragment(id, num));
                 }
             });
         }

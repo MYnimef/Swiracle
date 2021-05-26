@@ -14,7 +14,7 @@ public class FragmentChanger {
         ft.commit();
     }
 
-    public static void replaceFragmentAnimForward(FragmentManager fm, int resId, Fragment fragment) {
+    public static void replaceFragmentAnim(FragmentManager fm, int resId, Fragment fragment) {
         FragmentTransaction ft = fm.beginTransaction();
         ft.setCustomAnimations(
                 R.anim.slide_in,
