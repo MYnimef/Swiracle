@@ -2,43 +2,44 @@
 <resources>
     <string name="app_name">Swiracle</string>
 
-    <string name="username">Username</string>
-    <string name="password">Password</string>
-    <string name="log_in">Log in</string>
-    <string name="or">or</string>
-    <string name="sign_up">Sign up</string>
-    <string name="without_auth">Continue without authorization</string>
+    <string name="username">Pseudo</string>
+    <string name="password">Mot de passe</string>
+    <string name="log_in">Connecter</string>
+    <string name="or">ou</string>
+    <string name="sign_up">Inscrire</string>
+    <string name="without_auth">Continuer sans autorisation</string>
 
-    <string name="birthday_question">When\'s your birthday?</string>
-    <string name="birthday_description">Your birthday won\'t be shown publicly.</string>
-    <string name="birthday">Birthday</string>
+    <string name="birthday_question">Quelle est votre date de naissance?</string>
+    <string name="birthday_description">Votre date de naissance ne sera pas montré publiquement.</string>
+    <string name="birthday">Date de naissance</string>
 
-    <string name="enter_email">Enter your email address.</string>
-    <string name="email">Email address</string>
-    <string name="terms">By continuing, you agree to the fact,
-        that this app is still in development,
-        so if you lose your data or something else happens
-        - it was your choice to be there.</string>
+    <string name="enter_email">Entrez votre adresse e-mail.</string>
+    <string name="email">Adresse e-mail</string>
+    <string name="terms">En continuant, vous acceptez le fait,
+        que cette application est toujours en développement,
+        donc, si vous perdez vos données ou quelque chose d\'autre se passe
+        - c\'est votre choix d\'être là.</string>
 
-    <string name="enter_name">Enter your name.</string>
-    <string name="real_name">Please use your real name.</string>
-    <string name="first_name">First name</string>
-    <string name="last_name">Last name</string>
+    <string name="enter_name">Entrez votre nom.</string>
+    <string name="real_name">Utiliser votre vrai nom, s\'il vous plaît.</string>
+    <string name="first_name">Prénom</string>
+    <string name="last_name">Nom de famille</string>
 
-    <string name="select_gender">Select your gender.</string>
-    <string name="male">Male</string>
-    <string name="female">Female</string>
-    <string name="other">Other</string>
+    <string name="select_gender">Sélectionnez votre sexe.</string>
+    <string name="male">Masculin</string>
+    <string name="female">Féminin</string>
+    <string name="other">Autre</string>
 
-    <string name="username_enter">Enter your username.</string>
-    <string name="username_description">Username should be unique combination of letters,
-        it\'s size shouldn\'t be more than 16 symbols.</string>
+    <string name="username_enter">Entrez votre pseudo.</string>
+    <string name="username_description">Pseudo doit être une combinaison unique de lettre,
+        sa taille de devrait pas être plus que 16 symboles.</string>
 
-    <string name="password_set">Set password.</string>
-    <string name="password_description">Your password should be strong enough,
-        min length is 8 symbols - max is 20.
-        Try not to use simple ones like \'qwerty\'.</string>
-    <string name="password_again">Please, enter your password again.</string>
+    <string name="password_set">Définir le mot de passe.</string>
+    <string name="password_description">Votre mot de passe doit être suffisamment fort,
+        taille minimale est de 8 symboles - max est de 20.
+        Essayez de ne pas utiliser des simples comme\'qwerty\'.</string>
+    <string name="password_again">Entrez votre mot de passe une fois de plus,
+        s\'il vous plait.</string>
 
     <string name="title_home">Accueil</string>
     <string name="title_popular">Découvrir</string>
@@ -46,9 +47,9 @@
     <string name="title_notifications">Notifications</string>
     <string name="title_profile">Profil</string>
 
-    <string name="following">Following</string>
+    <string name="following">Suivi</string>
     <string name="divider_home_menu">|</string>
-    <string name="for_you">For You</string>
+    <string name="for_you">Pour vous</string>
 
     <string name="new_post_text">Un post nouveau</string>
     <string name="back">Retour</string>
@@ -60,5 +61,13 @@
     <string name="set_info_description">Faire une description…</string>
     <string name="set_info_add_element">Ajouter un élément</string>
 
-    <string name="toast_empty_title">Empty title!</string>
+    <string name="toast_empty_title">titre creux!</string>
+
+    <string name="posts">Posts</string>
+    <string name="followers">Abonnés</string>
+    <string name="likes">J\'aime</string>
+
+    <string name="subscribe">Abonner</string>
+    <string name="message">Message</string>
+    <string name="edit_profile">Modifier le profile</string>
 </resources>

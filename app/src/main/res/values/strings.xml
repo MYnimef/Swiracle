@@ -32,7 +32,7 @@
 
     <string name="username_enter">Enter your username.</string>
     <string name="username_description">Username should be unique combination of letters,
-        it\'s size shouldn\'t be more than 16 symbols.</string>
+        its size shouldn\'t be more than 16 symbols.</string>
 
     <string name="password_set">Set password.</string>
     <string name="password_description">Your password should be strong enough,
@@ -61,4 +61,12 @@
     <string name="set_info_add_element">Add element</string>
 
     <string name="toast_empty_title">Empty title!</string>
+
+    <string name="posts">Posts</string>
+    <string name="followers">Followers</string>
+    <string name="likes">Likes</string>
+
+    <string name="subscribe">Subscribe</string>
+    <string name="message">Message</string>
+    <string name="edit_profile">Edit profile</string>
 </resources>
