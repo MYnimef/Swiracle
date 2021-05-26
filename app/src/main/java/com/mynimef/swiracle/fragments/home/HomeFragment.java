@@ -79,7 +79,6 @@ public class HomeFragment extends Fragment implements IHome {
 
         RecyclerView rv = root.findViewById(R.id.recycler_view);
         rv.setHasFixedSize(true);
-
         LayoutAnimationController anim = AnimationUtils.loadLayoutAnimation(getContext(),
                 R.anim.layout_animation);
 
