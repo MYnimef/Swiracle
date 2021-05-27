@@ -32,6 +32,7 @@ import dagger.hilt.android.AndroidEntryPoint;
 public class HomeFragment extends Fragment implements IHome {
     private HomeViewModel homeViewModel;
     private boolean animationAllowed;
+    private boolean animationControl;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -39,6 +40,7 @@ public class HomeFragment extends Fragment implements IHome {
         homeViewModel = new ViewModelProvider(this).get(HomeViewModel.class);
         homeViewModel.update();
         animationAllowed = true;
+        animationControl = true;
     }
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -95,12 +97,15 @@ public class HomeFragment extends Fragment implements IHome {
             }
             adapter.setPosts(posts);
             adapter.notifyDataSetChanged();
-            rv.scheduleLayoutAnimation();
+            if (animationControl) {
+                rv.scheduleLayoutAnimation();
+            }
         });
 
         SwipeRefreshLayout swipeRefresh = root.findViewById(R.id.swipeRefreshHome);
         swipeRefresh.setOnRefreshListener(() -> {
             animationAllowed = true;
+            animationControl = true;
             homeViewModel.update();
             swipeRefresh.setRefreshing(false);
         });
@@ -111,7 +116,10 @@ public class HomeFragment extends Fragment implements IHome {
     @Override
     public int getSignedIn() { return homeViewModel.getSignedIn(); }
     @Override
-    public void likePost(String id) { homeViewModel.likePost(id); }
+    public void likePost(String id) {
+        animationControl = false;
+        homeViewModel.likePost(id);
+    }
     @Override
     public void updatePostInfo(PostInfo postInfo) { homeViewModel.updatePostInfo(postInfo); }
 }
