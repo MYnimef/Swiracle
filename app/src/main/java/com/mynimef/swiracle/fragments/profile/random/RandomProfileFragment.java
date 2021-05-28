@@ -62,9 +62,9 @@ public class RandomProfileFragment extends Fragment {
             subscribe.setOnClickListener(v -> {
                 viewModel.subscribe(profileView.getUsername());
                 if (profileView.getSubscription() == ESubscription.NOT_SUBSCRIBED) {
-                    followersAmount.setText(String.valueOf(profileView.getFollowersAmount()));
-                } else {
                     followersAmount.setText(String.valueOf(profileView.getFollowersAmount() + 1));
+                } else {
+                    followersAmount.setText(String.valueOf(profileView.getFollowersAmount()));
                 }
                 subscribe.setVisibility(View.GONE);
                 message.setVisibility(View.VISIBLE);
