@@ -60,9 +60,7 @@ public class LoginFragment extends Fragment {
                 switch (msg.arg1) {
                     case 0:
                         loginViewModel.setSignedIn(1);
-                        FragmentChanger.replaceFragment(requireActivity()
-                                        .getSupportFragmentManager(),
-                                R.id.mainFragment, new NavigationFragment());
+                        requireActivity().getSupportFragmentManager().popBackStackImmediate();
                         break;
                     case 1:
                         Toast.makeText(getContext(), "Wrong username or password!",
@@ -96,9 +94,7 @@ public class LoginFragment extends Fragment {
 
         withoutAuthButton.setOnClickListener(v -> {
             loginViewModel.setSignedIn(-1);
-            FragmentChanger.replaceFragment(requireActivity()
-                            .getSupportFragmentManager(),
-                    R.id.mainFragment, new NavigationFragment());
+            requireActivity().getSupportFragmentManager().popBackStackImmediate();
         });
 
         return root;
