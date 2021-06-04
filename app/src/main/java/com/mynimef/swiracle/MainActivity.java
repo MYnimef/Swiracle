@@ -3,7 +3,6 @@ package com.mynimef.swiracle;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 
-import com.mynimef.swiracle.fragments.navigation.NavigationFragment;
 import com.mynimef.swiracle.fragments.login.LoginFragment;
 import com.mynimef.swiracle.logic.FragmentChanger;
 import com.mynimef.swiracle.logic.Repository;
@@ -15,7 +14,7 @@ import androidx.fragment.app.FragmentManager;
 import dagger.hilt.android.AndroidEntryPoint;
 
 @AndroidEntryPoint
-public class MainActivity extends AppCompatActivity {
+public final class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

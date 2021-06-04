@@ -6,7 +6,7 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.mynimef.swiracle.R;
 
-public class FragmentChanger {
+public final class FragmentChanger {
     public static void replaceFragment(FragmentManager fm, int resId, Fragment fragment) {
         FragmentTransaction ft = fm.beginTransaction();
         ft.replace(resId, fragment);

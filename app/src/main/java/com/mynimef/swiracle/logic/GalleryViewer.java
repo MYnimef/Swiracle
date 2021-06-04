@@ -13,7 +13,7 @@ import android.provider.MediaStore;
 
 import java.util.ArrayList;
 
-public class GalleryViewer {
+public final class GalleryViewer {
     private final Application application;
     private final Handler handler;
 

@@ -4,7 +4,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
 
-public class UriReader {
+public final class UriReader {
     public static String getRealPathFromUri(Context context, Uri contentUri) {
         String[] imageProjection = {"_data"};
         Cursor cursor = context.getContentResolver().query(contentUri,

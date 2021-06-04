@@ -33,7 +33,7 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class NetworkService {
+public final class NetworkService {
     private static NetworkService instance;
     private final AuthApi authApi;
     private final PostApi postApi;

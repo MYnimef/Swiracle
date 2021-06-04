@@ -7,7 +7,7 @@ import com.mynimef.swiracle.logic.Repository;
 import dagger.hilt.android.HiltAndroidApp;
 
 @HiltAndroidApp
-public class SwiracleApplication extends Application {
+public final class SwiracleApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();

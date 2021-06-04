@@ -30,7 +30,7 @@ import java.util.List;
 import javax.inject.Singleton;
 
 @Singleton
-public class Repository {
+public final class Repository {
     private static Repository instance;
     private Application application;
     private SharedPreferences sharedPref;
@@ -45,7 +45,6 @@ public class Repository {
     private String token;
 
     private LiveData<User> actualUser;
-    private LiveData<List<Post>> recommendationList;
     private ArrayList<Uri> gallery;
 
     public static synchronized Repository getInstance() {
@@ -62,8 +61,6 @@ public class Repository {
         userDao = database.userDao();
         postDao = database.postDao();
         imagesDao = database.imagesDao();
-
-        recommendationList = postDao.getAllPosts();
 
         networkService = NetworkService.getInstance();
         initGallery();
@@ -172,7 +169,7 @@ public class Repository {
     }
 
     public LiveData<User> getUserList() { return actualUser; }
-    public LiveData<List<Post>> getRecommendationList() { return recommendationList; }
+    public LiveData<List<Post>> getRecommendationList() { return postDao.getAllPosts(); }
 
     public void initGallery() {
         if (ContextCompat.checkSelfPermission(application,
@@ -208,7 +205,7 @@ public class Repository {
     private class DeleteUserRunnable implements Runnable {
         private final User user;
 
-        private DeleteUserRunnable(UserDao userDao, User user) {
+        private DeleteUserRunnable(User user) {
             this.user = user;
         }
 
