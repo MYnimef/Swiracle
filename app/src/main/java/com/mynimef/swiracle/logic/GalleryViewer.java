@@ -1,6 +1,5 @@
 package com.mynimef.swiracle.logic;
 
-import android.annotation.SuppressLint;
 import android.app.Application;
 import android.content.ContentUris;
 import android.database.Cursor;
@@ -46,7 +45,7 @@ public final class GalleryViewer {
             Uri uri = android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI;
             String[] projection = { MediaStore.Images.Media._ID,
                     MediaStore.Images.Media.BUCKET_DISPLAY_NAME };
-            @SuppressLint("Recycle") Cursor cursor = application.getContentResolver().query(uri,
+            Cursor cursor = application.getContentResolver().query(uri,
                     projection, null,
                     null, MediaStore.Images.Media.DATE_ADDED + " DESC");
 
@@ -58,6 +57,8 @@ public final class GalleryViewer {
                         MediaStore.Images.Media.EXTERNAL_CONTENT_URI, id);
                 uriList.add(contentUri);
             }
+
+            cursor.close();
             return uriList;
         }
     }

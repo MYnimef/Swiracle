@@ -17,7 +17,7 @@ import com.mynimef.swiracle.fragments.post.PostFragment;
 
 import java.util.List;
 
-public class PostImageAdapter extends RecyclerView.Adapter<PostImageAdapter.PostImageView> {
+public final class PostImageAdapter extends RecyclerView.Adapter<PostImageAdapter.PostImageView> {
     private final List<PostImage> images;
     private final String id;
     private final Fragment homeFragment;

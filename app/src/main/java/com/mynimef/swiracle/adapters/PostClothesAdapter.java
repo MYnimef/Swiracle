@@ -20,7 +20,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
-public class PostClothesAdapter extends RecyclerView.Adapter<PostClothesAdapter.ClothesView> {
+public final class PostClothesAdapter extends RecyclerView.Adapter<PostClothesAdapter.ClothesView> {
     private final Fragment fragment;
     private final List<ClothesElement> clothesList;
 
@@ -43,7 +43,7 @@ public class PostClothesAdapter extends RecyclerView.Adapter<PostClothesAdapter.
         ClothesElement element = clothesList.get(position);
         clothesView.getLayout().setOnClickListener(v -> {
             Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(element.getUrlId()));
-            fragment.getContext().startActivity(browserIntent);
+            fragment.requireContext().startActivity(browserIntent);
         });
         clothesView.getBrand().setText(element.getBrand());
         clothesView.getDescription().setText(element.getDescription());

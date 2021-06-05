@@ -17,7 +17,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
-public class ClothesElementAdapter extends RecyclerView.Adapter<ClothesElementAdapter.ClothesView> {
+public final class ClothesElementAdapter extends RecyclerView.Adapter<ClothesElementAdapter.ClothesView> {
     private final List<ClothesParsingInfo> clothesList;
     private final SetClothesElementsFragment fragment;
 

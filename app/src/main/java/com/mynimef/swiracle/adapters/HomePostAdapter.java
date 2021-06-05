@@ -27,7 +27,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
-public class HomePostAdapter extends RecyclerView.Adapter<HomePostAdapter.PostView> {
+public final class HomePostAdapter extends RecyclerView.Adapter<HomePostAdapter.PostView> {
     private final IHome home;
     private final Fragment homeFragment;
     private List<Post> postList;

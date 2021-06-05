@@ -17,7 +17,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
-public class GalleryImageAdapter extends RecyclerView.Adapter<GalleryImageAdapter.GalleryView> {
+public final class GalleryImageAdapter extends RecyclerView.Adapter<GalleryImageAdapter.GalleryView> {
     private final List<Uri> imagesList;
     private final PickImageFragment fragment;
     private int selectedId;
