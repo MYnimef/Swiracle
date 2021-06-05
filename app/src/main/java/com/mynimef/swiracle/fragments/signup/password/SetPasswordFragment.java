@@ -24,7 +24,7 @@ import com.mynimef.swiracle.logic.FragmentChanger;
 import dagger.hilt.android.AndroidEntryPoint;
 
 @AndroidEntryPoint
-public class SetPasswordFragment extends Fragment {
+public final class SetPasswordFragment extends Fragment {
     private ISignUp signUp;
     EditText editPassword;
     EditText editPasswordAgain;

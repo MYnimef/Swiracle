@@ -13,7 +13,7 @@ import javax.inject.Inject;
 import dagger.hilt.android.lifecycle.HiltViewModel;
 
 @HiltViewModel
-public class LoginViewModel extends AndroidViewModel {
+public final class LoginViewModel extends AndroidViewModel {
     private final Repository repository;
 
     @Inject

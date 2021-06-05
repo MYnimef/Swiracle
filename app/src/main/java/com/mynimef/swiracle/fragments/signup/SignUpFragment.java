@@ -29,7 +29,7 @@ import com.mynimef.swiracle.models.DateModel;
 import dagger.hilt.android.AndroidEntryPoint;
 
 @AndroidEntryPoint
-public class SignUpFragment extends Fragment implements ISignUp {
+public final class SignUpFragment extends Fragment implements ISignUp {
     private SignUpViewModel signUpViewModel;
 
     public enum EStage {

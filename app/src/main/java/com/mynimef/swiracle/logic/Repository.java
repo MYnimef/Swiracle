@@ -132,11 +132,11 @@ public final class Repository {
         networkService.likePost(id, token);
     }
 
-    public void getPosts() {
+    public void getPosts(Handler handler) {
         if (signedIn == 1) {
-            networkService.getPostsAuth(token);
+            networkService.getPostsAuth(token, handler);
         } else {
-            networkService.getPosts();
+            networkService.getPosts(handler);
         }
     }
 

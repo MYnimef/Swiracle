@@ -29,9 +29,8 @@ import com.mynimef.swiracle.models.PostInfo;
 import dagger.hilt.android.AndroidEntryPoint;
 
 @AndroidEntryPoint
-public class HomeFragment extends Fragment implements IHome {
+public final class HomeFragment extends Fragment implements IHome {
     private HomeViewModel homeViewModel;
-    private boolean animationAllowed;
     private boolean animationControl;
 
     @Override
@@ -39,7 +38,6 @@ public class HomeFragment extends Fragment implements IHome {
         super.onCreate(savedInstanceState);
         homeViewModel = new ViewModelProvider(this).get(HomeViewModel.class);
         homeViewModel.update();
-        animationAllowed = true;
         animationControl = true;
     }
 
@@ -91,10 +89,6 @@ public class HomeFragment extends Fragment implements IHome {
         rv.setAdapter(adapter);
 
         homeViewModel.getRecommendationList().observe(getViewLifecycleOwner(), posts -> {
-            if (animationAllowed) {
-                rv.setLayoutAnimation(anim);
-                animationAllowed = false;
-            }
             adapter.setPosts(posts);
             adapter.notifyDataSetChanged();
             if (animationControl) {
@@ -104,10 +98,17 @@ public class HomeFragment extends Fragment implements IHome {
 
         SwipeRefreshLayout swipeRefresh = root.findViewById(R.id.swipeRefreshHome);
         swipeRefresh.setOnRefreshListener(() -> {
-            animationAllowed = true;
             animationControl = true;
             homeViewModel.update();
-            swipeRefresh.setRefreshing(false);
+        });
+
+        homeViewModel.getUpdated().observe(getViewLifecycleOwner(), upd -> {
+            if (upd) {
+                swipeRefresh.setRefreshing(false);
+                rv.setLayoutAnimation(anim);
+                animationControl =  true;
+                homeViewModel.getUpdated().setValue(false);
+            }
         });
 
         return root;

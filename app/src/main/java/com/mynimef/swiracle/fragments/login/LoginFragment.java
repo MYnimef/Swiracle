@@ -26,7 +26,7 @@ import org.jetbrains.annotations.NotNull;
 import dagger.hilt.android.AndroidEntryPoint;
 
 @AndroidEntryPoint
-public class LoginFragment extends Fragment {
+public final class LoginFragment extends Fragment {
     private LoginViewModel loginViewModel;
     private EditText usernameView;
     private EditText passwordView;

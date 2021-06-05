@@ -1,10 +1,15 @@
 package com.mynimef.swiracle.fragments.home;
 
 import android.app.Application;
+import android.os.Handler;
+import android.os.Looper;
+import android.os.Message;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
 
 import com.mynimef.swiracle.database.Post;
 import com.mynimef.swiracle.logic.Repository;
@@ -17,19 +22,42 @@ import javax.inject.Inject;
 import dagger.hilt.android.lifecycle.HiltViewModel;
 
 @HiltViewModel
-public class HomeViewModel extends AndroidViewModel {
+public final class HomeViewModel extends AndroidViewModel {
     private final Repository repository;
     private final LiveData<List<Post>> recommendationList;
+    private final MutableLiveData<Boolean> updated;
 
     @Inject
     public HomeViewModel(@NonNull Application application) {
         super(application);
         this.repository = Repository.getInstance();
         this.recommendationList = repository.getRecommendationList();
+        this.updated = new MutableLiveData<>(false);
     }
 
-    public void update() { repository.getPosts(); }
+    public void update() {
+        Handler handler = new Handler(Looper.getMainLooper()) {
+            @Override
+            public void handleMessage(Message msg) {
+                super.handleMessage(msg);
+                int result = msg.arg1;
+                if (result == 0) {
+                    updated.setValue(true);
+                } else if (result == 1) {
+                    Toast.makeText(getApplication(), "Error loading data",
+                            Toast.LENGTH_SHORT).show();
+                } else if (result == -1) {
+                    Toast.makeText(getApplication(), "No connection",
+                            Toast.LENGTH_SHORT).show();
+                }
+                removeCallbacksAndMessages(null);
+            }
+        };
+        repository.getPosts(handler);
+    }
+
     public LiveData<List<Post>> getRecommendationList() { return recommendationList; }
+    public MutableLiveData<Boolean> getUpdated() { return updated; }
 
     public int getSignedIn() { return repository.getSignedIn(); }
     public void likePost(String id) { repository.likePost(id); }

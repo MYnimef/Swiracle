@@ -113,38 +113,50 @@ public final class NetworkService {
         });
     }
 
-    public void getPosts() {
+    public void getPosts(Handler handler) {
+        Message msg = new Message();
         postApi.getAll().enqueue(new Callback<List<Post>>() {
             @Override
             public void onResponse(@NotNull Call<List<Post>> call,
                                    @NotNull Response<List<Post>> response) {
                 if (response.isSuccessful()) {
                     repository.insertAllPosts(response.body());
+                    msg.arg1 = 0;
+                } else {
+                    msg.arg1 = 1;
                 }
+                handler.sendMessage(msg);
             }
 
             @Override
             public void onFailure(@NotNull Call<List<Post>> call,
                                   @NotNull Throwable t) {
-
+                msg.arg1 = -1;
+                handler.sendMessage(msg);
             }
         });
     }
 
-    public void getPostsAuth(String token) {
+    public void getPostsAuth(String token, Handler handler) {
+        Message msg = new Message();
         postApi.getAllAuth(token).enqueue(new Callback<List<Post>>() {
             @Override
             public void onResponse(@NotNull Call<List<Post>> call,
                                    @NotNull Response<List<Post>> response) {
                 if (response.isSuccessful()) {
                     repository.insertAllPosts(response.body());
+                    msg.arg1 = 0;
+                } else {
+                    msg.arg1 = 1;
                 }
+                handler.sendMessage(msg);
             }
 
             @Override
             public void onFailure(@NotNull Call<List<Post>> call,
                                   @NotNull Throwable t) {
-
+                msg.arg1 = -1;
+                handler.sendMessage(msg);
             }
         });
     }
@@ -202,9 +214,6 @@ public final class NetworkService {
             @Override
             public void onResponse(@NotNull Call<Boolean> call,
                                    @NotNull Response<Boolean> response) {
-                if (response.isSuccessful()) {
-                    getPosts();
-                }
             }
 
             @Override

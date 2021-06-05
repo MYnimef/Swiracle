@@ -14,7 +14,7 @@ import javax.inject.Inject;
 import dagger.hilt.android.lifecycle.HiltViewModel;
 
 @HiltViewModel
-public class SignUpViewModel extends AndroidViewModel {
+public final class SignUpViewModel extends AndroidViewModel {
     private final Repository repository;
 
     @Inject
