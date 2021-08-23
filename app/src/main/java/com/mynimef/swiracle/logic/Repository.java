@@ -89,7 +89,7 @@ public final class Repository {
 
     private void setUser() {
         actualUser = userDao.getUser(actualUsername);
-        new Thread(new GetTokenRunnable()).start();
+        new Thread(() -> setToken(userDao.getToken(actualUsername))).start();
     }
     public LiveData<User> getActualUser() { return actualUser; }
 
@@ -117,7 +117,10 @@ public final class Repository {
     }
 
     public void insertUser(User user) {
-        new Thread(new InsertUserRunnable(user)).start();
+        new Thread(() -> {
+            userDao.insertUser(user);
+            changeUser(user.getUsername());
+        }).start();
     }
 
     public void getClothesParsing(String url, Handler handler) {
@@ -161,11 +164,20 @@ public final class Repository {
     }
 
     public void updatePostInfo(PostInfo postInfo) {
-        new Thread(new UpdatePostInfoRunnable(postInfo)).start();
+        new Thread(() -> postDao.updatePostInfo(postInfo)).start();
     }
 
     public void insertAllPosts(List<Post> postList) {
-        new Thread(new InsertAllPostsRunnable(postList)).start();
+        new Thread(() -> {
+            postDao.deleteAllPosts();
+            imagesDao.deleteAllImages();
+            for (Post post : postList) {
+                postDao.insertPostInfo(post.getPostInfo());
+                for (PostImage image : post.getImages()) {
+                    imagesDao.insertPostImage(image);
+                }
+            }
+        }).start();
     }
 
     public LiveData<User> getUserList() { return actualUser; }
@@ -180,69 +192,4 @@ public final class Repository {
     }
     public void setGallery(ArrayList<Uri> gallery) { this.gallery = gallery; }
     public ArrayList<Uri> getGallery() { return this.gallery; }
-
-    private class GetTokenRunnable implements Runnable {
-        @Override
-        public void run() {
-            setToken(userDao.getToken(actualUsername));
-        }
-    }
-
-    private class InsertUserRunnable implements Runnable {
-        private final User user;
-
-        private InsertUserRunnable(User user) {
-            this.user = user;
-        }
-
-        @Override
-        public void run() {
-            userDao.insertUser(user);
-            changeUser(user.getUsername());
-        }
-    }
-
-    private class DeleteUserRunnable implements Runnable {
-        private final User user;
-
-        private DeleteUserRunnable(User user) {
-            this.user = user;
-        }
-
-        @Override
-        public void run() {
-            userDao.deleteUser(user);
-        }
-    }
-
-    private class UpdatePostInfoRunnable implements Runnable {
-        private final PostInfo postInfo;
-
-        private UpdatePostInfoRunnable(PostInfo postInfo) {
-            this.postInfo = postInfo;
-        }
-
-        @Override
-        public void run() { postDao.updatePostInfo(postInfo); }
-    }
-
-    private class InsertAllPostsRunnable implements Runnable {
-        private final List<Post> postList;
-
-        private InsertAllPostsRunnable(List<Post> postList) {
-            this.postList = postList;
-        }
-
-        @Override
-        public void run() {
-            postDao.deleteAllPosts();
-            imagesDao.deleteAllImages();
-            for (Post post : postList) {
-                postDao.insertPostInfo(post.getPostInfo());
-                for (PostImage image : post.getImages()) {
-                    imagesDao.insertPostImage(image);
-                }
-            }
-        }
-    }
 }
