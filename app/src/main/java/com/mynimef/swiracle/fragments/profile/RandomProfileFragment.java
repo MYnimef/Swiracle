@@ -1,4 +1,4 @@
-package com.mynimef.swiracle.fragments.profile.random;
+package com.mynimef.swiracle.fragments.profile;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;

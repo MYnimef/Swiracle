@@ -1,4 +1,4 @@
-package com.mynimef.swiracle.fragments.create;
+package com.mynimef.swiracle.fragments.navigation.create;
 
 import android.app.Application;
 

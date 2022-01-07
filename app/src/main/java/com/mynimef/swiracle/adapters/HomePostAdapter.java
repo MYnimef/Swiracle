@@ -17,7 +17,7 @@ import com.mynimef.swiracle.Interfaces.IHome;
 import com.mynimef.swiracle.database.Post;
 import com.mynimef.swiracle.dialogs.login.LoginDialogFragment;
 import com.mynimef.swiracle.fragments.post.PostFragment;
-import com.mynimef.swiracle.fragments.profile.random.RandomProfileFragment;
+import com.mynimef.swiracle.fragments.profile.RandomProfileFragment;
 import com.mynimef.swiracle.logic.FragmentChanger;
 import com.mynimef.swiracle.models.PostInfo;
 import com.mynimef.swiracle.R;

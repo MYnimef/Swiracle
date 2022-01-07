@@ -4,6 +4,8 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Coding/Android/Git/Swiracle/app/src/main/res/layout/activity_main.xml" value="0.19375" />
+        <entry key="..\:/Coding/Android/Git/Swiracle/app/src/main/res/layout/adapter_clothes_element.xml" value="0.17831813576494426" />
+        <entry key="..\:/Coding/Android/Git/Swiracle/app/src/main/res/layout/adapter_post.xml" value="0.33" />
         <entry key="..\:/Coding/Android/Git/Swiracle/app/src/main/res/layout/fragment_home.xml" value="0.19375" />
         <entry key="..\:/Coding/Android/Git/Swiracle/app/src/main/res/layout/fragment_navigation.xml" value="0.33" />
       </map>

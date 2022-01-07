@@ -1,4 +1,4 @@
-package com.mynimef.swiracle.fragments.popular;
+package com.mynimef.swiracle.fragments.navigation.notifications;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -6,14 +6,14 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
 
 import com.mynimef.swiracle.R;
+import com.mynimef.swiracle.custom.MenuFragment;
 
 import dagger.hilt.android.AndroidEntryPoint;
 
 @AndroidEntryPoint
-public class PopularFragment extends Fragment {
+public class NotificationsFragment extends MenuFragment {
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 

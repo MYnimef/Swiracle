@@ -4,7 +4,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragments.create.setInfo.SetInfoFragment"
+    tools:context=".fragments.navigation.create.setInfo.SetInfoFragment"
     android:background="@drawable/shape_rounded_background" >
 
     <EditText

@@ -4,6 +4,7 @@ import android.Manifest;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -14,20 +15,23 @@ import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.mynimef.swiracle.custom.INavigation;
 import com.mynimef.swiracle.dialogs.login.LoginDialogFragment;
-import com.mynimef.swiracle.fragments.profile.my.MyProfileFragment;
+import com.mynimef.swiracle.fragments.navigation.profile.MyProfileFragment;
 import com.mynimef.swiracle.logic.FragmentChanger;
 import com.mynimef.swiracle.R;
-import com.mynimef.swiracle.fragments.create.CreateFragment;
-import com.mynimef.swiracle.fragments.home.HomeFragment;
-import com.mynimef.swiracle.fragments.notifications.NotificationsFragment;
-import com.mynimef.swiracle.fragments.popular.PopularFragment;
+import com.mynimef.swiracle.fragments.navigation.create.CreateFragment;
+import com.mynimef.swiracle.fragments.navigation.home.HomeFragment;
+import com.mynimef.swiracle.fragments.navigation.notifications.NotificationsFragment;
+import com.mynimef.swiracle.fragments.navigation.popular.PopularFragment;
 
 import dagger.hilt.android.AndroidEntryPoint;
 
 @AndroidEntryPoint
-public class NavigationFragment extends Fragment {
+public class NavigationFragment extends Fragment implements INavigation {
     private NavigationViewModel navigationViewModel;
+    private BottomNavigationView navView;
+
     private FragmentManager fm;
     private HomeFragment homeFragment;
     private PopularFragment popularFragment;
@@ -53,7 +57,7 @@ public class NavigationFragment extends Fragment {
                              ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_navigation, container, false);
 
-        BottomNavigationView navView = root.findViewById(R.id.nav_view);
+        navView = root.findViewById(R.id.nav_view);
         navView.setOnItemSelectedListener(
                 item -> {
                     int itemId = item.getItemId();
@@ -92,5 +96,11 @@ public class NavigationFragment extends Fragment {
                     return true;
                 });
         return root;
+    }
+
+    @Override
+    public void replaceToMain() {
+        FragmentChanger.replaceFragment(fm, R.id.nav_host_fragment, homeFragment);
+        navView.getMenu().getItem(0).setChecked(true);
     }
 }

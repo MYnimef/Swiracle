@@ -18,7 +18,7 @@ import com.mynimef.swiracle.adapters.PostClothesAdapter;
 import com.mynimef.swiracle.R;
 import com.mynimef.swiracle.adapters.PostImageAdapter;
 import com.mynimef.swiracle.custom.SwiracleFragment;
-import com.mynimef.swiracle.fragments.profile.random.RandomProfileFragment;
+import com.mynimef.swiracle.fragments.profile.RandomProfileFragment;
 import com.mynimef.swiracle.logic.FragmentChanger;
 
 import dagger.hilt.android.AndroidEntryPoint;

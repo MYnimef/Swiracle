@@ -1,4 +1,4 @@
-package com.mynimef.swiracle.fragments.home;
+package com.mynimef.swiracle.fragments.navigation.home;
 
 import android.app.Application;
 import android.os.Handler;

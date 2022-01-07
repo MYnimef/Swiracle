@@ -50,7 +50,7 @@
             android:background="@drawable/shape_rounded_background"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/profileName"
-            tools:context=".fragments.profile.my.MyProfileFragment">
+            tools:context=".fragments.navigation.profile.MyProfileFragment">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"

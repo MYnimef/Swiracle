@@ -6,11 +6,11 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
 
 import com.mynimef.swiracle.R;
+import com.mynimef.swiracle.custom.SwiracleFragment;
 
-public class SearchFragment extends Fragment {
+public class SearchFragment extends SwiracleFragment {
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 

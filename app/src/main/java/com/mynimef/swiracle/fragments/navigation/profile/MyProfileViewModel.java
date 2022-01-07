@@ -1,28 +1,29 @@
-package com.mynimef.swiracle.fragments.create.setClothesElements;
+package com.mynimef.swiracle.fragments.navigation.profile;
 
 import android.app.Application;
-import android.os.Handler;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
+import androidx.lifecycle.LiveData;
 
 import com.mynimef.swiracle.logic.Repository;
+import com.mynimef.swiracle.models.User;
 
 import javax.inject.Inject;
 
 import dagger.hilt.android.lifecycle.HiltViewModel;
 
 @HiltViewModel
-public class SetClothesElementsViewModel extends AndroidViewModel {
+public class MyProfileViewModel extends AndroidViewModel {
     private final Repository repository;
 
     @Inject
-    public SetClothesElementsViewModel(@NonNull Application application) {
+    public MyProfileViewModel(@NonNull Application application) {
         super(application);
         this.repository = Repository.getInstance();
     }
 
-    public void getClothes(String url , Handler handler) {
-        repository.getClothesParsing(url, handler);
+    public LiveData<User> getUser() {
+        return repository.getActualUser();
     }
 }
