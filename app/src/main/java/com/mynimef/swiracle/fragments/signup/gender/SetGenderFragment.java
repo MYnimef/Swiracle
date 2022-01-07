@@ -7,10 +7,9 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
 
-import androidx.fragment.app.Fragment;
-
 import com.mynimef.swiracle.Interfaces.ISignUp;
 import com.mynimef.swiracle.R;
+import com.mynimef.swiracle.custom.SwiracleFragment;
 import com.mynimef.swiracle.fragments.signup.SignUpFragment;
 import com.mynimef.swiracle.fragments.signup.username.SetUsernameFragment;
 import com.mynimef.swiracle.logic.FragmentChanger;
@@ -18,7 +17,7 @@ import com.mynimef.swiracle.logic.FragmentChanger;
 import dagger.hilt.android.AndroidEntryPoint;
 
 @AndroidEntryPoint
-public class SetGenderFragment extends Fragment {
+public class SetGenderFragment extends SwiracleFragment {
     private ISignUp signUp;
 
     @Override

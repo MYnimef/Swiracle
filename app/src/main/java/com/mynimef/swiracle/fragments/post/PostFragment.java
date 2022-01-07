@@ -8,7 +8,6 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -18,13 +17,14 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.mynimef.swiracle.adapters.PostClothesAdapter;
 import com.mynimef.swiracle.R;
 import com.mynimef.swiracle.adapters.PostImageAdapter;
+import com.mynimef.swiracle.custom.SwiracleFragment;
 import com.mynimef.swiracle.fragments.profile.random.RandomProfileFragment;
 import com.mynimef.swiracle.logic.FragmentChanger;
 
 import dagger.hilt.android.AndroidEntryPoint;
 
 @AndroidEntryPoint
-public class PostFragment extends Fragment {
+public class PostFragment extends SwiracleFragment {
     private final String id;
     private final int num;
 

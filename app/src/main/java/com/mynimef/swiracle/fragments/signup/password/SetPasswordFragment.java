@@ -14,17 +14,17 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
 
 import com.mynimef.swiracle.Interfaces.ISignUp;
 import com.mynimef.swiracle.R;
+import com.mynimef.swiracle.custom.SwiracleFragment;
 import com.mynimef.swiracle.fragments.login.LoginFragment;
 import com.mynimef.swiracle.logic.FragmentChanger;
 
 import dagger.hilt.android.AndroidEntryPoint;
 
 @AndroidEntryPoint
-public final class SetPasswordFragment extends Fragment {
+public final class SetPasswordFragment extends SwiracleFragment {
     private ISignUp signUp;
     EditText editPassword;
     EditText editPasswordAgain;
@@ -113,7 +113,7 @@ public final class SetPasswordFragment extends Fragment {
         finishButton.setEnabled(access);
     }
 
-    boolean checkPassword(String password) {
+    private boolean checkPassword(String password) {
         for (int i = 0; i < password.length(); i++) {
             if (!(password.charAt(i) != ' ' && (
                     password.charAt(i) >= 'a' && password.charAt(i) <= 'z' ||

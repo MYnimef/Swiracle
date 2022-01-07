@@ -11,10 +11,10 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
 
 import com.mynimef.swiracle.Interfaces.ISignUp;
 import com.mynimef.swiracle.R;
+import com.mynimef.swiracle.custom.SwiracleFragment;
 import com.mynimef.swiracle.fragments.signup.SignUpFragment;
 import com.mynimef.swiracle.fragments.signup.gender.SetGenderFragment;
 import com.mynimef.swiracle.logic.FragmentChanger;
@@ -22,7 +22,7 @@ import com.mynimef.swiracle.logic.FragmentChanger;
 import dagger.hilt.android.AndroidEntryPoint;
 
 @AndroidEntryPoint
-public class SetNameFragment extends Fragment {
+public class SetNameFragment extends SwiracleFragment {
     private ISignUp signUp;
 
     @Override

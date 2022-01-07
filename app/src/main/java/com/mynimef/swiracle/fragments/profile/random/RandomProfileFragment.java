@@ -10,17 +10,17 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.mynimef.swiracle.R;
+import com.mynimef.swiracle.custom.SwiracleFragment;
 import com.mynimef.swiracle.models.ESubscription;
 
 import dagger.hilt.android.AndroidEntryPoint;
 
 @AndroidEntryPoint
-public class RandomProfileFragment extends Fragment {
+public class RandomProfileFragment extends SwiracleFragment {
     private final String username;
 
     public RandomProfileFragment(String username) {
