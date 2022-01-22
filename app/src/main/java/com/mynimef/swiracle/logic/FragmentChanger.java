@@ -20,7 +20,8 @@ public final class FragmentChanger {
                 R.anim.slide_in,
                 R.anim.fade_out,
                 R.anim.fade_in,
-                R.anim.slide_out);
+                R.anim.slide_out
+        );
         ft.replace(resId, newFragment);
         ft.addToBackStack(null);
         ft.commit();

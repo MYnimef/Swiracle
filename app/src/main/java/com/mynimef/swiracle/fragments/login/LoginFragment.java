@@ -12,6 +12,7 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
@@ -35,15 +36,32 @@ public final class LoginFragment extends Fragment {
     private Button withoutAuthButton;
     private ProgressBar loading;
 
+    private final Fragment navFragment;
+
+    public LoginFragment(Fragment navFragment) {
+        this.navFragment = navFragment;
+    }
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.loginViewModel = new ViewModelProvider(this).get(LoginViewModel.class);
+
+        OnBackPressedCallback callback = new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
+                moveTo(navFragment);
+            }
+        };
+        requireActivity().getOnBackPressedDispatcher().addCallback(this, callback);
     }
 
     @Override
-    public View onCreateView(@NotNull LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(
+            @NotNull LayoutInflater inflater,
+            ViewGroup container,
+            Bundle savedInstanceState
+    ) {
         View root = inflater.inflate(R.layout.fragment_login, container, false);
         usernameView = root.findViewById(R.id.usernameEditText);
         passwordView = root.findViewById(R.id.passwordEditText);
@@ -60,7 +78,7 @@ public final class LoginFragment extends Fragment {
                 switch (msg.arg1) {
                     case 0:
                         loginViewModel.setSignedIn(1);
-                        requireActivity().getSupportFragmentManager().popBackStackImmediate();
+                        moveTo(new NavigationFragment());
                         break;
                     case 1:
                         Toast.makeText(getContext(), "Wrong username or password!",
@@ -78,6 +96,7 @@ public final class LoginFragment extends Fragment {
         login.setOnClickListener(v -> {
             String username = String.valueOf(usernameView.getText());
             String password = String.valueOf(passwordView.getText());
+
             if (username.equals("")) {
                 Toast.makeText(getContext(), "Empty username!", Toast.LENGTH_LONG).show();
             } else if (password.equals("")) {
@@ -88,28 +107,30 @@ public final class LoginFragment extends Fragment {
             }
         });
 
-        registration.setOnClickListener(v -> FragmentChanger.replaceFragment(requireActivity()
-                        .getSupportFragmentManager(),
-                R.id.mainFragment, new SignUpFragment()));
+        registration.setOnClickListener(v -> moveTo(new SignUpFragment()));
 
         withoutAuthButton.setOnClickListener(v -> {
             loginViewModel.setSignedIn(-1);
-            requireActivity().getSupportFragmentManager().popBackStackImmediate();
+            moveTo(navFragment);
         });
 
         return root;
     }
 
-    public void changeElementsAccess(boolean access) {
-        if (access) {
-            loading.setVisibility(View.INVISIBLE);
-        } else {
-            loading.setVisibility(View.VISIBLE);
-        }
+    private void changeElementsAccess(boolean access) {
+        loading.setVisibility(access ? View.INVISIBLE : View.VISIBLE);
         usernameView.setEnabled(access);
         passwordView.setEnabled(access);
         login.setEnabled(access);
         registration.setEnabled(access);
         withoutAuthButton.setEnabled(access);
+    }
+
+    private void moveTo(Fragment fragment) {
+        FragmentChanger.replaceFragment(
+                requireActivity().getSupportFragmentManager(),
+                R.id.mainFragment,
+                fragment
+        );
     }
 }

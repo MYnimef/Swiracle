@@ -23,7 +23,11 @@ public final class MainActivity extends AppCompatActivity {
 
         FragmentManager fm = getSupportFragmentManager();
         if (Repository.getInstance().getSignedIn() == 0) {
-            FragmentChanger.replaceFragment(fm, R.id.mainFragment, new LoginFragment());
+            FragmentChanger.replaceFragment(
+                    fm,
+                    R.id.mainFragment,
+                    new LoginFragment(fm.findFragmentById(R.id.mainFragment))
+            );
         }
     }
 

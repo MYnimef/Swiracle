@@ -2,13 +2,10 @@ package com.mynimef.swiracle.fragments.signup;
 
 import android.os.Bundle;
 import android.os.Handler;
-import android.os.Looper;
-import android.os.Message;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -16,8 +13,6 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.mynimef.swiracle.Interfaces.ISignUp;
 import com.mynimef.swiracle.R;
-import com.mynimef.swiracle.fragments.login.LoginFragment;
-import com.mynimef.swiracle.fragments.navigation.NavigationFragment;
 import com.mynimef.swiracle.fragments.signup.birthday.SetBirthdayFragment;
 import com.mynimef.swiracle.fragments.signup.email.SetEmailFragment;
 import com.mynimef.swiracle.fragments.signup.gender.SetGenderFragment;

@@ -8,14 +8,13 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.PagerSnapHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.mynimef.swiracle.Interfaces.IHome;
 import com.mynimef.swiracle.database.Post;
 import com.mynimef.swiracle.dialogs.login.LoginDialogFragment;
+import com.mynimef.swiracle.fragments.navigation.home.HomeFragment;
 import com.mynimef.swiracle.fragments.post.PostFragment;
 import com.mynimef.swiracle.fragments.profile.RandomProfileFragment;
 import com.mynimef.swiracle.logic.FragmentChanger;
@@ -28,12 +27,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public final class HomePostAdapter extends RecyclerView.Adapter<HomePostAdapter.PostView> {
-    private final IHome home;
-    private final Fragment homeFragment;
+    private final HomeFragment homeFragment;
     private List<Post> postList;
 
-    public HomePostAdapter(Fragment homeFragment) {
-        this.home = (IHome) homeFragment;
+    public HomePostAdapter(HomeFragment homeFragment) {
         this.homeFragment = homeFragment;
         this.postList = new ArrayList<>();
     }
@@ -81,10 +78,11 @@ public final class HomePostAdapter extends RecyclerView.Adapter<HomePostAdapter.
         postView.getLikes().setText(String.valueOf(postInfo.getLikesAmount()));
         postView.getLikes().setSelected(postInfo.getIsLiked());
         postView.getLikes().setOnClickListener(v -> {
-            if (home.getSignedIn() != 1) {
-                new LoginDialogFragment().show(homeFragment.getChildFragmentManager(), "ASK");
+            if (homeFragment.getSignedIn() != 1) {
+                new LoginDialogFragment(homeFragment.getParentFragment())
+                        .show(homeFragment.getChildFragmentManager(), "ASK");
             } else {
-                home.likePost(postInfo.getId());
+                homeFragment.likePost(postInfo.getId());
                 if (v.isSelected()) {
                     postInfo.setLikesAmount(postInfo.getLikesAmount() - 1);
                     postInfo.setIsLiked(false);
@@ -92,7 +90,7 @@ public final class HomePostAdapter extends RecyclerView.Adapter<HomePostAdapter.
                     postInfo.setLikesAmount(postInfo.getLikesAmount() + 1);
                     postInfo.setIsLiked(true);
                 }
-                home.updatePostInfo(postInfo);
+                homeFragment.updatePostInfo(postInfo);
                 v.setSelected(!postView.getLikes().isSelected());
             }
         });

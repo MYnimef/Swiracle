@@ -18,8 +18,6 @@ import androidx.annotation.NonNull;
 import com.mynimef.swiracle.Interfaces.ISignUp;
 import com.mynimef.swiracle.R;
 import com.mynimef.swiracle.custom.SwiracleFragment;
-import com.mynimef.swiracle.fragments.login.LoginFragment;
-import com.mynimef.swiracle.logic.FragmentChanger;
 
 import dagger.hilt.android.AndroidEntryPoint;
 
@@ -75,8 +73,7 @@ public final class SetPasswordFragment extends SwiracleFragment {
                 super.handleMessage(msg);
                 int result = msg.arg1;
                 if (result == 0) {
-                    FragmentChanger.replaceFragment(requireActivity().getSupportFragmentManager(),
-                            R.id.mainFragment, new LoginFragment());
+                    requireActivity().getSupportFragmentManager().popBackStackImmediate();
                 } else if (result == 1) {
                     Toast.makeText(getContext(), "Error creating account",
                             Toast.LENGTH_SHORT).show();

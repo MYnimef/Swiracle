@@ -9,6 +9,7 @@ import android.view.animation.LayoutAnimationController;
 import android.widget.Button;
 import android.widget.ImageButton;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -39,6 +40,14 @@ public final class HomeFragment extends Fragment implements IHome {
         homeViewModel = new ViewModelProvider(this).get(HomeViewModel.class);
         homeViewModel.update();
         animationControl = true;
+
+        OnBackPressedCallback callback = new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
+                requireActivity().finishAndRemoveTask();
+            }
+        };
+        requireActivity().getOnBackPressedDispatcher().addCallback(this, callback);
     }
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -56,7 +65,8 @@ public final class HomeFragment extends Fragment implements IHome {
         forYou.setSelected(true);
         following.setOnClickListener(v -> {
             if (homeViewModel.getSignedIn() != 1) {
-                new LoginDialogFragment().show(getChildFragmentManager(), "ASK");
+                new LoginDialogFragment(getParentFragment())
+                        .show(getChildFragmentManager(), "ASK");
             } else {
                 forYou.setSelected(false);
                 following.setSelected(true);
@@ -70,7 +80,8 @@ public final class HomeFragment extends Fragment implements IHome {
         ImageButton messenger = root.findViewById(R.id.messages);
         messenger.setOnClickListener(v -> {
             if (homeViewModel.getSignedIn() != 1) {
-                new LoginDialogFragment().show(getChildFragmentManager(), "ASK");
+                new LoginDialogFragment(getParentFragment())
+                        .show(getChildFragmentManager(), "ASK");
             } else {
                 FragmentChanger.replaceFragment(requireActivity().getSupportFragmentManager(),
                         R.id.mainFragment, new MessengerFragment(this));

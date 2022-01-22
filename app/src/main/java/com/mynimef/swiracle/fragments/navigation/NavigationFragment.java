@@ -4,7 +4,6 @@ import android.Manifest;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.view.LayoutInflater;
-import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -15,15 +14,15 @@ import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.mynimef.swiracle.R;
 import com.mynimef.swiracle.custom.INavigation;
 import com.mynimef.swiracle.dialogs.login.LoginDialogFragment;
-import com.mynimef.swiracle.fragments.navigation.profile.MyProfileFragment;
-import com.mynimef.swiracle.logic.FragmentChanger;
-import com.mynimef.swiracle.R;
 import com.mynimef.swiracle.fragments.navigation.create.CreateFragment;
 import com.mynimef.swiracle.fragments.navigation.home.HomeFragment;
 import com.mynimef.swiracle.fragments.navigation.notifications.NotificationsFragment;
 import com.mynimef.swiracle.fragments.navigation.popular.PopularFragment;
+import com.mynimef.swiracle.fragments.navigation.profile.MyProfileFragment;
+import com.mynimef.swiracle.logic.FragmentChanger;
 
 import dagger.hilt.android.AndroidEntryPoint;
 
@@ -63,7 +62,8 @@ public class NavigationFragment extends Fragment implements INavigation {
                     int itemId = item.getItemId();
                     if (itemId == R.id.navigation_create) {
                         if (navigationViewModel.getSignedIn() != 1) {
-                            new LoginDialogFragment().show(getChildFragmentManager(), "ASK");
+                            new LoginDialogFragment(this)
+                                    .show(getChildFragmentManager(), "ASK");
                         } else if (ContextCompat.checkSelfPermission(requireContext(),
                                 Manifest.permission.READ_EXTERNAL_STORAGE) ==
                                 PackageManager.PERMISSION_GRANTED) {
@@ -87,7 +87,8 @@ public class NavigationFragment extends Fragment implements INavigation {
                                 R.id.nav_host_fragment, notificationsFragment);
                     } else if (itemId == R.id.navigation_profile) {
                         if (navigationViewModel.getSignedIn() != 1) {
-                            new LoginDialogFragment().show(getChildFragmentManager(), "ASK");
+                            new LoginDialogFragment(this)
+                                    .show(getChildFragmentManager(), "ASK");
                             return false;
                         }
                         FragmentChanger.replaceFragment(fm,
