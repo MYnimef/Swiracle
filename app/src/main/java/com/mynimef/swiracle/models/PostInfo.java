@@ -8,7 +8,7 @@ import androidx.room.PrimaryKey;
 import org.jetbrains.annotations.NotNull;
 
 @Entity(tableName = "post_table")
-public class PostInfo {
+public final class PostInfo {
     @PrimaryKey @NonNull
     private String id;
     @NotNull

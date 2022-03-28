@@ -2,7 +2,7 @@ package com.mynimef.swiracle.models;
 
 import java.util.List;
 
-public class PostServer {
+public final class PostServer {
     private String title;
     private String description;
     private List<ClothesParsingInfo> clothesInfo;

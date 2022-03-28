@@ -15,7 +15,7 @@ import com.mynimef.swiracle.logic.FragmentChanger;
 
 import org.jetbrains.annotations.NotNull;
 
-public class LoginDialogFragment extends DialogFragment {
+public final class LoginDialogFragment extends DialogFragment {
     private final Fragment navFragment;
 
     public LoginDialogFragment(Fragment navFragment) {

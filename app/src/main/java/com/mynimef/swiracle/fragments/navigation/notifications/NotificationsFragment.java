@@ -13,7 +13,7 @@ import com.mynimef.swiracle.custom.MenuFragment;
 import dagger.hilt.android.AndroidEntryPoint;
 
 @AndroidEntryPoint
-public class NotificationsFragment extends MenuFragment {
+public final class NotificationsFragment extends MenuFragment {
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 

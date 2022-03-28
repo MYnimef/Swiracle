@@ -7,7 +7,7 @@ import androidx.room.PrimaryKey;
 import org.jetbrains.annotations.NotNull;
 
 @Entity(tableName = "user_table")
-public class User {
+public final class User {
     @PrimaryKey @NonNull
     private String username;
     private String email;

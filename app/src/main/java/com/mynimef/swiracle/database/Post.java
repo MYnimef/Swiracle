@@ -8,7 +8,7 @@ import com.mynimef.swiracle.models.PostInfo;
 
 import java.util.List;
 
-public class Post {
+public final class Post {
     @Embedded
     private PostInfo postInfo;
     @Relation(

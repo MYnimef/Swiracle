@@ -10,7 +10,6 @@ import android.net.Uri;
 import android.os.Handler;
 
 import androidx.core.content.ContextCompat;
-import androidx.fragment.app.Fragment;
 import androidx.lifecycle.LiveData;
 
 import com.mynimef.swiracle.database.ImagesDao;

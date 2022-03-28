@@ -7,7 +7,7 @@ import androidx.room.PrimaryKey;
 import org.jetbrains.annotations.NotNull;
 
 @Entity(tableName = "images_table")
-public class PostImage {
+public final class PostImage {
     @PrimaryKey @NotNull
     private String imageUrl;
     public void setImageUrl(@NotNull String imageUrl) { this.imageUrl = imageUrl; }

@@ -10,7 +10,7 @@ import androidx.annotation.NonNull;
 import com.mynimef.swiracle.R;
 import com.mynimef.swiracle.custom.SwiracleFragment;
 
-public class SearchFragment extends SwiracleFragment {
+public final class SearchFragment extends SwiracleFragment {
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 

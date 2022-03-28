@@ -1,6 +1,6 @@
 package com.mynimef.swiracle.models;
 
-public class Login {
+public final class Login {
     private String username;
     private String password;
 

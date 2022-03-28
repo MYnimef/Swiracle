@@ -1,6 +1,6 @@
 package com.mynimef.swiracle.models;
 
-public class ClothesElementServer {
+public final class ClothesElementServer {
     private String urlId;
     public String getUrlId() { return urlId; }
     public void setUrlId(String urlId) { this.urlId = urlId; }

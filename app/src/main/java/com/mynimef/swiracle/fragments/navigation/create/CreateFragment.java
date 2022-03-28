@@ -30,7 +30,7 @@ import java.util.List;
 import dagger.hilt.android.AndroidEntryPoint;
 
 @AndroidEntryPoint
-public class CreateFragment extends Fragment {
+public final class CreateFragment extends Fragment {
     private boolean pickStage;
     private boolean setElementsStage;
     private PickImageFragment pickImageFragment;

@@ -7,9 +7,13 @@ import android.net.Uri;
 public final class UriReader {
     public static String getRealPathFromUri(Context context, Uri contentUri) {
         String[] imageProjection = {"_data"};
-        Cursor cursor = context.getContentResolver().query(contentUri,
+        Cursor cursor = context.getContentResolver().query(
+                contentUri,
                 imageProjection,
-                null, null, null);
+                null,
+                null,
+                null
+        );
         cursor.moveToFirst();
         int indexImage = cursor.getColumnIndex(imageProjection[0]);
         String path = cursor.getString(indexImage);

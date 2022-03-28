@@ -15,7 +15,7 @@ import com.mynimef.swiracle.custom.MenuFragment;
 import dagger.hilt.android.AndroidEntryPoint;
 
 @AndroidEntryPoint
-public class MyProfileFragment extends MenuFragment {
+public final class MyProfileFragment extends MenuFragment {
     private MyProfileViewModel myProfileViewModel;
 
     @Override

@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
 
-public class Price implements Serializable {
+public final class Price implements Serializable {
     @SerializedName("eur")
     @Expose
     private int eur;

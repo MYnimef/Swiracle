@@ -27,7 +27,7 @@ import com.mynimef.swiracle.logic.FragmentChanger;
 import dagger.hilt.android.AndroidEntryPoint;
 
 @AndroidEntryPoint
-public class NavigationFragment extends Fragment implements INavigation {
+public final class NavigationFragment extends Fragment implements INavigation {
     private NavigationViewModel navigationViewModel;
     private BottomNavigationView navView;
 

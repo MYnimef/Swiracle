@@ -1,6 +1,6 @@
 package com.mynimef.swiracle.models;
 
-public class ProfileView {
+public final class ProfileView {
     private String username;
     private String firstName;
     private String lastName;

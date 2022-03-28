@@ -1,6 +1,6 @@
 package com.mynimef.swiracle.models;
 
-public class ClothesParsingInfo {
+public final class ClothesParsingInfo {
     private String brand;
     private String description;
     private String price;

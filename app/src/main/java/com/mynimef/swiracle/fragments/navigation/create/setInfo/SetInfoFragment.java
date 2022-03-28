@@ -15,7 +15,7 @@ import com.mynimef.swiracle.R;
 import dagger.hilt.android.AndroidEntryPoint;
 
 @AndroidEntryPoint
-public class SetInfoFragment extends Fragment implements ISetInfo {
+public final class SetInfoFragment extends Fragment implements ISetInfo {
     private EditText title;
     private EditText description;
 

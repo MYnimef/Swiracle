@@ -29,7 +29,7 @@ import java.util.List;
 import dagger.hilt.android.AndroidEntryPoint;
 
 @AndroidEntryPoint
-public class SetClothesElementsFragment extends Fragment implements ISetClothesElements {
+public final class SetClothesElementsFragment extends Fragment implements ISetClothesElements {
     private SetClothesElementsViewModel viewModel;
     private List<ClothesParsingInfo> infoList;
     private RecyclerView rv;

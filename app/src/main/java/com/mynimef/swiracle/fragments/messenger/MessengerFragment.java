@@ -11,7 +11,7 @@ import androidx.fragment.app.Fragment;
 import com.mynimef.swiracle.R;
 import com.mynimef.swiracle.custom.SwiracleFragment;
 
-public class MessengerFragment extends SwiracleFragment {
+public final class MessengerFragment extends SwiracleFragment {
     private Fragment parentFragment;
 
     public MessengerFragment(Fragment parentFragment) {

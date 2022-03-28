@@ -27,7 +27,7 @@ import java.util.Set;
 import dagger.hilt.android.AndroidEntryPoint;
 
 @AndroidEntryPoint
-public class PickImageFragment extends Fragment implements IPickImage {
+public final class PickImageFragment extends Fragment implements IPickImage {
     private ImageView imageView;
     private List<Uri> imageUri;
     private HashMap<Integer, Uri> pickedUri;

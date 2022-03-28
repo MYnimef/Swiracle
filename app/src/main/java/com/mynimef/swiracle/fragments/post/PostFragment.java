@@ -24,7 +24,7 @@ import com.mynimef.swiracle.logic.FragmentChanger;
 import dagger.hilt.android.AndroidEntryPoint;
 
 @AndroidEntryPoint
-public class PostFragment extends SwiracleFragment {
+public final class PostFragment extends SwiracleFragment {
     private final String id;
     private final int num;
 

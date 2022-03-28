@@ -10,8 +10,10 @@ import com.mynimef.swiracle.models.PostImage;
 import com.mynimef.swiracle.models.PostInfo;
 import com.mynimef.swiracle.models.User;
 
-@Database(entities = {User.class, PostInfo.class, PostImage.class},
-        version = 1, exportSchema = false)
+@Database(
+        entities = {User.class, PostInfo.class, PostImage.class},
+        version = 1, exportSchema = false
+)
 public abstract class SingletonDatabase extends RoomDatabase {
     private static SingletonDatabase instance;
 

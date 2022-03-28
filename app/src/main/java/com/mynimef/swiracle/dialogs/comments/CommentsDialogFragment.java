@@ -1,4 +1,4 @@
 package com.mynimef.swiracle.dialogs.comments;
 
-public class CommentsDialogFragment {
+public final class CommentsDialogFragment {
 }

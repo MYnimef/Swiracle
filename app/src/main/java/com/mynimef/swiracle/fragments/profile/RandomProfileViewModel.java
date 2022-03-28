@@ -18,7 +18,7 @@ import javax.inject.Inject;
 import dagger.hilt.android.lifecycle.HiltViewModel;
 
 @HiltViewModel
-public class RandomProfileViewModel extends AndroidViewModel {
+public final class RandomProfileViewModel extends AndroidViewModel {
     private final Repository repository;
     private final MutableLiveData<ProfileView> profile;
 

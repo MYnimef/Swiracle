@@ -20,15 +20,18 @@ import com.mynimef.swiracle.models.ESubscription;
 import dagger.hilt.android.AndroidEntryPoint;
 
 @AndroidEntryPoint
-public class RandomProfileFragment extends SwiracleFragment {
+public final class RandomProfileFragment extends SwiracleFragment {
     private final String username;
 
     public RandomProfileFragment(String username) {
         this.username = username;
     }
 
-    public View onCreateView(@NonNull LayoutInflater inflater,
-                             ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(
+            @NonNull LayoutInflater inflater,
+            ViewGroup container,
+            Bundle savedInstanceState
+    ) {
         View root = inflater.inflate(R.layout.fragment_profile_random, container, false);
         TextView profileName = root.findViewById(R.id.profileName);
         Button usernameButton = root.findViewById(R.id.usernameButton);

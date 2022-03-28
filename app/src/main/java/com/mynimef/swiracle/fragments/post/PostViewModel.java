@@ -22,7 +22,7 @@ import javax.inject.Inject;
 import dagger.hilt.android.lifecycle.HiltViewModel;
 
 @HiltViewModel
-public class PostViewModel extends AndroidViewModel {
+public final class PostViewModel extends AndroidViewModel {
     private final Repository repository;
     private final MutableLiveData<PostDetails> postDetails;
 

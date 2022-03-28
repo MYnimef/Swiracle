@@ -17,7 +17,7 @@ import javax.inject.Inject;
 import dagger.hilt.android.lifecycle.HiltViewModel;
 
 @HiltViewModel
-public class CreateViewModel extends AndroidViewModel {
+public final class CreateViewModel extends AndroidViewModel {
     private final MutableLiveData<String> buttonText;
     private final Repository repository;
 

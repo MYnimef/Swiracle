@@ -14,6 +14,7 @@ import androidx.lifecycle.MutableLiveData;
 import com.mynimef.swiracle.database.Post;
 import com.mynimef.swiracle.logic.Repository;
 import com.mynimef.swiracle.models.PostInfo;
+import com.mynimef.swiracle.network.NetworkService;
 
 import java.util.List;
 
