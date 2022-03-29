@@ -26,15 +26,16 @@ public final class GalleryImageAdapter extends RecyclerView.Adapter<GalleryImage
     public GalleryImageAdapter(List<Uri> imagesList, PickImageFragment fragment) {
         this.imagesList = imagesList;
         this.fragment = fragment;
+
         this.selectedField = new boolean[imagesList.size()];
         this.selectedId = 0;
         this.selectedField[selectedId] = true;
     }
 
-    public int clearPicked() {
+    public Uri clearPicked() {
         selectedField = new boolean[imagesList.size()];
-        this.selectedField[selectedId] = true;
-        return selectedId;
+        selectedField[selectedId] = true;
+        return imagesList.get(selectedId);
     }
 
     @NotNull
@@ -80,19 +81,21 @@ public final class GalleryImageAdapter extends RecyclerView.Adapter<GalleryImage
                 int position = getBindingAdapterPosition();
                 if (!selectedField[position]) {
                     selectedField[position] = true;
-                    fragment.setImageView(position);
-                    fragment.addToPicked(position);
+                    fragment.setImageView(imagesList.get(position));
+                    fragment.addToPicked(imagesList.get(position));
                     notifyItemChanged(position);
+
                     if (!fragment.getMultiple()) {
                         selectedField[selectedId] = false;
-                        fragment.removeFromPicked(selectedId);
+                        fragment.removeFromPicked(imagesList.get(position));
                         notifyItemChanged(selectedId);
                     }
+
                     selectedId = position;
                 } else {
                     if (fragment.getMultiple()) {
                         selectedField[position] = false;
-                        fragment.removeFromPicked(position);
+                        fragment.removeFromPicked(imagesList.get(position));
                         notifyItemChanged(position);
                     }
                 }

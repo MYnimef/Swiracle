@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.PagerSnapHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.mynimef.swiracle.database.Post;
+import com.mynimef.swiracle.models.Post;
 import com.mynimef.swiracle.dialogs.login.LoginDialogFragment;
 import com.mynimef.swiracle.fragments.navigation.home.HomeFragment;
 import com.mynimef.swiracle.fragments.post.PostFragment;

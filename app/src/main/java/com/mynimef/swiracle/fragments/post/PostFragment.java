@@ -46,8 +46,11 @@ public final class PostFragment extends SwiracleFragment {
         imagesRecyclerView.setClipToOutline(true);
         PagerSnapHelper snapHelper = new PagerSnapHelper();
         snapHelper.attachToRecyclerView(imagesRecyclerView);
-        LinearLayoutManager imagesLayoutManager = new LinearLayoutManager(getActivity(),
-                LinearLayoutManager.HORIZONTAL, false);
+        LinearLayoutManager imagesLayoutManager = new LinearLayoutManager(
+                getActivity(),
+                LinearLayoutManager.HORIZONTAL,
+                false
+        );
         imagesRecyclerView.setLayoutManager(imagesLayoutManager);
 
         TextView title = root.findViewById(R.id.titleView);
@@ -66,10 +69,16 @@ public final class PostFragment extends SwiracleFragment {
             profileButton.setOnClickListener(v ->
                     FragmentChanger.replaceFragmentAnim(getParentFragmentManager(),
                     R.id.nav_host_fragment,
-                    new RandomProfileFragment(post.getPostInfo().getUsername())));
+                    new RandomProfileFragment(post.getPostInfo().getUsername())
+                    )
+            );
 
-            PostImageAdapter imagesAdapter = new PostImageAdapter(post.getImages(),
-                            "", this);
+            PostImageAdapter imagesAdapter = new PostImageAdapter(
+                    post.getImages(),
+                    "",
+                    this
+            );
+
             imagesRecyclerView.setAdapter(imagesAdapter);
             imagesRecyclerView.scrollToPosition(num);
             title.setText(post.getPostInfo().getTitle());
@@ -78,8 +87,10 @@ public final class PostFragment extends SwiracleFragment {
 
         postViewModel.getDetails().observe(getViewLifecycleOwner(), newDetails -> {
             description.setText(newDetails.getDescription());
-            PostClothesAdapter clothesAdapter =
-                    new PostClothesAdapter(newDetails.getClothes(), this);
+            PostClothesAdapter clothesAdapter = new PostClothesAdapter(
+                    newDetails.getClothes(),
+                    this
+            );
             clothesRecyclerView.setAdapter(clothesAdapter);
         });
 

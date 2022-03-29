@@ -7,73 +7,101 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.mynimef.swiracle.logic.Repository;
 import com.mynimef.swiracle.Interfaces.IPickImage;
 import com.mynimef.swiracle.R;
 import com.mynimef.swiracle.adapters.GalleryImageAdapter;
+import com.mynimef.swiracle.fragments.navigation.create.CreateFragment;
 
-import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
-import java.util.Set;
 
 import dagger.hilt.android.AndroidEntryPoint;
 
 @AndroidEntryPoint
 public final class PickImageFragment extends Fragment implements IPickImage {
+    private PickImageViewModel pickImageViewModel;
+
     private ImageView imageView;
-    private List<Uri> imageUri;
-    private HashMap<Integer, Uri> pickedUri;
+    private List<Uri> pickedUri;
     private boolean multiple;
-    private GalleryImageAdapter adapter;
-    private int lastPicked;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        imageUri = Repository.getInstance().getGallery();
-        pickedUri = new HashMap<>();
-        multiple = false;
-        adapter = new GalleryImageAdapter(imageUri, this);
+        pickImageViewModel = new ViewModelProvider(this).get(PickImageViewModel.class);
 
-        lastPicked = 0;
-        addToPicked(lastPicked);
+        pickedUri = new LinkedList<>();
+        multiple = false;
     }
 
-    public View onCreateView(@NonNull LayoutInflater inflater,
-                             ViewGroup container, Bundle savedInstanceState) {
-        View root = inflater.inflate(R.layout.fragment_create_pick_image, container, false);
+    public View onCreateView(
+            @NonNull LayoutInflater inflater,
+            ViewGroup container,
+            Bundle savedInstanceState
+    ) {
+        View root = inflater.inflate(
+                R.layout.fragment_create_pick_image,
+                container,
+                false
+        );
 
+        ProgressBar loadingProgress = root.findViewById(R.id.loadingProgress);
+        TextView noImagesText = root.findViewById(R.id.noImagesText);
         Button multipleButton = root.findViewById(R.id.multipleButton);
-        multipleButton.setOnClickListener(v -> {
-            if (multiple) {
-                lastPicked = adapter.clearPicked();
-                pickedUri = new HashMap<>();
-                setImageView(lastPicked);
-                addToPicked(lastPicked);
-                adapter.notifyDataSetChanged();
-            }
-            multiple = !multiple;
-        });
-
         imageView = root.findViewById(R.id.selectedImage);
-
-        setImageView(lastPicked);
         RecyclerView rv = root.findViewById(R.id.galleryRecyclerView);
-        rv.setHasFixedSize(true);
 
+        rv.setHasFixedSize(true);
         GridLayoutManager mLayoutManager = new GridLayoutManager(getActivity(), 4);
         mLayoutManager.scrollToPosition(0);
         rv.setLayoutManager(mLayoutManager);
 
-        rv.setAdapter(adapter);
+        pickImageViewModel.getImages().observe(getViewLifecycleOwner(), images -> {
+            loadingProgress.setVisibility(View.GONE);
+
+            if (images.isEmpty()) {
+                noImagesText.setVisibility(View.VISIBLE);
+            } else {
+                CreateFragment fragment = (CreateFragment) getParentFragment();
+                if (fragment != null) {
+                    fragment.makeNextVisible();
+                }
+
+                multipleButton.setVisibility(View.VISIBLE);
+                imageView.setVisibility(View.VISIBLE);
+                rv.setVisibility(View.VISIBLE);
+
+                GalleryImageAdapter adapter = new GalleryImageAdapter(images, this);
+                rv.setAdapter(adapter);
+
+                Uri firstImage = images.get(0);
+                setImageView(firstImage);
+                addToPicked(firstImage);
+
+                multipleButton.setOnClickListener(v -> {
+                    if (multiple) {
+                        pickedUri.clear();
+
+                        Uri lastImage = adapter.clearPicked();
+                        setImageView(lastImage);
+                        addToPicked(lastImage);
+
+                        adapter.notifyDataSetChanged();
+                    }
+                    multiple = !multiple;
+                });
+            }
+        });
 
         return root;
     }
@@ -82,31 +110,25 @@ public final class PickImageFragment extends Fragment implements IPickImage {
         return multiple;
     }
 
-    public void setImageView(int pos) {
-        lastPicked = pos;
+    public void setImageView(Uri image) {
         Glide.with(this)
-                .load(imageUri.get(pos))
+                .load(image)
                 .thumbnail(0.05f)
                 .centerCrop()
                 .skipMemoryCache(true)
                 .into(imageView);
     }
 
-    public void addToPicked(int pos) {
-        pickedUri.put(pos, imageUri.get(pos));
+    public void addToPicked(Uri image) {
+        pickedUri.add(image);
     }
 
-    public void removeFromPicked(int pos) {
-        pickedUri.remove(pos);
+    public void removeFromPicked(Uri image) {
+        pickedUri.remove(image);
     }
 
     @Override
     public List<Uri> getPickedUri() {
-        List<Uri> result = new ArrayList<>();
-        Set<Integer> key = pickedUri.keySet();
-        for (int i : key) {
-            result.add(pickedUri.get(i));
-        }
-        return result;
+        return pickedUri;
     }
 }

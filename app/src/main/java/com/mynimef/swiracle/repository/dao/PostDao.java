@@ -1,4 +1,4 @@
-package com.mynimef.swiracle.database;
+package com.mynimef.swiracle.repository.dao;
 
 import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
@@ -8,6 +8,7 @@ import androidx.room.Transaction;
 import androidx.room.Update;
 
 import com.mynimef.swiracle.models.PostInfo;
+import com.mynimef.swiracle.models.Post;
 
 import java.util.List;
 

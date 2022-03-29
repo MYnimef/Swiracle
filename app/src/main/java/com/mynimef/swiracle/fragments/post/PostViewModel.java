@@ -11,11 +11,9 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
-import com.mynimef.swiracle.database.Post;
-import com.mynimef.swiracle.logic.Repository;
+import com.mynimef.swiracle.models.Post;
+import com.mynimef.swiracle.repository.Repository;
 import com.mynimef.swiracle.models.PostDetails;
-
-import java.util.List;
 
 import javax.inject.Inject;
 

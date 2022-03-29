@@ -2,7 +2,7 @@ package com.mynimef.swiracle;
 
 import android.app.Application;
 
-import com.mynimef.swiracle.logic.Repository;
+import com.mynimef.swiracle.repository.Repository;
 
 import dagger.hilt.android.HiltAndroidApp;
 

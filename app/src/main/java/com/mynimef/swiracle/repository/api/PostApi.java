@@ -1,6 +1,6 @@
-package com.mynimef.swiracle.network.api;
+package com.mynimef.swiracle.repository.api;
 
-import com.mynimef.swiracle.database.Post;
+import com.mynimef.swiracle.models.Post;
 import com.mynimef.swiracle.models.PostDetails;
 import com.mynimef.swiracle.models.PostServer;
 

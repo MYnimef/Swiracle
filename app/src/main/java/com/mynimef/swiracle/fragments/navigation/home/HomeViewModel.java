@@ -11,10 +11,9 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
-import com.mynimef.swiracle.database.Post;
-import com.mynimef.swiracle.logic.Repository;
+import com.mynimef.swiracle.models.Post;
+import com.mynimef.swiracle.repository.Repository;
 import com.mynimef.swiracle.models.PostInfo;
-import com.mynimef.swiracle.network.NetworkService;
 
 import java.util.List;
 
@@ -42,15 +41,25 @@ public final class HomeViewModel extends AndroidViewModel {
             public void handleMessage(Message msg) {
                 super.handleMessage(msg);
                 int result = msg.arg1;
+
                 if (result == 0) {
-                    updated.setValue(true);
                 } else if (result == 1) {
-                    Toast.makeText(getApplication(), "Error loading data",
-                            Toast.LENGTH_SHORT).show();
+                    Toast.makeText(
+                            getApplication(),
+                            "Error loading data",
+                            Toast.LENGTH_SHORT
+                    )
+                            .show();
                 } else if (result == -1) {
-                    Toast.makeText(getApplication(), "No connection",
-                            Toast.LENGTH_SHORT).show();
+                    Toast.makeText(
+                            getApplication(),
+                            "No connection",
+                            Toast.LENGTH_SHORT
+                    )
+                            .show();
                 }
+
+                updated.setValue(true);
                 removeCallbacksAndMessages(null);
             }
         };

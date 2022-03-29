@@ -50,14 +50,21 @@ public final class HomeFragment extends Fragment implements IHome {
         requireActivity().getOnBackPressedDispatcher().addCallback(this, callback);
     }
 
-    public View onCreateView(@NonNull LayoutInflater inflater,
-                             ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(
+            @NonNull LayoutInflater inflater,
+            ViewGroup container,
+            Bundle savedInstanceState
+    ) {
         View root = inflater.inflate(R.layout.fragment_home, container, false);
 
         ImageButton search = root.findViewById(R.id.search);
         search.setOnClickListener(v -> FragmentChanger
-                .replaceFragment(getParentFragmentManager(),
-                        R.id.nav_host_fragment, new SearchFragment()));
+                .replaceFragment(
+                        getParentFragmentManager(),
+                        R.id.nav_host_fragment,
+                        new SearchFragment()
+                )
+        );
 
         Button following = root.findViewById(R.id.following);
         Button forYou = root.findViewById(R.id.forYou);
@@ -83,15 +90,19 @@ public final class HomeFragment extends Fragment implements IHome {
                 new LoginDialogFragment(getParentFragment())
                         .show(getChildFragmentManager(), "ASK");
             } else {
-                FragmentChanger.replaceFragment(requireActivity().getSupportFragmentManager(),
-                        R.id.mainFragment, new MessengerFragment(this));
+                FragmentChanger.replaceFragment(
+                        requireActivity().getSupportFragmentManager(),
+                        R.id.mainFragment,
+                        new MessengerFragment(this));
             }
         });
 
         RecyclerView rv = root.findViewById(R.id.recycler_view);
         rv.setHasFixedSize(true);
-        LayoutAnimationController anim = AnimationUtils.loadLayoutAnimation(getContext(),
-                R.anim.layout_animation);
+        LayoutAnimationController anim = AnimationUtils.loadLayoutAnimation(
+                getContext(),
+                R.anim.layout_animation
+        );
 
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
         rv.setLayoutManager(mLayoutManager);

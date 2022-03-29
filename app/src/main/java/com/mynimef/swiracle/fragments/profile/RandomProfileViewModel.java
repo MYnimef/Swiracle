@@ -10,7 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.MutableLiveData;
 
-import com.mynimef.swiracle.logic.Repository;
+import com.mynimef.swiracle.repository.Repository;
 import com.mynimef.swiracle.models.ProfileView;
 
 import javax.inject.Inject;

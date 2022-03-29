@@ -1,4 +1,4 @@
 package com.mynimef.swiracle.fragments.signup.email;
 
-public class SetEmailViewModel {
+public final class SetEmailViewModel {
 }

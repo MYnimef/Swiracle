@@ -6,7 +6,7 @@ import android.os.Handler;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 
-import com.mynimef.swiracle.logic.Repository;
+import com.mynimef.swiracle.repository.Repository;
 
 import javax.inject.Inject;
 

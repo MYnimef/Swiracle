@@ -21,7 +21,7 @@ import com.mynimef.swiracle.logic.FragmentChanger;
 import dagger.hilt.android.AndroidEntryPoint;
 
 @AndroidEntryPoint
-public class SetEmailFragment extends SwiracleFragment {
+public final class SetEmailFragment extends SwiracleFragment {
     private ISignUp signUp;
 
     @Override

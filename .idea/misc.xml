@@ -8,6 +8,10 @@
         <entry key="..\:/Coding/Android/Git/Swiracle/app/src/main/res/layout/adapter_post.xml" value="0.33" />
         <entry key="..\:/Coding/Android/Git/Swiracle/app/src/main/res/layout/fragment_home.xml" value="0.19375" />
         <entry key="..\:/Coding/Android/Git/Swiracle/app/src/main/res/layout/fragment_navigation.xml" value="0.33" />
+        <entry key="app/src/main/res/layout/fragment_create.xml" value="0.1171875" />
+        <entry key="app/src/main/res/layout/fragment_create_pick_image.xml" value="0.1171875" />
+        <entry key="app/src/main/res/layout/fragment_create_set_clothes_elements.xml" value="0.1171875" />
+        <entry key="app/src/main/res/layout/fragment_profile_my.xml" value="0.1171875" />
       </map>
     </option>
   </component>

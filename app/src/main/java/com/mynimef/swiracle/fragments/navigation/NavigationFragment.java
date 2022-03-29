@@ -64,16 +64,22 @@ public final class NavigationFragment extends Fragment implements INavigation {
                         if (navigationViewModel.getSignedIn() != 1) {
                             new LoginDialogFragment(this)
                                     .show(getChildFragmentManager(), "ASK");
-                        } else if (ContextCompat.checkSelfPermission(requireContext(),
-                                Manifest.permission.READ_EXTERNAL_STORAGE) ==
-                                PackageManager.PERMISSION_GRANTED) {
-                            FragmentChanger.replaceFragment(requireActivity().
-                                            getSupportFragmentManager(),
-                                    R.id.mainFragment, new CreateFragment());
+                        } else if (
+                                ContextCompat.checkSelfPermission(
+                                        requireContext(),
+                                        Manifest.permission.READ_EXTERNAL_STORAGE
+                                ) == PackageManager.PERMISSION_GRANTED
+                        ) {
+                            FragmentChanger.replaceFragment(
+                                    requireActivity().getSupportFragmentManager(),
+                                    R.id.mainFragment,
+                                    new CreateFragment()
+                            );
                         } else {
                             requireActivity().requestPermissions(
                                     new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
-                                    1);
+                                    1
+                            );
                         }
                         return false;
                     }

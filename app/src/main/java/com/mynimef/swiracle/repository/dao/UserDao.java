@@ -1,4 +1,4 @@
-package com.mynimef.swiracle.database;
+package com.mynimef.swiracle.repository.dao;
 
 import androidx.lifecycle.LiveData;
 import androidx.room.Dao;

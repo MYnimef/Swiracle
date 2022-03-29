@@ -38,30 +38,40 @@ public final class CreateFragment extends Fragment {
     private SetInfoFragment setInfoFragment;
     private CreateViewModel createViewModel;
 
+    Button next;
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        this.createViewModel = new ViewModelProvider(this).get(CreateViewModel.class);
+
         this.pickImageFragment = new PickImageFragment();
         this.setClothesElementsFragment = new SetClothesElementsFragment();
         this.setInfoFragment = new SetInfoFragment();
     }
 
-    public View onCreateView(@NonNull LayoutInflater inflater,
-                             ViewGroup container, Bundle savedInstanceState) {
-        this.createViewModel = new ViewModelProvider(this).get(CreateViewModel.class);
+    public View onCreateView(
+            @NonNull LayoutInflater inflater,
+            ViewGroup container,
+            Bundle savedInstanceState
+    ) {
         View root = inflater.inflate(R.layout.fragment_create, container, false);
+
         this.pickStage = true;
         this.setElementsStage = false;
 
-        FragmentChanger.replaceFragment(getChildFragmentManager(),
-                R.id.createFragment, this.pickImageFragment);
+        FragmentChanger.replaceFragment(
+                getChildFragmentManager(),
+                R.id.createFragment,
+                this.pickImageFragment
+        );
 
         IPickImage pickImage = this.pickImageFragment;
         ISetClothesElements setClothesElements = this.setClothesElementsFragment;
         ISetInfo setInfo = this.setInfoFragment;
 
         Button back = root.findViewById(R.id.backButton);
-        Button next = root.findViewById(R.id.nextButton);
+        next = root.findViewById(R.id.nextButton);
         this.createViewModel.setText(getResources().getString(R.string.next));
 
         this.createViewModel.getText().observe(getViewLifecycleOwner(), next::setText);
@@ -71,14 +81,20 @@ public final class CreateFragment extends Fragment {
                 requireActivity().getSupportFragmentManager().popBackStackImmediate();
             }
             else if (setElementsStage) {
-                FragmentChanger.replaceFragment(getChildFragmentManager(),
-                    R.id.createFragment, pickImageFragment);
+                FragmentChanger.replaceFragment(
+                        getChildFragmentManager(),
+                        R.id.createFragment,
+                        pickImageFragment
+                );
                 setElementsStage = false;
                 pickStage = true;
             }
             else {
-                FragmentChanger.replaceFragment(getChildFragmentManager(),
-                        R.id.createFragment, setClothesElementsFragment);
+                FragmentChanger.replaceFragment(
+                        getChildFragmentManager(),
+                        R.id.createFragment,
+                        setClothesElementsFragment
+                );
                 setElementsStage = true;
                 createViewModel.setText(getResources().getString(R.string.next));
             }
@@ -86,17 +102,20 @@ public final class CreateFragment extends Fragment {
 
         next.setOnClickListener(v -> {
             if (pickStage) {
-                FragmentChanger.replaceFragment(getChildFragmentManager(),
+                FragmentChanger.replaceFragment(
+                        getChildFragmentManager(),
                         R.id.createFragment,
-                        setClothesElementsFragment);
+                        setClothesElementsFragment
+                );
                 pickStage = false;
                 setElementsStage = true;
-
             }
             else if (setElementsStage) {
-                FragmentChanger.replaceFragment(getChildFragmentManager(),
+                FragmentChanger.replaceFragment(
+                        getChildFragmentManager(),
                         R.id.createFragment,
-                        setInfoFragment);
+                        setInfoFragment
+                );
                 setElementsStage = false;
                 createViewModel.setText(getResources().getString(R.string.share));
             }
@@ -110,14 +129,23 @@ public final class CreateFragment extends Fragment {
                         absolutePath.add(UriReader.getRealPathFromUri(requireContext(), uri));
                     }
 
-                    createViewModel.uploadPost(new PostServer(setInfo.getTitle(),
-                            setInfo.getDescription(),
-                            setClothesElements.getInfoList()), absolutePath);
+                    createViewModel.uploadPost(
+                            new PostServer(
+                                    setInfo.getTitle(),
+                                    setInfo.getDescription(),
+                                    setClothesElements.getInfoList()
+                            ),
+                            absolutePath
+                    );
 
                     requireActivity().getSupportFragmentManager().popBackStackImmediate();
                 }
             }
         });
         return root;
+    }
+
+    public void makeNextVisible() {
+        next.setVisibility(View.VISIBLE);
     }
 }

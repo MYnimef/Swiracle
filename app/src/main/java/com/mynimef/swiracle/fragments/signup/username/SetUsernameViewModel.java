@@ -1,4 +1,4 @@
 package com.mynimef.swiracle.fragments.signup.username;
 
-public class SetUsernameViewModel {
+public final class SetUsernameViewModel {
 }

@@ -23,7 +23,7 @@ import java.util.GregorianCalendar;
 import dagger.hilt.android.AndroidEntryPoint;
 
 @AndroidEntryPoint
-public class SetBirthdayFragment extends Fragment {
+public final class SetBirthdayFragment extends Fragment {
     private ISignUp signUp;
 
     @Override

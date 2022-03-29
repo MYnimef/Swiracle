@@ -1,13 +1,11 @@
 package com.mynimef.swiracle;
 
-import android.content.pm.PackageManager;
 import android.os.Bundle;
 
 import com.mynimef.swiracle.fragments.login.LoginFragment;
 import com.mynimef.swiracle.logic.FragmentChanger;
-import com.mynimef.swiracle.logic.Repository;
+import com.mynimef.swiracle.repository.Repository;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 
@@ -19,7 +17,7 @@ public final class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Repository.getInstance().setPreferences(this);
+        Repository.getInstance().setSharedPref(this);
 
         FragmentManager fm = getSupportFragmentManager();
         if (Repository.getInstance().getSignedIn() == 0) {
@@ -28,24 +26,6 @@ public final class MainActivity extends AppCompatActivity {
                     R.id.mainFragment,
                     new LoginFragment(fm.findFragmentById(R.id.mainFragment))
             );
-        }
-    }
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
-                                           @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if (requestCode == 1) {
-            if (grantResults.length > 0 &&
-                    grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                Repository.getInstance().initGallery();
-            } else {
-                // Explain to the user that the feature is unavailable because
-                // the features requires a permission that the user has denied.
-                // At the same time, respect the user's decision. Don't link to
-                // system settings in an effort to convince the user to change
-                // their decision.
-            }
         }
     }
 }

@@ -17,7 +17,7 @@ import com.mynimef.swiracle.logic.FragmentChanger;
 import dagger.hilt.android.AndroidEntryPoint;
 
 @AndroidEntryPoint
-public class SetGenderFragment extends SwiracleFragment {
+public final class SetGenderFragment extends SwiracleFragment {
     private ISignUp signUp;
 
     @Override

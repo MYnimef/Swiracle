@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.ViewModelProvider;
@@ -24,14 +25,27 @@ public final class MyProfileFragment extends MenuFragment {
         myProfileViewModel = new ViewModelProvider(this).get(MyProfileViewModel.class);
     }
 
-    public View onCreateView(@NonNull LayoutInflater inflater,
-                             ViewGroup container, Bundle savedInstanceState) {
-
-        View root = inflater.inflate(R.layout.fragment_profile_my, container, false);
+    public View onCreateView(
+            @NonNull LayoutInflater inflater,
+            ViewGroup container,
+            Bundle savedInstanceState
+    ) {
+        View root = inflater.inflate(
+                R.layout.fragment_profile_my,
+                container,
+                false
+        );
 
         Button usernameButton = root.findViewById(R.id.usernameButton);
+        TextView postsAmount = root.findViewById(R.id.likesAmountText);
+        TextView followingAmount = root.findViewById(R.id.followingAmountText);
+        TextView followersAmount = root.findViewById(R.id.followersAmountText);
+
         myProfileViewModel.getUser().observe(getViewLifecycleOwner(), user -> {
             usernameButton.setText("@" + user.getUsername());
+            postsAmount.setText(String.valueOf(user.getPostsAmount()));
+            followingAmount.setText(String.valueOf(user.getFollowingAmount()));
+            followersAmount.setText(String.valueOf(user.getFollowersAmount()));
         });
 
         return root;

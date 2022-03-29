@@ -1,4 +1,4 @@
-package com.mynimef.swiracle.network.api;
+package com.mynimef.swiracle.repository.api;
 
 import com.mynimef.swiracle.models.ClothesParsingInfo;
 
