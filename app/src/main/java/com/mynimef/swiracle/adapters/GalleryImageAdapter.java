@@ -87,7 +87,7 @@ public final class GalleryImageAdapter extends RecyclerView.Adapter<GalleryImage
 
                     if (!fragment.getMultiple()) {
                         selectedField[selectedId] = false;
-                        fragment.removeFromPicked(imagesList.get(position));
+                        fragment.removeFromPicked(imagesList.get(selectedId));
                         notifyItemChanged(selectedId);
                     }
 
