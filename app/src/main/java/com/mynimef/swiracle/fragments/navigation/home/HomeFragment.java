@@ -12,7 +12,6 @@ import android.widget.ImageButton;
 import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -21,6 +20,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import com.mynimef.swiracle.Interfaces.IHome;
 import com.mynimef.swiracle.R;
 import com.mynimef.swiracle.adapters.HomePostAdapter;
+import com.mynimef.swiracle.custom.Fragment;
 import com.mynimef.swiracle.dialogs.login.LoginDialogFragment;
 import com.mynimef.swiracle.fragments.messenger.MessengerFragment;
 import com.mynimef.swiracle.fragments.search.SearchFragment;
@@ -145,4 +145,9 @@ public final class HomeFragment extends Fragment implements IHome {
     }
     @Override
     public void updatePostInfo(PostInfo postInfo) { homeViewModel.updatePostInfo(postInfo); }
+
+    @Override
+    public Fragment getFragment() {
+        return this;
+    }
 }

@@ -11,12 +11,12 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.mynimef.swiracle.R;
-import com.mynimef.swiracle.custom.MenuFragment;
+import com.mynimef.swiracle.custom.FragmentMenu;
 
 import dagger.hilt.android.AndroidEntryPoint;
 
 @AndroidEntryPoint
-public final class MyProfileFragment extends MenuFragment {
+public final class MyProfileFragment extends FragmentMenu {
     private MyProfileViewModel myProfileViewModel;
 
     @Override

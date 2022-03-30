@@ -17,12 +17,12 @@ import androidx.annotation.NonNull;
 
 import com.mynimef.swiracle.Interfaces.ISignUp;
 import com.mynimef.swiracle.R;
-import com.mynimef.swiracle.custom.SwiracleFragment;
+import com.mynimef.swiracle.custom.FragmentApp;
 
 import dagger.hilt.android.AndroidEntryPoint;
 
 @AndroidEntryPoint
-public final class SetPasswordFragment extends SwiracleFragment {
+public final class SetPasswordFragment extends FragmentApp {
     private ISignUp signUp;
     EditText editPassword;
     EditText editPasswordAgain;

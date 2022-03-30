@@ -1,9 +1,11 @@
 package com.mynimef.swiracle.adapters;
 
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -12,9 +14,10 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.PagerSnapHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.mynimef.swiracle.Interfaces.IHome;
+import com.mynimef.swiracle.fragments.navigation.home.options.PostOptionsFragment;
 import com.mynimef.swiracle.models.Post;
 import com.mynimef.swiracle.dialogs.login.LoginDialogFragment;
-import com.mynimef.swiracle.fragments.navigation.home.HomeFragment;
 import com.mynimef.swiracle.fragments.post.PostFragment;
 import com.mynimef.swiracle.fragments.profile.RandomProfileFragment;
 import com.mynimef.swiracle.logic.FragmentChanger;
@@ -27,11 +30,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public final class HomePostAdapter extends RecyclerView.Adapter<HomePostAdapter.PostView> {
-    private final HomeFragment homeFragment;
+    private final IHome home;
     private List<Post> postList;
 
-    public HomePostAdapter(HomeFragment homeFragment) {
-        this.homeFragment = homeFragment;
+    public HomePostAdapter(IHome home) {
+        this.home = home;
         this.postList = new ArrayList<>();
     }
 
@@ -53,24 +56,45 @@ public final class HomePostAdapter extends RecyclerView.Adapter<HomePostAdapter.
         PostInfo postInfo = postList.get(position).getPostInfo();
 
         postView.getTopLayout().setOnClickListener(v -> {
-            FragmentChanger.replaceFragmentAnim(homeFragment.getParentFragmentManager(),
+            FragmentChanger.replaceFragmentAnim(
+                    home.getFragment().getParentFragmentManager(),
                     R.id.nav_host_fragment,
-                    new RandomProfileFragment(postInfo.getUsername()));
+                    new RandomProfileFragment(postInfo.getUsername())
+            );
         });
+
+        postView.getMoreButton().setOnClickListener(
+                v -> {
+                    PostOptionsFragment fragment = new PostOptionsFragment();
+                    Bundle bundle = new Bundle();
+                    bundle.putString("post_id", postInfo.getId());
+                    fragment.setArguments(bundle);
+                    home.getFragment().getNavigation().showBottomFragment(fragment);
+                }
+        );
+
         postView.getUserImage();
         postView.getUsername().setText("@" + postInfo.getUsername());
 
-        LinearLayoutManager mLayoutManager = new LinearLayoutManager(homeFragment.requireActivity(),
-                LinearLayoutManager.HORIZONTAL, false);
+        LinearLayoutManager mLayoutManager = new LinearLayoutManager(
+                home.getFragment().requireActivity(),
+                LinearLayoutManager.HORIZONTAL,
+                false
+        );
         postView.getRecyclerView().setLayoutManager(mLayoutManager);
-        PostImageAdapter adapter = new PostImageAdapter(postList.get(position).getImages(),
-                postInfo.getId(), homeFragment);
+        PostImageAdapter adapter = new PostImageAdapter(
+                postList.get(position).getImages(),
+                postInfo.getId(),
+                home.getFragment()
+        );
         postView.getRecyclerView().setAdapter(adapter);
 
         postView.getBottomLayout().setOnClickListener(v -> {
-            FragmentChanger.replaceFragmentAnim(homeFragment.getParentFragmentManager(),
-                    R.id.nav_host_fragment, new PostFragment(postInfo.getId(),
-                            0));
+            FragmentChanger.replaceFragmentAnim(
+                    home.getFragment().getParentFragmentManager(),
+                    R.id.nav_host_fragment,
+                    new PostFragment(postInfo.getId(), 0)
+            );
         });
         postView.getTitle().setText(postInfo.getTitle());
         postView.getPrice().setText(postInfo.getPrice().getRub() + " RUB");
@@ -78,11 +102,11 @@ public final class HomePostAdapter extends RecyclerView.Adapter<HomePostAdapter.
         postView.getLikes().setText(String.valueOf(postInfo.getLikesAmount()));
         postView.getLikes().setSelected(postInfo.getIsLiked());
         postView.getLikes().setOnClickListener(v -> {
-            if (homeFragment.getSignedIn() != 1) {
-                new LoginDialogFragment(homeFragment.getParentFragment())
-                        .show(homeFragment.getChildFragmentManager(), "ASK");
+            if (home.getSignedIn() != 1) {
+                new LoginDialogFragment(home.getFragment().getParentFragment())
+                        .show(home.getFragment().getParentFragmentManager(), "ASK");
             } else {
-                homeFragment.likePost(postInfo.getId());
+                home.likePost(postInfo.getId());
                 if (v.isSelected()) {
                     postInfo.setLikesAmount(postInfo.getLikesAmount() - 1);
                     postInfo.setIsLiked(false);
@@ -90,7 +114,7 @@ public final class HomePostAdapter extends RecyclerView.Adapter<HomePostAdapter.
                     postInfo.setLikesAmount(postInfo.getLikesAmount() + 1);
                     postInfo.setIsLiked(true);
                 }
-                homeFragment.updatePostInfo(postInfo);
+                home.updatePostInfo(postInfo);
                 v.setSelected(!postView.getLikes().isSelected());
             }
         });
@@ -106,6 +130,7 @@ public final class HomePostAdapter extends RecyclerView.Adapter<HomePostAdapter.
 
     static class PostView extends RecyclerView.ViewHolder {
         private final ConstraintLayout topLayout;
+        private final ImageButton moreButton;
         private final ImageView userImage;
         private final TextView userNickname;
         private final RecyclerView recyclerView;
@@ -118,6 +143,7 @@ public final class HomePostAdapter extends RecyclerView.Adapter<HomePostAdapter.
         public PostView(View view) {
             super(view);
             topLayout = view.findViewById(R.id.topLayout);
+            moreButton = view.findViewById(R.id.moreImageButton);
             userImage = view.findViewById(R.id.userImageView);
             userNickname = view.findViewById(R.id.userNicknameView);
 
@@ -135,6 +161,7 @@ public final class HomePostAdapter extends RecyclerView.Adapter<HomePostAdapter.
         }
 
         public ConstraintLayout getTopLayout() { return topLayout; }
+        public ImageButton getMoreButton() { return moreButton; }
         public ImageView getUserImage() { return userImage; }
         public TextView getUsername() { return userNickname; }
 

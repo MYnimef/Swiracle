@@ -21,21 +21,32 @@ public interface PostApi {
     Call<List<Post>> getAll();
 
     @GET("/posts/auth")
-    Call<List<Post>> getAllAuth(@Header("Authorization") String token);
+    Call<List<Post>> getAllAuth(
+            @Header("Authorization") String token
+    );
 
     @GET("/posts/details/{id}")
-    Call<PostDetails> getPostDetails(@Path("id") String id);
+    Call<PostDetails> getPostDetails(
+            @Path("id") String id
+    );
 
     @Multipart
     @POST("/posts/add")
-    Call<Boolean> putPost(@Header("Authorization") String token,
-                             @Part("info") PostServer postInfo,
-                             @Part List<MultipartBody.Part> images);
+    Call<Boolean> putPost(
+            @Header("Authorization") String token,
+            @Part("info") PostServer postInfo,
+            @Part List<MultipartBody.Part> images
+    );
 
     @GET("/posts/like/{id}")
-    Call<Boolean> likePost(@Header("Authorization") String token,
-                               @Path("id") String id);
+    Call<Boolean> likePost(
+            @Header("Authorization") String token,
+            @Path("id") String id
+    );
 
-    @DELETE("/posts/{id}")
-    Call<PostServer> deletePost(@Header("Authorization") String token, @Path("id") String id);
+    @DELETE("/posts/delete/{id}")
+    Call<Boolean> deletePost(
+            @Header("Authorization") String token,
+            @Path("id") String id
+    );
 }

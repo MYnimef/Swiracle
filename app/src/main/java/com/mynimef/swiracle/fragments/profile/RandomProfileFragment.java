@@ -14,13 +14,13 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.mynimef.swiracle.R;
-import com.mynimef.swiracle.custom.SwiracleFragment;
+import com.mynimef.swiracle.custom.FragmentApp;
 import com.mynimef.swiracle.models.ESubscription;
 
 import dagger.hilt.android.AndroidEntryPoint;
 
 @AndroidEntryPoint
-public final class RandomProfileFragment extends SwiracleFragment {
+public final class RandomProfileFragment extends FragmentApp {
     private final String username;
 
     public RandomProfileFragment(String username) {

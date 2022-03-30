@@ -41,9 +41,9 @@
 
         <ImageButton
             android:id="@+id/moreImageButton"
-            android:layout_width="0dp"
+            android:layout_width="64dp"
             android:layout_height="match_parent"
-            android:layout_marginEnd="32dp"
+            android:layout_marginEnd="8dp"
             android:src="@drawable/ic_more"
             android:background="@color/transparent"
             app:tint="@color/black"

@@ -8,12 +8,12 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 
 import com.mynimef.swiracle.R;
-import com.mynimef.swiracle.custom.MenuFragment;
+import com.mynimef.swiracle.custom.FragmentMenu;
 
 import dagger.hilt.android.AndroidEntryPoint;
 
 @AndroidEntryPoint
-public final class NotificationsFragment extends MenuFragment {
+public final class NotificationsFragment extends FragmentMenu {
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 

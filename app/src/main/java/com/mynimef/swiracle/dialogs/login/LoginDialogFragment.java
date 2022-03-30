@@ -26,6 +26,10 @@ public final class LoginDialogFragment extends DialogFragment {
     public View onCreateView(@NotNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.dialog_login, container, false);
 
+        if (getDialog() != null && getDialog().getWindow() != null) {
+            getDialog().getWindow().setBackgroundDrawableResource(R.drawable.shape_dialog);
+        }
+
         Button okButton = root.findViewById(R.id.okButton);
         okButton.setOnClickListener(v -> {
             FragmentChanger.replaceFragment(

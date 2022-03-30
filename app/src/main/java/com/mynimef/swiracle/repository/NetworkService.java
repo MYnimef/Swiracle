@@ -3,6 +3,8 @@ package com.mynimef.swiracle.repository;
 import android.os.Handler;
 import android.os.Message;
 
+import androidx.annotation.NonNull;
+
 import com.mynimef.swiracle.models.DateModel;
 import com.mynimef.swiracle.models.Post;
 import com.mynimef.swiracle.models.PostDetails;
@@ -41,7 +43,8 @@ final class NetworkService {
 
     NetworkService(Repository repository) {
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("https://swiracle.herokuapp.com/")
+                .baseUrl("http://192.168.1.10:8080/")
+                //.baseUrl("https://swiracle.herokuapp.com/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
@@ -258,6 +261,42 @@ final class NetworkService {
                 t.printStackTrace();
             }
         });
+    }
+
+    void deletePost(
+            String postId,
+            Handler handler,
+            String token
+    ) {
+        postApi.deletePost(token, postId)
+                .enqueue(new Callback<Boolean>() {
+                    @Override
+                    public void onResponse(
+                            @NonNull Call<Boolean> call,
+                            @NonNull Response<Boolean> response
+                    ) {
+                        Message msg = new Message();
+
+                        if (response.body() != null && response.body()) {
+                            repository.deletePostLocal(postId);
+                            msg.arg1 = 0;
+                        } else {
+                            msg.arg1 = 1;
+                        }
+
+                        handler.sendMessage(msg);
+                    }
+
+                    @Override
+                    public void onFailure(
+                            @NonNull Call<Boolean> call,
+                            @NonNull Throwable t
+                    ) {
+                        Message msg = new Message();
+                        msg.arg1 = -1; // no connection
+                        handler.sendMessage(msg);
+                    }
+                });
     }
 
     void getClothesParsing(String url, Handler handler, String token) {

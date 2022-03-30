@@ -9,9 +9,9 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import com.mynimef.swiracle.R;
-import com.mynimef.swiracle.custom.SwiracleFragment;
+import com.mynimef.swiracle.custom.FragmentApp;
 
-public final class MessengerFragment extends SwiracleFragment {
+public final class MessengerFragment extends FragmentApp {
     private Fragment parentFragment;
 
     public MessengerFragment(Fragment parentFragment) {

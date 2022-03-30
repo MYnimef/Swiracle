@@ -26,4 +26,17 @@ public final class FragmentChanger {
         ft.addToBackStack(null);
         ft.commit();
     }
+
+    public static void replaceFragmentAnimBottom(FragmentManager fm, int resId, Fragment newFragment) {
+        FragmentTransaction ft = fm.beginTransaction();
+        ft.setCustomAnimations(
+                R.anim.slide_in_bottom,
+                R.anim.fade_out,
+                R.anim.fade_in,
+                R.anim.slide_out_bottom
+        );
+        ft.replace(resId, newFragment);
+        ft.addToBackStack(null);
+        ft.commit();
+    }
 }

@@ -57,6 +57,11 @@ abstract class LocalDatabase extends RoomDatabase {
         return postDao().getPost(username);
     }
 
+    final void deletePost(String postId) {
+        new Thread(() -> postDao().deletePost(postId))
+                .start();
+    }
+
     final void updatePostInfo(PostInfo postInfo) {
         new Thread(() -> postDao().updatePostInfo(postInfo))
                 .start();

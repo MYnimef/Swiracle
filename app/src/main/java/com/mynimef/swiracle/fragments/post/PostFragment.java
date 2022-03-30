@@ -17,14 +17,14 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.mynimef.swiracle.adapters.PostClothesAdapter;
 import com.mynimef.swiracle.R;
 import com.mynimef.swiracle.adapters.PostImageAdapter;
-import com.mynimef.swiracle.custom.SwiracleFragment;
+import com.mynimef.swiracle.custom.FragmentApp;
 import com.mynimef.swiracle.fragments.profile.RandomProfileFragment;
 import com.mynimef.swiracle.logic.FragmentChanger;
 
 import dagger.hilt.android.AndroidEntryPoint;
 
 @AndroidEntryPoint
-public final class PostFragment extends SwiracleFragment {
+public final class PostFragment extends FragmentApp {
     private final String id;
     private final int num;
 

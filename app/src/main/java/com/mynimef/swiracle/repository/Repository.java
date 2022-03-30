@@ -114,6 +114,14 @@ public final class Repository {
         network.putPost(postServer, pathList, token);
     }
 
+    public void deletePost(String postId, Handler handler) {
+        network.deletePost(postId, handler, token);
+    }
+
+    public void deletePostLocal(String postId) {
+        database.deletePost(postId);
+    }
+
     public void likePost(String id) {
         network.likePost(id, token);
     }

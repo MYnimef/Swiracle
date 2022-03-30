@@ -7,8 +7,11 @@ public final class PostServer {
     private String description;
     private List<ClothesParsingInfo> clothesInfo;
 
-    public PostServer(String title, String description,
-                      List<ClothesParsingInfo> clothesInfo) {
+    public PostServer(
+            String title,
+            String description,
+            List<ClothesParsingInfo> clothesInfo
+    ) {
         this.title = title;
         this.description = description;
         this.clothesInfo = clothesInfo;
