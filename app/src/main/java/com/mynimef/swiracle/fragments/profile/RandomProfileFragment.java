@@ -35,9 +35,9 @@ public final class RandomProfileFragment extends FragmentApp {
         View root = inflater.inflate(R.layout.fragment_profile_random, container, false);
         TextView profileName = root.findViewById(R.id.profileName);
         Button usernameButton = root.findViewById(R.id.usernameButton);
-        TextView postsAmount = root.findViewById(R.id.postsAmountText);
         TextView followingAmount = root.findViewById(R.id.followingAmountText);
         TextView followersAmount = root.findViewById(R.id.followersAmountText);
+        TextView likesAmount = root.findViewById(R.id.likesAmountText);
 
         LinearLayout interactLayout = root.findViewById(R.id.interactLayout);
         Button subscribe = root.findViewById(R.id.subscribeButton);
@@ -50,9 +50,9 @@ public final class RandomProfileFragment extends FragmentApp {
         viewModel.getProfile().observe(getViewLifecycleOwner(), profileView -> {
             profileName.setText(profileView.getFirstName() + " " + profileView.getLastName());
             usernameButton.setText("@" + profileView.getUsername());
-            postsAmount.setText(String.valueOf(profileView.getPostsAmount()));
             followingAmount.setText(String.valueOf(profileView.getFollowingAmount()));
             followersAmount.setText(String.valueOf(profileView.getFollowersAmount()));
+            likesAmount.setText(String.valueOf(profileView.getLikesAmount()));
 
             if (profileView.getSubscription() == ESubscription.SUBSCRIBED) {
                 subscribe.setVisibility(View.GONE);
