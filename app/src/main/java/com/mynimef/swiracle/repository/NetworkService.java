@@ -82,6 +82,7 @@ final class NetworkService {
                     @NotNull Response<SignInCallback> response
             ) {
                 SignInCallback callback = response.body();
+
                 if (callback != null) {
                     msg.arg1 = 0; // success
                     repository.insertUser(new User(

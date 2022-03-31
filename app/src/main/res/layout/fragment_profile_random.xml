@@ -124,6 +124,7 @@
                                 android:layout_height="wrap_content"
                                 android:gravity="center"
                                 android:text="@string/following"
+                                android:textColor="@color/gray"
                                 android:textAllCaps="false"
                                 android:textSize="12sp" />
                         </LinearLayout>
@@ -149,6 +150,7 @@
                                 android:layout_height="wrap_content"
                                 android:gravity="center"
                                 android:text="@string/followers"
+                                android:textColor="@color/gray"
                                 android:textAllCaps="false"
                                 android:textSize="12sp" />
                         </LinearLayout>
@@ -174,6 +176,7 @@
                                 android:layout_height="wrap_content"
                                 android:gravity="center"
                                 android:text="@string/likes"
+                                android:textColor="@color/gray"
                                 android:textAllCaps="false"
                                 android:textSize="12sp" />
                         </LinearLayout>

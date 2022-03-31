@@ -17,7 +17,8 @@
         <entry key="app/src/main/res/layout/dialog_login.xml" value="0.182518115942029" />
         <entry key="app/src/main/res/layout/fragment_create.xml" value="0.1171875" />
         <entry key="app/src/main/res/layout/fragment_create_pick_image.xml" value="0.1171875" />
-        <entry key="app/src/main/res/layout/fragment_create_set_clothes_elements.xml" value="0.1171875" />
+        <entry key="app/src/main/res/layout/fragment_create_set_clothes_elements.xml" value="0.31769714355468753" />
+        <entry key="app/src/main/res/layout/fragment_create_set_info.xml" value="0.4319852941176471" />
         <entry key="app/src/main/res/layout/fragment_home.xml" value="0.182518115942029" />
         <entry key="app/src/main/res/layout/fragment_login.xml" value="0.182518115942029" />
         <entry key="app/src/main/res/layout/fragment_navigation.xml" value="0.182518115942029" />
@@ -26,9 +27,14 @@
         <entry key="app/src/main/res/layout/fragment_post_options_auth.xml" value="0.182518115942029" />
         <entry key="app/src/main/res/layout/fragment_post_options_owner.xml" value="0.182518115942029" />
         <entry key="app/src/main/res/layout/fragment_post_options_unauth.xml" value="0.182518115942029" />
-        <entry key="app/src/main/res/layout/fragment_profile_my.xml" value="0.1171875" />
+        <entry key="app/src/main/res/layout/fragment_profile_my.xml" value="0.39965986394557823" />
         <entry key="app/src/main/res/layout/fragment_profile_random.xml" value="0.182518115942029" />
+        <entry key="app/src/main/res/layout/fragment_signup.xml" value="0.182518115942029" />
+        <entry key="app/src/main/res/layout/fragment_signup_set_birthday.xml" value="0.182518115942029" />
+        <entry key="app/src/main/res/layout/fragment_signup_set_email.xml" value="0.182518115942029" />
+        <entry key="app/src/main/res/layout/fragment_signup_set_gender.xml" value="0.182518115942029" />
         <entry key="app/src/main/res/layout/fragment_signup_set_name.xml" value="0.182518115942029" />
+        <entry key="app/src/main/res/layout/fragment_signup_set_password.xml" value="0.182518115942029" />
         <entry key="app/src/main/res/layout/fragment_signup_set_username.xml" value="0.182518115942029" />
         <entry key="app/src/main/res/layout/menu_post.xml" value="0.182518115942029" />
         <entry key="app/src/main/res/menu/bottom_nav_menu.xml" value="0.253125" />

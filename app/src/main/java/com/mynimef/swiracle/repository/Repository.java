@@ -36,12 +36,19 @@ public final class Repository extends RepositoryApp {
     }
 
     public boolean isActualUser(String username) {
-        return getAccount().getUsername().equals(username);
+        if (getAccount() != null) {
+            return getAccount().getUsername().equals(username);
+        } else {
+            return false;
+        }
     }
 
     public boolean isAdmin() {
-        System.out.println(getAccount().getPermission());
-        return (getAccount().getPermission() == 2);
+        if (getAccount() != null) {
+            return (getAccount().getPermission() == 2);
+        } else {
+            return false;
+        }
     }
 
     public LiveData<User> getActualUser() {

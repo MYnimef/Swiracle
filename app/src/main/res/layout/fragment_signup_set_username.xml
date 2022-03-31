@@ -28,6 +28,7 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="24dp"
         android:text="@string/username_description"
+        android:textColor="@color/gray"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textUsernameEnter" />
@@ -43,6 +44,8 @@
         android:maxLength="16"
         android:inputType="textNoSuggestions"
         android:hint="@string/username"
+        android:textColorHint="@color/gray"
+        android:textColor="@color/black"
         android:paddingStart="12dp"
         android:paddingEnd="12dp"
         app:layout_constraintEnd_toEndOf="parent"
