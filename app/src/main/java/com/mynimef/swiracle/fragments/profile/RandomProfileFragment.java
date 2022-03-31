@@ -48,7 +48,7 @@ public final class RandomProfileFragment extends FragmentApp {
                 new ViewModelProvider(this).get(RandomProfileViewModel.class);
         viewModel.loadProfile(username);
         viewModel.getProfile().observe(getViewLifecycleOwner(), profileView -> {
-            profileName.setText(profileView.getFirstName() + " " + profileView.getLastName());
+            profileName.setText(profileView.getName());
             usernameButton.setText("@" + profileView.getUsername());
             followingAmount.setText(String.valueOf(profileView.getFollowingAmount()));
             followersAmount.setText(String.valueOf(profileView.getFollowersAmount()));

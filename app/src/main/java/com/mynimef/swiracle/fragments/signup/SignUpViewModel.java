@@ -23,12 +23,23 @@ public final class SignUpViewModel extends AndroidViewModel {
         this.repository = Repository.getInstance();
     }
 
-    public void signUp(String username, String password, String email,
-                       String firstName, String lastName,
-                       int gender, DateModel birthday,
-                       Handler signUpHandler) {
-        repository.signUp(username, password, email,
-                firstName, lastName, gender, birthday,
-                signUpHandler);
+    public void signUp(
+            String username,
+            String password,
+            String email,
+            String name,
+            int gender,
+            DateModel birthday,
+            Handler signUpHandler
+    ) {
+        repository.signUp(
+                username,
+                password,
+                email,
+                name,
+                gender,
+                birthday,
+                signUpHandler
+        );
     }
 }

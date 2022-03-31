@@ -24,6 +24,7 @@
     <string name="real_name">Utiliser votre vrai nom, s\'il vous plaît.</string>
     <string name="first_name">Prénom</string>
     <string name="last_name">Nom de famille</string>
+    <string name="name">Name</string>
 
     <string name="select_gender">Sélectionnez votre sexe.</string>
     <string name="male">Masculin</string>

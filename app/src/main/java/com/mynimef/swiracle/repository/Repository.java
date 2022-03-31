@@ -1,9 +1,6 @@
 package com.mynimef.swiracle.repository;
 
-import android.app.Activity;
 import android.app.Application;
-import android.content.Context;
-import android.content.SharedPreferences;
 import android.os.Handler;
 
 import androidx.lifecycle.LiveData;
@@ -13,10 +10,11 @@ import com.mynimef.swiracle.models.Post;
 import com.mynimef.swiracle.models.PostInfo;
 import com.mynimef.swiracle.models.User;
 import com.mynimef.swiracle.models.PostServer;
+import com.mynimef.swiracle.models.UserInit;
 
 import java.util.List;
 
-public final class Repository {
+public final class Repository extends RepositoryApp {
     private static Repository instance;
 
     public static synchronized Repository getInstance() {
@@ -26,59 +24,43 @@ public final class Repository {
         return instance;
     }
 
-    private SharedPreferences sharedPref;
-
     private LocalDatabase database;
     private NetworkService network;
-
-    private int signedIn;
-    private String actualUsername;
-    private String token;
 
     public void init(Application application) {
         database = LocalDatabase.init(application);
         network = new NetworkService(this);
-    }
 
-    public void setSharedPref(Activity activity) {
-        sharedPref = activity.getPreferences(Context.MODE_PRIVATE);
-        signedIn = sharedPref.getInt("SignedIn", 0);
-        //0 - first launch
-        //1 - signed in
-        //-1 - decided not to sign in
-
-        actualUsername = sharedPref.getString("username", "");
-        if (!actualUsername.isEmpty()) {
-            new Thread(() -> token = database.getToken(actualUsername))
-                    .start();
-        }
+        new Thread(() -> setAccount(database.initUser()))
+                .start();
     }
 
     public boolean isActualUser(String username) {
-        return actualUsername.equals(username);
+        return getAccount().getUsername().equals(username);
+    }
+
+    public boolean isAdmin() {
+        System.out.println(getAccount().getPermission());
+        return (getAccount().getPermission() == 2);
     }
 
     public LiveData<User> getActualUser() {
-        return database.getUser(actualUsername);
+        return database.getUser(getAccount().getUsername());
     }
 
     public int getSignedIn() {
-        return signedIn;
-    }
-
-    public void setSignedIn(int signedIn) {
-        this.signedIn = signedIn;
-        SharedPreferences.Editor editor = sharedPref.edit();
-        editor.putInt("SignedIn", signedIn);
-        editor.apply();
+        if (getAccount() != null) {
+            return 1;
+        } else {
+            return -1;
+        }
     }
 
     public void signUp(
             String username,
             String password,
             String email,
-            String firstName,
-            String lastName,
+            String name,
             int gender,
             DateModel birthday,
             Handler signUpHandler
@@ -87,8 +69,7 @@ public final class Repository {
                 username,
                 password,
                 email,
-                firstName,
-                lastName,
+                name,
                 gender,
                 birthday,
                 signUpHandler
@@ -100,26 +81,26 @@ public final class Repository {
     }
 
     public void insertUser(User user) {
+        setAccount(
+                new UserInit(
+                        user.getUsername(),
+                        user.getToken(),
+                        user.getPermission()
+                )
+        );
         database.insertUser(user);
-
-        actualUsername = user.getUsername();
-        token = user.getToken();
-
-        SharedPreferences.Editor editor = sharedPref.edit();
-        editor.putString("username", actualUsername);
-        editor.apply();
     }
 
     public void getClothesParsing(String url, Handler handler) {
-        network.getClothesParsing(url, handler, token);
+        network.getClothesParsing(url, handler, getAccount().getToken());
     }
 
     public void uploadPost(PostServer postServer, List<String> pathList) {
-        network.putPost(postServer, pathList, token);
+        network.putPost(postServer, pathList, getAccount().getToken());
     }
 
     public void deletePost(String postId, Handler handler) {
-        network.deletePost(postId, handler, token);
+        network.deletePost(postId, handler, getAccount().getToken());
     }
 
     public void deletePostLocal(String postId) {
@@ -127,19 +108,12 @@ public final class Repository {
     }
 
     public void likePost(String id) {
-        network.likePost(id, token);
+        network.likePost(id, getAccount().getToken());
     }
 
     public void getPosts(Handler handler) {
-        if (signedIn == 1) {
-            while (token == null) {
-                try {
-                    Thread.sleep(100);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            }
-            network.getPostsAuth(token, handler);
+        if (getAccount() != null) {
+            network.getPostsAuth(getAccount().getToken(), handler);
         } else {
             network.getPosts(handler);
         }
@@ -150,15 +124,15 @@ public final class Repository {
     }
 
     public void getProfileView(String id, Handler handler) {
-        if (signedIn == 1) {
-            network.getProfileViewAuth(id, handler, token);
+        if (getAccount() != null) {
+            network.getProfileViewAuth(id, handler, getAccount().getToken());
         } else {
             network.getProfileView(id, handler);
         }
     }
 
     public void subscribe(String id) {
-        network.followUser(token, id);
+        network.followUser(getAccount().getToken(), id);
     }
 
     public LiveData<Post> getPost(String username) {

@@ -99,24 +99,10 @@ public final class HomeFragment extends Fragment implements IHome {
 
         RecyclerView rv = root.findViewById(R.id.recycler_view);
         rv.setHasFixedSize(true);
-        LayoutAnimationController anim = AnimationUtils.loadLayoutAnimation(
-                getContext(),
-                R.anim.layout_animation
-        );
-
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
         rv.setLayoutManager(mLayoutManager);
-
         HomePostAdapter adapter = new HomePostAdapter(this, homeViewModel);
         rv.setAdapter(adapter);
-
-        homeViewModel.getRecommendationList().observe(getViewLifecycleOwner(), posts -> {
-            adapter.setPosts(posts);
-            adapter.notifyDataSetChanged();
-            if (animationControl) {
-                rv.scheduleLayoutAnimation();
-            }
-        });
 
         SwipeRefreshLayout swipeRefresh = root.findViewById(R.id.swipeRefreshHome);
         swipeRefresh.setOnRefreshListener(() -> {
@@ -124,14 +110,30 @@ public final class HomeFragment extends Fragment implements IHome {
             homeViewModel.update();
         });
 
+        LayoutAnimationController anim = AnimationUtils.loadLayoutAnimation(
+                getContext(),
+                R.anim.layout_animation
+        );
+
+        homeViewModel.getRecommendationList().observe(getViewLifecycleOwner(), posts -> {
+            adapter.setPosts(posts);
+            adapter.notifyDataSetChanged();
+            if (animationControl) {
+                rv.setLayoutAnimation(anim);
+                animationControl = false;
+            }
+        });
+
         homeViewModel.getUpdated().observe(getViewLifecycleOwner(), upd -> {
             if (upd) {
                 swipeRefresh.setRefreshing(false);
-                rv.setLayoutAnimation(anim);
-                animationControl =  true;
                 homeViewModel.getUpdated().setValue(false);
             }
         });
+
+        if (animationControl) {
+            swipeRefresh.setRefreshing(true);
+        }
 
         return root;
     }
@@ -140,7 +142,6 @@ public final class HomeFragment extends Fragment implements IHome {
     public int getSignedIn() { return homeViewModel.getSignedIn(); }
     @Override
     public void likePost(String id) {
-        animationControl = false;
         homeViewModel.likePost(id);
     }
     @Override

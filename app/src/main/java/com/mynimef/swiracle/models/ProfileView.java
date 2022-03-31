@@ -2,8 +2,7 @@ package com.mynimef.swiracle.models;
 
 public final class ProfileView {
     private String username;
-    private String firstName;
-    private String lastName;
+    private String name;
     private String bio;
 
     private long followingAmount;
@@ -14,8 +13,7 @@ public final class ProfileView {
 
     public ProfileView(
             String username,
-            String firstName,
-            String lastName,
+            String name,
             String bio,
             long followingAmount,
             long followersAmount,
@@ -24,8 +22,7 @@ public final class ProfileView {
     ) {
         this.username = username;
 
-        this.firstName = firstName;
-        this.lastName = lastName;
+        this.name = name;
         this.bio = bio;
 
         this.followingAmount = followingAmount;
@@ -38,11 +35,8 @@ public final class ProfileView {
     public String getUsername() { return username; }
     public void setUsername(String username) { this.username = username; }
 
-    public String getFirstName() { return firstName; }
-    public void setFirstName(String firstName) { this.firstName = firstName; }
-
-    public String getLastName() { return lastName; }
-    public void setLastName(String lastName) { this.lastName = lastName; }
+    public String getName() { return name; }
+    public void setName(String firstName) { this.name = firstName; }
 
     public String getBio() { return bio; }
     public void setBio(String bio) { this.bio = bio; }

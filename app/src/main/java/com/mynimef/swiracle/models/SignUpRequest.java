@@ -14,15 +14,14 @@ public final class SignUpRequest {
             String username,
             String password,
             String email,
-            String firstName,
-            String lastName,
+            String name,
             int gender,
             DateModel birthday
     ) {
         this.username = username;
         this.password = password;
         this.email = email;
-        this.name = firstName + lastName;
+        this.name = name;
         this.gender = gender;
         this.birthday = birthday;
     }

@@ -8,6 +8,7 @@ import androidx.room.Query;
 import androidx.room.Update;
 
 import com.mynimef.swiracle.models.User;
+import com.mynimef.swiracle.models.UserInit;
 
 @Dao
 public interface UserDao {
@@ -23,8 +24,8 @@ public interface UserDao {
     @Query("DELETE FROM user_table")
     void deleteAllUsers();
 
-    @Query("SELECT token FROM user_table WHERE username = :username")
-    String getToken(String username);
+    @Query("SELECT username, token, permission FROM user_table WHERE actualUser = 1")
+    UserInit getUserInit();
 
     @Query("SELECT * FROM user_table WHERE username = :username")
     LiveData<User> getUser(String username);

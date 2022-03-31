@@ -39,8 +39,7 @@ public final class SignUpFragment extends Fragment implements ISignUp {
 
     private DateModel birthday;
     private String email;
-    private String firstName;
-    private String lastName;
+    private String name;
     private int gender;
     private String username;
     private String password;
@@ -129,9 +128,8 @@ public final class SignUpFragment extends Fragment implements ISignUp {
     }
 
     @Override
-    public void setName(String firstName, String lastName) {
-        this.firstName = firstName;
-        this.lastName = lastName;
+    public void setName(String name) {
+        this.name = name;
     }
 
     @Override
@@ -157,8 +155,7 @@ public final class SignUpFragment extends Fragment implements ISignUp {
                 username,
                 password,
                 email,
-                firstName,
-                lastName,
+                name,
                 gender,
                 birthday,
                 signUpHandler

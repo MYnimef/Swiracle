@@ -2,16 +2,16 @@ package com.mynimef.swiracle.models;
 
 public final class SignInCallback {
     private String token;
-    private String name;
+    private Integer permission;
 
-    public SignInCallback(String token, String name) {
+    public SignInCallback(String token, Integer permission) {
         this.token = token;
-        this.name = name;
+        this.permission = permission;
     }
 
     public String getToken() { return token; }
     public void setToken(String token) { this.token = token; }
 
-    public String getName() { return name; }
-    public void setName(String name) { this.name = name; }
+    public Integer getPermission() { return permission; }
+    public void setPermission(Integer permission) { this.permission = permission; }
 }

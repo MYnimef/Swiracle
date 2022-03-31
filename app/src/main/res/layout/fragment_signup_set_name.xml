@@ -33,7 +33,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textEnterName" />
 
     <EditText
-        android:id="@+id/editFirstName"
+        android:id="@+id/editName"
         android:layout_width="0dp"
         android:layout_height="48dp"
         android:layout_marginStart="24dp"
@@ -43,26 +43,10 @@
         android:inputType="textPersonName"
         android:paddingStart="12dp"
         android:paddingEnd="12dp"
-        android:hint="@string/first_name"
+        android:hint="@string/name"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textRealName" />
-
-    <EditText
-        android:id="@+id/editLastName"
-        android:layout_width="0dp"
-        android:layout_height="48dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="24dp"
-        android:background="@drawable/shape_rounded_white"
-        android:inputType="textPersonName"
-        android:paddingStart="12dp"
-        android:paddingEnd="12dp"
-        android:hint="@string/last_name"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editFirstName" />
 
     <Button
         android:id="@+id/nextButton"
@@ -77,6 +61,6 @@
         app:backgroundTint="@color/lavender_button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editLastName" />
+        app:layout_constraintTop_toBottomOf="@+id/editName" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

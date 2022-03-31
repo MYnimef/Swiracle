@@ -19,6 +19,9 @@ import com.mynimef.swiracle.fragments.signup.SignUpFragment;
 import com.mynimef.swiracle.fragments.signup.gender.SetGenderFragment;
 import com.mynimef.swiracle.logic.FragmentChanger;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import dagger.hilt.android.AndroidEntryPoint;
 
 @AndroidEntryPoint
@@ -35,11 +38,10 @@ public final class SetNameFragment extends FragmentApp {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_signup_set_name, container, false);
-        EditText editFirstName = root.findViewById(R.id.editFirstName);
-        EditText editLastName = root.findViewById(R.id.editLastName);
+        EditText editName = root.findViewById(R.id.editName);
         Button nextButton = root.findViewById(R.id.nextButton);
 
-        editFirstName.addTextChangedListener(new TextWatcher() {
+        editName.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
             @Override
@@ -48,30 +50,20 @@ public final class SetNameFragment extends FragmentApp {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 nextButton.setEnabled(s.length() != 0 &&
-                        !String.valueOf(editLastName.getText()).equals(""));
-            }
-        });
-        editLastName.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
-            @Override
-            public void afterTextChanged(Editable s) {}
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                nextButton.setEnabled(s.length() != 0 &&
-                        !String.valueOf(editFirstName.getText()).equals(""));
+                        !String.valueOf(editName.getText()).equals(""));
             }
         });
 
         nextButton.setOnClickListener(v -> {
-            String firstName = String.valueOf(editFirstName.getText());
-            String lastName = String.valueOf(editLastName.getText());
-            if (checkName(firstName) && checkName(lastName)) {
-                signUp.setName(firstName, lastName);
+            String name = String.valueOf(editName.getText());
+            if (checkName(name)) {
+                signUp.setName(name);
                 signUp.setStage(SignUpFragment.EStage.GENDER);
-                FragmentChanger.replaceFragment(getParentFragmentManager(),
-                        R.id.signupFragment, new SetGenderFragment());
+                FragmentChanger.replaceFragment(
+                        getParentFragmentManager(),
+                        R.id.signupFragment,
+                        new SetGenderFragment()
+                );
             } else {
                 Toast.makeText(getContext(), "Wrong name input!", Toast.LENGTH_SHORT).show();
             }
@@ -81,11 +73,8 @@ public final class SetNameFragment extends FragmentApp {
     }
 
     boolean checkName(String name) {
-        for (int i = 0; i < name.length(); i++) {
-            if ((!Character.isLetter(name.charAt(i)))) {
-                return false;
-            }
-        }
-        return true;
+        Pattern p = Pattern.compile("[A-Za-zА-Яа-я][A-Za-zА-Яа-я ]*[A-Za-zА-Яа-я]");
+        Matcher m = p.matcher(name);
+        return m.matches();
     }
 }

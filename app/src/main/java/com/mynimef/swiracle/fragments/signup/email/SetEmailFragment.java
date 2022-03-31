@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
@@ -15,8 +16,12 @@ import com.mynimef.swiracle.Interfaces.ISignUp;
 import com.mynimef.swiracle.R;
 import com.mynimef.swiracle.custom.FragmentApp;
 import com.mynimef.swiracle.fragments.signup.SignUpFragment;
+import com.mynimef.swiracle.fragments.signup.gender.SetGenderFragment;
 import com.mynimef.swiracle.fragments.signup.name.SetNameFragment;
 import com.mynimef.swiracle.logic.FragmentChanger;
+
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import dagger.hilt.android.AndroidEntryPoint;
 
@@ -50,12 +55,27 @@ public final class SetEmailFragment extends FragmentApp {
         });
 
         nextButton.setOnClickListener(v -> {
-            signUp.setEmail(String.valueOf(emailEdit.getText()));
-            signUp.setStage(SignUpFragment.EStage.NAME);
-            FragmentChanger.replaceFragment(getParentFragmentManager(),
-                    R.id.signupFragment, new SetNameFragment());
+            String email = String.valueOf(emailEdit.getText());
+
+            if (checkEmail(email)) {
+                signUp.setEmail(String.valueOf(emailEdit.getText()));
+                signUp.setStage(SignUpFragment.EStage.NAME);
+                FragmentChanger.replaceFragment(
+                        getParentFragmentManager(),
+                        R.id.signupFragment,
+                        new SetNameFragment()
+                );
+            } else {
+                Toast.makeText(getContext(), "Wrong email input!", Toast.LENGTH_SHORT).show();
+            }
         });
 
         return root;
+    }
+
+    boolean checkEmail(String email) {
+        Pattern p = Pattern.compile("[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?");
+        Matcher m = p.matcher(email);
+        return m.matches();
     }
 }

@@ -44,8 +44,7 @@ final class NetworkService {
 
     NetworkService(Repository repository) {
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://192.168.1.10:8080/")
-                //.baseUrl("https://swiracle.herokuapp.com/")
+                .baseUrl("https://swiracle.herokuapp.com/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
@@ -61,8 +60,7 @@ final class NetworkService {
             String username,
             String password,
             String email,
-            String firstName,
-            String lastName,
+            String name,
             int gender,
             DateModel birthday,
             Handler signUpHandler
@@ -71,8 +69,7 @@ final class NetworkService {
                 username,
                 password,
                 email,
-                firstName,
-                lastName,
+                name,
                 gender,
                 birthday
         );
@@ -87,11 +84,10 @@ final class NetworkService {
                 SignInCallback callback = response.body();
                 if (callback != null) {
                     msg.arg1 = 0; // success
-                    repository.setSignedIn(1);
                     repository.insertUser(new User(
                             username,
                             callback.getToken(),
-                            callback.getName()
+                            callback.getPermission()
                     ));
                 } else {
                     msg.arg1 = 1; // failure
@@ -121,11 +117,10 @@ final class NetworkService {
                 SignInCallback callback = response.body();
 
                 if (callback != null) {
-                    repository.setSignedIn(1);
                     repository.insertUser(new User(
                             username,
                             callback.getToken(),
-                            callback.getName()
+                            callback.getPermission()
                     ));
                     msg.arg1 = 0;
                 } else {

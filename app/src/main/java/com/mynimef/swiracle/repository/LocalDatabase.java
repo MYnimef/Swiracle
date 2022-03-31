@@ -10,6 +10,7 @@ import com.mynimef.swiracle.models.Post;
 import com.mynimef.swiracle.models.PostImage;
 import com.mynimef.swiracle.models.PostInfo;
 import com.mynimef.swiracle.models.User;
+import com.mynimef.swiracle.models.UserInit;
 import com.mynimef.swiracle.repository.dao.ImagesDao;
 import com.mynimef.swiracle.repository.dao.PostDao;
 import com.mynimef.swiracle.repository.dao.UserDao;
@@ -40,8 +41,8 @@ abstract class LocalDatabase extends RoomDatabase {
         return userDao().getUser(username);
     }
 
-    final String getToken(String username) {
-        return userDao().getToken(username);
+    final UserInit initUser() {
+        return userDao().getUserInit();
     }
 
     final LiveData<List<Post>> getRecommendationList() {

@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.mynimef.swiracle.Interfaces.IHome;
 import com.mynimef.swiracle.fragments.navigation.home.HomeViewModel;
 import com.mynimef.swiracle.fragments.navigation.home.options.PostOptionsFragment;
+import com.mynimef.swiracle.fragments.navigation.home.options.PostOptionsFragmentAdmin;
 import com.mynimef.swiracle.fragments.navigation.home.options.PostOptionsFragmentViewer;
 import com.mynimef.swiracle.fragments.navigation.home.options.PostOptionsFragmentOwner;
 import com.mynimef.swiracle.models.Post;
@@ -74,6 +75,8 @@ public final class HomePostAdapter extends RecyclerView.Adapter<HomePostAdapter.
 
                     if (viewModel.isActualUser(postInfo.getUsername())) {
                         fragment = new PostOptionsFragmentOwner();
+                    } else if (viewModel.isAdmin()) {
+                        fragment = new PostOptionsFragmentAdmin();
                     } else {
                         fragment = new PostOptionsFragmentViewer();
                     }

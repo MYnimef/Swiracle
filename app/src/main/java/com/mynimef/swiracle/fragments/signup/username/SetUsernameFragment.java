@@ -17,6 +17,9 @@ import com.mynimef.swiracle.fragments.signup.SignUpFragment;
 import com.mynimef.swiracle.fragments.signup.password.SetPasswordFragment;
 import com.mynimef.swiracle.logic.FragmentChanger;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import dagger.hilt.android.AndroidEntryPoint;
 
 @AndroidEntryPoint
@@ -53,8 +56,11 @@ public final class SetUsernameFragment extends FragmentApp {
             if (checkUsername(username)) {
                 signUp.setUsername(username);
                 signUp.setStage(SignUpFragment.EStage.PASSWORD);
-                FragmentChanger.replaceFragment(getParentFragmentManager(),
-                        R.id.signupFragment, new SetPasswordFragment());
+                FragmentChanger.replaceFragment(
+                        getParentFragmentManager(),
+                        R.id.signupFragment,
+                        new SetPasswordFragment()
+                );
             } else {
                 Toast.makeText(getContext(), "Wrong username input!", Toast.LENGTH_SHORT).show();
             }
@@ -64,15 +70,8 @@ public final class SetUsernameFragment extends FragmentApp {
     }
 
     boolean checkUsername(String username) {
-        for (int i = 0; i < username.length(); i++) {
-            if (!(username.charAt(i) != ' ' && (
-                    username.charAt(i) >= 'a' && username.charAt(i) <= 'z' ||
-                    username.charAt(i) >= 'A' && username.charAt(i) <= 'Z' ||
-                    i != 0 && (username.charAt(i) >= '0' && username.charAt(i) <= '9' ||
-                    username.charAt(i) == '-' || username.charAt(i) <= '_')))) {
-                return false;
-            }
-        }
-        return true;
+        Pattern p = Pattern.compile("[A-Za-z][A-Za-z0-9]*");
+        Matcher m = p.matcher(username);
+        return m.matches();
     }
 }

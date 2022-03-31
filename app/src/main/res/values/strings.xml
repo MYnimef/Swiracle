@@ -24,6 +24,7 @@
     <string name="real_name">Please use your real name.</string>
     <string name="first_name">First name</string>
     <string name="last_name">Last name</string>
+    <string name="name">Name</string>
 
     <string name="select_gender">Select your gender.</string>
     <string name="male">Male</string>

@@ -25,6 +25,7 @@
     <string name="real_name">Пожалуйста, используйте свое настоящее имя.</string>
     <string name="first_name">Имя</string>
     <string name="last_name">Фамилия</string>
+    <string name="name">Имя</string>
 
     <string name="select_gender">Выберите свой пол.</string>
     <string name="male">Мужчина</string>

@@ -33,8 +33,11 @@ public final class PostFragment extends FragmentApp {
         this.num = num;
     }
 
-    public View onCreateView(@NonNull LayoutInflater inflater,
-                             ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(
+            @NonNull LayoutInflater inflater,
+            ViewGroup container,
+            Bundle savedInstanceState
+    ) {
         View root = inflater.inflate(R.layout.fragment_post, container, false);
 
         Button backButton = root.findViewById(R.id.backToHomeButton);

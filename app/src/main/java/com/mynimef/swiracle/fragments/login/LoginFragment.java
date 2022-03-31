@@ -109,7 +109,6 @@ public final class LoginFragment extends Fragment {
         registration.setOnClickListener(v -> moveTo(new SignUpFragment()));
 
         withoutAuthButton.setOnClickListener(v -> {
-            loginViewModel.setSignedIn(-1);
             moveTo(navFragment);
         });
 
