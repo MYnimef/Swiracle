@@ -8,9 +8,10 @@ import androidx.annotation.NonNull;
 import com.mynimef.swiracle.models.DateModel;
 import com.mynimef.swiracle.models.Post;
 import com.mynimef.swiracle.models.PostDetails;
-import com.mynimef.swiracle.models.Login;
+import com.mynimef.swiracle.models.SignInRequest;
 import com.mynimef.swiracle.models.ProfileView;
-import com.mynimef.swiracle.models.SignUpServer;
+import com.mynimef.swiracle.models.SignInCallback;
+import com.mynimef.swiracle.models.SignUpRequest;
 import com.mynimef.swiracle.models.User;
 import com.mynimef.swiracle.repository.api.AuthApi;
 import com.mynimef.swiracle.repository.api.ParsingApi;
@@ -56,16 +57,17 @@ final class NetworkService {
         this.repository = repository;
     }
 
-    void signUp(String username,
-                       String password,
-                       String email,
-                       String firstName,
-                       String lastName,
-                       int gender,
-                       DateModel birthday,
-                       Handler signUpHandler
+    void signUp(
+            String username,
+            String password,
+            String email,
+            String firstName,
+            String lastName,
+            int gender,
+            DateModel birthday,
+            Handler signUpHandler
     ) {
-        SignUpServer signUpServer = new SignUpServer(
+        SignUpRequest signUpRequest = new SignUpRequest(
                 username,
                 password,
                 email,
@@ -76,14 +78,21 @@ final class NetworkService {
         );
 
         Message msg = new Message();
-        authApi.signUp(signUpServer).enqueue(new Callback<Boolean>() {
+        authApi.signUp(signUpRequest).enqueue(new Callback<SignInCallback>() {
             @Override
             public void onResponse(
-                    @NotNull Call<Boolean> call,
-                    @NotNull Response<Boolean> response
+                    @NotNull Call<SignInCallback> call,
+                    @NotNull Response<SignInCallback> response
             ) {
-                if (response.body() != null && response.body()) {
+                SignInCallback callback = response.body();
+                if (callback != null) {
                     msg.arg1 = 0; // success
+                    repository.setSignedIn(1);
+                    repository.insertUser(new User(
+                            username,
+                            callback.getToken(),
+                            callback.getName()
+                    ));
                 } else {
                     msg.arg1 = 1; // failure
                 }
@@ -92,7 +101,7 @@ final class NetworkService {
 
             @Override
             public void onFailure(
-                    @NotNull Call<Boolean> call,
+                    @NotNull Call<SignInCallback> call,
                     @NotNull Throwable t
             ) {
                 msg.arg1 = -1; // no connection
@@ -103,15 +112,21 @@ final class NetworkService {
 
     void signIn(String username, String password, Handler handler) {
         Message msg = new Message();
-        authApi.signIn(new Login(username, password)).enqueue(new Callback<User>() {
+        authApi.signIn(new SignInRequest(username, password)).enqueue(new Callback<SignInCallback>() {
             @Override
             public void onResponse(
-                    @NotNull Call<User> call,
-                    @NotNull Response<User> response
+                    @NotNull Call<SignInCallback> call,
+                    @NotNull Response<SignInCallback> response
             ) {
-                if (response.body() != null) {
+                SignInCallback callback = response.body();
+
+                if (callback != null) {
                     repository.setSignedIn(1);
-                    repository.insertUser(response.body());
+                    repository.insertUser(new User(
+                            username,
+                            callback.getToken(),
+                            callback.getName()
+                    ));
                     msg.arg1 = 0;
                 } else {
                     msg.arg1 = 1;
@@ -121,7 +136,7 @@ final class NetworkService {
 
             @Override
             public void onFailure(
-                    @NotNull Call<User> call,
+                    @NotNull Call<SignInCallback> call,
                     @NotNull Throwable t
             ) {
                 msg.arg1 = -1;

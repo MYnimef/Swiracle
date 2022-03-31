@@ -77,7 +77,6 @@ public final class LoginFragment extends Fragment {
                 changeElementsAccess(true);
                 switch (msg.arg1) {
                     case 0:
-                        loginViewModel.setSignedIn(1);
                         moveTo(new NavigationFragment());
                         break;
                     case 1:

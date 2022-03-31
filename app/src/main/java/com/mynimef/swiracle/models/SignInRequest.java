@@ -1,10 +1,10 @@
 package com.mynimef.swiracle.models;
 
-public final class Login {
+public final class SignInRequest {
     private String username;
     private String password;
 
-    public Login(String username, String password) {
+    public SignInRequest(String username, String password) {
         this.username = username;
         this.password = password;
     }

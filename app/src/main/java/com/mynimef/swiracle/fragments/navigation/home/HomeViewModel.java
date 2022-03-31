@@ -70,6 +70,7 @@ public final class HomeViewModel extends AndroidViewModel {
     public MutableLiveData<Boolean> getUpdated() { return updated; }
 
     public int getSignedIn() { return repository.getSignedIn(); }
+    public boolean isActualUser(String username) { return repository.isActualUser(username); }
     public void likePost(String id) { repository.likePost(id); }
     public void updatePostInfo(PostInfo postInfo) { repository.updatePostInfo(postInfo); }
 }

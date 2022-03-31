@@ -2,34 +2,50 @@ package com.mynimef.swiracle.models;
 
 import androidx.annotation.NonNull;
 import androidx.room.Entity;
+import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
-
-import org.jetbrains.annotations.NotNull;
 
 @Entity(tableName = "user_table")
 public final class User {
     @PrimaryKey @NonNull
     private String username;
-    private String email;
     private String token;
 
-    private String firstName;
-    private String lastName;
+    private String name;
     private String bio;
 
-    private int followingAmount;
-    private int followersAmount;
-    private int postsAmount;
+    private long followingAmount;
+    private long followersAmount;
+    private long postsAmount;
 
-    public User(@NotNull String username, String email, String token,
-                String firstName, String lastName, String bio,
-                int followingAmount, int followersAmount, int postsAmount) {
+    @Ignore
+    public User(
+            @NonNull String username,
+            String token,
+            String name
+    ) {
         this.username = username;
-        this.email = email;
+        this.token = token;
+        this.name = name;
+
+        followingAmount = 0;
+        followersAmount = 0;
+        postsAmount = 0;
+    }
+
+    public User(
+            @NonNull String username,
+            String token,
+            String name,
+            String bio,
+            long followingAmount,
+            long followersAmount,
+            long postsAmount
+    ) {
+        this.username = username;
         this.token = token;
 
-        this.firstName = firstName;
-        this.lastName = lastName;
+        this.name = name;
         this.bio = bio;
 
         this.followingAmount = followingAmount;
@@ -37,31 +53,25 @@ public final class User {
         this.postsAmount = postsAmount;
     }
 
-    @NotNull
+    @NonNull
     public String getUsername() { return username; }
-    public void setUsername(@NotNull String username) { this.username = username; }
-
-    public String getEmail() { return email; }
-    public void setEmail(String email) { this.email = email; }
+    public void setUsername(@NonNull String username) { this.username = username; }
 
     public String getToken() { return token; }
     public void setToken(String token) { this.token = token; }
 
-    public String getFirstName() { return firstName; }
-    public void setFirstName(String firstName) { this.firstName = firstName; }
-
-    public String getLastName() { return lastName; }
-    public void setLastName(String lastName) { this.lastName = lastName; }
+    public String getName() { return name; }
+    public void setName(String firstName) { this.name = name; }
 
     public String getBio() { return bio; }
     public void setBio(String bio) { this.bio = bio; }
 
-    public int getFollowingAmount() { return followingAmount; }
-    public void setFollowingAmount(int followingAmount) { this.followingAmount = followingAmount; }
+    public long getFollowingAmount() { return followingAmount; }
+    public void setFollowingAmount(long followingAmount) { this.followingAmount = followingAmount; }
 
-    public int getFollowersAmount() { return followersAmount; }
-    public void setFollowersAmount(int followersAmount) { this.followersAmount = followersAmount; }
+    public long getFollowersAmount() { return followersAmount; }
+    public void setFollowersAmount(long followersAmount) { this.followersAmount = followersAmount; }
 
-    public int getPostsAmount() { return postsAmount; }
-    public void setPostsAmount(int postsAmount) { this.postsAmount = postsAmount; }
+    public long getPostsAmount() { return postsAmount; }
+    public void setPostsAmount(long postsAmount) { this.postsAmount = postsAmount; }
 }

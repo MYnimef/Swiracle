@@ -18,6 +18,8 @@ import androidx.annotation.NonNull;
 import com.mynimef.swiracle.Interfaces.ISignUp;
 import com.mynimef.swiracle.R;
 import com.mynimef.swiracle.custom.FragmentApp;
+import com.mynimef.swiracle.fragments.navigation.NavigationFragment;
+import com.mynimef.swiracle.logic.FragmentChanger;
 
 import dagger.hilt.android.AndroidEntryPoint;
 
@@ -73,12 +75,25 @@ public final class SetPasswordFragment extends FragmentApp {
                 super.handleMessage(msg);
                 int result = msg.arg1;
                 if (result == 0) {
-                    requireActivity().getSupportFragmentManager().popBackStackImmediate();
+                    FragmentChanger.replaceFragment(
+                            requireActivity().getSupportFragmentManager(),
+                            R.id.mainFragment,
+                            new NavigationFragment()
+                    );
                 } else if (result == 1) {
-                    Toast.makeText(getContext(), "Error creating account",
-                            Toast.LENGTH_SHORT).show();
+                    Toast.makeText(
+                            getContext(),
+                            "Error creating account",
+                            Toast.LENGTH_SHORT
+                    )
+                            .show();
                 } else if (result == -1) {
-                    Toast.makeText(getContext(), "No connection", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(
+                            getContext(),
+                            "No connection",
+                            Toast.LENGTH_SHORT
+                    )
+                            .show();
                 }
                 changeElementsAccess(true);
                 removeCallbacksAndMessages(null);

@@ -1,6 +1,6 @@
 package com.mynimef.swiracle.models;
 
-public final class SignUpServer {
+public final class SignUpRequest {
     private String username;
     private String password;
     private String email;
@@ -10,7 +10,7 @@ public final class SignUpServer {
     private int gender;
     private DateModel birthday;
 
-    public SignUpServer(
+    public SignUpRequest(
             String username,
             String password,
             String email,

@@ -15,7 +15,10 @@ import androidx.recyclerview.widget.PagerSnapHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.mynimef.swiracle.Interfaces.IHome;
+import com.mynimef.swiracle.fragments.navigation.home.HomeViewModel;
 import com.mynimef.swiracle.fragments.navigation.home.options.PostOptionsFragment;
+import com.mynimef.swiracle.fragments.navigation.home.options.PostOptionsFragmentViewer;
+import com.mynimef.swiracle.fragments.navigation.home.options.PostOptionsFragmentOwner;
 import com.mynimef.swiracle.models.Post;
 import com.mynimef.swiracle.dialogs.login.LoginDialogFragment;
 import com.mynimef.swiracle.fragments.post.PostFragment;
@@ -31,10 +34,12 @@ import java.util.List;
 
 public final class HomePostAdapter extends RecyclerView.Adapter<HomePostAdapter.PostView> {
     private final IHome home;
+    private final HomeViewModel viewModel;
     private List<Post> postList;
 
-    public HomePostAdapter(IHome home) {
+    public HomePostAdapter(IHome home, HomeViewModel viewModel) {
         this.home = home;
+        this.viewModel = viewModel;
         this.postList = new ArrayList<>();
     }
 
@@ -65,10 +70,18 @@ public final class HomePostAdapter extends RecyclerView.Adapter<HomePostAdapter.
 
         postView.getMoreButton().setOnClickListener(
                 v -> {
-                    PostOptionsFragment fragment = new PostOptionsFragment();
+                    PostOptionsFragment fragment;
+
+                    if (viewModel.isActualUser(postInfo.getUsername())) {
+                        fragment = new PostOptionsFragmentOwner();
+                    } else {
+                        fragment = new PostOptionsFragmentViewer();
+                    }
+
                     Bundle bundle = new Bundle();
                     bundle.putString("post_id", postInfo.getId());
                     fragment.setArguments(bundle);
+
                     home.getFragment().getNavigation().showBottomFragment(fragment);
                 }
         );

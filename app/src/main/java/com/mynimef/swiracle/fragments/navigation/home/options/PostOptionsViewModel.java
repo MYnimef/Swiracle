@@ -17,7 +17,7 @@ import javax.inject.Inject;
 import dagger.hilt.android.lifecycle.HiltViewModel;
 
 @HiltViewModel
-public class PostOptionsViewModel extends AndroidViewModel {
+public final class PostOptionsViewModel extends AndroidViewModel {
     private final MutableLiveData<Boolean> isDeleted;
 
     @Inject

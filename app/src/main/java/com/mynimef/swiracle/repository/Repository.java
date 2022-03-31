@@ -54,6 +54,10 @@ public final class Repository {
         }
     }
 
+    public boolean isActualUser(String username) {
+        return actualUsername.equals(username);
+    }
+
     public LiveData<User> getActualUser() {
         return database.getUser(actualUsername);
     }

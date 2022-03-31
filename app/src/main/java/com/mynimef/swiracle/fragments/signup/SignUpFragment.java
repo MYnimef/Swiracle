@@ -53,12 +53,18 @@ public final class SignUpFragment extends Fragment implements ISignUp {
     }
 
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(
+            @NonNull LayoutInflater inflater,
+            ViewGroup container,
+            Bundle savedInstanceState
+    ) {
         View root = inflater.inflate(R.layout.fragment_signup, container, false);
 
-        FragmentChanger.replaceFragment(getChildFragmentManager(),
-                R.id.signupFragment, new SetBirthdayFragment());
+        FragmentChanger.replaceFragment(
+                getChildFragmentManager(),
+                R.id.signupFragment,
+                new SetBirthdayFragment()
+        );
 
         Button backButton = root.findViewById(R.id.backButton);
         backButton.setOnClickListener(v -> {
@@ -67,28 +73,43 @@ public final class SignUpFragment extends Fragment implements ISignUp {
                     requireActivity().getSupportFragmentManager().popBackStackImmediate();;
                     break;
                 case EMAIL:
-                    FragmentChanger.replaceFragment(getChildFragmentManager(),
-                            R.id.signupFragment, new SetBirthdayFragment());
+                    FragmentChanger.replaceFragment(
+                            getChildFragmentManager(),
+                            R.id.signupFragment,
+                            new SetBirthdayFragment()
+                    );
                     stage = EStage.BIRTHDAY;
                     break;
                 case NAME:
-                    FragmentChanger.replaceFragment(getChildFragmentManager(),
-                            R.id.signupFragment, new SetEmailFragment());
+                    FragmentChanger.replaceFragment(
+                            getChildFragmentManager(),
+                            R.id.signupFragment,
+                            new SetEmailFragment()
+                    );
                     stage = EStage.EMAIL;
                     break;
                 case GENDER:
-                    FragmentChanger.replaceFragment(getChildFragmentManager(),
-                            R.id.signupFragment, new SetNameFragment());
+                    FragmentChanger.replaceFragment(
+                            getChildFragmentManager(),
+                            R.id.signupFragment,
+                            new SetNameFragment()
+                    );
                     stage = EStage.NAME;
                     break;
                 case USERNAME:
-                    FragmentChanger.replaceFragment(getChildFragmentManager(),
-                            R.id.signupFragment, new SetGenderFragment());
+                    FragmentChanger.replaceFragment(
+                            getChildFragmentManager(),
+                            R.id.signupFragment,
+                            new SetGenderFragment()
+                    );
                     stage = EStage.GENDER;
                     break;
                 case PASSWORD:
-                    FragmentChanger.replaceFragment(getChildFragmentManager(),
-                            R.id.signupFragment, new SetUsernameFragment());
+                    FragmentChanger.replaceFragment(
+                            getChildFragmentManager(),
+                            R.id.signupFragment,
+                            new SetUsernameFragment()
+                    );
                     stage = EStage.USERNAME;
                     break;
             }
@@ -132,7 +153,15 @@ public final class SignUpFragment extends Fragment implements ISignUp {
 
     @Override
     public void completeRegistration(Handler signUpHandler) {
-        signUpViewModel.signUp(username, password, email,
-                firstName, lastName, gender, birthday, signUpHandler);
+        signUpViewModel.signUp(
+                username,
+                password,
+                email,
+                firstName,
+                lastName,
+                gender,
+                birthday,
+                signUpHandler
+        );
     }
 }
