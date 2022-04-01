@@ -1,6 +1,6 @@
 package com.mynimef.swiracle.models;
 
-public class UserInit {
+public final class UserInit {
     private String username;
     private String token;
     private int permission;

@@ -18,9 +18,12 @@ public final class NavigationViewModel extends AndroidViewModel {
     private final Repository repository;
 
     @Inject
-    public NavigationViewModel(@NonNull Application application) {
+    public NavigationViewModel(
+            @NonNull Application application,
+            Repository repository
+    ) {
         super(application);
-        this.repository = Repository.getInstance();
+        this.repository = repository;
     }
 
     public int getSignedIn() {

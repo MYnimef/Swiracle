@@ -25,9 +25,12 @@ public final class PostViewModel extends AndroidViewModel {
     private final MutableLiveData<PostDetails> postDetails;
 
     @Inject
-    public PostViewModel(@NonNull Application application) {
+    public PostViewModel(
+            @NonNull Application application,
+            Repository repository
+    ) {
         super(application);
-        this.repository = Repository.getInstance();
+        this.repository = repository;
         this.postDetails = new MutableLiveData<>();
     }
 

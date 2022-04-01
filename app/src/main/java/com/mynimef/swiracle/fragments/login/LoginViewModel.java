@@ -6,6 +6,7 @@ import android.os.Handler;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 
+import com.mynimef.swiracle.models.SignInRequest;
 import com.mynimef.swiracle.repository.Repository;
 
 import javax.inject.Inject;
@@ -17,12 +18,15 @@ public final class LoginViewModel extends AndroidViewModel {
     private final Repository repository;
 
     @Inject
-    public LoginViewModel(@NonNull Application application) {
+    public LoginViewModel(
+            @NonNull Application application,
+            Repository repository
+    ) {
         super(application);
-        repository = Repository.getInstance();
+        this.repository = repository;
     }
 
-    public void loginRequest(String username, String password, Handler handler) {
-        repository.login(username, password, handler);
+    public void loginRequest(SignInRequest request, Handler handler) {
+        repository.login(request, handler);
     }
 }

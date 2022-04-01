@@ -20,6 +20,7 @@ import com.mynimef.swiracle.fragments.signup.name.SetNameFragment;
 import com.mynimef.swiracle.fragments.signup.username.SetUsernameFragment;
 import com.mynimef.swiracle.logic.FragmentChanger;
 import com.mynimef.swiracle.models.DateModel;
+import com.mynimef.swiracle.models.SignUpRequest;
 
 import dagger.hilt.android.AndroidEntryPoint;
 
@@ -37,18 +38,14 @@ public final class SignUpFragment extends Fragment implements ISignUp {
     }
     private EStage stage;
 
-    private DateModel birthday;
-    private String email;
-    private String name;
-    private int gender;
-    private String username;
-    private String password;
+    private SignUpRequest request;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         signUpViewModel = new ViewModelProvider(this).get(SignUpViewModel.class);
         stage = EStage.BIRTHDAY;
+        request = new SignUpRequest();
     }
 
     @Override
@@ -69,7 +66,7 @@ public final class SignUpFragment extends Fragment implements ISignUp {
         backButton.setOnClickListener(v -> {
             switch (stage) {
                 case BIRTHDAY:
-                    requireActivity().getSupportFragmentManager().popBackStackImmediate();;
+                    requireActivity().getSupportFragmentManager().popBackStackImmediate();
                     break;
                 case EMAIL:
                     FragmentChanger.replaceFragment(
@@ -119,46 +116,37 @@ public final class SignUpFragment extends Fragment implements ISignUp {
 
     @Override
     public void setBirthday(int year, int month, int day) {
-        this.birthday = new DateModel(year, month, day);
+        request.setBirthday(new DateModel(year, month, day));
     }
 
     @Override
     public void setEmail(String email) {
-        this.email = email;
+        request.setEmail(email);
     }
 
     @Override
-    public void setName(String name) {
-        this.name = name;
+    public void setName(String name) { request.setName(name);
     }
 
     @Override
     public void setGender(int gender) {
-        this.gender = gender;
+        request.setGender(gender);
         //0 - male
         //1 - female
         //2 - other
     }
 
     @Override
-    public void setUsername(String username) { this.username = username; }
+    public void setUsername(String username) { request.setUsername(username); }
 
     @Override
-    public void setPassword(String password) { this.password = password; }
+    public void setPassword(String password) { request.setPassword(password); }
 
     @Override
     public void setStage(EStage stage) { this.stage = stage; }
 
     @Override
     public void completeRegistration(Handler signUpHandler) {
-        signUpViewModel.signUp(
-                username,
-                password,
-                email,
-                name,
-                gender,
-                birthday,
-                signUpHandler
-        );
+        signUpViewModel.signUp(request, signUpHandler);
     }
 }

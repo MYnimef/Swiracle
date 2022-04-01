@@ -28,9 +28,12 @@ public final class HomeViewModel extends AndroidViewModel {
     private final MutableLiveData<Boolean> updated;
 
     @Inject
-    public HomeViewModel(@NonNull Application application) {
+    public HomeViewModel(
+            @NonNull Application application,
+            Repository repository
+    ) {
         super(application);
-        this.repository = Repository.getInstance();
+        this.repository = repository;
         this.recommendationList = repository.getRecommendationList();
         this.updated = new MutableLiveData<>(false);
     }

@@ -17,9 +17,12 @@ public final class SetClothesElementsViewModel extends AndroidViewModel {
     private final Repository repository;
 
     @Inject
-    public SetClothesElementsViewModel(@NonNull Application application) {
+    public SetClothesElementsViewModel(
+            @NonNull Application application,
+            Repository repository
+    ) {
         super(application);
-        this.repository = Repository.getInstance();
+        this.repository = repository;
     }
 
     public void getClothes(String url , Handler handler) {

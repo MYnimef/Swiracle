@@ -11,6 +11,5 @@ public final class SwiracleApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        Repository.getInstance().init(this);
     }
 }

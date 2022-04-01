@@ -5,29 +5,26 @@ import android.os.Handler;
 
 import androidx.lifecycle.LiveData;
 
-import com.mynimef.swiracle.models.DateModel;
 import com.mynimef.swiracle.models.Post;
 import com.mynimef.swiracle.models.PostInfo;
+import com.mynimef.swiracle.models.SignInRequest;
+import com.mynimef.swiracle.models.SignUpRequest;
 import com.mynimef.swiracle.models.User;
 import com.mynimef.swiracle.models.PostServer;
 import com.mynimef.swiracle.models.UserInit;
 
 import java.util.List;
 
+import javax.inject.Inject;
+import javax.inject.Singleton;
+
+@Singleton
 public final class Repository extends RepositoryApp {
-    private static Repository instance;
+    private final LocalDatabase database;
+    private final NetworkService network;
 
-    public static synchronized Repository getInstance() {
-        if (instance == null) {
-            instance = new Repository();
-        }
-        return instance;
-    }
-
-    private LocalDatabase database;
-    private NetworkService network;
-
-    public void init(Application application) {
+    @Inject
+    public Repository(Application application) {
         database = LocalDatabase.init(application);
         network = new NetworkService(this);
 
@@ -63,28 +60,12 @@ public final class Repository extends RepositoryApp {
         }
     }
 
-    public void signUp(
-            String username,
-            String password,
-            String email,
-            String name,
-            int gender,
-            DateModel birthday,
-            Handler signUpHandler
-    ) {
-        network.signUp(
-                username,
-                password,
-                email,
-                name,
-                gender,
-                birthday,
-                signUpHandler
-        );
+    public void signUp(SignUpRequest request, Handler signUpHandler) {
+        network.signUp(request, signUpHandler);
     }
 
-    public void login(String username, String password, Handler handler) {
-        network.signIn(username, password, handler);
+    public void login(SignInRequest request, Handler handler) {
+        network.signIn(request, handler);
     }
 
     public void insertUser(User user) {

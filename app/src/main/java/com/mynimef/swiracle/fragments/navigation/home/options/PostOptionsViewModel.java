@@ -18,11 +18,16 @@ import dagger.hilt.android.lifecycle.HiltViewModel;
 
 @HiltViewModel
 public final class PostOptionsViewModel extends AndroidViewModel {
+    private final Repository repository;
     private final MutableLiveData<Boolean> isDeleted;
 
     @Inject
-    public PostOptionsViewModel(@NonNull Application application) {
+    public PostOptionsViewModel(
+            @NonNull Application application,
+            Repository repository
+    ) {
         super(application);
+        this.repository = repository;
         this.isDeleted = new MutableLiveData<>(false);
     }
 
@@ -54,7 +59,7 @@ public final class PostOptionsViewModel extends AndroidViewModel {
             }
         };
 
-        Repository.getInstance().deletePost(postId, handler);
+        repository.deletePost(postId, handler);
     }
 
     public MutableLiveData<Boolean> getIsDeleted() {

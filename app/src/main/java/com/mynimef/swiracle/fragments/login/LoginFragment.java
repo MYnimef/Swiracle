@@ -21,6 +21,7 @@ import com.mynimef.swiracle.R;
 import com.mynimef.swiracle.fragments.navigation.NavigationFragment;
 import com.mynimef.swiracle.fragments.signup.SignUpFragment;
 import com.mynimef.swiracle.logic.FragmentChanger;
+import com.mynimef.swiracle.models.SignInRequest;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -102,15 +103,13 @@ public final class LoginFragment extends Fragment {
                 Toast.makeText(getContext(), "Empty password!", Toast.LENGTH_LONG).show();
             } else {
                 changeElementsAccess(false);
-                loginViewModel.loginRequest(username, password, handler);
+                loginViewModel.loginRequest(new SignInRequest(username, password), handler);
             }
         });
 
         registration.setOnClickListener(v -> moveTo(new SignUpFragment()));
 
-        withoutAuthButton.setOnClickListener(v -> {
-            moveTo(navFragment);
-        });
+        withoutAuthButton.setOnClickListener(v -> moveTo(navFragment));
 
         return root;
     }

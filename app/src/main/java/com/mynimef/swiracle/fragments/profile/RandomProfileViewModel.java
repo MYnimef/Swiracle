@@ -23,9 +23,12 @@ public final class RandomProfileViewModel extends AndroidViewModel {
     private final MutableLiveData<ProfileView> profile;
 
     @Inject
-    public RandomProfileViewModel(@NonNull Application application) {
+    public RandomProfileViewModel(
+            @NonNull Application application,
+            Repository repository
+    ) {
         super(application);
-        this.repository = Repository.getInstance();
+        this.repository = repository;
         this.profile = new MutableLiveData<>();
     }
 

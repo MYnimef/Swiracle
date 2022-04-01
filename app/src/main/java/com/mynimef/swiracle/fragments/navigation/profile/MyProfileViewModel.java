@@ -18,9 +18,12 @@ public final class MyProfileViewModel extends AndroidViewModel {
     private final Repository repository;
 
     @Inject
-    public MyProfileViewModel(@NonNull Application application) {
+    public MyProfileViewModel(
+            @NonNull Application application,
+            Repository repository
+    ) {
         super(application);
-        this.repository = Repository.getInstance();
+        this.repository = repository;
     }
 
     public LiveData<User> getUser() {

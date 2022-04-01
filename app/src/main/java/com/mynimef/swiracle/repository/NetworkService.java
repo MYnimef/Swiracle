@@ -5,7 +5,6 @@ import android.os.Message;
 
 import androidx.annotation.NonNull;
 
-import com.mynimef.swiracle.models.DateModel;
 import com.mynimef.swiracle.models.Post;
 import com.mynimef.swiracle.models.PostDetails;
 import com.mynimef.swiracle.models.SignInRequest;
@@ -56,26 +55,9 @@ final class NetworkService {
         this.repository = repository;
     }
 
-    void signUp(
-            String username,
-            String password,
-            String email,
-            String name,
-            int gender,
-            DateModel birthday,
-            Handler signUpHandler
-    ) {
-        SignUpRequest signUpRequest = new SignUpRequest(
-                username,
-                password,
-                email,
-                name,
-                gender,
-                birthday
-        );
-
+    void signUp(SignUpRequest request, Handler signUpHandler) {
         Message msg = new Message();
-        authApi.signUp(signUpRequest).enqueue(new Callback<SignInCallback>() {
+        authApi.signUp(request).enqueue(new Callback<SignInCallback>() {
             @Override
             public void onResponse(
                     @NotNull Call<SignInCallback> call,
@@ -86,7 +68,7 @@ final class NetworkService {
                 if (callback != null) {
                     msg.arg1 = 0; // success
                     repository.insertUser(new User(
-                            username,
+                            request.getUsername(),
                             callback.getToken(),
                             callback.getPermission()
                     ));
@@ -107,9 +89,9 @@ final class NetworkService {
         });
     }
 
-    void signIn(String username, String password, Handler handler) {
+    void signIn(SignInRequest request, Handler handler) {
         Message msg = new Message();
-        authApi.signIn(new SignInRequest(username, password)).enqueue(new Callback<SignInCallback>() {
+        authApi.signIn(request).enqueue(new Callback<SignInCallback>() {
             @Override
             public void onResponse(
                     @NotNull Call<SignInCallback> call,
@@ -119,7 +101,7 @@ final class NetworkService {
 
                 if (callback != null) {
                     repository.insertUser(new User(
-                            username,
+                            request.getUsername(),
                             callback.getToken(),
                             callback.getPermission()
                     ));

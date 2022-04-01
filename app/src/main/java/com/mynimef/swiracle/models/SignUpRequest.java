@@ -4,11 +4,12 @@ public final class SignUpRequest {
     private String username;
     private String password;
     private String email;
-
     private String name;
-
     private int gender;
     private DateModel birthday;
+
+    public SignUpRequest() {
+    }
 
     public SignUpRequest(
             String username,

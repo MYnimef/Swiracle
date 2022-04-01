@@ -22,10 +22,13 @@ public final class CreateViewModel extends AndroidViewModel {
     private final Repository repository;
 
     @Inject
-    CreateViewModel(@NonNull Application application) {
+    CreateViewModel(
+            @NonNull Application application,
+            Repository repository
+    ) {
         super(application);
         this.buttonText = new MutableLiveData<>();
-        this.repository = Repository.getInstance();
+        this.repository = repository;
     }
 
     public LiveData<String> getText() { return this.buttonText; }
