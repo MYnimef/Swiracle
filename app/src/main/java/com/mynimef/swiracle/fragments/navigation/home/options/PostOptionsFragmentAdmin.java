@@ -10,7 +10,10 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.mynimef.swiracle.R;
 
-public class PostOptionsFragmentAdmin extends PostOptionsFragment {
+import dagger.hilt.android.AndroidEntryPoint;
+
+@AndroidEntryPoint
+public final class PostOptionsFragmentAdmin extends PostOptionsFragment {
     public View onCreateView(
             @NonNull LayoutInflater inflater,
             ViewGroup container,
