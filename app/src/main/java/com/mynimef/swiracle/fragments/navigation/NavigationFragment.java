@@ -10,11 +10,13 @@ import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
+import androidx.fragment.app.FragmentContainerView;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.mynimef.swiracle.R;
+import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.mynimef.swiracle.Interfaces.INavigation;
+import com.mynimef.swiracle.R;
 import com.mynimef.swiracle.custom.Fragment;
 import com.mynimef.swiracle.dialogs.login.LoginDialogFragment;
 import com.mynimef.swiracle.fragments.navigation.create.CreateFragment;
@@ -37,6 +39,8 @@ public final class NavigationFragment extends Fragment implements INavigation {
     private MyProfileFragment myProfileFragment;
 
     private ImageView transparentView;
+
+    private BottomSheetBehavior<FragmentContainerView> bottomSheetBehavior;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -131,7 +135,27 @@ public final class NavigationFragment extends Fragment implements INavigation {
         transparentView = root.findViewById(R.id.transparentView);
         transparentView.setOnClickListener(v -> hideBottomFragment());
 
-        root.findViewById(R.id.bottomFragment).setOnClickListener(view -> {});
+        root.findViewById(R.id.bottomSheet).setOnClickListener(view -> {});
+
+        FragmentContainerView bottomSheet = root.findViewById(R.id.bottomSheet);
+        bottomSheetBehavior = BottomSheetBehavior.from(bottomSheet);
+        bottomSheetBehavior.setState(BottomSheetBehavior.STATE_HIDDEN);
+        bottomSheetBehavior.addBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback() {
+            @Override
+            public void onStateChanged(@NonNull View bottomSheet, int newState) {
+                if (newState == BottomSheetBehavior.STATE_HIDDEN) {
+                    getChildFragmentManager().popBackStack();
+                }
+            }
+
+            @Override
+            public void onSlide(@NonNull View bottomSheet, float slideOffset) {
+                if (slideOffset <= 0) {
+                    bottomSheetBehavior.setState(BottomSheetBehavior.STATE_HIDDEN);
+                    transparentView.setVisibility(View.GONE);
+                }
+            }
+        });
 
         return root;
     }
@@ -148,17 +172,22 @@ public final class NavigationFragment extends Fragment implements INavigation {
 
     @Override
     public void showBottomFragment(Fragment fragment) {
-        transparentView.setVisibility(View.VISIBLE);
-        FragmentChanger.replaceFragmentAnimBottom(
-                getChildFragmentManager(),
-                R.id.bottomFragment,
-                fragment
-        );
+        if (bottomSheetBehavior.getState() != BottomSheetBehavior.STATE_SETTLING) {
+            FragmentChanger.replaceFragmentAnimBottom(
+                    getChildFragmentManager(),
+                    R.id.bottomSheet,
+                    fragment
+            );
+            bottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
+            transparentView.setVisibility(View.VISIBLE);
+        } else {
+            System.out.println(bottomSheetBehavior.getState());
+        }
     }
 
     @Override
     public void hideBottomFragment() {
-        getChildFragmentManager().popBackStack();
+        bottomSheetBehavior.setState(BottomSheetBehavior.STATE_HIDDEN);
         transparentView.setVisibility(View.GONE);
     }
 }

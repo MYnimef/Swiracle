@@ -128,6 +128,7 @@ public final class HomeFragment extends Fragment implements IHome {
             if (upd) {
                 swipeRefresh.setRefreshing(false);
                 homeViewModel.getUpdated().setValue(false);
+                animationControl = true;
             }
         });
 

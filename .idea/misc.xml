@@ -23,10 +23,11 @@
         <entry key="app/src/main/res/layout/fragment_login.xml" value="0.182518115942029" />
         <entry key="app/src/main/res/layout/fragment_navigation.xml" value="0.182518115942029" />
         <entry key="app/src/main/res/layout/fragment_post_options.xml" value="0.24237224191859147" />
-        <entry key="app/src/main/res/layout/fragment_post_options_admin.xml" value="0.1171875" />
+        <entry key="app/src/main/res/layout/fragment_post_options_admin.xml" value="0.3890728476821192" />
         <entry key="app/src/main/res/layout/fragment_post_options_auth.xml" value="0.182518115942029" />
         <entry key="app/src/main/res/layout/fragment_post_options_owner.xml" value="0.182518115942029" />
         <entry key="app/src/main/res/layout/fragment_post_options_unauth.xml" value="0.182518115942029" />
+        <entry key="app/src/main/res/layout/fragment_post_options_viewer.xml" value="0.1171875" />
         <entry key="app/src/main/res/layout/fragment_profile_my.xml" value="0.39965986394557823" />
         <entry key="app/src/main/res/layout/fragment_profile_random.xml" value="0.182518115942029" />
         <entry key="app/src/main/res/layout/fragment_signup.xml" value="0.182518115942029" />
