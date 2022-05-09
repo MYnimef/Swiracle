@@ -5,9 +5,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AnimationUtils;
-import android.view.animation.LayoutAnimationController;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
 import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
@@ -32,14 +32,11 @@ import dagger.hilt.android.AndroidEntryPoint;
 @AndroidEntryPoint
 public final class HomeFragment extends Fragment implements IHome {
     private HomeViewModel homeViewModel;
-    private boolean animationControl;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         homeViewModel = new ViewModelProvider(this).get(HomeViewModel.class);
-        homeViewModel.update();
-        animationControl = true;
 
         OnBackPressedCallback callback = new OnBackPressedCallback(true) {
             @Override
@@ -58,13 +55,11 @@ public final class HomeFragment extends Fragment implements IHome {
         View root = inflater.inflate(R.layout.fragment_home, container, false);
 
         ImageButton search = root.findViewById(R.id.search);
-        search.setOnClickListener(v -> FragmentChanger
-                .replaceFragment(
-                        getParentFragmentManager(),
-                        R.id.nav_host_fragment,
-                        new SearchFragment()
-                )
-        );
+        search.setOnClickListener(v -> FragmentChanger.replaceFragment(
+                getParentFragmentManager(),
+                R.id.nav_host_fragment,
+                new SearchFragment()
+        ));
 
         Button following = root.findViewById(R.id.following);
         Button forYou = root.findViewById(R.id.forYou);
@@ -91,7 +86,8 @@ public final class HomeFragment extends Fragment implements IHome {
                 FragmentChanger.replaceFragment(
                         requireActivity().getSupportFragmentManager(),
                         R.id.mainFragment,
-                        new MessengerFragment(this));
+                        new MessengerFragment(this)
+                );
             }
         });
 
@@ -103,36 +99,30 @@ public final class HomeFragment extends Fragment implements IHome {
         rv.setAdapter(adapter);
 
         SwipeRefreshLayout swipeRefresh = root.findViewById(R.id.swipeRefreshHome);
-        swipeRefresh.setOnRefreshListener(() -> {
-            animationControl = true;
-            homeViewModel.update();
-        });
-
-        LayoutAnimationController anim = AnimationUtils.loadLayoutAnimation(
-                getContext(),
-                R.anim.layout_animation
-        );
+        swipeRefresh.setOnRefreshListener(() -> homeViewModel.update());
 
         homeViewModel.getRecommendationList().observe(getViewLifecycleOwner(), posts -> {
             adapter.setPosts(posts);
             adapter.notifyDataSetChanged();
-            if (animationControl) {
-                rv.setLayoutAnimation(anim);
-                animationControl = false;
-            }
         });
 
-        homeViewModel.getUpdated().observe(getViewLifecycleOwner(), upd -> {
+        homeViewModel.getAnimRefresh().observe(getViewLifecycleOwner(), upd -> {
+            swipeRefresh.setRefreshing(!upd);
+        });
+
+        homeViewModel.getAnimLayout().observe(getViewLifecycleOwner(), upd -> {
             if (upd) {
-                swipeRefresh.setRefreshing(false);
-                homeViewModel.getUpdated().setValue(false);
-                animationControl = true;
+                rv.startAnimation(AnimationUtils.loadAnimation(
+                        getContext(),
+                        R.anim.item_animation_fall_down
+                ));
             }
         });
 
-        if (animationControl) {
-            swipeRefresh.setRefreshing(true);
-        }
+        homeViewModel.getErrorMessage().observe(
+                getViewLifecycleOwner(),
+                message -> Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show()
+        );
 
         return root;
     }

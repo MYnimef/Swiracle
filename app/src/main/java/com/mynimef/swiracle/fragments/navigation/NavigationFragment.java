@@ -30,7 +30,7 @@ import dagger.hilt.android.AndroidEntryPoint;
 
 @AndroidEntryPoint
 public final class NavigationFragment extends Fragment implements INavigation {
-    private NavigationViewModel navigationViewModel;
+    private NavigationViewModel viewModel;
     private BottomNavigationView navView;
 
     private HomeFragment homeFragment;
@@ -45,7 +45,7 @@ public final class NavigationFragment extends Fragment implements INavigation {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        navigationViewModel = new ViewModelProvider(this).get(NavigationViewModel.class);
+        viewModel = new ViewModelProvider(this).get(NavigationViewModel.class);
 
         homeFragment = new HomeFragment();
         popularFragment = new PopularFragment();
@@ -76,7 +76,7 @@ public final class NavigationFragment extends Fragment implements INavigation {
                 item -> {
                     int itemId = item.getItemId();
                     if (itemId == R.id.navigation_create) {
-                        if (navigationViewModel.getSignedIn() != 1) {
+                        if (viewModel.getSignedIn() != 1) {
                             new LoginDialogFragment().show(getChildFragmentManager(), "ASK");
                         } else if (
                                 ContextCompat.checkSelfPermission(
@@ -117,7 +117,7 @@ public final class NavigationFragment extends Fragment implements INavigation {
                                 notificationsFragment
                         );
                     } else if (itemId == R.id.navigation_profile) {
-                        if (navigationViewModel.getSignedIn() != 1) {
+                        if (viewModel.getSignedIn() != 1) {
                             new LoginDialogFragment().show(getChildFragmentManager(), "ASK");
                             return false;
                         }
