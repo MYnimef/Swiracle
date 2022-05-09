@@ -72,8 +72,7 @@ public final class HomeFragment extends Fragment implements IHome {
         forYou.setSelected(true);
         following.setOnClickListener(v -> {
             if (homeViewModel.getSignedIn() != 1) {
-                new LoginDialogFragment(getParentFragment())
-                        .show(getChildFragmentManager(), "ASK");
+                new LoginDialogFragment().show(getChildFragmentManager(), "ASK");
             } else {
                 forYou.setSelected(false);
                 following.setSelected(true);
@@ -87,8 +86,7 @@ public final class HomeFragment extends Fragment implements IHome {
         ImageButton messenger = root.findViewById(R.id.messages);
         messenger.setOnClickListener(v -> {
             if (homeViewModel.getSignedIn() != 1) {
-                new LoginDialogFragment(getParentFragment())
-                        .show(getChildFragmentManager(), "ASK");
+                new LoginDialogFragment().show(getChildFragmentManager(), "ASK");
             } else {
                 FragmentChanger.replaceFragment(
                         requireActivity().getSupportFragmentManager(),

@@ -7,7 +7,7 @@ import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.Path;
 
-public interface ParsingApi {
+public interface ParsingAPI {
     @GET("/parsing/{url}")
     Call<ClothesParsingInfo> getClothesElementParsing(@Header("Authorization") String token,
                                                       @Path("url") String url);

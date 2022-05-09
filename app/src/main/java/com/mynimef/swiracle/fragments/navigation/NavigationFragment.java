@@ -77,8 +77,7 @@ public final class NavigationFragment extends Fragment implements INavigation {
                     int itemId = item.getItemId();
                     if (itemId == R.id.navigation_create) {
                         if (navigationViewModel.getSignedIn() != 1) {
-                            new LoginDialogFragment(this)
-                                    .show(getChildFragmentManager(), "ASK");
+                            new LoginDialogFragment().show(getChildFragmentManager(), "ASK");
                         } else if (
                                 ContextCompat.checkSelfPermission(
                                         requireContext(),
@@ -119,8 +118,7 @@ public final class NavigationFragment extends Fragment implements INavigation {
                         );
                     } else if (itemId == R.id.navigation_profile) {
                         if (navigationViewModel.getSignedIn() != 1) {
-                            new LoginDialogFragment(this)
-                                    .show(getChildFragmentManager(), "ASK");
+                            new LoginDialogFragment().show(getChildFragmentManager(), "ASK");
                             return false;
                         }
                         FragmentChanger.replaceFragment(

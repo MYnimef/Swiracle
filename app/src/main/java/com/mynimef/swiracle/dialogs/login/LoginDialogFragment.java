@@ -16,12 +16,6 @@ import com.mynimef.swiracle.logic.FragmentChanger;
 import org.jetbrains.annotations.NotNull;
 
 public final class LoginDialogFragment extends DialogFragment {
-    private final Fragment navFragment;
-
-    public LoginDialogFragment(Fragment navFragment) {
-        this.navFragment = navFragment;
-    }
-
     @Override
     public View onCreateView(@NotNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.dialog_login, container, false);
@@ -35,7 +29,7 @@ public final class LoginDialogFragment extends DialogFragment {
             FragmentChanger.replaceFragment(
                     requireActivity().getSupportFragmentManager(),
                     R.id.mainFragment,
-                    new LoginFragment(navFragment)
+                    new LoginFragment()
             );
             dismiss();
         });

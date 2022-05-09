@@ -7,7 +7,7 @@ import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.Path;
 
-public interface UserApi {
+public interface UserAPI {
     @GET("/user/follow/{id}")
     Call<Boolean> followUser(@Header("Authorization") String token,
                              @Path("id") String id);

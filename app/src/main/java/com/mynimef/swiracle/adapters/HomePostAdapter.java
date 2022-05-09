@@ -119,8 +119,7 @@ public final class HomePostAdapter extends RecyclerView.Adapter<HomePostAdapter.
         postView.getLikes().setSelected(postInfo.getIsLiked());
         postView.getLikes().setOnClickListener(v -> {
             if (home.getSignedIn() != 1) {
-                new LoginDialogFragment(home.getFragment().getParentFragment())
-                        .show(home.getFragment().getParentFragmentManager(), "ASK");
+                new LoginDialogFragment().show(home.getFragment().getParentFragmentManager(), "ASK");
             } else {
                 home.likePost(postInfo.getId());
                 if (v.isSelected()) {
