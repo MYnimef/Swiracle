@@ -2,6 +2,7 @@ package com.mynimef.swiracle.fragments.navigation;
 
 import android.Manifest;
 import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -78,22 +79,36 @@ public final class NavigationFragment extends Fragment implements INavigation {
                     if (itemId == R.id.navigation_create) {
                         if (viewModel.getSignedIn() != 1) {
                             new LoginDialogFragment().show(getChildFragmentManager(), "ASK");
-                        } else if (
-                                ContextCompat.checkSelfPermission(
-                                        requireContext(),
-                                        Manifest.permission.READ_EXTERNAL_STORAGE
-                                ) == PackageManager.PERMISSION_GRANTED
-                        ) {
+                        } else if ((
+                                Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU &&
+                                        ContextCompat.checkSelfPermission(
+                                                requireContext(),
+                                                Manifest.permission.READ_MEDIA_IMAGES
+                                        ) == PackageManager.PERMISSION_GRANTED
+                        ) || (
+                                Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU &&
+                                        ContextCompat.checkSelfPermission(
+                                                requireContext(),
+                                                Manifest.permission.READ_EXTERNAL_STORAGE
+                                        ) == PackageManager.PERMISSION_GRANTED
+                        )) {
                             FragmentChanger.replaceFragment(
                                     requireActivity().getSupportFragmentManager(),
                                     R.id.mainFragment,
                                     new CreateFragment()
                             );
                         } else {
-                            requireActivity().requestPermissions(
-                                    new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
-                                    1
-                            );
+                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                                requireActivity().requestPermissions(
+                                        new String[]{Manifest.permission.READ_MEDIA_IMAGES},
+                                        1
+                                );
+                            } else {
+                                requireActivity().requestPermissions(
+                                        new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
+                                        1
+                                );
+                            }
                         }
                         return false;
                     }

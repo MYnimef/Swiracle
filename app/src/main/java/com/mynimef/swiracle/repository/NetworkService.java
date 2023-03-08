@@ -43,7 +43,7 @@ final class NetworkService {
 
     NetworkService(Repository repository) {
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("https://swiracle.herokuapp.com/")
+                .baseUrl("http://91.203.192.140:8080/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
